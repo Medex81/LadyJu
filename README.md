@@ -1,2 +1,2 @@
-# match3
+# Lady Ju
 match3 like game
