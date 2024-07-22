@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs4vsudx0obgd"]
+
+[ext_resource type="PackedScene" uid="uid://2ad2e6x6qi07" path="res://game/scenes/game_field/cell_tile.tscn" id="1_hxkwa"]
+[ext_resource type="Texture2D" uid="uid://cywoeo5hnn444" path="res://game/assets/kenney_ui-pack/PNG/Grey/Default/arrow_basic_s.png" id="2_jd88s"]
+
+[node name="1" instance=ExtResource("1_hxkwa")]
+
+[node name="gen_tex" type="TextureRect" parent="." index="1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.112
+offset_bottom = -0.0320015
+grow_horizontal = 2
+texture = ExtResource("2_jd88s")

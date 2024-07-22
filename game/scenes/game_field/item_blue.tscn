@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfkespa0sdxqj"]
+
+[ext_resource type="PackedScene" uid="uid://dvli6j7w5dh4s" path="res://game/scenes/game_field/item.tscn" id="1_len3k"]
+[ext_resource type="Texture2D" uid="uid://b0wc3ffovla5e" path="res://game/assets/kenney_ui-pack/PNG/Blue/Default/button_rectangle_flat.png" id="2_18wo6"]
+
+[node name="item" instance=ExtResource("1_len3k")]
+item_type = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="margin" parent="." index="0"]
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="tex" parent="margin" index="0"]
+texture = ExtResource("2_18wo6")
