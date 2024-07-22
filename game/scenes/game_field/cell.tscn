@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ci8gbjoyi55v8"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/cell.gd" id="1_h7g8w"]
-[ext_resource type="Texture2D" uid="uid://x6llpjpbgpv7" path="res://game/assets/cell_beck.png" id="2_xf34e"]
+[ext_resource type="Texture2D" uid="uid://csp87pdb17klh" path="res://game/assets/cell_beck.png" id="2_xf34e"]
 
 [node name="cell" type="Control"]
 clip_contents = true

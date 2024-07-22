@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://74n22nyd7nhk"]
+[gd_scene load_steps=3 format=3 uid="uid://74n22nyd7nhk"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/gred.gd" id="1_dk66i"]
 [ext_resource type="PackedScene" uid="uid://ci8gbjoyi55v8" path="res://game/scenes/game_field/cell.tscn" id="2_tw0j8"]
-[ext_resource type="PackedScene" uid="uid://bfkespa0sdxqj" path="res://game/scenes/game_field/item_blue.tscn" id="3_v3sfc"]
 
 [node name="gred" type="GridContainer"]
 anchors_preset = 8
@@ -16,418 +15,321 @@ offset_right = 242.0
 offset_bottom = 241.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = -2
-theme_override_constants/v_separation = -2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
 columns = 10
 script = ExtResource("1_dk66i")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.088
+wait_time = 0.138
 autostart = true
 
 [node name="cell" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-
-[node name="item" parent="cell" instance=ExtResource("3_v3sfc")]
-layout_mode = 1
+spawn = true
 
 [node name="cell2" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell3" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
-
-[node name="item" parent="cell3" instance=ExtResource("3_v3sfc")]
-layout_mode = 1
+spawn = true
 
 [node name="cell4" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell5" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
+spawn = true
 
 [node name="cell6" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell7" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
+spawn = true
 
 [node name="cell8" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell9" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
+spawn = true
 
 [node name="cell10" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell11" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell12" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-hole = true
 
 [node name="cell13" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell14" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell15" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell16" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell17" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell18" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell19" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell20" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell21" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell22" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell23" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell24" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell25" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell26" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell27" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell28" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell29" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell30" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell31" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell32" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell33" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
+hole = true
 
 [node name="cell38" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
+hole = true
 
 [node name="cell39" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
+hole = true
 
 [node name="cell40" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell41" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell42" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell43" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell44" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell45" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell46" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell47" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell48" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell49" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell50" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell51" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell52" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell53" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell54" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell55" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell56" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell57" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell58" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell59" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell60" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell61" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell62" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell63" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-hole = true
 
 [node name="cell64" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell65" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell66" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell67" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell68" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell69" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell70" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell71" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell72" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell73" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell74" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell75" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell76" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell77" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell78" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell79" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell80" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell81" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell82" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell83" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell84" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell85" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell86" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell87" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell88" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell89" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell90" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell91" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell92" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell93" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell94" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell95" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell96" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell97" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell98" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell99" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [node name="cell100" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-create = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

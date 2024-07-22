@@ -3,10 +3,10 @@ extends Node
 class_name UpdateResult
 
 var moves:Array
-var creates:Array[int]
+var spawns:Array
 var deletes:Array[int]
 		
 func clear():
 	moves.clear()
-	creates.clear()
+	spawns.clear()
 	deletes.clear()

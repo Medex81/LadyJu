@@ -3,15 +3,22 @@ extends Node
 class_name CellModel
 
 var is_hole:bool = false
-var is_creator:bool = false
-var x:int = 0
-var y:int = 0
+var is_spawn:bool = false
+
 var items:Array[ItemModel]
 
-func _init(_x:int, _y:int):
-	x = _x
-	y = _y
+func can_move()->bool:
+	return true if not is_hole and  not items.is_empty() else false
 	
+func can_receive()->bool:
+	return true if not is_hole and items.is_empty() else false
+	
+func can_spawn()->bool:
+	return true if not is_hole and is_spawn and items.is_empty() else false
+	
+func add_item(item:ItemModel):
+	items.append(item)
+
 func swap(from:CellModel):
 	if not is_hole or not from.is_hole:
 		var tmp_this = items.pop_back()

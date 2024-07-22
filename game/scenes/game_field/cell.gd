@@ -3,14 +3,14 @@ extends Control
 
 class_name Cell
 
-@export var create = false:
+@export var spawn = false:
 	set(value):
-		create = value
+		spawn = value
 		
 @export var hole = false:
 	set(value):
 		$back_tex.visible = !value
-		create = !value
+		spawn = !value
 		hole = value
 		
 @onready var items:Array[Item] = get_item_node_list()
