@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr2uuuxp0exew"]
+
+[ext_resource type="PackedScene" uid="uid://dvli6j7w5dh4s" path="res://game/scenes/game_field/item.tscn" id="1_80i1r"]
+[ext_resource type="Texture2D" uid="uid://b4ke6qfbxehng" path="res://game/assets/anny_pack/crystal_white.png" id="2_5mrrs"]
+
+[node name="item" instance=ExtResource("1_80i1r")]
+
+[node name="tex" parent="margin" index="0"]
+texture = ExtResource("2_5mrrs")
