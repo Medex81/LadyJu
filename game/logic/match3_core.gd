@@ -15,8 +15,8 @@ var _cols:int = 0
 var _rows:int = 0
 var _size:int = 0
 var _cells:Array
-var _result = UpdateResult.new()
-var _shift = 0
+var _result:UpdateResult = UpdateResult.new()
+var _spawn_index:int = 0
 
 func _init(cols:int, rows:int):
 	for col in range(cols):
@@ -51,7 +51,10 @@ func move_if_can(col:int, row:int, shift:int, result:UpdateResult)->bool:
 	return false
 	
 func spawn(col:int, row:int, result:UpdateResult):
-	var new_item = EItemTypes.get(EItemTypes.keys().pick_random(), 0)
+	var new_item = _spawn_index
+	_spawn_index += 1
+	if _spawn_index == EItemTypes.size():
+		_spawn_index = 0
 	_cells[col][row].add_item(ItemModel.new(false, new_item))
 	var in_flat_index = col + row * _cols
 	_result.spawns.append([in_flat_index, new_item])
