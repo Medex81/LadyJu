@@ -26,310 +26,502 @@ autostart = true
 
 [node name="cell" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-spawn = true
+is_spawn = true
+is_hole = false
 
 [node name="cell2" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = true
+is_hole = false
 
 [node name="cell3" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-spawn = true
+is_spawn = true
+is_hole = false
 
 [node name="cell4" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = true
+is_hole = false
 
 [node name="cell5" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-spawn = true
+is_spawn = true
+is_hole = false
 
 [node name="cell6" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = true
+is_hole = false
 
 [node name="cell7" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-spawn = true
+is_spawn = true
+is_hole = false
 
 [node name="cell8" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = true
+is_hole = false
 
 [node name="cell9" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-spawn = true
+is_spawn = true
+is_hole = false
 
 [node name="cell10" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = true
+is_hole = false
 
 [node name="cell11" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell12" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell13" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell14" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell15" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell16" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell17" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell18" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell19" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell20" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell21" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell22" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell23" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell24" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell25" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell26" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell27" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell28" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell29" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell30" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell31" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell32" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell33" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-hole = true
+is_spawn = false
+is_hole = true
 
 [node name="cell38" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-hole = true
+is_spawn = false
+is_hole = false
 
 [node name="cell39" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-hole = true
+is_spawn = false
+is_hole = false
 
 [node name="cell40" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell41" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell42" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell43" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell44" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell45" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell46" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell47" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell48" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell49" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell50" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell51" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell52" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell53" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell54" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell55" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell56" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell57" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell58" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell59" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell60" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell61" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell62" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell63" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell64" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell65" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell66" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell67" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell68" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell69" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell70" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell71" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell72" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell73" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell74" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell75" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell76" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell77" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell78" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell79" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell80" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell81" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell82" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell83" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell84" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell85" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell86" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell87" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell88" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell89" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell90" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell91" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell92" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell93" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell94" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell95" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell96" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell97" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell98" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell99" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [node name="cell100" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+is_spawn = false
+is_hole = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
