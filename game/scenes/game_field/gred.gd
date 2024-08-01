@@ -53,8 +53,8 @@ func create_item(item_type:Match3Logic.EItemTypes)->Item:
 	return item
 
 func spawn(spawns:Array):
-	for spawn in spawns:
-		_cells[spawn[0]].spawn(create_item(spawn[1]))
+	for _spawn in spawns:
+		_cells[_spawn[0]].spawn(create_item(_spawn[1]))
 	
 func _on_cell_tap(cell_first:Cell, cell_second:Cell):
 	var first = _cells.find(cell_first)

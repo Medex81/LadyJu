@@ -57,7 +57,7 @@ func _spawn(col:int, row:int, result:UpdateResult):
 		_spawn_index = 0
 	_cells[col][row].add_item(ItemModel.new(false, new_item))
 	var in_flat_index = col + row * _cols
-	_result.spawns.append([in_flat_index, new_item])
+	result.spawns.append([in_flat_index, new_item])
 
 func swap(index_first:int, index_second:int)->bool:
 	var col_first = index_first % _cols

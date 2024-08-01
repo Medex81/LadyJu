@@ -28,13 +28,13 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		send_tap.emit(self, event.pressed)
 		
-func _get_drag_data(at_position):
+func _get_drag_data(_at_position):
 	return self
 	
-func _can_drop_data(at_position, data)->bool:
+func _can_drop_data(_at_position, data)->bool:
 	return true if data is Cell else false
 	
-func _drop_data(at_position, data):
+func _drop_data(_at_position, data):
 	send_tap.emit(data, self)
 
 func swap(cell_from:Cell):
