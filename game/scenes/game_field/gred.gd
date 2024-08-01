@@ -35,15 +35,16 @@ func _ready():
 func _on_timer_timeout():
 	if _logic:
 		var result = _logic.update()
-		if result.moves.is_empty() and result.spawns.is_empty():
+		if result.is_empty():
 			$Timer.stop()
 		else:
-			move(result.moves)
+			delete(result.deletes)
+			swap(result.moves)
 			spawn(result.spawns)
 
-func move(moves:Array):
-	for swap in moves:
-		_cells[swap[0]].swap(_cells[swap[1]])
+func swap(moves:Array):
+	for _swap in moves:
+		_cells[_swap[0]].swap(_cells[_swap[1]])
 
 func create_item(item_type:Match3Logic.EItemTypes)->Item:
 	var item:Item = null
@@ -56,9 +57,13 @@ func spawn(spawns:Array):
 	for _spawn in spawns:
 		_cells[_spawn[0]].spawn(create_item(_spawn[1]))
 	
+func delete(deletes:Array):
+	for index in deletes:
+		_cells[index].delete()
+	
 func _on_cell_tap(cell_first:Cell, cell_second:Cell):
 	var first = _cells.find(cell_first)
 	var second = _cells.find(cell_second)
 	if _logic and _logic.swap(first, second):
-		move([[first, second]])
+		swap([[first, second]])
 		$Timer.start()

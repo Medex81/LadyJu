@@ -39,25 +39,26 @@ func set_cell_item(flat_index:int, is_blocked:bool, type:EItemTypes):
 	var cell = _cells[flat_index % _cols][flat_index / _cols] as CellModel
 	cell.items.append(ItemModel.new(is_blocked, type))
 
-func _move_if_can(col:int, row:int, shift:int, result:UpdateResult)->bool:
+func _move_if_can(col:int, row:int, shift:int, moves:Array)->bool:
 	if col + shift >= 0 \
 	and col + shift < _cols \
 	and _cells[col + shift][row + 1].can_receive():
-		var from_flat_index = col + row * _cols
-		var to_flat_index = col + shift + (row + 1) * _cols
-		result.moves.append([from_flat_index, to_flat_index])
+		var from_flat_index = index_to_flat(col, row)
+		var to_flat_index = index_to_flat(col + shift, row + 1)
+		moves.append([from_flat_index, to_flat_index])
 		_cells[col][row].swap(_cells[col + shift][row + 1])
 		return true
 	return false
 	
-func _spawn(col:int, row:int, result:UpdateResult):
+func _spawn(col:int, row:int, spawns:Array):
 	var new_item = _spawn_index
 	_spawn_index += 1
 	if _spawn_index == EItemTypes.size():
 		_spawn_index = 0
 	_cells[col][row].add_item(ItemModel.new(false, new_item))
-	var in_flat_index = col + row * _cols
-	result.spawns.append([in_flat_index, new_item])
+	
+	var in_flat_index = index_to_flat(col, row)
+	spawns.append([in_flat_index, new_item])
 
 func swap(index_first:int, index_second:int)->bool:
 	var col_first = index_first % _cols
@@ -100,7 +101,7 @@ func _is_match(col:int, row:int)->bool:
 			
 	return false
 	
-func _match():
+func _match()->Array:
 	var accum = 1
 	var removes:Array
 	var remove:Array
@@ -131,22 +132,33 @@ func _match():
 	if not removes.is_empty():
 		for cell in removes:
 			_cells[cell[0]][cell[1]].remove_item()
+	return removes
+	
+func arr_to_flat(arr:Array)->Array[int]:
+	var result:Array[int]
+	if not arr.is_empty():
+		for cell in arr:
+			result.append(index_to_flat(cell[0], cell[1]))
+	return result
+	
+func index_to_flat(col:int, row:int)->int:
+	return col + row * _cols
 	
 func update()->UpdateResult:
 	_result.clear()
-	_match()
+	_result.deletes = arr_to_flat(_match())
 	for col in range(_cols - 1, -1, -1):
 		# -2  start from last - 1 row and check moving down
 		for row in range(_rows - 2, -1, -1):
 			# move
 			if _cells[col][row].can_move():
-				if not _move_if_can(col, row, 0, _result):
-					if not _move_if_can(col, row, 1, _result):
-						_move_if_can(col, row, -1,  _result)
+				if not _move_if_can(col, row, 0, _result.moves):
+					if not _move_if_can(col, row, 1, _result.moves):
+						_move_if_can(col, row, -1,  _result.moves)
 				continue
 					
 			# spawn
 			if _cells[col][row].can_spawn():
-				_spawn(col, row, _result)
+				_spawn(col, row, _result.spawns)
 				continue
 	return _result

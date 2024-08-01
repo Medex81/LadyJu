@@ -23,10 +23,6 @@ func get_item_node_list()->Array[Item]:
 		if child is Item:
 			_items.append(child)
 	return _items
-	
-func _on_gui_input(event):
-	if event is InputEventMouseButton:
-		send_tap.emit(self, event.pressed)
 		
 func _get_drag_data(_at_position):
 	return self
@@ -53,3 +49,8 @@ func spawn(item:Item):
 	if item:
 		add_child(item)
 		items.append(item)
+			
+func delete():
+	var item = items.pop_back() as Item
+	remove_child(item)
+	item.queue_free()
