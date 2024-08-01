@@ -19,6 +19,11 @@ config/features=PackedStringArray("4.2", "GL Compatibility")
 gdscript/warnings/unassigned_variable=0
 gdscript/warnings/integer_division=0
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
