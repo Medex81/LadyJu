@@ -1,9 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgn28xyda5bes"]
+[gd_scene load_steps=3 format=3 uid="uid://cvufr7xpo2p6w"]
 
-[ext_resource type="PackedScene" uid="uid://dvli6j7w5dh4s" path="res://game/scenes/game_field/item.tscn" id="1_f42bf"]
-[ext_resource type="Texture2D" uid="uid://c3n2grr3kppcv" path="res://game/assets/anny_pack/crystal_purple.png" id="2_jqmhn"]
+[ext_resource type="PackedScene" uid="uid://bo5brdc8b48gg" path="res://game/scenes/game_field/item.tscn" id="1_f42bf"]
+[ext_resource type="Texture2D" uid="uid://nfgksx5b33wn" path="res://game/assets/anny_pack/crystal_purple.png" id="2_jqmhn"]
 
 [node name="item" instance=ExtResource("1_f42bf")]
-
-[node name="tex" parent="margin" index="0"]
 texture = ExtResource("2_jqmhn")
+item_type = 3

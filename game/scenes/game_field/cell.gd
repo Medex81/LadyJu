@@ -3,14 +3,20 @@ extends Control
 
 class_name Cell
 
+var _color_on:Color = Color(0.35,0.62,0.83,0.41)
+var _color_off:Color = Color(0,0,0,0)
+
 @export var is_spawn:bool = false:
 	set(value):
 		is_spawn = value
 		
 @export var is_hole:bool = false:
 	set(value):
-		$back_tex.visible = !value
-		is_spawn = !value
+		var style = get_theme_stylebox("panel").duplicate()
+		style.bg_color = _color_off if value else _color_on
+		add_theme_stylebox_override("panel", style)
+		if value:
+			is_spawn = !value
 		is_hole = value
 		
 @onready var items:Array[Item] = get_item_node_list()
@@ -33,17 +39,28 @@ func _can_drop_data(_at_position, data)->bool:
 func _drop_data(_at_position, data):
 	send_tap.emit(data, self)
 
-func swap(cell_from:Cell):
-	var item_from = cell_from.items.pop_back()
-	var item_to = items.pop_back()
-	if item_from:
-		cell_from.remove_child(item_from)
-		add_child(item_from)
-		items.append(item_from)
-	if item_to:
-		remove_child(item_to)
-		cell_from.add_child(item_to)
-		cell_from.items.append(item_to)
+func move_animation(item:Item, new_position:Vector2):
+	var tween = create_tween().tween_property(item, "position", new_position, 0.4)
+	tween.set_trans(Tween.TRANS_BOUNCE)
+	await tween.finished
+
+func swap(cell_other:Cell):
+	var item_other = cell_other.items.pop_back() as Item
+	var item_my = items.pop_back() as Item
+	if item_other:
+		cell_other.remove_child(item_other)
+		add_child(item_other)
+		items.append(item_other)
+		item_other.position = cell_other.position - position
+		move_animation(item_other, Vector2.ZERO)
+		
+	if item_my:
+		remove_child(item_my)
+		cell_other.add_child(item_my)
+		cell_other.items.append(item_my)
+		item_my.position = position - cell_other.position
+		cell_other.move_animation(item_my, Vector2.ZERO)
+
 
 func spawn(item:Item):
 	if item:

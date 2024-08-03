@@ -23,7 +23,6 @@ func _init(cols:int, rows:int):
 		var array:Array[CellModel]
 		for row in range(rows):
 			array.append(CellModel.new())
-		print("Add row size {0}".format([array.size()]))
 		_cells.append(array)
 	_cols = cols
 	_rows = rows

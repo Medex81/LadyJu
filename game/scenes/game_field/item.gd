@@ -1,4 +1,4 @@
-extends Control
+extends Sprite2D
 
 class_name Item
 

@@ -1,31 +1,22 @@
 [gd_scene load_steps=3 format=3 uid="uid://ci8gbjoyi55v8"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/cell.gd" id="1_h7g8w"]
-[ext_resource type="Texture2D" uid="uid://bc1nk71gyidya" path="res://game/assets/cell_beck.png" id="2_xf34e"]
 
-[node name="cell" type="Control"]
-clip_contents = true
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4tfm"]
+bg_color = Color(0.356863, 0.627451, 0.839216, 0.419608)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="cell" type="PanelContainer"]
 custom_minimum_size = Vector2(50, 50)
-layout_mode = 3
+anchors_preset = -1
 anchor_right = 0.043
 anchor_bottom = 0.077
 offset_right = 0.463997
-offset_bottom = 0.103996
+offset_bottom = 0.104
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k4tfm")
 script = ExtResource("1_h7g8w")
-is_spawn = null
-is_hole = null
-
-[node name="back_tex" type="TextureRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.392157)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_xf34e")
-expand_mode = 1
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

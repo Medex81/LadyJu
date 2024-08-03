@@ -1,7 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://74n22nyd7nhk"]
+[gd_scene load_steps=8 format=3 uid="uid://74n22nyd7nhk"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/gred.gd" id="1_dk66i"]
 [ext_resource type="PackedScene" uid="uid://ci8gbjoyi55v8" path="res://game/scenes/game_field/cell.tscn" id="2_tw0j8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjkyb"]
+bg_color = Color(0.35, 0.62, 0.83, 0.41)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bvlb"]
+resource_name = "normal"
+bg_color = Color(0.35, 0.62, 0.83, 0.41)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5oadi"]
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05ka0"]
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a23fe"]
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="gred" type="GridContainer"]
 anchors_preset = 8
@@ -21,7 +57,7 @@ columns = 10
 script = ExtResource("1_dk66i")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.138
+wait_time = 0.5
 autostart = true
 
 [node name="cell" parent="." instance=ExtResource("2_tw0j8")]
@@ -34,6 +70,7 @@ is_spawn = true
 
 [node name="cell3" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jjkyb")
 is_spawn = true
 
 [node name="cell4" parent="." instance=ExtResource("2_tw0j8")]
@@ -66,6 +103,7 @@ is_spawn = true
 
 [node name="cell11" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3bvlb")
 
 [node name="cell12" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -135,18 +173,21 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5oadi")
+is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_05ka0")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a23fe")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_hole = true
 
 [node name="cell38" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
