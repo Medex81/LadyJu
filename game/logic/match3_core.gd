@@ -133,6 +133,12 @@ func _match()->Array:
 			_cells[cell[0]][cell[1]].remove_item()
 	return removes
 	
+func array_unique(array: Array):
+	array.sort()
+	for i in range(array.size() - 2, -1, -1):
+		if array[i] == array[i + 1]:
+			array.remove_at(i + 1)
+	
 func arr_to_flat(arr:Array)->Array[int]:
 	var result:Array[int]
 	if not arr.is_empty():
@@ -146,6 +152,7 @@ func index_to_flat(col:int, row:int)->int:
 func update()->UpdateResult:
 	_result.clear()
 	_result.deletes = arr_to_flat(_match())
+	array_unique(_result.deletes)
 	for col in range(_cols - 1, -1, -1):
 		# -2  start from last - 1 row and check moving down
 		for row in range(_rows - 2, -1, -1):
