@@ -68,6 +68,9 @@ func spawn(item:Item):
 		items.append(item)
 			
 func delete():
+	if items.is_empty():
+		print("Error. Try removing item from empty cell ", name)
+		return
 	var item = items.pop_back() as Item
 	remove_child(item)
 	item.queue_free()
