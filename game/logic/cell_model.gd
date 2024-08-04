@@ -4,8 +4,10 @@ class_name CellModel
 
 var is_hole:bool = false
 var is_spawn:bool = false
-
 var items:Array[ItemModel]
+var x = -1
+var y = -1
+var flat_ind = -1
 
 func can_move()->bool:
 	return true if not is_hole and  not items.is_empty() else false
@@ -18,8 +20,7 @@ func can_spawn()->bool:
 	
 func add_item(item:ItemModel):
 	items.append(item)
-	if items.size() > 1:
-		pass
+
 	
 func get_item_type()->Match3Logic.EItemTypes:
 	return -1 if items.is_empty() else items.back().type

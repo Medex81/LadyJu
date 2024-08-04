@@ -18,21 +18,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5oadi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_px8yv"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05ka0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esnr4"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a23fe"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okfbo"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -57,7 +57,7 @@ columns = 10
 script = ExtResource("1_dk66i")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 autostart = true
 
 [node name="cell" parent="." instance=ExtResource("2_tw0j8")]
@@ -173,17 +173,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5oadi")
+theme_override_styles/panel = SubResource("StyleBoxFlat_px8yv")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_05ka0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_esnr4")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a23fe")
+theme_override_styles/panel = SubResource("StyleBoxFlat_okfbo")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
@@ -378,4 +378,5 @@ layout_mode = 2
 [node name="cell100" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -28,7 +28,7 @@ func _ready():
 			for item in cell.items:
 				_logic.set_cell_item(flat_cell_index, item.is_blocked, item.item_type)
 			flat_cell_index += 1
-	
+		_logic.end_init()
 	if _cells.size() % columns:
 		print("Warning > Every row must have the size equal {1}.".format([columns]))
 		
@@ -67,3 +67,18 @@ func _on_cell_tap(cell_first:Cell, cell_second:Cell):
 	if _logic and _logic.swap(first, second):
 		swap([[first, second]])
 		$Timer.start()
+		
+func _update():
+	if _logic:
+		var result = _logic.update()
+		if result.is_empty():
+			$Timer.stop()
+		else:
+			delete(result.deletes)
+			swap(result.moves)
+			spawn(result.spawns)
+
+func _unhandled_input(event):
+	if event is InputEventKey and event.is_pressed():
+		_on_timer_timeout()
+

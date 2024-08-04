@@ -11,10 +11,14 @@ enum EItemTypes{
 	YELLOW
 }
 
+enum EDirect{DOWN = 0, LEFT = -1, RIGHT = 1}
+
 var _cols:int = 0
 var _rows:int = 0
 var _size:int = 0
 var _cells:Array
+var _cells_spawnable:Array
+var _cells_auto_movable:Array
 var _result:UpdateResult = UpdateResult.new()
 var _spawn_index:int = 0
 
@@ -33,31 +37,37 @@ func set_cell_opt(flat_index:int, is_hole:bool, is_spawn:bool):
 		var cell = _cells[flat_index % _cols][flat_index / _cols] as CellModel
 		cell.is_hole = is_hole
 		cell.is_spawn = is_spawn
+		cell.x = flat_index % _cols
+		cell.y = flat_index / _cols
+		cell.flat_ind = flat_index
+		if is_spawn:
+			_cells_spawnable.append(cell)
+		if not is_hole and cell.y < _rows - 1:
+			_cells_auto_movable.append(cell)
+			
+func end_init():
+	_cells_auto_movable.reverse()
 	
 func set_cell_item(flat_index:int, is_blocked:bool, type:EItemTypes):
 	var cell = _cells[flat_index % _cols][flat_index / _cols] as CellModel
 	cell.items.append(ItemModel.new(is_blocked, type))
 
-func _move_if_can(col:int, row:int, shift:int, moves:Array)->bool:
-	if col + shift >= 0 \
-	and col + shift < _cols \
-	and _cells[col + shift][row + 1].can_receive():
-		var from_flat_index = index_to_flat(col, row)
-		var to_flat_index = index_to_flat(col + shift, row + 1)
-		moves.append([from_flat_index, to_flat_index])
-		_cells[col][row].swap(_cells[col + shift][row + 1])
-		return true
+func _move_if_can(cell:CellModel, shift:EDirect, moves:Array)->bool:
+	if cell.x + shift >= 0 and  cell.x + shift < _cols:
+		var other_cell = _cells[cell.x + shift][cell.y + 1] as CellModel
+		if other_cell.can_receive():
+			moves.append([cell.flat_ind, other_cell.flat_ind])
+			cell.swap(other_cell)
+			return true
 	return false
 	
-func _spawn(col:int, row:int, spawns:Array):
+func _spawn(cell:CellModel, spawns:Array):
 	var new_item = _spawn_index
 	_spawn_index += 1
 	if _spawn_index == EItemTypes.size():
 		_spawn_index = 0
-	_cells[col][row].add_item(ItemModel.new(false, new_item))
-	
-	var in_flat_index = index_to_flat(col, row)
-	spawns.append([in_flat_index, new_item])
+	cell.add_item(ItemModel.new(false, new_item))
+	spawns.append([cell.flat_ind, new_item])
 
 func swap(index_first:int, index_second:int)->bool:
 	var col_first = index_first % _cols
@@ -66,13 +76,17 @@ func swap(index_first:int, index_second:int)->bool:
 	var col_second = index_second % _cols
 	var row_second = index_second / _cols
 	
+	var cell_first = _cells[col_first][row_first]
+	var cell_second = _cells[col_second][row_second]
+	
+	
 	if absi(col_first - col_second) + absi(row_first - row_second) == 1 \
-	and _cells[col_first][row_first].can_move() and _cells[col_second][row_second].can_move():
-		_cells[col_first][row_first].swap(_cells[col_second][row_second])
+	and cell_first.can_move() and cell_second.can_move():
+		cell_first.swap(cell_second)
 		if _is_match(col_first, row_first) or _is_match(col_second, row_second):
 			return true
 		else:
-			_cells[col_first][row_first].swap(_cells[col_second][row_second])
+			cell_first.swap(cell_second)
 	return false
 	
 func _is_match(col:int, row:int)->bool:
@@ -143,28 +157,34 @@ func arr_to_flat(arr:Array)->Array[int]:
 	var result:Array[int]
 	if not arr.is_empty():
 		for cell in arr:
-			result.append(index_to_flat(cell[0], cell[1]))
+			result.append(_cells[cell[0]][cell[1]].flat_ind)
 	return result
-	
-func index_to_flat(col:int, row:int)->int:
-	return col + row * _cols
 	
 func update()->UpdateResult:
 	_result.clear()
+	
+	#delete matches
 	_result.deletes = arr_to_flat(_match())
 	array_unique(_result.deletes)
-	for col in range(_cols - 1, -1, -1):
-		# -2  start from last - 1 row and check moving down
-		for row in range(_rows - 2, -1, -1):
-			# move
-			if _cells[col][row].can_move():
-				if not _move_if_can(col, row, 0, _result.moves):
-					if not _move_if_can(col, row, 1, _result.moves):
-						_move_if_can(col, row, -1,  _result.moves)
-				continue
+	if not _result.deletes.is_empty():
+		return _result
+	
+	#spawn
+	for cell in _cells_spawnable:
+		if cell.can_spawn():
+			_spawn(cell, _result.spawns)
+	if not _result.spawns.is_empty():
+		return _result
+	
+	#move down
+	for cell in _cells_auto_movable:
+		cell.can_move() and _move_if_can(cell, EDirect.DOWN, _result.moves)
+	if not _result.moves.is_empty():
+		return _result
+		
+	#move left/right
+	for cell in _cells_auto_movable:
+		if cell.can_move() and (_move_if_can(cell, EDirect.LEFT, _result.moves) or _move_if_can(cell, EDirect.RIGHT, _result.moves)):
+			return _result
 					
-			# spawn
-			if _cells[col][row].can_spawn():
-				_spawn(col, row, _result.spawns)
-				continue
 	return _result

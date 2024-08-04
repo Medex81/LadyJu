@@ -38,15 +38,16 @@ func _can_drop_data(_at_position, data)->bool:
 	
 func _drop_data(_at_position, data):
 	send_tap.emit(data, self)
-
+var _tween:Tween = null
 func move_animation(item:Item, new_position:Vector2):
-	var tween = create_tween().tween_property(item, "position", new_position, 0.4)
-	tween.set_trans(Tween.TRANS_BOUNCE)
-	await tween.finished
+	_tween = create_tween()
+	_tween.tween_property(item, "position", new_position, 0.2)
 
 func swap(cell_other:Cell):
 	var item_other = cell_other.items.pop_back() as Item
 	var item_my = items.pop_back() as Item
+	if _tween:
+			_tween.kill()
 	if item_other:
 		cell_other.remove_child(item_other)
 		add_child(item_other)
