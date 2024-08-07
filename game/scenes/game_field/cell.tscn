@@ -9,7 +9,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="cell" type="PanelContainer"]
+[node name="cell" type="PanelContainer" groups=["stop_cell_animations"]]
 custom_minimum_size = Vector2(50, 50)
 anchors_preset = -1
 anchor_right = 0.043
@@ -20,3 +20,4 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k4tfm")
 script = ExtResource("1_h7g8w")
+animation_scale = 1.3

@@ -5,11 +5,15 @@ class_name Cell
 
 var _color_on:Color = Color(0.35,0.62,0.83,0.41)
 var _color_off:Color = Color(0,0,0,0)
+var _tween_move:Tween = null
+var _tween_hint:Tween = null
+@onready var items:Array[Item] = get_item_node_list()
+var _animated_item_lambda = null
 
+@export var animation_scale:float = 1.15
 @export var is_spawn:bool = false:
 	set(value):
 		is_spawn = value
-		
 @export var is_hole:bool = false:
 	set(value):
 		var style = get_theme_stylebox("panel").duplicate()
@@ -18,8 +22,7 @@ var _color_off:Color = Color(0,0,0,0)
 		if value:
 			is_spawn = !value
 		is_hole = value
-		
-@onready var items:Array[Item] = get_item_node_list()
+@export var hint_time:float = 0.4
 
 signal send_tap(control_first:Control, control_second:Control)
 
@@ -38,16 +41,38 @@ func _can_drop_data(_at_position, data)->bool:
 	
 func _drop_data(_at_position, data):
 	send_tap.emit(data, self)
-var _tween:Tween = null
+
 func move_animation(item:Item, new_position:Vector2):
-	_tween = create_tween()
-	_tween.tween_property(item, "position", new_position, 0.2)
+	if _tween_move:
+		_tween_move.kill()
+	_tween_move = create_tween()
+	#_tween_move.set_trans(Tween.TRANS_BOUNCE)
+	_tween_move.tween_property(item, "position", new_position, 0.2)
+	
+func stop_hint_animations():
+	if _tween_hint:
+		_tween_hint.kill()
+		if _animated_item_lambda:
+			_animated_item_lambda.call()
+			_animated_item_lambda = null
+
+func hint_animation(item:Item):
+	stop_hint_animations()
+	if _animated_item_lambda:
+		print("Error. Lambda from a last hint is not null. ", name)
+	_tween_hint = create_tween()
+	_tween_hint.set_loops(100)
+	var old_scale = item.scale
+	var old_position = item.position
+	_tween_hint.tween_property(item, "scale", old_scale * animation_scale, hint_time)
+	_tween_hint.parallel().tween_property(item, "position", size * -((animation_scale - 1) / 2.0), hint_time)
+	_tween_hint.tween_property(item, "scale", old_scale, hint_time)
+	_tween_hint.parallel().tween_property(item, "position", old_position, hint_time)
+	_animated_item_lambda = func(): item.scale = old_scale; item.position = old_position
 
 func swap(cell_other:Cell):
 	var item_other = cell_other.items.pop_back() as Item
 	var item_my = items.pop_back() as Item
-	if _tween:
-			_tween.kill()
 	if item_other:
 		cell_other.remove_child(item_other)
 		add_child(item_other)
@@ -62,7 +87,6 @@ func swap(cell_other:Cell):
 		item_my.position = position - cell_other.position
 		cell_other.move_animation(item_my, Vector2.ZERO)
 
-
 func spawn(item:Item):
 	if item:
 		add_child(item)
@@ -75,3 +99,9 @@ func delete():
 	var item = items.pop_back() as Item
 	remove_child(item)
 	item.queue_free()
+	
+func hint():
+	if items.is_empty():
+		print("Error. Try hint item from empty cell ", name)
+		return
+	hint_animation(items.back())

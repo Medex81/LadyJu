@@ -37,6 +37,9 @@ func _on_timer_timeout():
 		var result = _logic.update()
 		if result.is_empty():
 			$Timer.stop()
+			var hint_indexs = _logic.hint()
+			for index in hint_indexs:
+				_cells[index].hint()
 		else:
 			delete(result.deletes)
 			swap(result.moves)
@@ -65,6 +68,7 @@ func _on_cell_tap(cell_first:Cell, cell_second:Cell):
 	var first = _cells.find(cell_first)
 	var second = _cells.find(cell_second)
 	if _logic and _logic.swap(first, second):
+		get_tree().call_group("stop_cell_animations", "stop_hint_animations")
 		swap([[first, second]])
 		$Timer.start()
 		

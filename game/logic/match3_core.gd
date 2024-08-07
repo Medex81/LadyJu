@@ -11,7 +11,7 @@ enum EItemTypes{
 	YELLOW
 }
 
-enum EDirect{DOWN = 0, LEFT = -1, RIGHT = 1}
+enum EDirect{DOWN = 0, LEFT = -1, RIGHT = 1, TOP, TOP_LEFT, TOP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
 
 var _cols:int = 0
 var _rows:int = 0
@@ -19,6 +19,7 @@ var _size:int = 0
 var _cells:Array
 var _cells_spawnable:Array
 var _cells_auto_movable:Array
+var _cells_hintable:Array
 var _result:UpdateResult = UpdateResult.new()
 var _spawn_index:int = 0
 
@@ -44,6 +45,8 @@ func set_cell_opt(flat_index:int, is_hole:bool, is_spawn:bool):
 			_cells_spawnable.append(cell)
 		if not is_hole and cell.y < _rows - 1:
 			_cells_auto_movable.append(cell)
+		if not is_hole:
+			_cells_hintable.append(cell)
 			
 func end_init():
 	_cells_auto_movable.reverse()
@@ -146,6 +149,153 @@ func _match()->Array:
 		for cell in removes:
 			_cells[cell[0]][cell[1]].remove_item()
 	return removes
+	
+func _neighbour_cell(cell:CellModel, direct:EDirect)->CellModel:
+	match direct:
+		EDirect.TOP:
+			if cell.y - 1 >= 0:
+				return _cells[cell.x][cell.y - 1]
+		EDirect.TOP_RIGHT:
+			if cell.y - 1 >= 0 and cell.x + 1 < _cols:
+				return _cells[cell.x + 1][cell.y - 1]
+		EDirect.RIGHT:
+			if cell.x + 1 < _cols:
+				return _cells[cell.x + 1][cell.y]
+		EDirect.DOWN_RIGHT:
+			if cell.y + 1 < _rows and cell.x + 1 < _cols:
+				return _cells[cell.x + 1][cell.y + 1]
+		EDirect.DOWN:
+			if cell.y + 1 < _rows:
+				return _cells[cell.x][cell.y + 1]
+		EDirect.DOWN_LEFT:
+			if cell.y + 1 < _rows and cell.x - 1 >= 0:
+				return _cells[cell.x - 1][cell.y + 1]
+		EDirect.LEFT:
+			if cell.x - 1 >= 0:
+				return _cells[cell.x - 1][cell.y]
+		EDirect.TOP_LEFT:
+			if cell.y - 1 >= 0 and cell.x - 1 >= 0:
+				return _cells[cell.x - 1][cell.y - 1]
+	return null
+	
+func _cell_hintable(cell:CellModel, direct:EDirect, type:EItemTypes = -1)->bool:
+	if type == -1:
+		type = cell.get_item_type()
+	var other_cell:CellModel = _neighbour_cell(cell, direct)
+	if other_cell and other_cell.can_move() and other_cell.get_item_type() == type:
+		return true
+	return false
+	
+func _find_pair()->Array:
+	var accum = 1
+	var _pair:Array[CellModel]
+	var _find:Array
+	
+	for col in range(_cols):
+		for row in range(_rows):
+			if row < _rows - 1 and _cells[col][row].can_move() and _cells[col][row].get_item_type() == _cells[col][row + 1].get_item_type():
+				accum += 1
+				_pair.append(_cells[col][row])
+			else:
+				if accum == 2:
+					_pair.append(_cells[col][row])
+					_find.append(_pair.duplicate())
+				accum = 1
+				_pair.clear()
+	for row in range(_rows):
+		for col in range(_cols):
+			if col < _cols - 1 and _cells[col][row].can_move() and _cells[col][row].get_item_type() == _cells[col + 1][row].get_item_type():
+				accum += 1
+				_pair.append(_cells[col][row])
+			else:
+				if accum == 2:
+					_pair.append(_cells[col][row])
+					_find.append(_pair.duplicate())
+				accum = 1
+				_pair.clear()
+			
+	return _find
+	
+func _check_pair(cell:CellModel, cell_second:CellModel, direct:EDirect)->Array[int]:
+	var result:Array[int]
+	var direct_1 = EDirect.LEFT if direct == EDirect.TOP or direct == EDirect.DOWN else EDirect.TOP
+	var direct_2 = EDirect.RIGHT if direct == EDirect.TOP or direct == EDirect.DOWN else EDirect.DOWN
+	
+	var _m = _neighbour_cell(cell, direct) as CellModel 
+	if _m and _m.can_move():
+		var _md = _cell_hintable(_m, direct, cell.get_item_type()) as bool
+		var _d1 = _cell_hintable(_m, direct_1, cell.get_item_type()) as bool
+		var _d2 = _cell_hintable(_m, direct_2, cell.get_item_type()) as bool
+		if _md:
+			result.append(_neighbour_cell(_m, direct).flat_ind)
+		elif _d1:
+			result.append(_neighbour_cell(_m, direct_1).flat_ind)
+		elif _d2:
+			result.append(_neighbour_cell(_m, direct_2).flat_ind)
+			
+	if not result.is_empty():
+		result.append(cell.flat_ind)
+		result.append(cell_second.flat_ind)
+	return result
+	
+func hint()->Array[int]:
+	var result:Array[int]
+	# diagonal find
+	for cell in _cells_hintable:
+		var _tr = _cell_hintable(cell, EDirect.TOP_RIGHT) as bool
+		var _tl = _cell_hintable(cell, EDirect.TOP_LEFT) as bool
+		var _dr = _cell_hintable(cell, EDirect.DOWN_RIGHT) as bool
+		var _dl = _cell_hintable(cell, EDirect.DOWN_LEFT) as bool
+		
+		var _t = _neighbour_cell(cell, EDirect.TOP) as CellModel
+		var _r = _neighbour_cell(cell, EDirect.RIGHT) as CellModel
+		var _d = _neighbour_cell(cell, EDirect.DOWN) as CellModel
+		var _l = _neighbour_cell(cell, EDirect.LEFT) as CellModel
+		
+		if _tl and _tr and _t and _t.can_move():
+			result.append(_neighbour_cell(cell, EDirect.TOP_RIGHT).flat_ind)
+			result.append(_neighbour_cell(cell, EDirect.TOP_LEFT).flat_ind)
+		elif _tr and _dr and _r and _r.can_move():
+			result.append(_neighbour_cell(cell, EDirect.TOP_RIGHT).flat_ind)
+			result.append(_neighbour_cell(cell, EDirect.DOWN_RIGHT).flat_ind)
+		elif _dr and _dl and _d and _d.can_move():
+			result.append(_neighbour_cell(cell, EDirect.DOWN_LEFT).flat_ind)
+			result.append(_neighbour_cell(cell, EDirect.DOWN_RIGHT).flat_ind)
+		elif _dl and _tl and _l and _l.can_move():
+			result.append(_neighbour_cell(cell, EDirect.DOWN_LEFT).flat_ind)
+			result.append(_neighbour_cell(cell, EDirect.TOP_LEFT).flat_ind)
+		
+		if not result.is_empty():
+			result.append(cell.flat_ind)
+			return result
+			
+	# col/row find
+	var pairs = _find_pair()
+	for pair in pairs:
+		if not pair.is_empty():
+			# rows
+			if pair[0].x == pair[1].x:
+				# top
+				result = _check_pair(pair[0], pair[1], EDirect.TOP)
+				if not result.is_empty():
+					return result
+				# down
+				result = _check_pair(pair[1], pair[0], EDirect.DOWN)
+				if not result.is_empty():
+					return result
+			# cols
+			else:
+				# left
+				result = _check_pair(pair[0], pair[1], EDirect.LEFT)
+				if not result.is_empty():
+					return result
+				# right
+				result = _check_pair(pair[1], pair[0], EDirect.RIGHT)
+				if not result.is_empty():
+					return result
+
+	print("No hint!")
+	return result
 	
 func array_unique(array: Array):
 	array.sort()
