@@ -18,21 +18,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_js5ct"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lxtn"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fof4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vx3ng"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fl1dk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phdnw"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -180,17 +180,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_js5ct")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0lxtn")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2fof4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vx3ng")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_fl1dk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_phdnw")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
@@ -386,5 +386,10 @@ layout_mode = 2
 [node name="cell100" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="Timer_hint_delay" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer_hint_delay" to="." method="_on_timer_hint_delay_timeout"]

@@ -4,6 +4,7 @@ class_name GredMatch3
 
 var _cells:Array[Cell]
 var _logic:Match3Logic = null
+@export var hint_delay:float = 3.0
 #TODO завести бинд типов в свойства сетки
 var _items = {
 	Match3Logic.EItemTypes.RED: preload("res://game/scenes/game_field/items/item_red.tscn"),
@@ -15,6 +16,7 @@ var _items = {
 }
 
 func _ready():
+	$Timer_hint_delay.wait_time = hint_delay
 	for cell in get_children():
 		if cell is Cell:
 			_cells.append(cell)
@@ -37,13 +39,17 @@ func _on_timer_timeout():
 		var result = _logic.update()
 		if result.is_empty():
 			$Timer.stop()
-			var hint_indexs = _logic.hint()
-			for index in hint_indexs:
-				_cells[index].hint()
+			$Timer_hint_delay.start()
 		else:
 			delete(result.deletes)
 			swap(result.moves)
 			spawn(result.spawns)
+			
+func _on_timer_hint_delay_timeout():
+	var hint_indexs = _logic.hint()
+	for index in hint_indexs:
+		_cells[index].hint()
+
 
 func swap(moves:Array):
 	for _swap in moves:
