@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://74n22nyd7nhk"]
+[gd_scene load_steps=10 format=3 uid="uid://74n22nyd7nhk"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/gred.gd" id="1_dk66i"]
+[ext_resource type="AudioStream" uid="uid://qpo1bjhcse7l" path="res://game/assets/anny_pack/sounds/Raindrops-Dreaming.ogg" id="2_tccpg"]
 [ext_resource type="PackedScene" uid="uid://ci8gbjoyi55v8" path="res://game/scenes/game_field/cell.tscn" id="2_tw0j8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjkyb"]
@@ -18,21 +19,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lxtn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mgpkk"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vx3ng"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5iyf4"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phdnw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3a15a"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -62,6 +63,7 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 10
 script = ExtResource("1_dk66i")
+background_music = ExtResource("2_tccpg")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -180,17 +182,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0lxtn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mgpkk")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vx3ng")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5iyf4")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_phdnw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3a15a")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]

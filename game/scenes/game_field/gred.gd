@@ -5,6 +5,9 @@ class_name GredMatch3
 var _cells:Array[Cell]
 var _logic:Match3Logic = null
 @export var hint_delay:float = 3.0
+@export var sound_volume:float = 0.5
+@export var background_music: AudioStream
+
 #TODO завести бинд типов в свойства сетки
 var _items = {
 	Match3Logic.EItemTypes.RED: preload("res://game/scenes/game_field/items/item_red.tscn"),
@@ -17,6 +20,8 @@ var _items = {
 
 func _ready():
 	$Timer_hint_delay.wait_time = hint_delay
+	SoundManager.set_sound_volume(sound_volume)
+	SoundManager.play_ambient_sound(background_music)
 	for cell in get_children():
 		if cell is Cell:
 			_cells.append(cell)
@@ -77,6 +82,7 @@ func _on_cell_tap(cell_first:Cell, cell_second:Cell):
 		get_tree().call_group("stop_cell_animations", "stop_hint_animations")
 		swap([[first, second]])
 		$Timer.start()
+		$Timer_hint_delay.stop()
 		
 func _update():
 	if _logic:

@@ -14,6 +14,10 @@ config/name="LadyJu"
 run/main_scene="res://game/scenes/game_field/game_field.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 
+[autoload]
+
+SoundManager="*res://addons/sound_manager/sound_manager.gd"
+
 [debug]
 
 gdscript/warnings/unassigned_variable=0
@@ -23,6 +27,10 @@ gdscript/warnings/integer_division=0
 
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg")
 
 [rendering]
 

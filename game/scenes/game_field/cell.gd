@@ -86,6 +86,7 @@ func swap(cell_other:Cell):
 		cell_other.items.append(item_my)
 		item_my.position = position - cell_other.position
 		cell_other.move_animation(item_my, Vector2.ZERO)
+		SoundManager.play_sound(item_my.sound_bouns)
 
 func spawn(item:Item):
 	if item:

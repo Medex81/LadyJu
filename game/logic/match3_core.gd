@@ -269,11 +269,11 @@ func hint()->Array[int]:
 			result.append(cell.flat_ind)
 			return result
 			
-	# col/row find
+	# vert/hor find
 	var pairs = _find_pair()
 	for pair in pairs:
 		if not pair.is_empty():
-			# rows
+			# vert
 			if pair[0].x == pair[1].x:
 				# top
 				result = _check_pair(pair[0], pair[1], EDirect.TOP)
@@ -283,7 +283,7 @@ func hint()->Array[int]:
 				result = _check_pair(pair[1], pair[0], EDirect.DOWN)
 				if not result.is_empty():
 					return result
-			# cols
+			# hor
 			else:
 				# left
 				result = _check_pair(pair[0], pair[1], EDirect.LEFT)
