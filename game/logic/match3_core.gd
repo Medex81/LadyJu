@@ -59,6 +59,7 @@ func _move_if_can(cell:CellModel, shift:EDirect, moves:Array)->bool:
 	if cell.x + shift >= 0 and  cell.x + shift < _cols and cell.y + 1 < _rows:
 		var other_cell = _cells[cell.x + shift][cell.y + 1] as CellModel
 		if other_cell.can_receive():
+			cell.swap(other_cell)
 			moves.append([cell.flat_ind, other_cell.flat_ind])
 			return true
 	return false
@@ -80,7 +81,6 @@ func swap(index_first:int, index_second:int)->bool:
 	
 	var cell_first = _cells[col_first][row_first]
 	var cell_second = _cells[col_second][row_second]
-	
 	
 	if absi(col_first - col_second) + absi(row_first - row_second) == 1 \
 	and cell_first.can_move() and cell_second.can_move():
