@@ -19,21 +19,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hmyv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_715ty"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir4c8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ey76"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bu01"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yh20x"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -53,10 +53,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -242.0
-offset_top = -241.0
-offset_right = 242.0
-offset_bottom = 241.0
+offset_left = -354.5
+offset_top = -354.5
+offset_right = 354.5
+offset_bottom = 354.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 1
@@ -182,17 +182,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0hmyv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_715ty")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ir4c8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ey76")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3bu01")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yh20x")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
