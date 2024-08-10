@@ -27,4 +27,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="gred" parent="." instance=ExtResource("2_ha838")]
 layout_mode = 1
+hint_delay = 3.0
+sound_volume = 0.5
+update_time = 0.1
 metadata/_edit_use_anchors_ = true

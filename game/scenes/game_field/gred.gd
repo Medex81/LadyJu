@@ -6,6 +6,7 @@ var _cells:Array[Cell]
 var _logic:Match3Logic = null
 @export var hint_delay:float = 3.0
 @export var sound_volume:float = 0.5
+@export var update_time:float = 0.1
 @export var background_music: AudioStream
 
 #TODO завести бинд типов в свойства сетки
@@ -20,6 +21,7 @@ var _items = {
 
 func _ready():
 	$Timer_hint_delay.wait_time = hint_delay
+	$Timer.wait_time = update_time
 	SoundManager.set_sound_volume(sound_volume)
 	SoundManager.play_ambient_sound(background_music)
 	for cell in get_children():
