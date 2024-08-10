@@ -10,7 +10,7 @@ var y = -1
 var flat_ind = -1
 
 func can_move()->bool:
-	return true if not is_hole and  not items.is_empty() else false
+	return not items.is_empty()
 	
 func can_receive()->bool:
 	return true if not is_hole and items.is_empty() else false
