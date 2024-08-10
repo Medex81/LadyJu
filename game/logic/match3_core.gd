@@ -56,11 +56,10 @@ func set_cell_item(flat_index:int, is_blocked:bool, type:EItemTypes):
 	cell.items.append(ItemModel.new(is_blocked, type))
 
 func _move_if_can(cell:CellModel, shift:EDirect, moves:Array)->bool:
-	if cell.x + shift >= 0 and  cell.x + shift < _cols:
+	if cell.x + shift >= 0 and  cell.x + shift < _cols and cell.y + 1 < _rows:
 		var other_cell = _cells[cell.x + shift][cell.y + 1] as CellModel
 		if other_cell.can_receive():
 			moves.append([cell.flat_ind, other_cell.flat_ind])
-			cell.swap(other_cell)
 			return true
 	return false
 	
