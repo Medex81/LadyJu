@@ -23,6 +23,7 @@ var _animated_item_lambda = null
 			is_spawn = !value
 		is_hole = value
 @export var hint_time:float = 0.4
+@export var move_time:float = 0.2
 
 signal send_tap(control_first:Control, control_second:Control)
 
@@ -46,8 +47,7 @@ func move_animation(item:Item, new_position:Vector2):
 	if _tween_move:
 		_tween_move.kill()
 	_tween_move = create_tween()
-	#_tween_move.set_trans(Tween.TRANS_BOUNCE)
-	_tween_move.tween_property(item, "position", new_position, 0.2)
+	_tween_move.tween_property(item, "position", new_position, move_time)
 	
 func stop_hint_animations():
 	if _tween_hint:
