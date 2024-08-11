@@ -21,7 +21,6 @@ func can_spawn()->bool:
 func add_item(item:ItemModel):
 	items.append(item)
 
-	
 func get_item_type()->Match3Logic.EItemTypes:
 	return -1 if items.is_empty() else items.back().type
 	

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://74n22nyd7nhk"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/gred.gd" id="1_dk66i"]
-[ext_resource type="AudioStream" uid="uid://qpo1bjhcse7l" path="res://game/assets/anny_pack/sounds/Raindrops-Dreaming.ogg" id="2_tccpg"]
+[ext_resource type="AudioStream" uid="uid://gl2m5jgyjra8" path="res://game/assets/anny_pack/sounds/Raindrops-Dreaming.ogg" id="2_tccpg"]
 [ext_resource type="PackedScene" uid="uid://ci8gbjoyi55v8" path="res://game/scenes/game_field/cell.tscn" id="2_tw0j8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjkyb"]
@@ -19,21 +19,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_715ty"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wglr"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ey76"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_piayw"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yh20x"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68kvm"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -63,10 +63,12 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 10
 script = ExtResource("1_dk66i")
+update_time = 0.15
 background_music = ExtResource("2_tccpg")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
 autostart = true
 
 [node name="cell" parent="." instance=ExtResource("2_tw0j8")]
@@ -182,17 +184,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_715ty")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5wglr")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2ey76")
+theme_override_styles/panel = SubResource("StyleBoxFlat_piayw")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yh20x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_68kvm")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
@@ -393,5 +395,5 @@ wait_time = 3.0
 one_shot = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_update"]
 [connection signal="timeout" from="Timer_hint_delay" to="." method="_on_timer_hint_delay_timeout"]

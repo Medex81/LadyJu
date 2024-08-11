@@ -20,4 +20,3 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k4tfm")
 script = ExtResource("1_h7g8w")
-animation_scale = 1.3

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo5brdc8b48gg"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/item.gd" id="1_r0pi1"]
-[ext_resource type="AudioStream" uid="uid://bmp5v0awuru11" path="res://addons/kenney impact sounds/impact_metal_heavy_002.ogg" id="2_jf6r8"]
+[ext_resource type="AudioStream" uid="uid://dextgrfq5l6oy" path="res://addons/kenney impact sounds/impact_metal_heavy_002.ogg" id="2_jf6r8"]
 
 [node name="item" type="Sprite2D"]
 scale = Vector2(0.55, 0.55)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ba74g03xlaj7d"]
 
-[ext_resource type="Texture2D" uid="uid://pjo57wuhtm53" path="res://game/assets/backend_img.jpg" id="1_4i5t1"]
+[ext_resource type="Texture2D" uid="uid://cqvlvff6pb65r" path="res://game/assets/backend_img.jpg" id="1_4i5t1"]
 [ext_resource type="Script" path="res://game/scenes/game_field/game_field.gd" id="1_rn3w4"]
 [ext_resource type="PackedScene" uid="uid://74n22nyd7nhk" path="res://game/scenes/game_field/gred.tscn" id="2_ha838"]
 
@@ -27,7 +27,4 @@ metadata/_edit_use_anchors_ = true
 
 [node name="gred" parent="." instance=ExtResource("2_ha838")]
 layout_mode = 1
-hint_delay = 3.0
-sound_volume = 0.5
-update_time = 0.1
 metadata/_edit_use_anchors_ = true

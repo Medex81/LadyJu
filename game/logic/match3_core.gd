@@ -337,3 +337,7 @@ func update()->UpdateResult:
 			return _result
 					
 	return _result
+
+func get_cell_type(flat_index:int)->EItemTypes:
+	var cell = _cells[flat_index % _cols][flat_index / _cols] as CellModel
+	return cell.get_item_type()

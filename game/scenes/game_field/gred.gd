@@ -4,6 +4,7 @@ class_name GredMatch3
 
 var _cells:Array[Cell]
 var _logic:Match3Logic = null
+var _event_counter = 0
 @export var hint_delay:float = 3.0
 @export var sound_volume:float = 0.5
 @export var update_time:float = 0.1
@@ -40,28 +41,18 @@ func _ready():
 		_logic.end_init()
 	if _cells.size() % columns:
 		print("Warning > Every row must have the size equal {1}.".format([columns]))
-		
-func _on_timer_timeout():
-	if _logic:
-		var result = _logic.update()
-		if result.is_empty():
-			$Timer.stop()
-			$Timer_hint_delay.start()
-		else:
-			delete(result.deletes)
-			swap(result.moves)
-			spawn(result.spawns)
 			
 func _on_timer_hint_delay_timeout():
 	var hint_indexs = _logic.hint()
 	for index in hint_indexs:
 		_cells[index].hint()
-
-
-func swap(moves:Array):
+		
+func move(moves:Array):
 	for _swap in moves:
 		_cells[_swap[0]].swap(_cells[_swap[1]])
-
+	if not moves.is_empty():
+		_cells[moves.back().back()].emit_sound()
+	
 func create_item(item_type:Match3Logic.EItemTypes)->Item:
 	var item:Item = null
 	var _scn = _items.get(item_type, null)
@@ -81,22 +72,40 @@ func _on_cell_tap(cell_first:Cell, cell_second:Cell):
 	var first = _cells.find(cell_first)
 	var second = _cells.find(cell_second)
 	if _logic and _logic.swap(first, second):
-		get_tree().call_group("stop_cell_animations", "stop_hint_animations")
-		swap([[first, second]])
-		$Timer.start()
 		$Timer_hint_delay.stop()
+		get_tree().call_group("stop_cell_animations", "stop_hint_animations")
+		# tap flag - true, dont calculate counter
+		cell_first.swap(cell_second, true)
+		call_deferred("_update")
 		
 func _update():
 	if _logic:
 		var result = _logic.update()
-		if result.is_empty():
-			$Timer.stop()
-		else:
+		if not result.is_empty():
+			if _event_counter > 0:
+				print("Error update-> Event count ", _event_counter)
+				return
+			_event_counter = result.event_count()
 			delete(result.deletes)
-			swap(result.moves)
 			spawn(result.spawns)
+			move(result.moves)
+			if _event_counter:
+				$Timer_hint_delay.start()
+			#_check_model()
+				
+#func _check_model():
+	#var index = 0;
+	#for cell in _cells:
+		#if _logic.get_cell_type(index) != cell.get_item_type():
+			#print("Error! type cell not equal. model ", _logic.get_cell_type(index), ", UI ", cell.get_item_type(), ", index ", index)
+		#index += 1
+		
+#func _unhandled_input(event):
+	#if event is InputEventKey and event.is_pressed():
+		#_update()
 
-func _unhandled_input(event):
-	if event is InputEventKey and event.is_pressed():
-		_on_timer_timeout()
-
+func done_event():
+	_event_counter -= 1
+	if _event_counter <= 0:
+		_event_counter = 0
+		call_deferred("_update")
