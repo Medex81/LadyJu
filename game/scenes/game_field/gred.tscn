@@ -19,21 +19,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wglr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rue7n"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_piayw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lq7b"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68kvm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7qg5"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -63,13 +63,11 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 10
 script = ExtResource("1_dk66i")
-update_time = 0.15
 background_music = ExtResource("2_tccpg")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+[node name="Timer_hint_delay" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
-autostart = true
 
 [node name="cell" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -184,17 +182,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5wglr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rue7n")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_piayw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3lq7b")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_68kvm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7qg5")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
@@ -390,10 +388,5 @@ layout_mode = 2
 [node name="cell100" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="Timer_hint_delay" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="timeout" from="Timer" to="." method="_update"]
 [connection signal="timeout" from="Timer_hint_delay" to="." method="_on_timer_hint_delay_timeout"]

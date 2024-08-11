@@ -7,7 +7,6 @@ var _logic:Match3Logic = null
 var _event_counter = 0
 @export var hint_delay:float = 3.0
 @export var sound_volume:float = 0.5
-@export var update_time:float = 0.1
 @export var background_music: AudioStream
 
 #TODO завести бинд типов в свойства сетки
@@ -22,7 +21,6 @@ var _items = {
 
 func _ready():
 	$Timer_hint_delay.wait_time = hint_delay
-	$Timer.wait_time = update_time
 	SoundManager.set_sound_volume(sound_volume)
 	SoundManager.play_ambient_sound(background_music)
 	for cell in get_children():
@@ -41,6 +39,8 @@ func _ready():
 		_logic.end_init()
 	if _cells.size() % columns:
 		print("Warning > Every row must have the size equal {1}.".format([columns]))
+		
+	call_deferred("_update")
 			
 func _on_timer_hint_delay_timeout():
 	var hint_indexs = _logic.hint()
