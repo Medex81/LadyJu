@@ -46,13 +46,15 @@ func _can_drop_data(_at_position, data)->bool:
 func _drop_data(_at_position, data):
 	send_tap.emit(data, self)
 
-func move_animation(item:Item, new_position:Vector2, is_tap:bool = false):
+func move_animation(item:Item, new_position:Vector2):
 	if _tween_move:
+		if _tween_move.is_running():
+			_done()
 		_tween_move.kill()
+
 	_tween_move = create_tween()
 	_tween_move.tween_property(item, "position", new_position, move_time)
-	if not is_tap:
-		_tween_move.tween_callback(_done)
+	_tween_move.tween_callback(_done)
 	
 func _done():
 	get_parent().done_event()
@@ -78,31 +80,26 @@ func hint_animation(item:Item):
 	_tween_hint.parallel().tween_property(item, "position", old_position, hint_time)
 	_animated_item_lambda = func(): item.scale = old_scale; item.position = old_position
 
-func swap(cell_other:Cell, is_tap:bool = false):
+func swap(cell_other:Cell):
 	var item_other = cell_other.items.pop_back() as Item
 	var item_my = items.pop_back() as Item
-	if not item_other and not item_my:
-		pass
 	if item_other:
 		cell_other.remove_child(item_other)
 		add_child(item_other)
 		items.append(item_other)
 		item_other.position = cell_other.position - position
-		move_animation(item_other, Vector2.ZERO, is_tap)
+		move_animation(item_other, Vector2.ZERO)
 	else:
-		if not is_tap:
-			_done()
+		_done()
 		
 	if item_my:
 		remove_child(item_my)
 		cell_other.add_child(item_my)
 		cell_other.items.append(item_my)
 		item_my.position = position - cell_other.position
-		cell_other.move_animation(item_my, Vector2.ZERO, is_tap)
-		#SoundManager.play_sound(item_my.sound_bouns)
+		cell_other.move_animation(item_my, Vector2.ZERO)
 	else:
-		if not is_tap:
-			_done()
+		_done()
 		
 func emit_sound():
 	if not items.is_empty():
@@ -112,8 +109,6 @@ func spawn(item:Item):
 	if item:
 		add_child(item)
 		items.append(item)
-		if items.size() > 1:
-			pass
 		_done()
 			
 func delete():

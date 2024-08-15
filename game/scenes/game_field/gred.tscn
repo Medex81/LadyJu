@@ -1,8 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://74n22nyd7nhk"]
+[gd_scene load_steps=14 format=3 uid="uid://74n22nyd7nhk"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/gred.gd" id="1_dk66i"]
 [ext_resource type="AudioStream" uid="uid://gl2m5jgyjra8" path="res://game/assets/anny_pack/sounds/Raindrops-Dreaming.ogg" id="2_tccpg"]
 [ext_resource type="PackedScene" uid="uid://ci8gbjoyi55v8" path="res://game/scenes/game_field/cell.tscn" id="2_tw0j8"]
+[ext_resource type="PackedScene" uid="uid://1jd6m0ikwj7k" path="res://game/scenes/game_field/items/item_white.tscn" id="4_god0l"]
+[ext_resource type="PackedScene" uid="uid://8gm3k78781kl" path="res://game/scenes/game_field/items/item_red.tscn" id="5_k47fr"]
+[ext_resource type="PackedScene" uid="uid://clvtsbdmap8cx" path="res://game/scenes/game_field/items/item_green.tscn" id="6_y4h5c"]
+[ext_resource type="PackedScene" uid="uid://xsrk5vegw4mb" path="res://game/scenes/game_field/items/item_blue.tscn" id="7_7c33a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjkyb"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
@@ -19,21 +23,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rue7n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwtlm"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lq7b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_omc5o"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7qg5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ornj"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -71,28 +75,22 @@ one_shot = true
 
 [node name="cell" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell2" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell3" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jjkyb")
-is_spawn = true
 
 [node name="cell4" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell5" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell6" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell7" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -100,15 +98,12 @@ is_spawn = true
 
 [node name="cell8" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell9" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell10" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-is_spawn = true
 
 [node name="cell11" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -182,17 +177,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rue7n")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vwtlm")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3lq7b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_omc5o")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e7qg5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8ornj")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
@@ -309,14 +304,22 @@ layout_mode = 2
 [node name="cell74" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell74" instance=ExtResource("4_god0l")]
+
 [node name="cell75" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell75" instance=ExtResource("5_k47fr")]
 
 [node name="cell76" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell76" instance=ExtResource("4_god0l")]
+
 [node name="cell77" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell77" instance=ExtResource("5_k47fr")]
 
 [node name="cell78" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -339,14 +342,22 @@ layout_mode = 2
 [node name="cell84" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell84" instance=ExtResource("5_k47fr")]
+
 [node name="cell85" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell85" instance=ExtResource("5_k47fr")]
 
 [node name="cell86" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell86" instance=ExtResource("6_y4h5c")]
+
 [node name="cell87" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell87" instance=ExtResource("4_god0l")]
 
 [node name="cell88" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -370,14 +381,22 @@ layout_mode = 2
 [node name="cell94" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell94" instance=ExtResource("6_y4h5c")]
+
 [node name="cell95" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell95" instance=ExtResource("7_7c33a")]
 
 [node name="cell96" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell96" instance=ExtResource("7_7c33a")]
+
 [node name="cell97" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell97" instance=ExtResource("6_y4h5c")]
 
 [node name="cell98" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2

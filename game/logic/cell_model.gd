@@ -12,11 +12,14 @@ var flat_ind = -1
 func can_move()->bool:
 	return not items.is_empty()
 	
-func can_receive()->bool:
+func is_empty()->bool:
 	return true if not is_hole and items.is_empty() else false
 	
 func can_spawn()->bool:
 	return true if not is_hole and is_spawn and items.is_empty() else false
+	
+func is_blocked()->bool:
+	return true if is_hole or (not items.is_empty() and items.back().is_blocked) else false
 	
 func add_item(item:ItemModel):
 	items.append(item)
@@ -24,8 +27,11 @@ func add_item(item:ItemModel):
 func get_item_type()->Match3Logic.EItemTypes:
 	return -1 if items.is_empty() else items.back().type
 	
-func remove_item():
-	items.pop_back()
+func remove_item()->bool:
+	if not is_blocked():
+		items.pop_back()
+		return true
+	return false
 
 func swap(from:CellModel):
 	if not is_hole or not from.is_hole:

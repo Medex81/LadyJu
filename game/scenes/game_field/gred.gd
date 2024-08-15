@@ -8,6 +8,7 @@ var _event_counter = 0
 @export var hint_delay:float = 3.0
 @export var sound_volume:float = 0.5
 @export var background_music: AudioStream
+@export var max_shuffle:int = 10
 
 #TODO завести бинд типов в свойства сетки
 var _items = {
@@ -46,10 +47,24 @@ func _on_timer_hint_delay_timeout():
 	var hint_indexs = _logic.hint()
 	for index in hint_indexs:
 		_cells[index].hint()
+		$Timer_hint_delay.stop()
+			
+func shuffle():
+	if _logic:
+		var result = _logic.shuffle()
+		if not result.is_empty():
+			if _event_counter > 0:
+				print("shuffle. Error -> Event count ", _event_counter)
+				return
+			_event_counter = result.event_count()
+			delete(result.deletes)
+			spawn(result.spawns)
+			move(result.moves)
+			call_deferred("_on_timer_hint_delay_timeout")
 		
 func move(moves:Array):
-	for _swap in moves:
-		_cells[_swap[0]].swap(_cells[_swap[1]])
+	for _cell_idx in moves:
+		_cells[_cell_idx[0]].swap(_cells[_cell_idx[1]])
 	if not moves.is_empty():
 		_cells[moves.back().back()].emit_sound()
 	
@@ -74,24 +89,37 @@ func _on_cell_tap(cell_first:Cell, cell_second:Cell):
 	if _logic and _logic.swap(first, second):
 		$Timer_hint_delay.stop()
 		get_tree().call_group("stop_cell_animations", "stop_hint_animations")
-		# tap flag - true, dont calculate counter
-		cell_first.swap(cell_second, true)
-		call_deferred("_update")
+		_event_counter += 2
+		cell_first.swap(cell_second)
 		
+func worker(result:UpdateResult)->bool:
+	if not result.is_empty():
+		if _event_counter > 0:
+			print("Error update-> Event count ", _event_counter)
+			return false
+		_event_counter = result.event_count()
+		delete(result.deletes)
+		spawn(result.spawns)
+		move(result.moves)
+		return true
+	return false
+	
+var _shuffle_counter = 0
 func _update():
 	if _logic:
-		var result = _logic.update()
-		if not result.is_empty():
-			if _event_counter > 0:
-				print("Error update-> Event count ", _event_counter)
-				return
-			_event_counter = result.event_count()
-			delete(result.deletes)
-			spawn(result.spawns)
-			move(result.moves)
-			if _event_counter:
+		if not worker(_logic.update()):
+			print("_update has_hint")
+			if not _logic.has_hint():
+				_shuffle_counter += 1
+				if _shuffle_counter < max_shuffle:
+					print("_update shuffle")
+					worker(_logic.shuffle())
+				#else:
+					#worker(_logic.delete_top_movable())
+			else:
 				$Timer_hint_delay.start()
-			#_check_model()
+		else:
+			_shuffle_counter = 0
 				
 #func _check_model():
 	#var index = 0;
@@ -102,7 +130,7 @@ func _update():
 		
 #func _unhandled_input(event):
 	#if event is InputEventKey and event.is_pressed():
-		#_update()
+		#call_deferred("_update")
 
 func done_event():
 	_event_counter -= 1

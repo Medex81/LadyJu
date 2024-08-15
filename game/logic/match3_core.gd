@@ -58,7 +58,7 @@ func set_cell_item(flat_index:int, is_blocked:bool, type:EItemTypes):
 func _move_if_can(cell:CellModel, shift:EDirect, moves:Array)->bool:
 	if cell.x + shift >= 0 and  cell.x + shift < _cols and cell.y + 1 < _rows:
 		var other_cell = _cells[cell.x + shift][cell.y + 1] as CellModel
-		if other_cell.can_receive():
+		if other_cell.is_empty():
 			cell.swap(other_cell)
 			moves.append([cell.flat_ind, other_cell.flat_ind])
 			return true
@@ -293,8 +293,45 @@ func hint()->Array[int]:
 				if not result.is_empty():
 					return result
 
-	print("No hint!")
+	print("No combinations!")
 	return result
+	
+func has_hint()->bool:
+	# diagonal find
+	for cell in _cells_hintable:
+		var _tr = _cell_hintable(cell, EDirect.TOP_RIGHT) as bool
+		var _tl = _cell_hintable(cell, EDirect.TOP_LEFT) as bool
+		var _dr = _cell_hintable(cell, EDirect.DOWN_RIGHT) as bool
+		var _dl = _cell_hintable(cell, EDirect.DOWN_LEFT) as bool
+		
+		var _t = _neighbour_cell(cell, EDirect.TOP) as CellModel
+		var _r = _neighbour_cell(cell, EDirect.RIGHT) as CellModel
+		var _d = _neighbour_cell(cell, EDirect.DOWN) as CellModel
+		var _l = _neighbour_cell(cell, EDirect.LEFT) as CellModel
+		
+		if (_tl and _tr and _t and _t.can_move()) or \
+		(_tr and _dr and _r and _r.can_move()) or \
+		(_dr and _dl and _d and _d.can_move()) or \
+		(_dl and _tl and _l and _l.can_move()):
+			return true
+			
+	# vert/hor find
+	var pairs = _find_pair()
+	for pair in pairs:
+		if not pair.is_empty():
+			# vert
+			if pair[0].x == pair[1].x:
+				# top, down
+				if not _check_pair(pair[0], pair[1], EDirect.TOP).is_empty() or not _check_pair(pair[1], pair[0], EDirect.DOWN).is_empty():
+					return true
+			# hor
+			else:
+				# left, right
+				if not _check_pair(pair[0], pair[1], EDirect.LEFT).is_empty() or not _check_pair(pair[1], pair[0], EDirect.RIGHT).is_empty():
+					return true
+
+	print("No combinations!")
+	return false
 	
 func array_unique(array: Array):
 	array.sort()
@@ -308,6 +345,29 @@ func arr_to_flat(arr:Array)->Array[int]:
 		for cell in arr:
 			result.append(_cells[cell[0]][cell[1]].flat_ind)
 	return result
+	
+func shuffle()->UpdateResult:
+	_result.clear()
+	var shuffle_cells:Array[CellModel]
+	for cell_arr in _cells:
+		for cell in cell_arr:
+			if cell.can_move():
+				shuffle_cells.append(cell)
+	for cell in shuffle_cells:
+		var i = randi_range(0, shuffle_cells.size() - 1)
+		cell.swap(shuffle_cells[i])
+		_result.moves.append([cell.flat_ind, shuffle_cells[i].flat_ind])
+		
+	return _result
+	
+func delete_top_movable()->UpdateResult:
+	_result.clear()
+	for cell_arr in _cells:
+		for cell in cell_arr:
+			#delete
+			if cell.remove_item():
+				_result.deletes.append(cell.flat_ind)
+	return _result
 	
 func update()->UpdateResult:
 	_result.clear()
