@@ -3,12 +3,23 @@ extends Node
 class_name Match3Logic
 
 enum EItemTypes{
-	RED,
+	NONE,
+	# матчевые предметы
+	ROCKET_LINE = 4, # 4, урон по вертикали или горизонтали на всю длину
+	BOMB, # 5, урон 9 клеток с текущей в центре
+	ROCKET_TYPE, # 6, урон по всем клеткам имеющим предмет с которым свапнулись
+	BOMB_TOTAL, # 7, урон по всем клеткам
+	# нематчевые предметы
+	RED,# <- этот тип должен всегда быть первым!
 	BLUE,
 	GREEN,
 	PURPLE,
-	WHITE,
-	YELLOW
+	WHITE, # <- новые типы не матчевых предметов вставляем тут!
+	YELLOW, # <- этот тип должен всегда быть последним, позади него ничего не ставим!
+	# блокеры
+	GLASS,
+	CHAIN,
+	NODE_NET
 }
 
 enum EDirect{DOWN = 0, LEFT = -1, RIGHT = 1, TOP, TOP_LEFT, TOP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
@@ -65,12 +76,11 @@ func _move_if_can(cell:CellModel, shift:EDirect, moves:Array)->bool:
 	return false
 	
 func _spawn(cell:CellModel, spawns:Array):
-	var new_item = _spawn_index
 	_spawn_index += 1
-	if _spawn_index == EItemTypes.size():
-		_spawn_index = 0
-	cell.add_item(ItemModel.new(false, new_item))
-	spawns.append([cell.flat_ind, new_item])
+	if _spawn_index > EItemTypes.YELLOW:
+		_spawn_index = EItemTypes.RED
+	cell.add_item(ItemModel.new(false, _spawn_index))
+	spawns.append([cell.flat_ind, _spawn_index])
 
 func swap(index_first:int, index_second:int)->bool:
 	var col_first = index_first % _cols
@@ -95,7 +105,9 @@ func _is_match(col:int, row:int)->bool:
 	var accum = 1
 	var is_match_with_current = false
 	for i in range(_cols):
-		if i < _cols - 1 and _cells[i][row].get_item_type() > -1 and _cells[i][row].get_item_type() == _cells[i + 1][row].get_item_type():
+		print("_is_match(c) ", _cells[i][row].get_item_type())
+		
+		if i < _cols - 1 and _cells[i][row].get_item_type() > EItemTypes.NONE and _cells[i][row].get_item_type() == _cells[i + 1][row].get_item_type():
 			accum += 1
 			if i == col or i + 1 == col:
 				is_match_with_current = true
@@ -105,7 +117,8 @@ func _is_match(col:int, row:int)->bool:
 			accum = 1
 			
 	for i in range(_rows):
-		if i < _rows - 1 and _cells[col][i].get_item_type() > -1 and _cells[col][i].get_item_type() == _cells[col][i + 1].get_item_type():
+		print("_is_match(r) ", _cells[col][i].get_item_type())
+		if i < _rows - 1 and _cells[col][i].get_item_type() > EItemTypes.NONE and _cells[col][i].get_item_type() == _cells[col][i + 1].get_item_type():
 			accum += 1
 			if i == row or i + 1 == row:
 				is_match_with_current = true
@@ -117,36 +130,52 @@ func _is_match(col:int, row:int)->bool:
 	return false
 	
 func _match()->Array:
-	var accum = 1
+	var accum = 0
 	var removes:Array
-	var remove:Array
-	
+	var match_arr:Array[CellModel]
+	# check verts
 	for col in range(_cols):
 		for row in range(_rows):
-			if row < _rows - 1 and _cells[col][row].get_item_type() > -1 and _cells[col][row].get_item_type() == _cells[col][row + 1].get_item_type():
+			if row < _rows - 1 and _cells[col][row].get_item_type() > EItemTypes.NONE and _cells[col][row].get_item_type() == _cells[col][row + 1].get_item_type():
 				accum += 1
-				remove.append([col, row])
+				match_arr.append(_cells[col][row])
 			else:
-				if accum > 2:
-					remove.append([col, row])
-					removes.append_array(remove)
-				accum = 1
-				remove.clear()
+				if accum > 1:
+					match_arr.append(_cells[col][row])
+					removes.append(match_arr.duplicate())
+				accum = 0
+				match_arr.clear()
+	# check hors
 	for row in range(_rows):
 		for col in range(_cols):
-			if col < _cols - 1 and _cells[col][row].get_item_type() > -1 and _cells[col][row].get_item_type() == _cells[col + 1][row].get_item_type():
+			if col < _cols - 1 and _cells[col][row].get_item_type() > EItemTypes.NONE and _cells[col][row].get_item_type() == _cells[col + 1][row].get_item_type():
 				accum += 1
-				remove.append([col, row])
+				match_arr.append(_cells[col][row])
 			else:
-				if accum > 2:
-					remove.append([col, row])
-					removes.append_array(remove)
-				accum = 1
-				remove.clear()
+				if accum > 1:
+					match_arr.append(_cells[col][row])
+					removes.append(match_arr.duplicate())
+				accum = 0
+				match_arr.clear()
 			
 	if not removes.is_empty():
-		for cell in removes:
-			_cells[cell[0]][cell[1]].remove_item()
+		# найти пересечения(если есть) и слить в один массив
+		var curr_match = false
+		for i in range(0, removes.size() - 1):
+			curr_match = false
+			if removes[i].is_empty():
+				continue
+			for j in range(i + 1, removes.size() - 1):
+				if not removes[i].is_empty() and not removes[j].is_empty():
+					for cell in removes[i]:
+						if removes[j].has(cell):
+							removes[j].erase(cell)
+							removes[i].append_array(removes[j])
+							removes[j].clear()
+							curr_match = true
+							break
+				if curr_match:
+					break
 	return removes
 	
 func _neighbour_cell(cell:CellModel, direct:EDirect)->CellModel:
@@ -177,8 +206,8 @@ func _neighbour_cell(cell:CellModel, direct:EDirect)->CellModel:
 				return _cells[cell.x - 1][cell.y - 1]
 	return null
 	
-func _cell_hintable(cell:CellModel, direct:EDirect, type:EItemTypes = -1)->bool:
-	if type == -1:
+func _cell_hintable(cell:CellModel, direct:EDirect, type:EItemTypes = EItemTypes.NONE)->bool:
+	if type == EItemTypes.NONE:
 		type = cell.get_item_type()
 	var other_cell:CellModel = _neighbour_cell(cell, direct)
 	if other_cell and other_cell.can_move() and other_cell.get_item_type() == type:
@@ -333,19 +362,6 @@ func has_hint()->bool:
 	print("No combinations!")
 	return false
 	
-func array_unique(array: Array):
-	array.sort()
-	for i in range(array.size() - 2, -1, -1):
-		if array[i] == array[i + 1]:
-			array.remove_at(i + 1)
-	
-func arr_to_flat(arr:Array)->Array[int]:
-	var result:Array[int]
-	if not arr.is_empty():
-		for cell in arr:
-			result.append(_cells[cell[0]][cell[1]].flat_ind)
-	return result
-	
 func shuffle()->UpdateResult:
 	_result.clear()
 	var shuffle_cells:Array[CellModel]
@@ -368,30 +384,80 @@ func delete_top_movable()->UpdateResult:
 			if cell.remove_item():
 				_result.deletes.append(cell.flat_ind)
 	return _result
+
+func _spawn_match_item(_item_type:EItemTypes, src_arr:Array[CellModel], spawn_arr:Array):
+	# в клетку в которую перемещали предмет записываем дату, сматченный предмет вставляем в клетку с самой поздней датой.
+	match src_arr.size():
+		EItemTypes.ROCKET_LINE:#4
+			var cell = _get_last_updated_cell(src_arr)
+			if cell:
+				cell.add_item(ItemModel.new(false, EItemTypes.ROCKET_LINE))
+				spawn_arr.append([cell.flat_ind, EItemTypes.ROCKET_LINE])
+		EItemTypes.BOMB:#5
+			var cell = _get_last_updated_cell(src_arr)
+			if cell:
+				cell.add_item(ItemModel.new(false, EItemTypes.BOMB))
+				spawn_arr.append([cell.flat_ind, EItemTypes.BOMB])
+		EItemTypes.ROCKET_TYPE:#6
+			var cell = _get_last_updated_cell(src_arr)
+			if cell:
+				cell.add_item(ItemModel.new(false, EItemTypes.ROCKET_TYPE))
+				spawn_arr.append([cell.flat_ind, EItemTypes.ROCKET_TYPE])
+		EItemTypes.BOMB_TOTAL:#7
+			var cell = _get_last_updated_cell(src_arr)
+			if cell:
+				cell.add_item(ItemModel.new(false, EItemTypes.BOMB_TOTAL))
+				spawn_arr.append([cell.flat_ind, EItemTypes.BOMB_TOTAL])
+				
+# на моделях клеток ставим метки времени последнего изменения, это нужно для определения позиции вставки предмета. 
+func _get_last_updated_cell(arr:Array[CellModel])->CellModel:
+	var update_time:int = 0
+	var cell:CellModel = null
+	for _cell in arr:
+		if _cell.last_update > update_time:
+			update_time = _cell.last_update
+			cell = _cell
+	return cell
 	
 func update()->UpdateResult:
 	_result.clear()
-	
-	#delete matches
-	_result.deletes = arr_to_flat(_match())
-	array_unique(_result.deletes)
+	# не менять последовательность! удаление - создание - перемещение
+	 
+	# удаление последовательностей.
+	# находим последовательности, они будут в виде списков указателей на модели клеток собранных с пересечениями.
+	var removes = _match()
+	if not removes.is_empty():
+		var match_item_type:EItemTypes = EItemTypes.NONE
+		for arr in removes:
+			if not arr.is_empty():
+				# добавим список плоских индексов для удаления топ предметов в представлении
+				_result.deletes.append_array(arr.map(func(cell:CellModel):return cell.flat_ind))
+				# запомним тип предметов сматченной последовательности(будем использовать для связанных с типом предметов).
+				match_item_type = arr.back().get_item_type()
+				# удалить все топовые предметы из клеток.
+				# при удалении не обновлять метку времени для правильного выбора позиции вставляемого предмета(последний перемещённый).
+				for cell in arr:
+					cell.remove_item(false)
+				# подобрать и вставить предмет по типу матча и количеству.
+				_spawn_match_item(match_item_type, arr, _result.spawns)
+	# разделяем изменения на поле на отдельные наборы шагов иначе всё смешается в кучу.
 	if not _result.deletes.is_empty():
 		return _result
 	
-	#spawn
+	# создаем предметы в клетках спавна если они пустые
 	for cell in _cells_spawnable:
 		if cell.can_spawn():
 			_spawn(cell, _result.spawns)
 	if not _result.spawns.is_empty():
 		return _result
 	
-	#move down
+	# перемещаем предметы между клетками, сначала вниз для создания эффекта падения.
 	for cell in _cells_auto_movable:
 		cell.can_move() and _move_if_can(cell, EDirect.DOWN, _result.moves)
 	if not _result.moves.is_empty():
 		return _result
 		
-	#move left/right
+	# перемещаем предметы влево или вправо
 	for cell in _cells_auto_movable:
 		if cell.can_move() and (_move_if_can(cell, EDirect.LEFT, _result.moves) or _move_if_can(cell, EDirect.RIGHT, _result.moves)):
 			return _result
