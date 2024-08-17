@@ -17,7 +17,10 @@ var _items = {
 	Match3Logic.EItemTypes.GREEN: preload("res://game/scenes/game_field/items/item_green.tscn"),
 	Match3Logic.EItemTypes.PURPLE: preload("res://game/scenes/game_field/items/item_purple.tscn"),
 	Match3Logic.EItemTypes.WHITE: preload("res://game/scenes/game_field/items/item_white.tscn"),
-	Match3Logic.EItemTypes.YELLOW: preload("res://game/scenes/game_field/items/item_yellow.tscn")
+	Match3Logic.EItemTypes.YELLOW: preload("res://game/scenes/game_field/items/item_yellow.tscn"),
+	
+	Match3Logic.EItemTypes.ROCKET_LINE: preload("res://game/scenes/game_field/items/item_rocket_line.tscn"),
+	Match3Logic.EItemTypes.BOMB: preload("res://game/scenes/game_field/items/item_bomb.tscn")
 }
 
 func _ready():
