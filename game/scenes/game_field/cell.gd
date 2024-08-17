@@ -28,7 +28,7 @@ var _animated_item_lambda = null
 signal send_tap(control_first:Control, control_second:Control)
 
 func get_item_type()->Match3Logic.EItemTypes:
-	return items.back().item_type if not items.is_empty() else -1
+	return items.back().item_type if not items.is_empty() else Match3Logic.EItemTypes.NONE
 
 func get_item_node_list()->Array[Item]:
 	var _items:Array[Item]
