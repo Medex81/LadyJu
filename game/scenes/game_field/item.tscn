@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://dextgrfq5l6oy" path="res://addons/kenney impact sounds/impact_metal_heavy_002.ogg" id="2_jf6r8"]
 
 [node name="item" type="Sprite2D"]
-scale = Vector2(0.55, 0.55)
+scale = Vector2(0.84, 0.84)
 centered = false
 script = ExtResource("1_r0pi1")
 sound_bouns = ExtResource("2_jf6r8")
