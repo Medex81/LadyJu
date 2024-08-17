@@ -8,6 +8,7 @@ var items:Array[ItemModel]
 var x = -1
 var y = -1
 var flat_ind = -1
+var last_update:int = Time.get_ticks_msec()
 
 func can_move()->bool:
 	return not items.is_empty()
@@ -22,12 +23,15 @@ func is_blocked()->bool:
 	return true if is_hole or (not items.is_empty() and items.back().is_blocked) else false
 	
 func add_item(item:ItemModel):
+	last_update = Time.get_ticks_msec()
 	items.append(item)
 
 func get_item_type()->Match3Logic.EItemTypes:
-	return -1 if items.is_empty() else items.back().type
+	return Match3Logic.EItemTypes.NONE if items.is_empty() else items.back().type
 	
-func remove_item()->bool:
+func remove_item(is_updated:bool = true)->bool:
+	if is_updated:
+		last_update = Time.get_ticks_msec()
 	if not is_blocked():
 		items.pop_back()
 		return true
@@ -39,5 +43,7 @@ func swap(from:CellModel):
 		var tmp_from = from.items.pop_back()
 		if tmp_this and not tmp_this.is_blocked:
 			from.items.push_back(tmp_this)
+			from.last_update = Time.get_ticks_msec()
 		if tmp_from and not tmp_from.is_blocked:
 			items.push_back(tmp_from)
+			last_update = Time.get_ticks_msec()
