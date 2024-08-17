@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://8gm3k78781kl"]
 
 [ext_resource type="PackedScene" uid="uid://bo5brdc8b48gg" path="res://game/scenes/game_field/item.tscn" id="1_pnhkl"]
-[ext_resource type="Texture2D" uid="uid://c6br1xjwgt5ky" path="res://game/assets/anny_pack/crystal_red.png" id="2_v82td"]
+[ext_resource type="Texture2D" uid="uid://bhskjrpecqd0e" path="res://game/assets/anny_pack/crystal_red.png" id="2_v82td"]
 
 [node name="item" instance=ExtResource("1_pnhkl")]
 texture = ExtResource("2_v82td")
+item_type = 8
