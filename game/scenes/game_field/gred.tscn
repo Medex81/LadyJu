@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://74n22nyd7nhk"]
+[gd_scene load_steps=15 format=3 uid="uid://74n22nyd7nhk"]
 
 [ext_resource type="Script" path="res://game/scenes/game_field/gred.gd" id="1_dk66i"]
 [ext_resource type="AudioStream" uid="uid://gl2m5jgyjra8" path="res://game/assets/anny_pack/sounds/Raindrops-Dreaming.ogg" id="2_tccpg"]
 [ext_resource type="PackedScene" uid="uid://ci8gbjoyi55v8" path="res://game/scenes/game_field/cell.tscn" id="2_tw0j8"]
 [ext_resource type="PackedScene" uid="uid://1jd6m0ikwj7k" path="res://game/scenes/game_field/items/item_white.tscn" id="4_god0l"]
 [ext_resource type="PackedScene" uid="uid://8gm3k78781kl" path="res://game/scenes/game_field/items/item_red.tscn" id="5_k47fr"]
+[ext_resource type="PackedScene" uid="uid://d20namtvhu6cw" path="res://game/scenes/game_field/items/item_yellow.tscn" id="6_6rinw"]
 [ext_resource type="PackedScene" uid="uid://clvtsbdmap8cx" path="res://game/scenes/game_field/items/item_green.tscn" id="6_y4h5c"]
 [ext_resource type="PackedScene" uid="uid://xsrk5vegw4mb" path="res://game/scenes/game_field/items/item_blue.tscn" id="7_7c33a"]
 
@@ -23,21 +24,21 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rf740"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lhry"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdo6b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5eh6e"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lw6e"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ankgn"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -176,17 +177,17 @@ layout_mode = 2
 
 [node name="cell34" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rf740")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2lhry")
 is_hole = true
 
 [node name="cell35" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wdo6b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5eh6e")
 is_hole = true
 
 [node name="cell36" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0lw6e")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ankgn")
 is_hole = true
 
 [node name="cell37" parent="." instance=ExtResource("2_tw0j8")]
@@ -282,6 +283,8 @@ layout_mode = 2
 [node name="cell67" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell67" instance=ExtResource("7_7c33a")]
+
 [node name="cell68" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
@@ -290,6 +293,8 @@ layout_mode = 2
 
 [node name="cell70" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell70" instance=ExtResource("4_god0l")]
 
 [node name="cell71" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -318,16 +323,22 @@ layout_mode = 2
 [node name="cell77" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell77" instance=ExtResource("5_k47fr")]
+[node name="item" parent="cell77" instance=ExtResource("7_7c33a")]
 
 [node name="cell78" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell78" instance=ExtResource("6_6rinw")]
+
 [node name="cell79" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell79" instance=ExtResource("4_god0l")]
+
 [node name="cell80" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell80" instance=ExtResource("6_6rinw")]
 
 [node name="cell81" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -346,27 +357,33 @@ layout_mode = 2
 [node name="cell85" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell85" instance=ExtResource("5_k47fr")]
+[node name="item" parent="cell85" instance=ExtResource("7_7c33a")]
 
 [node name="cell86" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell86" instance=ExtResource("6_y4h5c")]
+[node name="item" parent="cell86" instance=ExtResource("7_7c33a")]
 
 [node name="cell87" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell87" instance=ExtResource("7_7c33a")]
+[node name="item" parent="cell87" instance=ExtResource("6_6rinw")]
 
 [node name="cell88" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell88" instance=ExtResource("7_7c33a")]
+
 [node name="cell89" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell89" instance=ExtResource("6_y4h5c")]
 
 [node name="cell90" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_awejm")
+
+[node name="item" parent="cell90" instance=ExtResource("4_god0l")]
 
 [node name="cell91" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
@@ -385,28 +402,32 @@ layout_mode = 2
 [node name="cell95" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell95" instance=ExtResource("7_7c33a")]
+[node name="item" parent="cell95" instance=ExtResource("5_k47fr")]
 
 [node name="cell96" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell96" instance=ExtResource("7_7c33a")]
+[node name="item" parent="cell96" instance=ExtResource("6_y4h5c")]
 
 [node name="cell97" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell97" instance=ExtResource("6_y4h5c")]
+[node name="item" parent="cell97" instance=ExtResource("7_7c33a")]
 
 [node name="cell98" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
-[node name="item2" parent="cell98" instance=ExtResource("7_7c33a")]
+[node name="item" parent="cell98" instance=ExtResource("5_k47fr")]
 
 [node name="cell99" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
 
+[node name="item" parent="cell99" instance=ExtResource("6_y4h5c")]
+
 [node name="cell100" parent="." instance=ExtResource("2_tw0j8")]
 layout_mode = 2
+
+[node name="item" parent="cell100" instance=ExtResource("4_god0l")]
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="timeout" from="Timer_hint_delay" to="." method="_on_timer_hint_delay_timeout"]

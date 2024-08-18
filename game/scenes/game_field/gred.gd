@@ -19,8 +19,13 @@ var _items = {
 	Match3Logic.EItemTypes.WHITE: preload("res://game/scenes/game_field/items/item_white.tscn"),
 	Match3Logic.EItemTypes.YELLOW: preload("res://game/scenes/game_field/items/item_yellow.tscn"),
 	
-	Match3Logic.EItemTypes.ROCKET_LINE: preload("res://game/scenes/game_field/items/item_rocket_line.tscn"),
-	Match3Logic.EItemTypes.BOMB: preload("res://game/scenes/game_field/items/item_bomb.tscn")
+	Match3Logic.EItemTypes.ROCKET_LINE_H: preload("res://game/scenes/game_field/items/item_rocket_line_h.tscn"),
+	Match3Logic.EItemTypes.ROCKET_LINE_V: preload("res://game/scenes/game_field/items/item_rocket_line_v.tscn"),
+	Match3Logic.EItemTypes.BOMB: preload("res://game/scenes/game_field/items/item_bomb.tscn"),
+	Match3Logic.EItemTypes.AMULET: preload("res://game/scenes/game_field/items/item_amulet.tscn"),
+	
+	Match3Logic.EItemTypes.GLASS: preload("res://game/scenes/game_field/items/item_glass.tscn"),
+	Match3Logic.EItemTypes.CHAIN: preload("res://game/scenes/game_field/items/item_chains.tscn")
 }
 
 func _ready():
@@ -111,11 +116,9 @@ var _shuffle_counter = 0
 func _update():
 	if _logic:
 		if not worker(_logic.update()):
-			print("_update has_hint")
 			if not _logic.has_hint():
 				_shuffle_counter += 1
 				if _shuffle_counter < max_shuffle:
-					print("_update shuffle")
 					worker(_logic.shuffle())
 				#else:
 					#worker(_logic.delete_top_movable())
