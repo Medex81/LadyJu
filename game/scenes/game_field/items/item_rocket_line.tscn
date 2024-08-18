@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcq7ipqqc2vs8"]
-
-[ext_resource type="PackedScene" uid="uid://bo5brdc8b48gg" path="res://game/scenes/game_field/item.tscn" id="1_0riqf"]
-[ext_resource type="Texture2D" uid="uid://dd62j3u85bkuf" path="res://game/assets/anny_pack/coin2.png" id="2_0mteh"]
-
-[node name="item" instance=ExtResource("1_0riqf")]
-texture = ExtResource("2_0mteh")
-item_type = 4
