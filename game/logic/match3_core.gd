@@ -34,6 +34,7 @@ var _cells_auto_movable:Array
 var _cells_hintable:Array
 var _result:UpdateResult = UpdateResult.new()
 var _spawn_index:int = 0
+var _swap_matched_cells:Array[CellModel]
 
 func _init(cols:int, rows:int):
 	for col in range(cols):
@@ -90,40 +91,67 @@ func swap(index_first:int, index_second:int)->bool:
 	var col_second = index_second % _cols
 	var row_second = index_second / _cols
 	
-	var cell_first = _cells[col_first][row_first]
-	var cell_second = _cells[col_second][row_second]
+	if (col_first < 0 or col_first >= _cols) \
+	or (col_second < 0 or col_second >= _cols) \
+	or (row_first < 0 or row_first >= _rows) \
+	or (row_second < 0 or row_second >= _rows):
+		return false
+	
+	var cell_first = _cells[col_first][row_first] as CellModel
+	var cell_second = _cells[col_second][row_second] as CellModel
 	
 	if absi(col_first - col_second) + absi(row_first - row_second) == 1 \
 	and cell_first.can_move() and cell_second.can_move():
 		cell_first.swap(cell_second)
-		if _is_match(col_first, row_first) or _is_match(col_second, row_second):
+		if cell_first.can_move() and cell_second.can_move() and (_is_matched_type(cell_first) or _is_matched_type(cell_second)):
+			_swap_matched_cells = [cell_first, cell_second]
+			return true
+			
+		if _is_match(cell_first) or _is_match(cell_second):
 			return true
 		else:
 			cell_first.swap(cell_second)
 	return false
 	
-func _is_match(col:int, row:int)->bool:
-	var accum = 1
+func _is_matched_type(cell:CellModel)->bool:
+	return true if cell.get_item_type() > EItemTypes.NONE and cell.get_item_type() < EItemTypes.RED else false
+
+func _is_match(cell:CellModel)->bool:
+	if not _swap_matched_cells.is_empty():
+		return true
+	
+	var accum = 0
 	var is_match_with_current = false
-	for i in range(_cols):
-		if i < _cols - 1 and _cells[i][row].get_item_type() > EItemTypes.NONE and _cells[i][row].get_item_type() == _cells[i + 1][row].get_item_type():
+	var cell_type_1:EItemTypes = EItemTypes.NONE
+	var cell_type_2:EItemTypes = EItemTypes.NONE
+	
+	for x in range(_cols):
+		if x < _cols - 1 \
+		and _cells[x][cell.y].get_item_type() > EItemTypes.NONE \
+		and _cells[x][cell.y].get_item_type() <= EItemTypes.YELLOW \
+		and _cells[x][cell.y].get_item_type() == _cells[x + 1][cell.y].get_item_type():
 			accum += 1
-			if i == col or i + 1 == col:
+			if x == cell.x or cell.x + 1 == cell.x:
 				is_match_with_current = true
 		else:
-			if accum > 2 and is_match_with_current:
+			if accum > 1 and is_match_with_current:
 				return true
-			accum = 1
+			accum = 0
+			is_match_with_current = false
 			
-	for i in range(_rows):
-		if i < _rows - 1 and _cells[col][i].get_item_type() > EItemTypes.NONE and _cells[col][i].get_item_type() == _cells[col][i + 1].get_item_type():
+	for y in range(_rows):
+		if y < _rows - 1 \
+		and _cells[cell.x][y].get_item_type() > EItemTypes.NONE \
+		and _cells[cell.x][y].get_item_type() <= EItemTypes.YELLOW \
+		and _cells[cell.x][y].get_item_type() == _cells[cell.x][y + 1].get_item_type():
 			accum += 1
-			if i == row or i + 1 == row:
+			if y == cell.y or y + 1 == cell.y:
 				is_match_with_current = true
 		else:
-			if accum > 2 and is_match_with_current:
+			if accum > 1 and is_match_with_current:
 				return true
-			accum = 1
+			accum = 0
+			is_match_with_current = false
 			
 	return false
 
@@ -135,6 +163,11 @@ func _match()->Array:
 	var removes:Array
 	# последовательность предметов которую мы нашли
 	var match_arr:Array[CellModel]
+	
+	if not _swap_matched_cells.is_empty():
+		removes.append(_swap_matched_cells.duplicate())
+		_swap_matched_cells.clear()
+	
 	# проверяем вертикально по столбцам
 	for col in range(_cols):
 		for row in range(_rows):
@@ -181,6 +214,7 @@ func _match()->Array:
 					break
 	return removes
 	
+# вернуть соседнюю клетку по указанному направлению
 func _neighbour_cell(cell:CellModel, direct:EDirect)->CellModel:
 	match direct:
 		EDirect.TOP:
@@ -209,7 +243,9 @@ func _neighbour_cell(cell:CellModel, direct:EDirect)->CellModel:
 				return _cells[cell.x - 1][cell.y - 1]
 	return null
 	
+# проверить соседнюю клетку с переданной по указанному направлению, на равенство типа.
 func _cell_hintable(cell:CellModel, direct:EDirect, type:EItemTypes = EItemTypes.NONE)->bool:
+	# если тип не указан - ищем клетку с типом исходной
 	if type == EItemTypes.NONE:
 		type = cell.get_item_type()
 	var other_cell:CellModel = _neighbour_cell(cell, direct)
@@ -271,18 +307,34 @@ func _check_pair(cell:CellModel, cell_second:CellModel, direct:EDirect)->Array[i
 	
 func hint()->Array[int]:
 	var result:Array[int]
+	var _tr = false; var _tl = false; var _dr = false; var _dl = false
+	var _t = null; var _r = null; var _d = null; var _l = null
+	
 	# diagonal find
 	for cell in _cells_hintable:
-		var _tr = _cell_hintable(cell, EDirect.TOP_RIGHT) as bool
-		var _tl = _cell_hintable(cell, EDirect.TOP_LEFT) as bool
-		var _dr = _cell_hintable(cell, EDirect.DOWN_RIGHT) as bool
-		var _dl = _cell_hintable(cell, EDirect.DOWN_LEFT) as bool
+		_tr = _cell_hintable(cell, EDirect.TOP_RIGHT) as bool
+		_tl = _cell_hintable(cell, EDirect.TOP_LEFT) as bool
+		_dr = _cell_hintable(cell, EDirect.DOWN_RIGHT) as bool
+		_dl = _cell_hintable(cell, EDirect.DOWN_LEFT) as bool
+			
+		_t = _neighbour_cell(cell, EDirect.TOP) as CellModel
+		_r = _neighbour_cell(cell, EDirect.RIGHT) as CellModel
+		_d = _neighbour_cell(cell, EDirect.DOWN) as CellModel
+		_l = _neighbour_cell(cell, EDirect.LEFT) as CellModel
 		
-		var _t = _neighbour_cell(cell, EDirect.TOP) as CellModel
-		var _r = _neighbour_cell(cell, EDirect.RIGHT) as CellModel
-		var _d = _neighbour_cell(cell, EDirect.DOWN) as CellModel
-		var _l = _neighbour_cell(cell, EDirect.LEFT) as CellModel
-		
+		if _is_matched_type(cell):
+			if _t and _t.can_move():
+				result.append(_t.flat_ind)
+			elif _r and _r.can_move():
+				result.append(_r.flat_ind)
+			elif _d and _d.can_move():
+				result.append(_d.flat_ind)
+			elif _l and _l.can_move():
+				result.append(_l.flat_ind)
+			if not result.is_empty():
+				result.append(cell.flat_ind)
+				return result
+				
 		if _tl and _tr and _t and _t.can_move():
 			result.append(_neighbour_cell(cell, EDirect.TOP_RIGHT).flat_ind)
 			result.append(_neighbour_cell(cell, EDirect.TOP_LEFT).flat_ind)
@@ -329,17 +381,23 @@ func hint()->Array[int]:
 	return result
 	
 func has_hint()->bool:
+	var _tr = false; var _tl = false; var _dr = false; var _dl = false
+	var _t = null; var _r = null; var _d = null; var _l = null
 	# diagonal find
 	for cell in _cells_hintable:
-		var _tr = _cell_hintable(cell, EDirect.TOP_RIGHT) as bool
-		var _tl = _cell_hintable(cell, EDirect.TOP_LEFT) as bool
-		var _dr = _cell_hintable(cell, EDirect.DOWN_RIGHT) as bool
-		var _dl = _cell_hintable(cell, EDirect.DOWN_LEFT) as bool
+		_tr = _cell_hintable(cell, EDirect.TOP_RIGHT) as bool
+		_tl = _cell_hintable(cell, EDirect.TOP_LEFT) as bool
+		_dr = _cell_hintable(cell, EDirect.DOWN_RIGHT) as bool
+		_dl = _cell_hintable(cell, EDirect.DOWN_LEFT) as bool
 		
-		var _t = _neighbour_cell(cell, EDirect.TOP) as CellModel
-		var _r = _neighbour_cell(cell, EDirect.RIGHT) as CellModel
-		var _d = _neighbour_cell(cell, EDirect.DOWN) as CellModel
-		var _l = _neighbour_cell(cell, EDirect.LEFT) as CellModel
+		_t = _neighbour_cell(cell, EDirect.TOP) as CellModel
+		_r = _neighbour_cell(cell, EDirect.RIGHT) as CellModel
+		_d = _neighbour_cell(cell, EDirect.DOWN) as CellModel
+		_l = _neighbour_cell(cell, EDirect.LEFT) as CellModel
+		
+		if _is_matched_type(cell):
+			if _t and _t.can_move() or _r and _r.can_move() or _d and _d.can_move() or _l and _l.can_move():
+				return true
 		
 		if (_tl and _tr and _t and _t.can_move()) or \
 		(_tr and _dr and _r and _r.can_move()) or \
