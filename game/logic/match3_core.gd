@@ -5,9 +5,10 @@ class_name Match3Logic
 enum EItemTypes{
 	NONE,
 	# матчевые предметы
-	ROCKET_LINE = 4, # 4, урон по вертикали или горизонтали на всю длину
+	ROCKET_LINE_H, # 4, урон по горизонтали на всю длину
+	ROCKET_LINE_V,  # 4, урон по вертикали на всю длину
 	BOMB, # 5, урон 9 клеток с текущей в центре
-	ROCKET_TYPE, # 6, урон по всем клеткам имеющим предмет с которым свапнулись
+	AMULET, # 6, урон по всем клеткам имеющим предмет с которым свапнулись
 	BOMB_TOTAL, # 7, урон по всем клеткам
 	# нематчевые предметы
 	RED,# <- этот тип должен всегда быть первым!
@@ -105,8 +106,6 @@ func _is_match(col:int, row:int)->bool:
 	var accum = 1
 	var is_match_with_current = false
 	for i in range(_cols):
-		print("_is_match(c) ", _cells[i][row].get_item_type())
-		
 		if i < _cols - 1 and _cells[i][row].get_item_type() > EItemTypes.NONE and _cells[i][row].get_item_type() == _cells[i + 1][row].get_item_type():
 			accum += 1
 			if i == col or i + 1 == col:
@@ -117,7 +116,6 @@ func _is_match(col:int, row:int)->bool:
 			accum = 1
 			
 	for i in range(_rows):
-		print("_is_match(r) ", _cells[col][i].get_item_type())
 		if i < _rows - 1 and _cells[col][i].get_item_type() > EItemTypes.NONE and _cells[col][i].get_item_type() == _cells[col][i + 1].get_item_type():
 			accum += 1
 			if i == row or i + 1 == row:
@@ -128,24 +126,29 @@ func _is_match(col:int, row:int)->bool:
 			accum = 1
 			
 	return false
-	
+
+# проходим по строкам и столбцам в поисках предметов с одинаковым типом идущих подряд.
 func _match()->Array:
+	# количество подряд встретившихся предметов
 	var accum = 0
+	# общий список последовательностей предметов
 	var removes:Array
+	# последовательность предметов которую мы нашли
 	var match_arr:Array[CellModel]
-	# check verts
+	# проверяем вертикально по столбцам
 	for col in range(_cols):
 		for row in range(_rows):
 			if row < _rows - 1 and _cells[col][row].get_item_type() > EItemTypes.NONE and _cells[col][row].get_item_type() == _cells[col][row + 1].get_item_type():
 				accum += 1
 				match_arr.append(_cells[col][row])
 			else:
+				# добавляем последний найденный предмет в текущую последовательность
 				if accum > 1:
 					match_arr.append(_cells[col][row])
 					removes.append(match_arr.duplicate())
 				accum = 0
 				match_arr.clear()
-	# check hors
+	# проверяем горизонтально по строкам
 	for row in range(_rows):
 		for col in range(_cols):
 			if col < _cols - 1 and _cells[col][row].get_item_type() > EItemTypes.NONE and _cells[col][row].get_item_type() == _cells[col + 1][row].get_item_type():
@@ -159,13 +162,13 @@ func _match()->Array:
 				match_arr.clear()
 			
 	if not removes.is_empty():
-		# найти пересечения(если есть) и слить в один массив
+		# найти пересечения(если есть) и слить в один массив по сборкам
 		var curr_match = false
-		for i in range(0, removes.size() - 1):
+		for i in range(0, removes.size()):
 			curr_match = false
-			if removes[i].is_empty():
+			if removes[i].is_empty() or i + 1 >= removes.size():
 				continue
-			for j in range(i + 1, removes.size() - 1):
+			for j in range(i + 1, removes.size()):
 				if not removes[i].is_empty() and not removes[j].is_empty():
 					for cell in removes[i]:
 						if removes[j].has(cell):
@@ -387,27 +390,24 @@ func delete_top_movable()->UpdateResult:
 
 func _spawn_match_item(_item_type:EItemTypes, src_arr:Array[CellModel], spawn_arr:Array):
 	# в клетку в которую перемещали предмет записываем дату, сматченный предмет вставляем в клетку с самой поздней датой.
-	match src_arr.size():
-		EItemTypes.ROCKET_LINE:#4
-			var cell = _get_last_updated_cell(src_arr)
-			if cell:
-				cell.add_item(ItemModel.new(false, EItemTypes.ROCKET_LINE))
-				spawn_arr.append([cell.flat_ind, EItemTypes.ROCKET_LINE])
-		EItemTypes.BOMB:#5
-			var cell = _get_last_updated_cell(src_arr)
-			if cell:
+	var cell = _get_last_updated_cell(src_arr)
+	if cell:
+		match src_arr.size():
+			4:# ROCKET_LINE_V or ROCKET_LINE_H
+				var type = EItemTypes.ROCKET_LINE_V if src_arr[0].x == src_arr[1].x else EItemTypes.ROCKET_LINE_H
+				cell.add_item(ItemModel.new(false, type))
+				spawn_arr.append([cell.flat_ind, type])
+			5:# BOMB
 				cell.add_item(ItemModel.new(false, EItemTypes.BOMB))
 				spawn_arr.append([cell.flat_ind, EItemTypes.BOMB])
-		EItemTypes.ROCKET_TYPE:#6
-			var cell = _get_last_updated_cell(src_arr)
-			if cell:
-				cell.add_item(ItemModel.new(false, EItemTypes.ROCKET_TYPE))
-				spawn_arr.append([cell.flat_ind, EItemTypes.ROCKET_TYPE])
-		EItemTypes.BOMB_TOTAL:#7
-			var cell = _get_last_updated_cell(src_arr)
-			if cell:
+			6:# AMULET
+				cell.add_item(ItemModel.new(false, EItemTypes.AMULET))
+				spawn_arr.append([cell.flat_ind, EItemTypes.AMULET])
+			7:# BOMB_TOTAL
 				cell.add_item(ItemModel.new(false, EItemTypes.BOMB_TOTAL))
 				spawn_arr.append([cell.flat_ind, EItemTypes.BOMB_TOTAL])
+	else:
+		print("Erorr. _spawn_match_item(_get_last_updated_cell) is null.")
 				
 # на моделях клеток ставим метки времени последнего изменения, это нужно для определения позиции вставки предмета. 
 func _get_last_updated_cell(arr:Array[CellModel])->CellModel:
