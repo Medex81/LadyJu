@@ -85,7 +85,7 @@ func move_animation(item:Item, new_position:Vector2):
 		_tween_move.kill()
 
 	_tween_move = create_tween()
-	_tween_move.tween_property(item, "position", new_position,  get_parent().move_time)
+	_tween_move.tween_property(item, "position", new_position,  M3Core.move_time)
 	_tween_move.tween_callback(_done)
 	
 func _done(count:int = 1):
@@ -112,10 +112,10 @@ func hint_animation(item:Item):
 	_tween_hint.set_loops(100)
 	var old_scale = item.scale
 	var old_position = item.position
-	_tween_hint.tween_property(item, "scale", old_scale * get_parent().animation_scale, get_parent().hint_time)
-	_tween_hint.parallel().tween_property(item, "position", size * -((get_parent().animation_scale - 1) / 2.0), get_parent().hint_time)
-	_tween_hint.tween_property(item, "scale", old_scale, get_parent().hint_time)
-	_tween_hint.parallel().tween_property(item, "position", old_position, get_parent().hint_time)
+	_tween_hint.tween_property(item, "scale", old_scale * M3Core.animation_scale, M3Core.hint_time)
+	_tween_hint.parallel().tween_property(item, "position", size * -((M3Core.animation_scale - 1) / 2.0), M3Core.hint_time)
+	_tween_hint.tween_property(item, "scale", old_scale, M3Core.hint_time)
+	_tween_hint.parallel().tween_property(item, "position", old_position, M3Core.hint_time)
 	_animated_item_lambda = func(): if item: item.scale = old_scale; item.position = old_position
 
 # меняем предметы между клетками
