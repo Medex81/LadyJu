@@ -1,10 +1,11 @@
-[gd_scene load_steps=105 format=3 uid="uid://dikmf66fj46rq"]
+[gd_scene load_steps=106 format=3 uid="uid://dikmf66fj46rq"]
 
 [ext_resource type="Script" path="res://game/scenes/match3/m_3_grid.gd" id="1_ou8y0"]
 [ext_resource type="PackedScene" uid="uid://cj650kndk2hk6" path="res://game/scenes/match3/cell.tscn" id="2_uh8e3"]
 [ext_resource type="PackedScene" uid="uid://usgblk5k71av" path="res://game/scenes/match3/items/item_blue.tscn" id="3_x6jae"]
 [ext_resource type="PackedScene" uid="uid://1yxe8uenv4ef" path="res://game/scenes/match3/items/item_purple.tscn" id="4_s02kd"]
 [ext_resource type="PackedScene" uid="uid://jm66vj25qku4" path="res://game/scenes/match3/items/item_green.tscn" id="5_nhbrl"]
+[ext_resource type="PackedScene" uid="uid://wpfs73jnjyjq" path="res://game/scenes/match3/m3core/m3core.tscn" id="6_ycj06"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tix0"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
@@ -300,21 +301,21 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81qfa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fniyk"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xd15w"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm377"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yaiiv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3802"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -708,11 +709,6 @@ theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 10
 script = ExtResource("1_ou8y0")
-max_shuffle = null
-hint_delay = null
-animation_scale = null
-hint_time = null
-move_time = null
 
 [node name="cell" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
@@ -897,17 +893,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0sem1")
 
 [node name="cell44" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_81qfa")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fniyk")
 _is_hole = true
 
 [node name="cell45" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xd15w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dm377")
 _is_hole = true
 
 [node name="cell46" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yaiiv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_y3802")
 _is_hole = true
 
 [node name="cell47" parent="." instance=ExtResource("2_uh8e3")]
@@ -1147,3 +1143,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_lpiro")
 [node name="cell100" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2afhy")
+
+[node name="M3Core" parent="." instance=ExtResource("6_ycj06")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_hint_delay_timeout"]
