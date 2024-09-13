@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqemswt4e1j4n"]
-
-[ext_resource type="PackedScene" uid="uid://bo5brdc8b48gg" path="res://game/scenes/game_field/item.tscn" id="1_204ui"]
-[ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/dinamit.png" id="2_wjmy2"]
-
-[node name="item" instance=ExtResource("1_204ui")]
-texture = ExtResource("2_wjmy2")
-item_type = 5

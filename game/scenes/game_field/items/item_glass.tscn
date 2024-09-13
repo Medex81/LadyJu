@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm1ysdwn558y8"]
-
-[ext_resource type="PackedScene" uid="uid://bo5brdc8b48gg" path="res://game/scenes/game_field/item.tscn" id="1_0eayi"]
-[ext_resource type="Texture2D" uid="uid://n73bi4828lg1" path="res://game/assets/anny_pack/glass.png" id="2_le8fk"]
-
-[node name="item" instance=ExtResource("1_0eayi")]
-self_modulate = Color(0.152941, 0.235294, 0.729412, 0.227451)
-texture = ExtResource("2_le8fk")
-item_type = 14
