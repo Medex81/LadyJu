@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://nw1e23ggtqad"]
+
+[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://game/scenes/match3/item.tscn" id="1_xdlqj"]
+[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_yu78f"]
+
+[node name="item" instance=ExtResource("1_xdlqj")]
+texture = ExtResource("2_yu78f")
+_item = 7

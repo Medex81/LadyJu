@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4u1tbexcaif8"]
+
+[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://game/scenes/match3/item.tscn" id="1_opbs5"]
+[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_jgr45"]
+
+[node name="item" instance=ExtResource("1_opbs5")]
+rotation = 1.5708
+texture = ExtResource("2_jgr45")
+offset = Vector2(0, -125)
+_item = 8

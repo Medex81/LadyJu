@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bguuuoipuoo6u"]
+
+[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://game/scenes/match3/item.tscn" id="1_mvive"]
+[ext_resource type="Texture2D" uid="uid://n73bi4828lg1" path="res://game/assets/anny_pack/glass.png" id="2_vpfvy"]
+
+[node name="item" instance=ExtResource("1_mvive")]
+texture = ExtResource("2_vpfvy")

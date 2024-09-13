@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjgodmmfjslow"]
+
+[ext_resource type="Script" path="res://game/scenes/match3/item.gd" id="1_yukx7"]
+
+[node name="item" type="Sprite2D"]
+scale = Vector2(0.84, 0.84)
+centered = false
+script = ExtResource("1_yukx7")

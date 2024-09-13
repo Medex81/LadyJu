@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba74g03xlaj7d"]
+
+[ext_resource type="Texture2D" uid="uid://cqvlvff6pb65r" path="res://game/assets/backend_img.jpg" id="1_4i5t1"]
+[ext_resource type="Script" path="res://game/scenes/game_field/game_field.gd" id="1_rn3w4"]
+[ext_resource type="PackedScene" uid="uid://dikmf66fj46rq" path="res://game/scenes/match3/m_3_grid.tscn" id="3_7c7a6"]
+
+[node name="game_field" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rn3w4")
+metadata/_edit_use_anchors_ = true
+
+[node name="backend_img" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4i5t1")
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="m3_grid" parent="." instance=ExtResource("3_7c7a6")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+max_shuffle = null
+hint_delay = null
+animation_scale = null
+hint_time = null
+move_time = null

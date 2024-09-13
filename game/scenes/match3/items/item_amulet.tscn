@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://gj4417dqrhxt"]
+
+[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://game/scenes/match3/item.tscn" id="1_d1cuj"]
+[ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_whkd2"]
+
+[node name="item" instance=ExtResource("1_d1cuj")]
+texture = ExtResource("2_whkd2")

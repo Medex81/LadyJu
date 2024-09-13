@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj650kndk2hk6"]
+
+[ext_resource type="Script" path="res://game/scenes/match3/cell.gd" id="1_e4nwy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4tfm"]
+bg_color = Color(0.356863, 0.627451, 0.839216, 0.419608)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="cell" type="PanelContainer" groups=["stop_cell_animations"]]
+custom_minimum_size = Vector2(105, 105)
+anchors_preset = -1
+anchor_right = 0.055
+anchor_bottom = 0.097
+offset_right = -0.600006
+offset_bottom = 0.239998
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k4tfm")
+script = ExtResource("1_e4nwy")
