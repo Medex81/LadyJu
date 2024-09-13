@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wpfs73jnjyjq"]
+
+[ext_resource type="Script" path="res://game/scenes/match3/m3core/m3core.gd" id="1_mwxq8"]
+
+[node name="M3Core" type="Node"]
+script = ExtResource("1_mwxq8")
