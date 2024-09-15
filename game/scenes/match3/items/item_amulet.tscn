@@ -5,3 +5,4 @@
 
 [node name="item" instance=ExtResource("1_d1cuj")]
 texture = ExtResource("2_whkd2")
+_item = 10

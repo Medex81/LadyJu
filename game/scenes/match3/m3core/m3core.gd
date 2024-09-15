@@ -14,7 +14,6 @@ enum EDirect{DOWN, LEFT, RIGHT, TOP, TOP_LEFT, TOP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
 var _cell_mat:Array
 var _rows:int = 0
 # возможные комбинации для матча с уже сматченными предметами
-var _swap_matched_cells:Array[Cell]
 var _cells_spawnable:Array
 var _cells_auto_movable:Array
 var _cells_not_hole:Array
@@ -31,6 +30,7 @@ var _items = {
 	Item.EItem.ROCKET_LINE_V: preload("res://game/scenes/match3/items/item_rocket_v.tscn"),
 	Item.EItem.BOMB: preload("res://game/scenes/match3/items/item_bomb.tscn"),
 	Item.EItem.AMULET: preload("res://game/scenes/match3/items/item_amulet.tscn"),
+	Item.EItem.BOMB_TOTAL: preload("res://game/scenes/match3/items/item_total_bomb.tscn"),
 	
 	Item.EItem.GLASS: preload("res://game/scenes/match3/items/item_glass.tscn"),
 	Item.EItem.CHAIN: preload("res://game/scenes/match3/items/item_chains.tscn")
@@ -66,15 +66,13 @@ func swap(cell_first:Cell, cell_second:Cell)->bool:
 	# свап только в пределах соседних валидных клеток
 	if absi(cell_first.x - cell_second.x) + absi(cell_first.y - cell_second.y) == 1 \
 	and cell_first.can_move() and cell_second.can_move():
+		get_tree().call_group("stop_cell_animations", "stop_animations")
+		cell_first.swap(cell_second)
 		# если один из предметов сматченный - можно считать за новый матч
 		if cell_first.is_matched() or cell_second.is_matched():
-			_swap_matched_cells = [cell_first, cell_second]
+			_hit([cell_first, cell_second])
 			return true
-			
-		get_tree().call_group("stop_cell_animations", "stop_animations")
 		
-		cell_first.swap(cell_second)
-			
 		if _is_match(cell_first) or _is_match(cell_second):
 			return true
 		else:
@@ -88,9 +86,6 @@ func _is_valid_row(row:int)->bool:
 	return true if row < _rows and row >= 0 else false
 
 func _is_match(cell:Cell)->bool:
-	if not _swap_matched_cells.is_empty():
-		return true
-	
 	var accum = 0
 	var is_match_with_current = false
 	
@@ -128,10 +123,6 @@ func _match()->Array:
 	var removes:Array
 	# последовательность предметов которую мы нашли
 	var match_arr:Array[Cell]
-	
-	if not _swap_matched_cells.is_empty():
-		removes.append(_swap_matched_cells.duplicate())
-		_swap_matched_cells.clear()
 	
 	# проверяем вертикально по столбцам
 	for col in range(_cols):
@@ -205,12 +196,83 @@ func _spawn_match_item(src_arr:Array[Cell]):
 				new_type = Item.EItem.AMULET
 			7:# BOMB_TOTAL
 				new_type = Item.EItem.BOMB_TOTAL
-		for src_cell in src_arr:
-			src_cell.delete_item()
+		_hit(src_arr)
 		cell.spawn(create_item(new_type))
 	else:
 		print("Erorr. _spawn_match_item(_get_last_updated_cell) is null.")
 		
+func _hit(cells:Array[Cell]):
+	var hit_area:Array[Cell]
+	# находим клетки в зоне поражения матчеров
+	for i in range(cells.size()):
+		# TODO проверяем, если сосед матчер - усиливаем воздействие каждого из матчеров.
+		if cells[i].is_matched():
+			# амулет подрывает все клетки с предметами некоего типа
+			if cells[i].get_item_type() == Item.EItem.AMULET:
+				# передали две клетки с амулетом - это свап, определяем тип предмета и получаем зону поражения.
+				if cells.size() == 2:
+					# амулет стоит первым
+					if i == 0:
+						hit_area.append_array(_get_hit_area(cells[i], cells[i + 1].get_item_type()))
+					else:
+						hit_area.append_array(_get_hit_area(cells[i], cells[i - 1].get_item_type()))
+				# вероятно амулет попал в зону поражения, подрываем его как вторичный объект со случайным типом обычного предмета
+				else:
+					hit_area.append_array(_get_hit_area(cells[i], Item.get_next_common()))
+			# обычный матчер без специальных условий подрыва
+			else:
+				hit_area.append_array(_get_hit_area(cells[i]))
+	# удаляем предметы в клетках текущего массива попавшего под удар(в аргументе)
+	for cell in cells:
+		cell.delete_item()
+	var second_hit_area:Array[Cell]
+	# выбираем из всей области поражения попавшие туда матчеры(не входящие в переданный массив), остальное подрываем.
+	for cell in hit_area:
+		if cell and cell.is_common():
+			cell.delete_item()
+		if cell and cell.is_matched():
+			second_hit_area.append(cell)
+	# рекурсивно обрабатываем вторичные матчеры в зоне поражения.
+	if not second_hit_area.is_empty():
+		_hit(second_hit_area)
+	
+func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
+	var result:Array[Cell]
+	match cell.get_item_type():
+		# подрывает вертикально весь столбец
+		Item.EItem.ROCKET_LINE_V:
+			for y in range(_rows):
+				if _cell_mat[cell.x][y] != cell:
+					result.append(_cell_mat[cell.x][y])
+		# подрывает горизонтально всю строку
+		Item.EItem.ROCKET_LINE_H:
+			for x in range(_cols):
+				if _cell_mat[x][cell.y] != cell:
+					result.append(_cell_mat[x][cell.y])
+		# бомба подрывает зону по своему периметру
+		Item.EItem.BOMB:
+			result.append(_neighbour_cell(cell, EDirect.DOWN))
+			result.append(_neighbour_cell(cell, EDirect.LEFT))
+			result.append(_neighbour_cell(cell, EDirect.RIGHT))
+			result.append(_neighbour_cell(cell, EDirect.TOP))
+			result.append(_neighbour_cell(cell, EDirect.TOP_LEFT))
+			result.append(_neighbour_cell(cell, EDirect.TOP_RIGHT))
+			result.append(_neighbour_cell(cell, EDirect.DOWN_LEFT))
+			result.append(_neighbour_cell(cell, EDirect.DOWN_RIGHT))
+		# амулет подрывает предметы типа с которым сматчен или рандомным типом при вторичном подрыве
+		Item.EItem.AMULET:
+			if type != Item.EItem.NONE:
+				for _cell in _cells_not_hole:
+					if _cell.get_item_type() == type and _cell != cell:
+						result.append(_cell)
+			else:
+				print("Erorr. _get_hit_area, for the item Item.EItem.AMULET type is Item.EItem.NONE.")
+		Item.EItem.BOMB_TOTAL:
+			result.append_array(_cells_not_hole.duplicate())
+			result.erase(cell)
+
+	return result
+
 # на моделях клеток ставим метки времени последнего изменения, это нужно для определения позиции вставки предмета. 
 func _get_last_updated_cell(arr:Array[Cell])->Cell:
 	var update_time:int = 0
