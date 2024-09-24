@@ -39,8 +39,14 @@ func import_items_from_dir(path:String)->int:
 	return 1
 
 func reset():
-	pass
-
+	_cell_mat.clear()
+	_cells_spawnable.clear()
+	_cells_auto_movable.clear()
+	_cells_not_hole.clear()
+	_event_counter = 0
+	_rows = 0
+	_cols = 0
+	
 func init_cells(cells:Array, cols:int)->int:
 	reset()
 	var _cells = cells.filter(func(child):return true if child is Cell else false)
