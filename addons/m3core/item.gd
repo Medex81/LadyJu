@@ -37,16 +37,11 @@ static var _common_type = EItem.RED
 
 # имя предмета в модели
 @export var _item = EItem.NONE
-var _type = EItemType.NONE
+@onready var _type = get_item_type(_item)
 
 
-func _ready():
-	if _item > EItem.NONE and _item < EItem.ROCKET_LINE_H:
-		_type = EItemType.COMMON
-	if _item > EItem.YELLOW and _item < EItem.GLASS:
-		_type = EItemType.MATCHED
-	if _item > EItem.BOMB_TOTAL:
-		_type = EItemType.BLOCKED
+#func _ready():
+	#_type = get_item_type(_item)
 
 func get_item()->EItem:
 	return _item
@@ -71,3 +66,23 @@ static func get_next_common()->EItem:
 	if _common_type > EItem.YELLOW:
 		_common_type = EItem.RED
 	return _common_type
+	
+static func get_item_type(item:Item.EItem)->Item.EItemType:
+	var type:Item.EItemType = Item.EItemType.NONE
+	if item > EItem.NONE and item < EItem.ROCKET_LINE_H:
+		type = EItemType.COMMON
+	if item > EItem.YELLOW and item < EItem.GLASS:
+		type = EItemType.MATCHED
+	if item > EItem.BOMB_TOTAL:
+		type = EItemType.BLOCKED
+	return type
+
+func remove():
+	var parent = get_parent()
+	if parent:
+		parent.remove_child(self)
+	queue_free()
+	
+func remove_deffered():
+	remove()
+	

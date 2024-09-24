@@ -1,13 +1,17 @@
 extends Node
 
-class_name M3Core
-
 # масштаб анимации подсказки (+15%).
-const animation_scale:float = 1.15
+@export var animation_scale:float = 1.15
 # длительность изменения масштаба в подсказке(сек).
-const hint_time:float = 0.4
+@export var  hint_time:float = 0.4
 # длительность анимации перемещения предметов между клетками(сек).
-const move_time:float = 0.2
+@export var  move_time:float = 0.2
+# амулет при сматчивании с другим матчером меняет предмет на матчер такого типа в количестве...
+@export var  amulet_boost_count = 1
+# максимальное количество смешиваний до появления комбинации для матча.
+@export var  max_shuffle:int = 10
+@export var  hint_delay:float = 3.0
+
 var _cols = 0
 enum EDirect{DOWN, LEFT, RIGHT, TOP, TOP_LEFT, TOP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
 # размещаем клетки в матрице 
@@ -17,35 +21,38 @@ var _rows:int = 0
 var _cells_spawnable:Array
 var _cells_auto_movable:Array
 var _cells_not_hole:Array
+var _event_counter = 0
+# счётчик смешиваний
+var _shuffle_counter = 0
+var _timer:Timer = null
 
-var _items = {
-	Item.EItem.RED: preload("res://game/scenes/match3/items/item_red.tscn"),
-	Item.EItem.BLUE: preload("res://game/scenes/match3/items/item_blue.tscn"),
-	Item.EItem.GREEN: preload("res://game/scenes/match3/items/item_green.tscn"),
-	Item.EItem.PURPLE: preload("res://game/scenes/match3/items/item_purple.tscn"),
-	Item.EItem.WHITE: preload("res://game/scenes/match3/items/item_white.tscn"),
-	Item.EItem.YELLOW: preload("res://game/scenes/match3/items/item_yellow.tscn"),
-	
-	Item.EItem.ROCKET_LINE_H: preload("res://game/scenes/match3/items/item_rocket_h.tscn"),
-	Item.EItem.ROCKET_LINE_V: preload("res://game/scenes/match3/items/item_rocket_v.tscn"),
-	Item.EItem.BOMB: preload("res://game/scenes/match3/items/item_bomb.tscn"),
-	Item.EItem.AMULET: preload("res://game/scenes/match3/items/item_amulet.tscn"),
-	Item.EItem.BOMB_TOTAL: preload("res://game/scenes/match3/items/item_total_bomb.tscn"),
-	
-	Item.EItem.GLASS: preload("res://game/scenes/match3/items/item_glass.tscn"),
-	Item.EItem.CHAIN: preload("res://game/scenes/match3/items/item_chains.tscn")
-}
+var items = {}
 
-func init_cells(cells:Array, cols:int):
+func _ready():
+	_timer = Timer.new()
+	add_child(_timer)
+	_timer.one_shot = true
+	_timer.wait_time = hint_delay
+	_timer.timeout.connect(_on_timer_hint_delay_timeout)
+
+func import_items_from_dir(path:String)->int:
+	return 1
+
+func reset():
+	pass
+
+func init_cells(cells:Array, cols:int)->int:
+	reset()
+	var _cells = cells.filter(func(child):return true if child is Cell else false)
 	_cols = cols
-	_rows = cells.size() / _cols
+	_rows = _cells.size() / _cols
 	var count = 0
 	var tmp:Array[Cell]
 	tmp.resize(_rows)
 	for i in range(_cols):
 		_cell_mat.append(tmp.duplicate())
 
-	for cell in cells:
+	for cell in _cells:
 		# в этом массиве клеток будем создавать новые предметы
 		if cell.is_spawn():
 			_cells_spawnable.append(cell)
@@ -61,22 +68,29 @@ func init_cells(cells:Array, cols:int):
 			_cells_auto_movable.append(cell)
 		# массив клеток по которому предметы будут падать опрашиваем снизу вверх для избежания двойного перемещения
 		_cells_auto_movable.reverse()
+	call_deferred("_update")
+	return _cells.size()
 
-func swap(cell_first:Cell, cell_second:Cell)->bool:
-	# свап только в пределах соседних валидных клеток
-	if absi(cell_first.x - cell_second.x) + absi(cell_first.y - cell_second.y) == 1 \
-	and cell_first.can_move() and cell_second.can_move():
-		get_tree().call_group("stop_cell_animations", "stop_animations")
-		cell_first.swap(cell_second)
-		# если один из предметов сматченный - можно считать за новый матч
-		if cell_first.is_matched() or cell_second.is_matched():
-			_hit([cell_first, cell_second])
-			return true
-		
-		if _is_match(cell_first) or _is_match(cell_second):
-			return true
-		else:
+func _swap(cell_first:Cell, cell_second:Cell)->bool:
+	if _is_events_done():
+		# свап только в пределах соседних валидных клеток
+		if absi(cell_first.x - cell_second.x) + absi(cell_first.y - cell_second.y) == 1 \
+		and cell_first.can_move() and cell_second.can_move():
+			_cells_not_hole.all(func(child):child.stop_animations(); return true)
 			cell_first.swap(cell_second)
+			# если один из предметов сматченный - можно считать за новый матч
+			if cell_first.is_matched() or cell_second.is_matched():
+				if (cell_first.is_matched() and cell_second.is_matched()) \
+				or (cell_first.get_item_type() == Item.EItem.AMULET or cell_second.get_item_type() == Item.EItem.AMULET):
+					_hit([cell_first, cell_second], true)
+				else:
+					_hit([cell_first if cell_first.is_matched() else cell_second])
+				return true
+
+			if _is_match(cell_first) or _is_match(cell_second):
+				return true
+			else:
+				cell_first.swap(cell_second)
 	return false
 	
 func _is_valid_col(col:int)->bool:
@@ -197,44 +211,31 @@ func _spawn_match_item(src_arr:Array[Cell]):
 			7:# BOMB_TOTAL
 				new_type = Item.EItem.BOMB_TOTAL
 		_hit(src_arr)
-		cell.spawn(create_item(new_type))
+		if new_type != Item.EItem.NONE:
+			cell.spawn(_create_item(new_type))
 	else:
 		print("Erorr. _spawn_match_item(_get_last_updated_cell) is null.")
 		
-func _hit(cells:Array[Cell]):
+func _hit(cells:Array[Cell], is_swap:bool = false):
 	var hit_area:Array[Cell]
+	if is_swap and cells.size() == 2 and (cells[0].is_matched() or cells[1].is_matched()):
+		if cells[0] and cells[0].is_matched():
+			hit_area.append_array(_get_hit_area(cells[0], cells[1].get_item_type()))
+		if cells[1] and cells[1].is_matched():
+			hit_area.append_array(_get_hit_area(cells[1], cells[0].get_item_type()))
+		cells[0].hit()
+		cells[1].hit()
+		cells.clear()
+		
 	# находим клетки в зоне поражения матчеров
-	for i in range(cells.size()):
-		# TODO проверяем, если сосед матчер - усиливаем воздействие каждого из матчеров.
-		if cells[i].is_matched():
-			# амулет подрывает все клетки с предметами некоего типа
-			if cells[i].get_item_type() == Item.EItem.AMULET:
-				# передали две клетки с амулетом - это свап, определяем тип предмета и получаем зону поражения.
-				if cells.size() == 2:
-					# амулет стоит первым
-					if i == 0:
-						hit_area.append_array(_get_hit_area(cells[i], cells[i + 1].get_item_type()))
-					else:
-						hit_area.append_array(_get_hit_area(cells[i], cells[i - 1].get_item_type()))
-				# вероятно амулет попал в зону поражения, подрываем его как вторичный объект со случайным типом обычного предмета
-				else:
-					hit_area.append_array(_get_hit_area(cells[i], Item.get_next_common()))
-			# обычный матчер без специальных условий подрыва
-			else:
-				hit_area.append_array(_get_hit_area(cells[i]))
-	# удаляем предметы в клетках текущего массива попавшего под удар(в аргументе)
 	for cell in cells:
-		cell.delete_item()
-	var second_hit_area:Array[Cell]
-	# выбираем из всей области поражения попавшие туда матчеры(не входящие в переданный массив), остальное подрываем.
-	for cell in hit_area:
-		if cell and cell.is_common():
-			cell.delete_item()
-		if cell and cell.is_matched():
-			second_hit_area.append(cell)
-	# рекурсивно обрабатываем вторичные матчеры в зоне поражения.
-	if not second_hit_area.is_empty():
-		_hit(second_hit_area)
+		if cell and not cell.is_empty():
+			hit_area.append_array(_get_hit_area(cell))
+			hit_area.erase(cell)
+			cell.hit()
+			
+	if not hit_area.is_empty():
+		_hit(hit_area)
 	
 func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 	var result:Array[Cell]
@@ -244,11 +245,30 @@ func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 			for y in range(_rows):
 				if _cell_mat[cell.x][y] != cell:
 					result.append(_cell_mat[cell.x][y])
+			# сматчивание с матчером - усиливаем вторым столбцом, амулет превращает предмет в матчер без усиления
+			if Item.get_item_type(type) == Item.EItemType.MATCHED and Item.get_item_type(type) != Item.EItem.AMULET:
+				var x:int = cell.x
+				if _is_valid_col(x + 1):
+					x += 1
+				elif _is_valid_col(x - 1):
+					x -= 1
+				for y in range(_rows):
+					result.append(_cell_mat[x][y])
 		# подрывает горизонтально всю строку
 		Item.EItem.ROCKET_LINE_H:
 			for x in range(_cols):
 				if _cell_mat[x][cell.y] != cell:
 					result.append(_cell_mat[x][cell.y])
+			# сматчивание с матчером - усиливаем второй строкой, амулет превращает предмет в матчер без усиления
+			if Item.get_item_type(type) == Item.EItemType.MATCHED and Item.get_item_type(type) != Item.EItem.AMULET:
+				var y:int = cell.y
+				if _is_valid_row(y + 1):
+					y += 1
+				elif _is_valid_row(y - 1):
+					y -= 1
+				for x in range(_cols):
+					result.append(_cell_mat[x][y])
+
 		# бомба подрывает зону по своему периметру
 		Item.EItem.BOMB:
 			result.append(_neighbour_cell(cell, EDirect.DOWN))
@@ -259,18 +279,57 @@ func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 			result.append(_neighbour_cell(cell, EDirect.TOP_RIGHT))
 			result.append(_neighbour_cell(cell, EDirect.DOWN_LEFT))
 			result.append(_neighbour_cell(cell, EDirect.DOWN_RIGHT))
+			# сматчивание с матчером - расширенный на +1 периметр клеток, амулет превращает предмет в матчер без усиления
+			if Item.get_item_type(type) == Item.EItemType.MATCHED and Item.get_item_type(type) != Item.EItem.AMULET:
+				var tl = _neighbour_cell(cell, EDirect.TOP_LEFT)
+				result.append(_neighbour_cell(tl, EDirect.TOP))
+				result.append(_neighbour_cell(tl, EDirect.TOP_LEFT))
+				result.append(_neighbour_cell(tl, EDirect.LEFT))
+				result.append(_neighbour_cell(tl, EDirect.DOWN_LEFT))
+				var dl = _neighbour_cell(cell, EDirect.DOWN_LEFT)
+				result.append(_neighbour_cell(dl, EDirect.LEFT))
+				result.append(_neighbour_cell(dl, EDirect.DOWN_LEFT))
+				result.append(_neighbour_cell(dl, EDirect.DOWN))
+				result.append(_neighbour_cell(dl, EDirect.DOWN_RIGHT))
+				var dr = _neighbour_cell(cell, EDirect.DOWN_RIGHT)
+				result.append(_neighbour_cell(dr, EDirect.DOWN))
+				result.append(_neighbour_cell(dr, EDirect.DOWN_RIGHT))
+				result.append(_neighbour_cell(dr, EDirect.RIGHT))
+				result.append(_neighbour_cell(dr, EDirect.TOP_RIGHT))
+				var tr = _neighbour_cell(cell, EDirect.TOP_RIGHT)
+				result.append(_neighbour_cell(tr, EDirect.RIGHT))
+				result.append(_neighbour_cell(tr, EDirect.TOP_RIGHT))
+				result.append(_neighbour_cell(tr, EDirect.TOP))
+				result.append(_neighbour_cell(tr, EDirect.TOP_LEFT))
 		# амулет подрывает предметы типа с которым сматчен или рандомным типом при вторичном подрыве
+		# если сматчен с матчером, тогда заменяет предмет случайного типа (не более N раз) на того с кем матчится
 		Item.EItem.AMULET:
-			if type != Item.EItem.NONE:
-				for _cell in _cells_not_hole:
-					if _cell.get_item_type() == type and _cell != cell:
-						result.append(_cell)
-			else:
-				print("Erorr. _get_hit_area, for the item Item.EItem.AMULET type is Item.EItem.NONE.")
+			if type == Item.EItem.NONE:
+				type = Item.get_next_common()
+			match Item.get_item_type(type):
+				Item.EItemType.COMMON:
+					for _cell in _cells_not_hole:
+						if _cell.get_item_type() == type and _cell != cell:
+							result.append(_cell)
+				Item.EItemType.MATCHED:
+					var hit_type = Item.get_next_common()
+					var counter = amulet_boost_count
+					for _cell in _cells_not_hole:
+						if _cell.get_item_type() == hit_type and _cell != cell:
+							_cell.hit()
+							_cell.spawn(_create_item(type))
+							result.append(_cell)
+							counter -= 1
+						if counter == 0:
+							break
+							
 		Item.EItem.BOMB_TOTAL:
 			result.append_array(_cells_not_hole.duplicate())
 			result.erase(cell)
 
+	for ind in range(result.size()):
+		if result[ind] and result[ind].is_empty():
+			result[ind] = null
 	return result
 
 # на моделях клеток ставим метки времени последнего изменения, это нужно для определения позиции вставки предмета. 
@@ -283,14 +342,23 @@ func _get_last_updated_cell(arr:Array[Cell])->Cell:
 			cell = _cell
 	return cell
 		
-func worker()->bool:
-	# не менять последовательность! создание - перемещение -удаление
+func _worker()->bool:
 	var is_event = false
 	
 	# создаем предметы в клетках спавна если они пустые(пакетное)
 	for cell in _cells_spawnable:
 		if cell.can_spawn():
-			cell.spawn(create_item(Item.get_next_common()))
+			cell.spawn(_create_item(Item.get_next_common()))
+			is_event = true
+	if is_event:
+		return true
+		
+	# удаление последовательностей(пакетное).
+	# находим последовательности, они будут в виде списков указателей на модели клеток собранных с пересечениями.
+	for arr in _match():
+		if not arr.is_empty():
+			# подобрать и вставить предмет по типу матча и количеству.
+			_spawn_match_item(arr)
 			is_event = true
 	if is_event:
 		return true
@@ -302,27 +370,37 @@ func worker()->bool:
 	if is_event:
 		return true
 		
+		
 	# перемещаем предметы влево или вправо вниз(одиночное)
 	for cell in _cells_auto_movable:
 		if _move_if_can(cell, EDirect.DOWN_LEFT) or _move_if_can(cell, EDirect.DOWN_RIGHT):
 			# приоритет падения вниз! Смещение лево-право по одному шагу и опять вниз.
-			return true
+			#return true
+			pass
 
-			
-	# удаление последовательностей(пакетное).
-	# находим последовательности, они будут в виде списков указателей на модели клеток собранных с пересечениями.
-	for arr in _match():
-		if not arr.is_empty():
-			# подобрать и вставить предмет по типу матча и количеству.
-			_spawn_match_item(arr)
-			is_event = true
-	
-					
 	return is_event
+	
+# обновить состояние игрового поля
+func _update():
+	# сматчить, удалить, добавить
+	if not _worker():
+		# действий нет - ищем подсказку
+		if _hint().is_empty():
+			# комбинаций для подсказок нет - смешиваем предметы
+			_shuffle_counter += 1
+			if _shuffle_counter < max_shuffle:
+				#TODO нужно проверять сколько оталось предметов и не смешивать менее 5-6!
+				_shuffle()
+		else:
+			_cells_not_hole.all(func(child):child.stop_animations(); return true)
+			_timer.start()
+	else:
+		_cells_not_hole.all(func(child):child.stop_animations(); return true)
+		_shuffle_counter = 0
 	
 # вернуть соседнюю клетку по указанному направлению
 func _neighbour_cell(cell:Cell, direct:EDirect)->Cell:
-	if not cell.is_hole():
+	if cell and not cell.is_hole():
 		match direct:
 			EDirect.TOP:
 				if _is_valid_row(cell.y - 1):
@@ -391,7 +469,7 @@ func _find_pair()->Array:
 			
 	return _find
 	
-func hint()->Array[Cell]:
+func _hint()->Array[Cell]:
 	var result:Array[Cell]
 	# t - top, r - right...
 	# указатель на соседа
@@ -496,7 +574,7 @@ func hint()->Array[Cell]:
 	return result
 
 # обменять предметы в клетках если они не заблокированы
-func shuffle():
+func _shuffle():
 	var shuffle_cells:Array[Cell]
 	for cell in _cells_not_hole:
 		if cell.can_move():
@@ -505,9 +583,29 @@ func shuffle():
 		# выбираем рандомно кого с кем поменять
 		cell.swap(shuffle_cells[randi_range(0, shuffle_cells.size() - 1)])
 
-func create_item(item_type:Item.EItem)->Item:
+func _create_item(item_type:Item.EItem)->Item:
 	var item:Item = null
-	var _scn = _items.get(item_type, null)
+	var _scn = items.get(item_type, null)
 	if _scn:
 		item = _scn.instantiate()
 	return item
+
+func _on_timer_hint_delay_timeout():
+	var hints = _hint()
+	for hint in hints:
+		hint.hint()
+		
+func on_cell_tap(cell_first:Cell, cell_second:Cell):
+	_swap(cell_first, cell_second)
+
+func done_event(count:int = 1):
+	_event_counter -= count
+	if _event_counter <= 0:
+		_event_counter = 0
+		call_deferred("_update")
+		
+func add_event(count:int = 1):
+	_event_counter += count
+
+func _is_events_done()->bool:
+	return _event_counter == 0

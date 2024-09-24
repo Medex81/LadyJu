@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.2", "GL Compatibility")
 [autoload]
 
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
+M3Core="*res://addons/m3core/m3core.gd"
 
 [debug]
 

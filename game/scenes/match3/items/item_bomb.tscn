@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqep13jrypxox"]
 
-[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://game/scenes/match3/item.tscn" id="1_8qnwc"]
+[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://addons/m3core/item.tscn" id="1_8qnwc"]
 [ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/dinamit.png" id="2_f7w8v"]
 
 [node name="item" instance=ExtResource("1_8qnwc")]

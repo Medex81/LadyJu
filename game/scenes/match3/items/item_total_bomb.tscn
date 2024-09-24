@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://brqq3o6xvcbxo"]
 
-[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://game/scenes/match3/item.tscn" id="1_53th7"]
+[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://addons/m3core/item.tscn" id="1_53th7"]
 [ext_resource type="Texture2D" uid="uid://dv1nt8t3q7tn6" path="res://game/assets/anny_pack/bomba.png" id="2_ujtrd"]
 
 [node name="item" instance=ExtResource("1_53th7")]

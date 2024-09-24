@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://jm66vj25qku4"]
 
-[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://game/scenes/match3/item.tscn" id="1_amm78"]
+[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://addons/m3core/item.tscn" id="1_amm78"]
 [ext_resource type="Texture2D" uid="uid://dcuks6y3wkgh7" path="res://game/assets/anny_pack/crystal_green.png" id="2_8dneq"]
 
 [node name="item" instance=ExtResource("1_amm78")]
