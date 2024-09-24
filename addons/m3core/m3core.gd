@@ -359,6 +359,21 @@ func _worker()->bool:
 	if is_event:
 		return true
 		
+	# перемещаем предметы между клетками, сначала вниз для создания эффекта падения(пакетное).
+	for cell in _cells_auto_movable:
+		if _move_if_can(cell, EDirect.DOWN):
+			is_event = true
+	if is_event:
+		return true
+		
+	# перемещаем предметы влево или вправо вниз(одиночное)
+	for cell in _cells_auto_movable:
+		if _move_if_can(cell, EDirect.DOWN_LEFT) or _move_if_can(cell, EDirect.DOWN_RIGHT):
+			# приоритет падения вниз! Смещение лево-право по одному шагу и опять вниз.
+			is_event = true
+	if is_event:
+		return true
+			
 	# удаление последовательностей(пакетное).
 	# находим последовательности, они будут в виде списков указателей на модели клеток собранных с пересечениями.
 	for arr in _match():
@@ -368,21 +383,6 @@ func _worker()->bool:
 			is_event = true
 	if is_event:
 		return true
-	
-	# перемещаем предметы между клетками, сначала вниз для создания эффекта падения(пакетное).
-	for cell in _cells_auto_movable:
-		if _move_if_can(cell, EDirect.DOWN):
-			is_event = true
-	if is_event:
-		return true
-		
-		
-	# перемещаем предметы влево или вправо вниз(одиночное)
-	for cell in _cells_auto_movable:
-		if _move_if_can(cell, EDirect.DOWN_LEFT) or _move_if_can(cell, EDirect.DOWN_RIGHT):
-			# приоритет падения вниз! Смещение лево-право по одному шагу и опять вниз.
-			#return true
-			pass
 
 	return is_event
 	
