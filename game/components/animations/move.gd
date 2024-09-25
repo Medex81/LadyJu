@@ -9,4 +9,4 @@ func task(item:Object, position_to:Vector2, finish_callback:Callable):
 		tween_move.tween_callback(finish_callback)
 	else:
 		print("Error. Component{0}, object type to move {1}, object has property -position- {2}, calback is valid {3}"\
-		.format([name, item.get_class() if item else null, "position" in item, finish_callback.is_valid()]))
+		.format([name, item.get_class() if item else "null", "position" in item, finish_callback.is_valid()]))
