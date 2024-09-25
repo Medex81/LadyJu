@@ -40,9 +40,6 @@ static var _common_type = EItem.RED
 @onready var _type = get_item_type(_item)
 
 
-#func _ready():
-	#_type = get_item_type(_item)
-
 func get_item()->EItem:
 	return _item
 	

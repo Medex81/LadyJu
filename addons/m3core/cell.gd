@@ -36,31 +36,20 @@ func is_hole()->bool:
 	return _is_hole
 	
 func is_common()->bool:
-	var children = get_children()
-	return children.back().is_common() if not children.is_empty() else false
+	var item = get_item()
+	return true if item and item.is_common() else false
 	
 func is_matched()->bool:
-	var children = get_children()
-	return children.back().is_matched() if not children.is_empty() else false
+	var item = get_item()
+	return true if item and item.is_matched() else false
 	
 func is_blocked()->bool:
-	var children = get_children()
-	return children.back().is_blocked() if not children.is_empty() else false
+	var item = get_item()
+	return true if item and item.is_blocked() else false
 	
 func is_empty()->bool:
-	var children = get_children()
-	children.reverse()
-	for child in children:
-		if child is Item and child not in _item_deleting_list:
-			return false
-	return true
-	
-func get_removed_item()->Item:
-	var children = get_children()
-	var item = children.pop_back() if not children.is_empty() else null
-	if item:
-		remove_child(item)
-	return item
+	var item = get_item()
+	return true if item == null else false
 	
 func get_item()->Item:
 	var item:Item = null
@@ -71,18 +60,10 @@ func get_item()->Item:
 			item = child
 	return item
 
-func _ready():
-	var items = get_children()
-	if items.all(func(item): return true if item is Item else false):
-		pass
-	else:
-		print("Error cell [{0}] _ready() -> item [{1}, {2}] is not Item type.".format([name, x, y]))
-		queue_free()
-		
 func get_item_type()->Item.EItem:
-	var children = get_children()
-	return children.back().get_item() if not children.is_empty() else Item.EItem.NONE
-		
+	var item = get_item()
+	return item.get_item() if item else Item.EItem.NONE
+
 func _get_drag_data(_at_position):
 	return self
 	
@@ -92,16 +73,6 @@ func _can_drop_data(_at_position, data)->bool:
 func _drop_data(_at_position, data):
 	M3Core.on_cell_tap(data, self)
 
-func move_animation(item:Item, new_position:Vector2):
-	if _tween_move and _tween_move.is_valid():
-		if _tween_move.is_running():
-			M3Core.done_event()
-		_tween_move.kill()
-
-	_tween_move = create_tween()
-	_tween_move.tween_property(item, "position", new_position,  M3Core.move_time)
-	_tween_move.tween_callback(M3Core.done_event)
-	
 func stop_animations():
 	if _tween_hint and _tween_hint.is_valid():
 		_tween_hint.kill()
@@ -131,8 +102,12 @@ func swap(cell_other:Cell):
 	# клетки не должны быть дырками или заблокированными
 	if not is_hole() and not cell_other.is_hole():# and not is_blocked() and not cell_other.is_blocked():
 		# убрать предмет из клетки если есть
-		var item_this = get_removed_item()
-		var item_other = cell_other.get_removed_item()
+		var item_this = get_item()
+		if item_this:
+			remove_child(item_this)
+		var item_other = cell_other.get_item()
+		if item_other:
+			cell_other.remove_child(item_other)
 		if item_this:
 			cell_other.move_item(item_this, position)
 		if item_other:
@@ -195,4 +170,4 @@ func move_item(item:Item, old_position:Vector2):
 	# сдвигаем предмет в то место откуда предмет пришёл
 	item.position = old_position - position
 	# проигрываем анимацию перемещения на текущую клетку и по её завершению декрементим пакетный счётчик операций
-	move_animation(item, Vector2.ZERO)
+	$Move.task(item, Vector2.ZERO, M3Core.done_event)
