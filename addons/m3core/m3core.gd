@@ -358,7 +358,7 @@ func _worker()->bool:
 			is_event = true
 	if is_event:
 		return true
-		
+
 	# перемещаем предметы между клетками, сначала вниз для создания эффекта падения(пакетное).
 	for cell in _cells_auto_movable:
 		if _move_if_can(cell, EDirect.DOWN):
@@ -388,6 +388,8 @@ func _worker()->bool:
 	
 # обновить состояние игрового поля
 func _update():
+	if _event_counter > 0:
+		return
 	# сматчить, удалить, добавить
 	if not _worker():
 		# действий нет - ищем подсказку
@@ -604,14 +606,14 @@ func _on_timer_hint_delay_timeout():
 func on_cell_tap(cell_first:Cell, cell_second:Cell):
 	_swap(cell_first, cell_second)
 
-func done_event(count:int = 1):
-	_event_counter -= count
+func done_event():
+	_event_counter -= 1
 	if _event_counter <= 0:
 		_event_counter = 0
 		call_deferred("_update")
 		
-func add_event(count:int = 1):
-	_event_counter += count
+func add_event():
+	_event_counter += 1
 
 func _is_events_done()->bool:
 	return _event_counter == 0

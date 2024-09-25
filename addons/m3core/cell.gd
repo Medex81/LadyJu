@@ -128,7 +128,6 @@ func hint_animation(item:Item):
 
 # меняем предметы между клетками
 func swap(cell_other:Cell):
-	M3Core.add_event(2)
 	# клетки не должны быть дырками или заблокированными
 	if not is_hole() and not cell_other.is_hole():# and not is_blocked() and not cell_other.is_blocked():
 		# убрать предмет из клетки если есть
@@ -136,17 +135,11 @@ func swap(cell_other:Cell):
 		var item_other = cell_other.get_removed_item()
 		if item_this:
 			cell_other.move_item(item_this, position)
-		else:
-			# декремент счётчика операций без проигрывания анимации
-			M3Core.done_event()
 		if item_other:
 			move_item(item_other, cell_other.position)
-		else:
-			M3Core.done_event()
 	else:
 		print("Error. Try swap item from hole or blocked cell [{0},{1}]".format([name, cell_other.name]))
-		M3Core.done_event(2)
-		
+
 func spawn(item:Item):
 	M3Core.add_event()
 	if item:
@@ -167,7 +160,6 @@ func _delete_done():
 			M3Core.done_event()
 	_item_deleting_list.clear()
 
-			
 func hit():
 	if is_empty():
 		return
@@ -177,13 +169,11 @@ func hit():
 		_item_deleting_list.append(item)
 		if _tween_delete and _tween_delete.is_valid():
 			if _tween_delete.is_running():
-				print("Abort delete item ", name)
 				_delete_done()
 			_tween_delete.kill()
 		M3Core.add_event()
 		delete_animation(item)
 
-	
 func hint():
 	if is_empty():
 		return
@@ -198,6 +188,7 @@ func can_spawn()->bool:
 	return true if not _is_hole and _is_spawn and is_empty() else false
 	
 func move_item(item:Item, old_position:Vector2):
+	M3Core.add_event()
 	add_child(item)
 	# метка времени изменения для клетки, чтобы вставлять сматченный предмет на место свапа
 	_last_update = Time.get_ticks_msec()
@@ -205,4 +196,3 @@ func move_item(item:Item, old_position:Vector2):
 	item.position = old_position - position
 	# проигрываем анимацию перемещения на текущую клетку и по её завершению декрементим пакетный счётчик операций
 	move_animation(item, Vector2.ZERO)
-
