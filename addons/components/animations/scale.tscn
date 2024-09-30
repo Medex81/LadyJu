@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://diagd4k50n1oh"]
+
+[ext_resource type="Script" path="res://addons/components/animations/scale.gd" id="1_6pdqe"]
+
+[node name="Scale" type="Node"]
+script = ExtResource("1_6pdqe")

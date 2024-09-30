@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwx4lfkiw8jl0"]
+
+[ext_resource type="Script" path="res://addons/components/animations/move.gd" id="1_3nu5n"]
+
+[node name="Move" type="Node"]
+script = ExtResource("1_3nu5n")

@@ -5,10 +5,6 @@ class_name Cell
 
 var _color_on:Color = Color(0.35,0.62,0.83,0.41)
 var _color_off:Color = Color(0,0,0,0)
-var _tween_move:Tween = null
-var _tween_hint:Tween = null
-var _tween_delete:Tween = null
-var _animated_item_lambda = null
 var x = -1
 var y = -1
 var _last_update:int = Time.get_ticks_msec()
@@ -73,29 +69,10 @@ func _can_drop_data(_at_position, data)->bool:
 func _drop_data(_at_position, data):
 	M3Core.on_cell_tap(data, self)
 
-func stop_animations():
-	if _tween_hint and _tween_hint.is_valid():
-		_tween_hint.kill()
-		if _animated_item_lambda:
-			_animated_item_lambda.call()
-			_animated_item_lambda = null
-
-func hint_animation(item:Item):
-	stop_animations()
-	if _tween_move and _tween_move.is_running():
-		await _tween_move.finished
-
-	if _animated_item_lambda:
-		print("Error. Lambda from a last hint is not null. ", name)
-	_tween_hint = create_tween()
-	_tween_hint.set_loops(100)
-	var old_scale = item.scale
-	var old_position = item.position
-	_tween_hint.tween_property(item, "scale", old_scale * M3Core.animation_scale, M3Core.hint_time)
-	_tween_hint.parallel().tween_property(item, "position", size * -((M3Core.animation_scale - 1) / 2.0), M3Core.hint_time)
-	_tween_hint.tween_property(item, "scale", old_scale, M3Core.hint_time)
-	_tween_hint.parallel().tween_property(item, "position", old_position, M3Core.hint_time)
-	_animated_item_lambda = func(): if item: item.scale = old_scale; item.position = old_position
+func hint_stop():
+	var item = get_item()
+	if item and item.has_method("hint_stop"):
+		item.hint_stop()
 
 # меняем предметы между клетками
 func swap(cell_other:Cell):
@@ -103,37 +80,20 @@ func swap(cell_other:Cell):
 	if not is_hole() and not cell_other.is_hole():# and not is_blocked() and not cell_other.is_blocked():
 		# убрать предмет из клетки если есть
 		var item_this = get_item()
-		if item_this:
-			remove_child(item_this)
 		var item_other = cell_other.get_item()
-		if item_other:
-			cell_other.remove_child(item_other)
 		if item_this:
-			cell_other.move_item(item_this, position)
+			cell_other.add_item(item_this)
 		if item_other:
-			move_item(item_other, cell_other.position)
+			add_item(item_other)
 	else:
 		print("Error. Try swap item from hole or blocked cell [{0},{1}]".format([name, cell_other.name]))
 
 func spawn(item:Item):
-	M3Core.add_event()
 	if item:
+		M3Core.add_event()
 		add_child(item)
 		_last_update = Time.get_ticks_msec()
-	M3Core.done_event()
-
-func delete_animation(item:Item):
-	_tween_delete = create_tween()
-	_tween_delete.tween_property(item, "scale", Vector2(0.2, 0.2),  2.0)
-	_tween_delete.tween_callback(_delete_done)
-	
-func _delete_done():
-	for item in _item_deleting_list:
-		if item != null:
-			_last_update = Time.get_ticks_msec()
-			item.remove()
-			M3Core.done_event()
-	_item_deleting_list.clear()
+		M3Core.done_event()
 
 func hit():
 	if is_empty():
@@ -142,32 +102,29 @@ func hit():
 	var item = get_item()
 	if item != null:
 		_item_deleting_list.append(item)
-		if _tween_delete and _tween_delete.is_valid():
-			if _tween_delete.is_running():
-				_delete_done()
-			_tween_delete.kill()
-		M3Core.add_event()
-		delete_animation(item)
+		item.delete()
 
 func hint():
-	if is_empty():
-		return
 	var item = get_item()
-	if item != null:
-		hint_animation(item)
-	
+	if item and item.has_method("hints"):
+		item.hints()
+
 func can_move()->bool:
-	return not is_empty() and not is_blocked()
+	var item = get_item()
+	return item and not item.is_component_running() and not item.is_blocked()
 
 func can_spawn()->bool:
 	return true if not _is_hole and _is_spawn and is_empty() else false
 	
-func move_item(item:Item, old_position:Vector2):
-	M3Core.add_event()
-	add_child(item)
-	# метка времени изменения для клетки, чтобы вставлять сматченный предмет на место свапа
-	_last_update = Time.get_ticks_msec()
-	# сдвигаем предмет в то место откуда предмет пришёл
-	item.position = old_position - position
-	# проигрываем анимацию перемещения на текущую клетку и по её завершению декрементим пакетный счётчик операций
-	$Move.task(item, Vector2.ZERO, M3Core.done_event)
+func add_item(item:Item)->bool:
+	if item:
+		var old_parent = item.get_parent()
+		if old_parent != get_parent():
+			# сдвигаем предмет в то место откуда предмет пришёл
+			item.position = old_parent.position - position
+			old_parent.remove_child(item)
+			add_child(item)
+			# метка времени изменения для клетки, чтобы вставлять сматченный предмет на место свапа
+			_last_update = Time.get_ticks_msec()
+			item.move(Vector2.ZERO)
+	return false

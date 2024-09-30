@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cj650kndk2hk6"]
+[gd_scene load_steps=3 format=3 uid="uid://cj650kndk2hk6"]
 
-[ext_resource type="Script" path="res://addons/m3core/cell.gd" id="1_gvscb"]
-[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://game/components/animations/move.tscn" id="2_6a1nq"]
+[ext_resource type="Script" path="res://addons/m3core/cell.gd" id="1_4k3vc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4tfm"]
 bg_color = Color(0.356863, 0.627451, 0.839216, 0.419608)
@@ -19,8 +18,7 @@ offset_right = -0.600006
 offset_bottom = 0.239998
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_k4tfm")
-script = ExtResource("1_gvscb")
-
-[node name="Move" parent="." instance=ExtResource("2_6a1nq")]
-_move_time = 0.3
+script = ExtResource("1_4k3vc")

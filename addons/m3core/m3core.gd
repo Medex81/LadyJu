@@ -1,17 +1,9 @@
 extends Node
 
-# масштаб анимации подсказки (+15%).
-@export var animation_scale:float = 1.15
-# длительность изменения масштаба в подсказке(сек).
-@export var  hint_time:float = 0.4
-# длительность анимации перемещения предметов между клетками(сек).
-@export var  move_time:float = 0.2
 # амулет при сматчивании с другим матчером меняет предмет на матчер такого типа в количестве...
-@export var  amulet_boost_count = 1
+@export var  amulet_boost_count = 10
 # максимальное количество смешиваний до появления комбинации для матча.
 @export var  max_shuffle:int = 10
-@export var  hint_delay:float = 3.0
-
 var _cols = 0
 enum EDirect{DOWN, LEFT, RIGHT, TOP, TOP_LEFT, TOP_RIGHT, DOWN_LEFT, DOWN_RIGHT}
 # размещаем клетки в матрице 
@@ -24,16 +16,8 @@ var _cells_not_hole:Array
 var _event_counter = 0
 # счётчик смешиваний
 var _shuffle_counter = 0
-var _timer:Timer = null
-
 var items = {}
 
-func _ready():
-	_timer = Timer.new()
-	add_child(_timer)
-	_timer.one_shot = true
-	_timer.wait_time = hint_delay
-	_timer.timeout.connect(_on_timer_hint_delay_timeout)
 
 func import_items_from_dir(path:String)->int:
 	return 1
@@ -78,25 +62,25 @@ func init_cells(cells:Array, cols:int)->int:
 	return _cells.size()
 
 func _swap(cell_first:Cell, cell_second:Cell)->bool:
-	if _is_events_done():
-		# свап только в пределах соседних валидных клеток
-		if absi(cell_first.x - cell_second.x) + absi(cell_first.y - cell_second.y) == 1 \
-		and cell_first.can_move() and cell_second.can_move():
-			_cells_not_hole.all(func(child):child.stop_animations(); return true)
-			cell_first.swap(cell_second)
-			# если один из предметов сматченный - можно считать за новый матч
-			if cell_first.is_matched() or cell_second.is_matched():
-				if (cell_first.is_matched() and cell_second.is_matched()) \
-				or (cell_first.get_item_type() == Item.EItem.AMULET or cell_second.get_item_type() == Item.EItem.AMULET):
-					_hit([cell_first, cell_second], true)
-				else:
-					_hit([cell_first if cell_first.is_matched() else cell_second])
-				return true
-
-			if _is_match(cell_first) or _is_match(cell_second):
-				return true
+	#if _is_events_done():
+	# свап только в пределах соседних валидных клеток
+	if absi(cell_first.x - cell_second.x) + absi(cell_first.y - cell_second.y) == 1 \
+	and cell_first.can_move() and cell_second.can_move():
+		_cells_not_hole.all(func(child):child.hint_stop(); return true)
+		cell_first.swap(cell_second)
+		# если один из предметов сматченный - можно считать за новый матч
+		if cell_first.is_matched() or cell_second.is_matched():
+			if (cell_first.is_matched() and cell_second.is_matched()) \
+			or (cell_first.get_item_type() == Item.EItem.AMULET or cell_second.get_item_type() == Item.EItem.AMULET):
+				_hit([cell_first, cell_second], true)
 			else:
-				cell_first.swap(cell_second)
+				_hit([cell_first if cell_first.is_matched() else cell_second])
+			return true
+
+		if _is_match(cell_first) or _is_match(cell_second):
+			return true
+		else:
+			cell_first.swap(cell_second)
 	return false
 	
 func _is_valid_col(col:int)->bool:
@@ -196,7 +180,7 @@ func _move_if_can(cell:Cell, direct:EDirect)->bool:
 	if cell.can_move():
 		var other_cell = _neighbour_cell(cell, direct) as Cell
 		if other_cell and not other_cell.is_hole() and other_cell.is_empty():
-			get_tree().call_group("stop_cell_animations", "stop_animations")
+			_cells_not_hole.all(func(child):child.hint_stop(); return true)
 			cell.swap(other_cell)
 			return true
 	return false
@@ -357,6 +341,7 @@ func _worker()->bool:
 			cell.spawn(_create_item(Item.get_next_common()))
 			is_event = true
 	if is_event:
+		print("_worker spawn")
 		return true
 
 	# перемещаем предметы между клетками, сначала вниз для создания эффекта падения(пакетное).
@@ -364,6 +349,7 @@ func _worker()->bool:
 		if _move_if_can(cell, EDirect.DOWN):
 			is_event = true
 	if is_event:
+		print("_worker move down")
 		return true
 		
 	# перемещаем предметы влево или вправо вниз(одиночное)
@@ -372,6 +358,7 @@ func _worker()->bool:
 			# приоритет падения вниз! Смещение лево-право по одному шагу и опять вниз.
 			is_event = true
 	if is_event:
+		print("_worker move left-right")
 		return true
 			
 	# удаление последовательностей(пакетное).
@@ -382,14 +369,19 @@ func _worker()->bool:
 			_spawn_match_item(arr)
 			is_event = true
 	if is_event:
+		print("_worker match")
 		return true
 
+	print("_worker no steps")
 	return is_event
 	
 # обновить состояние игрового поля
 func _update():
+	print("events ", _event_counter)
 	if _event_counter > 0:
 		return
+		
+	print("update")
 	# сматчить, удалить, добавить
 	if not _worker():
 		# действий нет - ищем подсказку
@@ -400,10 +392,10 @@ func _update():
 				#TODO нужно проверять сколько оталось предметов и не смешивать менее 5-6!
 				_shuffle()
 		else:
-			_cells_not_hole.all(func(child):child.stop_animations(); return true)
-			_timer.start()
+			_cells_not_hole.all(func(child):child.hint_stop(); return true)
+			$Timer.start()
 	else:
-		_cells_not_hole.all(func(child):child.stop_animations(); return true)
+		_cells_not_hole.all(func(child):child.hint_stop(); return true)
 		_shuffle_counter = 0
 	
 # вернуть соседнюю клетку по указанному направлению
@@ -607,13 +599,21 @@ func on_cell_tap(cell_first:Cell, cell_second:Cell):
 	_swap(cell_first, cell_second)
 
 func done_event():
-	_event_counter -= 1
 	if _event_counter <= 0:
+		return
+	_event_counter -= 1
+	print("_event_counter ", _event_counter)
+	if _event_counter == 0:
 		_event_counter = 0
 		call_deferred("_update")
 		
 func add_event():
 	_event_counter += 1
+	print("_event_counter ", _event_counter)
 
 func _is_events_done()->bool:
 	return _event_counter == 0
+
+func _unhandled_input(event):
+	if event is InputEventKey and event.is_pressed():
+		call_deferred("_update")

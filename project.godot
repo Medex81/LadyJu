@@ -17,7 +17,7 @@ config/features=PackedStringArray("4.2", "GL Compatibility")
 [autoload]
 
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
-M3Core="*res://addons/m3core/m3core.gd"
+M3Core="*res://addons/m3core/m3core.tscn"
 
 [debug]
 
@@ -33,7 +33,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/m3core/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [rendering]
 

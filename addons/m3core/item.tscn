@@ -1,8 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjgodmmfjslow"]
+[gd_scene load_steps=4 format=3 uid="uid://cjgodmmfjslow"]
 
 [ext_resource type="Script" path="res://addons/m3core/item.gd" id="1_4oe22"]
+[ext_resource type="PackedScene" uid="uid://diagd4k50n1oh" path="res://addons/components/animations/scale.tscn" id="2_xwjij"]
+[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="3_6lxv5"]
 
 [node name="item" type="Sprite2D"]
 scale = Vector2(0.84, 0.84)
 centered = false
 script = ExtResource("1_4oe22")
+
+[node name="Scale" parent="." instance=ExtResource("2_xwjij")]
+animation_scale = 1.2
+offset = Vector2(125, 125)
+is_return = true
+loop_count = 10
+
+[node name="Move" parent="." instance=ExtResource("3_6lxv5")]
+anim_time = 0.15
+
+[node name="ScaleToZero" parent="." instance=ExtResource("2_xwjij")]
+animation_scale = 0.15
+offset = Vector2(125, 125)
+
+[connection signal="send_end" from="Move" to="." method="_on_anim_send_end"]
+[connection signal="send_start" from="Move" to="." method="_on_anim_send_start"]
+[connection signal="send_end" from="ScaleToZero" to="." method="_on_scale_to_zero_send_end"]
+[connection signal="send_start" from="ScaleToZero" to="." method="_on_anim_send_start"]
