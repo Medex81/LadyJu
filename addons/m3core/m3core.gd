@@ -71,7 +71,7 @@ func _swap(cell_first:Cell, cell_second:Cell)->bool:
 		# если один из предметов сматченный - можно считать за новый матч
 		if cell_first.is_matched() or cell_second.is_matched():
 			if (cell_first.is_matched() and cell_second.is_matched()) \
-			or (cell_first.get_item_type() == Item.EItem.AMULET or cell_second.get_item_type() == Item.EItem.AMULET):
+			or (cell_first.get_item_type() == ItemBase.EItem.AMULET or cell_second.get_item_type() == ItemBase.EItem.AMULET):
 				_hit([cell_first, cell_second], true)
 			else:
 				_hit([cell_first if cell_first.is_matched() else cell_second])
@@ -189,19 +189,19 @@ func _spawn_match_item(src_arr:Array[Cell]):
 	# в клетку в которую перемещали предмет записываем дату, сматченный предмет вставляем в клетку с самой поздней датой.
 	var cell = _get_last_updated_cell(src_arr)
 	if cell:
-		var new_type:Item.EItem = Item.EItem.NONE
+		var new_type:ItemBase.EItem = ItemBase.EItem.NONE
 		# TODO - тут раздаём награды за матчи
 		match src_arr.size():
 			4:# ROCKET_LINE_V or ROCKET_LINE_H
-				new_type = Item.EItem.ROCKET_LINE_V if src_arr[0].x == src_arr[1].x else Item.EItem.ROCKET_LINE_H
+				new_type = ItemBase.EItem.ROCKET_LINE_V if src_arr[0].x == src_arr[1].x else ItemBase.EItem.ROCKET_LINE_H
 			5:# BOMB
-				new_type = Item.EItem.BOMB
+				new_type = ItemBase.EItem.BOMB
 			6:# AMULET
-				new_type = Item.EItem.AMULET
+				new_type = ItemBase.EItem.AMULET
 			7:# BOMB_TOTAL
-				new_type = Item.EItem.BOMB_TOTAL
+				new_type = ItemBase.EItem.BOMB_TOTAL
 		_hit(src_arr)
-		if new_type != Item.EItem.NONE:
+		if new_type != ItemBase.EItem.NONE:
 			cell.spawn(_create_item(new_type))
 	else:
 		print("Erorr. _spawn_match_item(_get_last_updated_cell) is null.")
@@ -227,16 +227,16 @@ func _hit(cells:Array[Cell], is_swap:bool = false):
 	if not hit_area.is_empty():
 		_hit(hit_area)
 	
-func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
+func _get_hit_area(cell:Cell, type:ItemBase.EItem = ItemBase.EItem.NONE)->Array[Cell]:
 	var result:Array[Cell]
 	match cell.get_item_type():
 		# подрывает вертикально весь столбец
-		Item.EItem.ROCKET_LINE_V:
+		ItemBase.EItem.ROCKET_LINE_V:
 			for y in range(_rows):
 				if _cell_mat[cell.x][y] != cell:
 					result.append(_cell_mat[cell.x][y])
 			# сматчивание с матчером - усиливаем вторым столбцом, амулет превращает предмет в матчер без усиления
-			if Item.get_item_type(type) == Item.EItemType.MATCHED and Item.get_item_type(type) != Item.EItem.AMULET:
+			if ItemBase.get_item_type(type) == ItemBase.EItemType.MATCHED and ItemBase.get_item_type(type) != ItemBase.EItem.AMULET:
 				var x:int = cell.x
 				if _is_valid_col(x + 1):
 					x += 1
@@ -245,12 +245,12 @@ func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 				for y in range(_rows):
 					result.append(_cell_mat[x][y])
 		# подрывает горизонтально всю строку
-		Item.EItem.ROCKET_LINE_H:
+		ItemBase.EItem.ROCKET_LINE_H:
 			for x in range(_cols):
 				if _cell_mat[x][cell.y] != cell:
 					result.append(_cell_mat[x][cell.y])
 			# сматчивание с матчером - усиливаем второй строкой, амулет превращает предмет в матчер без усиления
-			if Item.get_item_type(type) == Item.EItemType.MATCHED and Item.get_item_type(type) != Item.EItem.AMULET:
+			if ItemBase.get_item_type(type) == ItemBase.EItemType.MATCHED and ItemBase.get_item_type(type) != ItemBase.EItem.AMULET:
 				var y:int = cell.y
 				if _is_valid_row(y + 1):
 					y += 1
@@ -260,7 +260,7 @@ func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 					result.append(_cell_mat[x][y])
 
 		# бомба подрывает зону по своему периметру
-		Item.EItem.BOMB:
+		ItemBase.EItem.BOMB:
 			result.append(_neighbour_cell(cell, EDirect.DOWN))
 			result.append(_neighbour_cell(cell, EDirect.LEFT))
 			result.append(_neighbour_cell(cell, EDirect.RIGHT))
@@ -270,7 +270,7 @@ func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 			result.append(_neighbour_cell(cell, EDirect.DOWN_LEFT))
 			result.append(_neighbour_cell(cell, EDirect.DOWN_RIGHT))
 			# сматчивание с матчером - расширенный на +1 периметр клеток, амулет превращает предмет в матчер без усиления
-			if Item.get_item_type(type) == Item.EItemType.MATCHED and Item.get_item_type(type) != Item.EItem.AMULET:
+			if ItemBase.get_item_type(type) == ItemBase.EItemType.MATCHED and ItemBase.get_item_type(type) != ItemBase.EItem.AMULET:
 				var tl = _neighbour_cell(cell, EDirect.TOP_LEFT)
 				result.append(_neighbour_cell(tl, EDirect.TOP))
 				result.append(_neighbour_cell(tl, EDirect.TOP_LEFT))
@@ -293,16 +293,16 @@ func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 				result.append(_neighbour_cell(tr, EDirect.TOP_LEFT))
 		# амулет подрывает предметы типа с которым сматчен или рандомным типом при вторичном подрыве
 		# если сматчен с матчером, тогда заменяет предмет случайного типа (не более N раз) на того с кем матчится
-		Item.EItem.AMULET:
-			if type == Item.EItem.NONE:
-				type = Item.get_next_common()
-			match Item.get_item_type(type):
-				Item.EItemType.COMMON:
+		ItemBase.EItem.AMULET:
+			if type == ItemBase.EItem.NONE:
+				type = ItemBase.get_next_common()
+			match ItemBase.get_item_type(type):
+				ItemBase.EItemType.COMMON:
 					for _cell in _cells_not_hole:
 						if _cell.get_item_type() == type and _cell != cell:
 							result.append(_cell)
-				Item.EItemType.MATCHED:
-					var hit_type = Item.get_next_common()
+				ItemBase.EItemType.MATCHED:
+					var hit_type = ItemBase.get_next_common()
 					var counter = amulet_boost_count
 					for _cell in _cells_not_hole:
 						if _cell.get_item_type() == hit_type and _cell != cell:
@@ -313,7 +313,7 @@ func _get_hit_area(cell:Cell, type:Item.EItem = Item.EItem.NONE)->Array[Cell]:
 						if counter == 0:
 							break
 							
-		Item.EItem.BOMB_TOTAL:
+		ItemBase.EItem.BOMB_TOTAL:
 			result.append_array(_cells_not_hole.duplicate())
 			result.erase(cell)
 
@@ -338,7 +338,7 @@ func _worker()->bool:
 	# создаем предметы в клетках спавна если они пустые(пакетное)
 	for cell in _cells_spawnable:
 		if cell.can_spawn():
-			cell.spawn(_create_item(Item.get_next_common()))
+			cell.spawn(_create_item(ItemBase.get_next_common()))
 			is_event = true
 	if is_event:
 		print("_worker spawn")
@@ -429,10 +429,10 @@ func _neighbour_cell(cell:Cell, direct:EDirect)->Cell:
 	return null
 	
 # проверить соседнюю клетку с переданной по указанному направлению, на равенство типа.
-func _cell_hintable(cell:Cell, direct:EDirect, type = Item.EItem.NONE)->bool:
+func _cell_hintable(cell:Cell, direct:EDirect, type = ItemBase.EItem.NONE)->bool:
 	if cell:
 		# если тип не указан - ищем клетку с типом исходной
-		if type == Item.EItem.NONE:
+		if type == ItemBase.EItem.NONE:
 			type = cell.get_item_type()
 		var other_cell = _neighbour_cell(cell, direct)
 		if other_cell and other_cell.can_move() and other_cell.get_item_type() == type:
@@ -583,8 +583,8 @@ func _shuffle():
 		# выбираем рандомно кого с кем поменять
 		cell.swap(shuffle_cells[randi_range(0, shuffle_cells.size() - 1)])
 
-func _create_item(item_type:Item.EItem)->Item:
-	var item:Item = null
+func _create_item(item_type:ItemBase.EItem)->ItemBase:
+	var item:ItemBase = null
 	var _scn = items.get(item_type, null)
 	if _scn:
 		item = _scn.instantiate()
