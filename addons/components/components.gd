@@ -2,6 +2,7 @@ class_name Components
 extends Node
 
 @export var loop_count = 1
+@export var switch_off:bool = false
 
 signal send_start(component:String)
 signal send_end(component:String)

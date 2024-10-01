@@ -1,7 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dghrthyewawix"]
-
-[ext_resource type="PackedScene" uid="uid://cjgodmmfjslow" path="res://addons/m3core/item.tscn" id="1_rew7d"]
-[ext_resource type="Texture2D" uid="uid://0x1ybhdiot46" path="res://game/assets/anny_pack/chains.png" id="2_f04xk"]
-
-[node name="item" instance=ExtResource("1_rew7d")]
-texture = ExtResource("2_f04xk")

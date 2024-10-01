@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3occ26g4cc6o"]
+
+[ext_resource type="Script" path="res://game/scenes/match3/item.gd" id="1_7hmrt"]
+[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="2_6birw"]
+[ext_resource type="PackedScene" uid="uid://diagd4k50n1oh" path="res://addons/components/animations/scale.tscn" id="3_rpore"]
+
+[node name="item" type="Sprite2D"]
+scale = Vector2(0.84, 0.84)
+centered = false
+script = ExtResource("1_7hmrt")
+
+[node name="Move" parent="." instance=ExtResource("2_6birw")]
+undo_on_start = false
+anim_time = 0.15
+
+[node name="Scale" parent="." instance=ExtResource("3_rpore")]
+animation_scale = 1.2
+offset = Vector2(125, 125)
+is_return = true
+anim_time = 0.6
+loop_count = 10
+
+[node name="ScaleToZero" parent="." instance=ExtResource("3_rpore")]
+animation_scale = 0.15
+offset = Vector2(125, 125)
+undo_on_start = false
+anim_time = 0.2
+
+[connection signal="send_end" from="Move" to="." method="_on_anim_send_end"]
+[connection signal="send_start" from="Move" to="." method="_on_anim_send_start"]
+[connection signal="send_end" from="ScaleToZero" to="." method="_on_scale_to_zero_send_end"]
+[connection signal="send_start" from="ScaleToZero" to="." method="_on_anim_send_start"]

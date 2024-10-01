@@ -16,5 +16,5 @@ func _ready():
 	Item.EItem.BOMB_TOTAL: preload("res://game/scenes/match3/items/item_total_bomb.tscn"),
 	
 	Item.EItem.GLASS: preload("res://game/scenes/match3/items/item_glass.tscn"),
-	Item.EItem.CHAIN: preload("res://game/scenes/match3/items/item_chains.tscn")
+	Item.EItem.CHAIN: preload("res://game/scenes/match3/items/item_chain.tscn")
 }
