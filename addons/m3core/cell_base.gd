@@ -1,7 +1,7 @@
 @tool
 extends Control
 
-class_name Cell
+class_name CellBase
 
 var _color_on:Color = Color(0.35,0.62,0.83,0.41)
 var _color_off:Color = Color(0,0,0,0)
@@ -69,11 +69,6 @@ func _can_drop_data(_at_position, data)->bool:
 func _drop_data(_at_position, data):
 	M3Core.on_cell_tap(data, self)
 
-func hint_stop():
-	var item = get_item()
-	if item and item.has_method("hint_stop"):
-		item.hint_stop()
-
 # меняем предметы между клетками
 func swap(cell_other:Cell):
 	# клетки не должны быть дырками или заблокированными
@@ -100,14 +95,21 @@ func hit():
 		return
 		
 	var item = get_item()
-	if item != null:
+	if item:
 		_item_deleting_list.append(item)
-		item.delete()
+		delete(item)
+
+func hint_stop():
+	pass
 
 func hint():
-	var item = get_item()
-	if item and item.has_method("hints"):
-		item.hints()
+	pass
+		
+func move(item:Item, move_to:Vector2):
+	pass
+		
+func delete(item:Item):
+	pass
 
 func can_move()->bool:
 	var item = get_item()
@@ -126,5 +128,5 @@ func add_item(item:Item)->bool:
 			add_child(item)
 			# метка времени изменения для клетки, чтобы вставлять сматченный предмет на место свапа
 			_last_update = Time.get_ticks_msec()
-			item.move(Vector2.ZERO)
+			move(item, Vector2.ZERO)
 	return false

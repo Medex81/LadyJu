@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cj650kndk2hk6"]
 
-[ext_resource type="Script" path="res://addons/m3core/cell.gd" id="1_4k3vc"]
+[ext_resource type="Script" path="res://game/scenes/match3/cell.gd" id="1_bj614"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4tfm"]
 bg_color = Color(0.356863, 0.627451, 0.839216, 0.419608)
@@ -21,4 +21,4 @@ grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_k4tfm")
-script = ExtResource("1_4k3vc")
+script = ExtResource("1_bj614")
