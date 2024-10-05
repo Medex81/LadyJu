@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl0rngsdf5i87"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_pxaya"]
-[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_jgr45"]
+[ext_resource type="Texture2D" uid="uid://f3tt2ong7163" path="res://game/assets/anny_pack/rocket2h.png" id="2_jgr45"]
 
 [node name="item" instance=ExtResource("1_pxaya")]
 rotation = 1.5708
+scale = Vector2(0.209, 0.209)
 texture = ExtResource("2_jgr45")
 offset = Vector2(0, -125)
 _item = 8

@@ -1,8 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4qnftogf0gth"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_jakre"]
-[ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_whkd2"]
+[ext_resource type="Texture2D" uid="uid://cs05fchka7ch6" path="res://game/assets/anny_pack/amulet.png" id="2_whkd2"]
 
 [node name="item" instance=ExtResource("1_jakre")]
+scale = Vector2(0.209, 0.209)
 texture = ExtResource("2_whkd2")
 _item = 10
