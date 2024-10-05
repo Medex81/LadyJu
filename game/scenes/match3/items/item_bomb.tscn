@@ -1,8 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://wjfvq6t4kvoa"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_q6pie"]
-[ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="2_f7w8v"]
+[ext_resource type="Texture2D" uid="uid://cfsdjmgnt7e3h" path="res://game/assets/anny_pack/bomb.png" id="2_f7w8v"]
 
 [node name="item" instance=ExtResource("1_q6pie")]
+scale = Vector2(0.209, 0.209)
 texture = ExtResource("2_f7w8v")
 _item = 9
