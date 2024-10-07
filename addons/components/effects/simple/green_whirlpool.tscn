@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0xpei85tn5ic"]
+
+[ext_resource type="Texture2D" uid="uid://bwxemhwio4rft" path="res://addons/components/effects/textures/particles/effect_4_.png" id="1_i6jpn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ovaga"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_fsuu3"]
+_data = [Vector2(0.16, 0.208791), 0.0, 0.0, 0, 0, Vector2(0.553333, 0.538462), 0.0, 0.0, 0, 0, Vector2(0.846667, 0.813187), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_urukm"]
+curve = SubResource("Curve_fsuu3")
+
+[sub_resource type="Curve" id="Curve_sqgq8"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.973333, 2.8022), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uc5cx"]
+curve = SubResource("Curve_sqgq8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tog0j"]
+particle_flag_disable_z = true
+angle_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_over_velocity_curve = SubResource("CurveTexture_uc5cx")
+color = Color(0.239216, 1, 0.556863, 1)
+alpha_curve = SubResource("CurveTexture_urukm")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_ovaga")
+amount = 7
+process_material = SubResource("ParticleProcessMaterial_tog0j")
+texture = ExtResource("1_i6jpn")

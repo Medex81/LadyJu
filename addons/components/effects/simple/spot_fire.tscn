@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://80qwpyi0mvwy"]
+
+[ext_resource type="Texture2D" uid="uid://srqld4iqx2wv" path="res://addons/components/effects/textures/particles/offset_glow.png" id="1_k6b6m"]
+
+[sub_resource type="CanvasItemMaterial" id="6"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="9"]
+offsets = PackedFloat32Array(0, 0.191336, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="10"]
+gradient = SubResource("9")
+
+[sub_resource type="Curve" id="Curve_nuwk3"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4du16"]
+curve = SubResource("Curve_nuwk3")
+
+[sub_resource type="Curve" id="11"]
+_data = [Vector2(0, 0.472727), 0.0, 2.25296, 0, 0, Vector2(1, 0.440909), -0.818182, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="12"]
+curve = SubResource("11")
+
+[sub_resource type="ParticleProcessMaterial" id="13"]
+emission_shape = 1
+emission_sphere_radius = 26.57
+flatness = 0.135
+orbit_velocity_min = -0.001
+orbit_velocity_max = 0.719
+orbit_velocity_curve = SubResource("CurveTexture_4du16")
+gravity = Vector3(0, -150, 0)
+scale_curve = SubResource("12")
+color_ramp = SubResource("10")
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 10.0
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+modulate = Color(0.3, 1.55, 3, 1)
+material = SubResource("6")
+amount = 20
+process_material = SubResource("13")
+texture = ExtResource("1_k6b6m")

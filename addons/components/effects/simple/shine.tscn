@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://2byl5j5qdx5t"]
+
+[ext_resource type="Texture2D" uid="uid://qmoj0e1qkcrq" path="res://addons/components/effects/textures/particles/random_selection.png" id="1_q8ryg"]
+
+[sub_resource type="CanvasItemMaterial" id="14"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_uu5rj"]
+_data = [Vector2(0.226667, 0.285714), 0.0, 0.0, 0, 0, Vector2(0.826667, 0.956044), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eu40a"]
+curve = SubResource("Curve_uu5rj")
+
+[sub_resource type="Gradient" id="15"]
+offsets = PackedFloat32Array(0, 0.523466, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="16"]
+gradient = SubResource("15")
+
+[sub_resource type="Curve" id="17"]
+_data = [Vector2(0, 0.463636), 0.0, 1.90083, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="18"]
+curve = SubResource("17")
+
+[sub_resource type="ParticleProcessMaterial" id="19"]
+angular_velocity_min = -210.34
+angular_velocity_max = 145.62
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("18")
+color_ramp = SubResource("16")
+anim_offset_curve = SubResource("CurveTexture_eu40a")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+modulate = Color(0, 0.635294, 1, 1)
+material = SubResource("14")
+process_material = SubResource("19")
+texture = ExtResource("1_q8ryg")

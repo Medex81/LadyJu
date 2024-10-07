@@ -1,10 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4r4e1ypd7uyd"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_evs5f"]
-[ext_resource type="Texture2D" uid="uid://n7b7k8ugbol1" path="res://game/assets/anny_pack/glass.png" id="2_vpfvy"]
+[ext_resource type="Texture2D" uid="uid://n73bi4828lg1" path="res://game/assets/anny_pack/glass.png" id="2_vpfvy"]
 
 [node name="item" instance=ExtResource("1_evs5f")]
-scale = Vector2(0.209, 0.209)
+anchors_preset = -1
+anchor_right = 0.055
+anchor_bottom = 0.097
+offset_right = -105.6
+offset_bottom = -104.76
 texture = ExtResource("2_vpfvy")
 _item = 12
 

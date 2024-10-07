@@ -1,9 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://wjfvq6t4kvoa"]
+[gd_scene load_steps=4 format=3 uid="uid://wjfvq6t4kvoa"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_q6pie"]
-[ext_resource type="Texture2D" uid="uid://cfsdjmgnt7e3h" path="res://game/assets/anny_pack/bomb.png" id="2_f7w8v"]
+[ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="2_f7w8v"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="3_drlmn"]
 
 [node name="item" instance=ExtResource("1_q6pie")]
-scale = Vector2(0.209, 0.209)
+anchors_preset = -1
+anchor_right = 0.055
+anchor_bottom = 0.097
+offset_right = -105.6
+offset_bottom = -104.76
 texture = ExtResource("2_f7w8v")
 _item = 9
+
+[node name="GPUParticles2D" parent="." index="4" instance=ExtResource("3_drlmn")]
+position = Vector2(31, 0)

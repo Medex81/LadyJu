@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcbyo1ol2u7fg"]
+
+[ext_resource type="Texture2D" uid="uid://bvidwhm8ivk46" path="res://addons/components/effects/textures/smoke.png" id="1_2jhae"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kfr4a"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_rxmpe"]
+_data = [Vector2(0.0562249, 0.945194), 0.0, 0.0, 0, 0, Vector2(0.927711, 0.166948), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d5a6g"]
+curve = SubResource("Curve_rxmpe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_peau1"]
+lifetime_randomness = 0.14
+particle_flag_disable_z = true
+orbit_velocity_min = -0.145
+orbit_velocity_max = 0.116
+gravity = Vector3(0, -98, 0)
+scale_min = 0.1
+alpha_curve = SubResource("CurveTexture_d5a6g")
+
+[node name="smoke" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_kfr4a")
+position = Vector2(-2, 0)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_peau1")
+texture = ExtResource("1_2jhae")

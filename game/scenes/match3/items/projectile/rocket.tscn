@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpiwkcqqtr5hg"]
+
+[ext_resource type="Texture2D" uid="uid://cg65jbimnkh8o" path="res://game/assets/anny_pack/rocket.png" id="1_ai8tq"]
+[ext_resource type="Script" path="res://game/scenes/match3/items/projectile/rocket.gd" id="2_6roxx"]
+[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="3_y0nh3"]
+[ext_resource type="AudioStream" uid="uid://ccdhef1tswyvj" path="res://game/assets/anny_pack/sounds/rocket_air.mp3" id="4_sjeyy"]
+[ext_resource type="PackedScene" uid="uid://bcbyo1ol2u7fg" path="res://addons/components/effects/simple/smoke.tscn" id="5_rthw5"]
+
+[node name="Rocket" type="Sprite2D"]
+texture = ExtResource("1_ai8tq")
+script = ExtResource("2_6roxx")
+
+[node name="Move" parent="." instance=ExtResource("3_y0nh3")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sjeyy")
+
+[node name="smoke" parent="." instance=ExtResource("5_rthw5")]
+position = Vector2(18, 1)

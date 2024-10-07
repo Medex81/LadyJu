@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://addons/components/animations/move.gd" id="1_3nu5n"]
 
-[node name="Move" type="Node"]
+[node name="Move" type="Node2D"]
 script = ExtResource("1_3nu5n")

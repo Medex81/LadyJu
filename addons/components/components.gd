@@ -1,5 +1,5 @@
 class_name Components
-extends Node
+extends Node2D
 
 @export var loop_count = 1
 @export var switch_off:bool = false

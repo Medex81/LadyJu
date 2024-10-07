@@ -1,4 +1,4 @@
-extends Sprite2D
+extends TextureRect
 
 class_name ItemBase
 

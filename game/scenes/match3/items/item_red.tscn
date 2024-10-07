@@ -1,9 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://yqann1tndafx"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_elm7e"]
-[ext_resource type="Texture2D" uid="uid://cl58ae4tvdmh3" path="res://game/assets/anny_pack/crystal_red.png" id="2_jvk87"]
+[ext_resource type="Texture2D" uid="uid://bhskjrpecqd0e" path="res://game/assets/anny_pack/crystal_red.png" id="2_jvk87"]
 
 [node name="item" instance=ExtResource("1_elm7e")]
-scale = Vector2(0.209, 0.209)
+anchors_preset = -1
+anchor_right = 0.055
+anchor_bottom = 0.097
+offset_right = -105.6
+offset_bottom = -104.76
 texture = ExtResource("2_jvk87")
 _item = 1

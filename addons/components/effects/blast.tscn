@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpw8vv66rntf0"]
+
+[ext_resource type="Script" path="res://addons/components/effects/blast.gd" id="1_s3avq"]
+[ext_resource type="PackedScene" uid="uid://7ib5egdayv20" path="res://addons/components/effects/simple/blast.tscn" id="3_05kdr"]
+[ext_resource type="AudioStream" uid="uid://cmn1xx8tn8j2n" path="res://addons/sounds/hits/weak-explosion-with-overcharge.mp3" id="3_y4hpn"]
+
+[node name="Blast" type="Node2D"]
+script = ExtResource("1_s3avq")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_y4hpn")
+volume_db = -11.05
+
+[node name="GPUParticles2D" parent="." instance=ExtResource("3_05kdr")]
+lifetime = 0.5

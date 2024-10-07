@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://blm02s0241ogb"]
+
+[ext_resource type="Texture2D" uid="uid://b8081l1rv6in6" path="res://addons/components/effects/textures/particles/floaty_64.png" id="1_ll5ym"]
+
+[sub_resource type="CanvasItemMaterial" id="2"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_wlhsj"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0.0120482, -1.50759), 0.0, 0.0, 0, 0, Vector2(0.987952, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0itvh"]
+curve = SubResource("Curve_wlhsj")
+
+[sub_resource type="ParticleProcessMaterial" id="5"]
+lifetime_randomness = 0.16
+inherit_velocity_ratio = 0.023
+spread = 88.989
+orbit_velocity_curve = SubResource("CurveTexture_0itvh")
+radial_velocity_min = -144.93
+radial_velocity_max = -57.97
+gravity = Vector3(0, 0, 0)
+linear_accel_max = 23.19
+radial_accel_max = 28.99
+scale_min = 0.1
+scale_max = 1.5
+color = Color(0.975589, 0.621114, 0.331509, 1)
+anim_speed_min = 0.72
+anim_speed_max = 4.86
+turbulence_enabled = true
+turbulence_noise_strength = 8.79
+turbulence_noise_scale = 9.421
+turbulence_noise_speed_random = 3.02
+turbulence_influence_min = 0.3
+turbulence_influence_max = 0.637
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+material = SubResource("2")
+amount = 10
+process_material = SubResource("5")
+texture = ExtResource("1_ll5ym")
+lifetime = 1.5
+explosiveness = 0.14

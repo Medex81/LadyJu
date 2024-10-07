@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://w04fhibkoagm"]
+
+[ext_resource type="Texture2D" uid="uid://bwxemhwio4rft" path="res://addons/components/effects/textures/particles/effect_4_.png" id="1_1i452"]
+
+[sub_resource type="CanvasItemMaterial" id="20"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="21"]
+offsets = PackedFloat32Array(0, 0.563177, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="22"]
+gradient = SubResource("21")
+
+[sub_resource type="Curve" id="Curve_cur25"]
+_data = [Vector2(0, 0.472527), 0.0, 0.0, 0, 0, Vector2(0.966667, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ughmg"]
+curve = SubResource("Curve_cur25")
+
+[sub_resource type="ParticleProcessMaterial" id="25"]
+lifetime_randomness = 0.12
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ughmg")
+color_ramp = SubResource("22")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+modulate = Color(5.78, 1.21922, 0, 1)
+material = SubResource("20")
+amount = 4
+process_material = SubResource("25")
+texture = ExtResource("1_1i452")

@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhfd3qntic8ra"]
+
+[ext_resource type="Texture2D" uid="uid://ubn2b574m8h1" path="res://addons/components/effects/textures/particles/spotlight_8_.png" id="1_psano"]
+
+[sub_resource type="CanvasItemMaterial" id="20"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="26"]
+offsets = PackedFloat32Array(0, 0.104693, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="27"]
+gradient = SubResource("26")
+
+[sub_resource type="Curve" id="28"]
+_data = [Vector2(0, 0), 0.0, 4.0404, 0, 0, Vector2(1, 0), -1.39147, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="29"]
+curve = SubResource("28")
+
+[sub_resource type="ParticleProcessMaterial" id="30"]
+emission_shape = 2
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 2.0
+scale_curve = SubResource("29")
+color_ramp = SubResource("27")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+modulate = Color(0.635294, 0.74902, 0.419608, 1)
+material = SubResource("20")
+amount = 5
+process_material = SubResource("30")
+texture = ExtResource("1_psano")

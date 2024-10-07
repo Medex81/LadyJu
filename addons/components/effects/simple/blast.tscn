@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=3 uid="uid://7ib5egdayv20"]
+
+[ext_resource type="Texture2D" uid="uid://ks4v4ruk65t4" path="res://addons/components/effects/textures/particles/spotlight_7.png" id="1_ox0v4"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vya6j"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_svktt"]
+_data = [Vector2(0.100402, 1), 0.0, 0.0, 0, 0, Vector2(0.987952, 0.0792581), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8l21o"]
+curve = SubResource("Curve_svktt")
+
+[sub_resource type="Gradient" id="Gradient_fuhas"]
+offsets = PackedFloat32Array(0, 0.447964, 1)
+colors = PackedColorArray(0.933333, 0.823529, 0, 1, 0.952941, 0.141176, 0.027451, 1, 0.972549, 0.0392157, 0.054902, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8hccb"]
+gradient = SubResource("Gradient_fuhas")
+
+[sub_resource type="Curve" id="Curve_cv1wj"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0.0160643, 29.0051), 0.0, 0.0, 0, 0, Vector2(0.959839, 24.6206), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3jhy1"]
+curve = SubResource("Curve_cv1wj")
+
+[sub_resource type="Curve" id="Curve_u4baw"]
+_data = [Vector2(0, 0.134064), 0.0, 0.0, 0, 0, Vector2(0.971888, 0.0354133), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c0m2p"]
+curve = SubResource("Curve_u4baw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s5e84"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 52.01
+spread = 180.0
+flatness = 0.101
+initial_velocity_min = 108.7
+initial_velocity_max = 333.34
+angular_velocity_min = -73.04
+angular_velocity_max = 406.96
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 20.29
+linear_accel_max = 31.88
+linear_accel_curve = SubResource("CurveTexture_3jhy1")
+scale_curve = SubResource("CurveTexture_c0m2p")
+color_ramp = SubResource("GradientTexture1D_8hccb")
+alpha_curve = SubResource("CurveTexture_8l21o")
+anim_offset_min = 0.087
+anim_offset_max = 0.3044
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_vya6j")
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_s5e84")
+texture = ExtResource("1_ox0v4")
+lifetime = 0.6
+one_shot = true
+speed_scale = 1.87
+explosiveness = 0.58
+randomness = 0.5

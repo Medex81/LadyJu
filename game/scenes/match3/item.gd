@@ -31,14 +31,18 @@ func delete():
 		node_scale.exec()
 
 func _on_anim_send_start(component):
-	print("anim_send_start item ", component)
 	M3Core.add_event()
 	
 func _on_anim_send_end(component):
-	print("anim_send_end item ", component)
 	M3Core.done_event()
 
 func _on_scale_to_zero_send_end(component):
+	self_modulate = Color(0,0,0,0)
+	var node_blast = Components.get_component(self, "Blast")
+	if node_blast:
+		node_blast.restart()
+		await node_blast.send_end
+		
 	var parent = get_parent()
 	if parent:
 		parent.remove_child(self)

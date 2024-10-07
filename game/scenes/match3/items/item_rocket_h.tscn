@@ -1,9 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcluu67seceqp"]
+[gd_scene load_steps=6 format=3 uid="uid://dcluu67seceqp"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_8620c"]
-[ext_resource type="Texture2D" uid="uid://f3tt2ong7163" path="res://game/assets/anny_pack/rocket2h.png" id="2_yu78f"]
+[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_yu78f"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="3_epk3n"]
+[ext_resource type="PackedScene" uid="uid://cpiwkcqqtr5hg" path="res://game/scenes/match3/items/projectile/rocket.tscn" id="4_la6o5"]
+[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="5_qam7k"]
 
 [node name="item" instance=ExtResource("1_8620c")]
-scale = Vector2(0.209, 0.209)
 texture = ExtResource("2_yu78f")
 _item = 7
+
+[node name="GPUParticles2D" parent="." index="4" instance=ExtResource("3_epk3n")]
+position = Vector2(104, 31)
+
+[node name="GPUParticles2D2" parent="." index="5" instance=ExtResource("3_epk3n")]
+position = Vector2(2, 80)
+
+[node name="Rocket" parent="." index="6" instance=ExtResource("4_la6o5")]
+visible = false
+position = Vector2(51, 27)
+to_position = Vector2(3000, 0)
+metadata/_edit_group_ = true
+
+[node name="Move2" parent="Rocket" index="3" instance=ExtResource("5_qam7k")]
+anim_time = 0.6
+
+[node name="Rocket2" parent="." index="7" instance=ExtResource("4_la6o5")]
+visible = false
+position = Vector2(53, 77)
+rotation = 3.14159
+to_position = Vector2(-3000, 0)
+metadata/_edit_group_ = true
+
+[node name="Move2" parent="Rocket2" index="3" instance=ExtResource("5_qam7k")]
+anim_time = 0.6
+
+[connection signal="send_start" from="ScaleToZero" to="Rocket" method="move"]
+[connection signal="send_start" from="ScaleToZero" to="Rocket2" method="move"]

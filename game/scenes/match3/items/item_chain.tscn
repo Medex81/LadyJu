@@ -1,10 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5yp4f8yedwx7"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_6316c"]
-[ext_resource type="Texture2D" uid="uid://bt7bje0mfod47" path="res://game/assets/anny_pack/chains.png" id="2_wbwid"]
+[ext_resource type="Texture2D" uid="uid://0x1ybhdiot46" path="res://game/assets/anny_pack/chains.png" id="2_wbwid"]
 
 [node name="item" instance=ExtResource("1_6316c")]
-scale = Vector2(0.209, 0.209)
+anchors_preset = -1
+anchor_right = 0.055
+anchor_bottom = 0.097
+offset_right = -105.6
+offset_bottom = -104.76
 texture = ExtResource("2_wbwid")
 _item = 14
 

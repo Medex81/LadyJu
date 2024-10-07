@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://game/scenes/match3/m_3_grid.gd" id="1_ou8y0"]
 [ext_resource type="PackedScene" uid="uid://cj650kndk2hk6" path="res://game/scenes/match3/cell.tscn" id="2_uh8e3"]
-[ext_resource type="PackedScene" uid="uid://72fl7cfjgpu6" path="res://game/scenes/match3/items/item_total_bomb.tscn" id="4_prjr3"]
-[ext_resource type="PackedScene" uid="uid://dcluu67seceqp" path="res://game/scenes/match3/items/item_rocket_h.tscn" id="5_2cn7u"]
+[ext_resource type="PackedScene" uid="uid://b5yp4f8yedwx7" path="res://game/scenes/match3/items/item_chain.tscn" id="3_v6ecv"]
+[ext_resource type="PackedScene" uid="uid://b4qnftogf0gth" path="res://game/scenes/match3/items/item_amulet.tscn" id="4_lrybo"]
 [ext_resource type="PackedScene" uid="uid://wjfvq6t4kvoa" path="res://game/scenes/match3/items/item_bomb.tscn" id="11_4f36c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2qqn"]
@@ -307,21 +307,21 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q1a5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i04dm"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie7y5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ic01"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_361ps"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yle3e"]
 bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -901,17 +901,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_8vvho")
 
 [node name="cell44" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3q1a5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i04dm")
 _is_hole = true
 
 [node name="cell45" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ie7y5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ic01")
 _is_hole = true
 
 [node name="cell46" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_361ps")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yle3e")
 _is_hole = true
 
 [node name="cell47" parent="." instance=ExtResource("2_uh8e3")]
@@ -1110,6 +1110,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mn26s")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8bl11")
 
+[node name="item" parent="cell95" instance=ExtResource("3_v6ecv")]
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+
 [node name="cell96" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k48wx")
@@ -1118,20 +1122,20 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_k48wx")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lcbo5")
 
+[node name="item" parent="cell97" instance=ExtResource("4_lrybo")]
+layout_mode = 2
+
 [node name="cell98" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2iv2k")
-
-[node name="item" parent="cell98" instance=ExtResource("11_4f36c")]
 
 [node name="cell99" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jl1we")
 
-[node name="item" parent="cell99" instance=ExtResource("5_2cn7u")]
-
 [node name="cell100" parent="." instance=ExtResource("2_uh8e3")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4opg")
 
-[node name="item" parent="cell100" instance=ExtResource("4_prjr3")]
+[node name="item" parent="cell100" instance=ExtResource("11_4f36c")]
+layout_mode = 2
