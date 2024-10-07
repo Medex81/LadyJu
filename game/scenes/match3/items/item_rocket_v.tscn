@@ -1,48 +1,53 @@
-[gd_scene load_steps=6 format=3 uid="uid://dl0rngsdf5i87"]
+[gd_scene load_steps=5 format=3 uid="uid://dkrb7bob8ooe8"]
 
 [ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_pxaya"]
-[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_jgr45"]
 [ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="3_7agml"]
 [ext_resource type="PackedScene" uid="uid://cpiwkcqqtr5hg" path="res://game/scenes/match3/items/projectile/rocket.tscn" id="4_t2wqt"]
 [ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="5_p28c2"]
 
 [node name="item" instance=ExtResource("1_pxaya")]
-anchors_preset = -1
-anchor_left = -0.055
-anchor_bottom = 0.097
-offset_left = 105.6
-offset_bottom = -104.76
-rotation = 1.5708
-texture = ExtResource("2_jgr45")
+anchor_left = -0.001
+anchor_right = 0.054
+offset_left = 1.92
+offset_right = 1.32
 _item = 8
 
 [node name="Blast" parent="." index="3"]
 position = Vector2(205.741, -258.374)
 
-[node name="GPUParticles2D" parent="." index="4" instance=ExtResource("3_7agml")]
-position = Vector2(2.00029, 80)
-
-[node name="GPUParticles2D2" parent="." index="5" instance=ExtResource("3_7agml")]
-position = Vector2(105, 29.9996)
-
-[node name="Rocket" parent="." index="6" instance=ExtResource("4_t2wqt")]
-visible = false
-position = Vector2(50.0001, 27.9998)
-to_position = Vector2(3000, 0)
+[node name="Rocket_t" parent="." index="4" instance=ExtResource("4_t2wqt")]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 2.0
+offset_right = 211.0
+offset_bottom = 54.0
+rotation = 1.5708
+to_position = Vector2(0, 1000)
 metadata/_edit_group_ = true
 
-[node name="Move2" parent="Rocket" index="3" instance=ExtResource("5_p28c2")]
-anim_time = 0.6
+[node name="Move2" parent="Rocket_t" index="2" instance=ExtResource("5_p28c2")]
+anim_time = 2.0
 
-[node name="Rocket2" parent="." index="7" instance=ExtResource("4_t2wqt")]
-position = Vector2(54.0003, 77.9998)
-rotation = 3.14159
-to_position = Vector2(-3000, 0)
+[node name="GPUParticles2D" parent="Rocket_t" index="3" instance=ExtResource("3_7agml")]
+position = Vector2(3.45707e-06, 79)
+rotation = -1.5708
+
+[node name="Rocket_d" parent="." index="5" instance=ExtResource("4_t2wqt")]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 107.0
+offset_right = 107.0
+offset_bottom = 159.0
+rotation = -1.5708
+to_position = Vector2(0, -1000)
 metadata/_edit_group_ = true
 
-[node name="Move2" parent="Rocket2" index="3" instance=ExtResource("5_p28c2")]
-visible = false
-anim_time = 0.6
+[node name="Move2" parent="Rocket_d" index="2" instance=ExtResource("5_p28c2")]
+anim_time = 2.0
 
-[connection signal="send_start" from="ScaleToZero" to="Rocket" method="move"]
-[connection signal="send_start" from="ScaleToZero" to="Rocket2" method="move"]
+[node name="GPUParticles2D2" parent="Rocket_d" index="3" instance=ExtResource("3_7agml")]
+position = Vector2(0, 84)
+rotation = 1.5708
+
+[connection signal="send_start" from="ScaleToZero" to="Rocket_t" method="move"]
+[connection signal="send_start" from="ScaleToZero" to="Rocket_d" method="move"]
