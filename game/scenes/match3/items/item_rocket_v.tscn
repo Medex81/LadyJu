@@ -1,53 +1,181 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkrb7bob8ooe8"]
+[gd_scene load_steps=10 format=3 uid="uid://dkf740fw7j8d4"]
 
-[ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_pxaya"]
-[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="3_7agml"]
-[ext_resource type="PackedScene" uid="uid://cpiwkcqqtr5hg" path="res://game/scenes/match3/items/projectile/rocket.tscn" id="4_t2wqt"]
-[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="5_p28c2"]
+[ext_resource type="Script" path="res://game/scenes/match3/items/item_rocket_v.gd" id="1_x0st5"]
+[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="2_43wqs"]
+[ext_resource type="AudioStream" uid="uid://ccdhef1tswyvj" path="res://game/assets/anny_pack/sounds/rocket_air.mp3" id="3_dn1f1"]
+[ext_resource type="Texture2D" uid="uid://bo1ldn7at06xy" path="res://game/assets/anny_pack/rocket_d.png" id="4_ommia"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="5_skg63"]
+[ext_resource type="PackedScene" uid="uid://bcbyo1ol2u7fg" path="res://addons/components/effects/simple/smoke.tscn" id="6_vej24"]
 
-[node name="item" instance=ExtResource("1_pxaya")]
-anchor_left = -0.001
-anchor_right = 0.054
-offset_left = 1.92
-offset_right = 1.32
+[sub_resource type="Animation" id="Animation_2dv0i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("audio_rocket:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("smoke:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rocket_t:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rocket_d:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(52, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dusvc"]
+resource_name = "explosion"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("audio_rocket:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("smoke:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rocket_t:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1000)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rocket_d:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(52, 0), Vector2(52, 1000)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cb5wq"]
+_data = {
+"RESET": SubResource("Animation_2dv0i"),
+"explosion": SubResource("Animation_dusvc")
+}
+
+[node name="rocket" type="TextureRect"]
+custom_minimum_size = Vector2(105, 105)
+anchors_preset = -1
+anchor_right = 0.055
+anchor_bottom = 0.097
+offset_right = -0.600006
+offset_bottom = 0.239998
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("1_x0st5")
 _item = 8
 
-[node name="Blast" parent="." index="3"]
-position = Vector2(205.741, -258.374)
+[node name="Move" parent="." instance=ExtResource("2_43wqs")]
+undo_on_start = false
+anim_time = 0.15
 
-[node name="Rocket_t" parent="." index="4" instance=ExtResource("4_t2wqt")]
+[node name="audio_rocket" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(2.06612, 3.5)
+stream = ExtResource("3_dn1f1")
+
+[node name="rocket_d" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(52, 105)
 layout_mode = 0
-offset_left = 106.0
-offset_top = 2.0
-offset_right = 211.0
-offset_bottom = 54.0
-rotation = 1.5708
-to_position = Vector2(0, 1000)
-metadata/_edit_group_ = true
+offset_left = 52.0
+offset_right = 104.0
+offset_bottom = 105.0
+texture = ExtResource("4_ommia")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Move2" parent="Rocket_t" index="2" instance=ExtResource("5_p28c2")]
-anim_time = 2.0
-
-[node name="GPUParticles2D" parent="Rocket_t" index="3" instance=ExtResource("3_7agml")]
-position = Vector2(3.45707e-06, 79)
+[node name="GPUParticles2D2" parent="rocket_d" instance=ExtResource("5_skg63")]
+position = Vector2(23, 7)
 rotation = -1.5708
+local_coords = true
 
-[node name="Rocket_d" parent="." index="5" instance=ExtResource("4_t2wqt")]
+[node name="rocket_t" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(52, 105)
 layout_mode = 0
-offset_left = 2.0
-offset_top = 107.0
-offset_right = 107.0
-offset_bottom = 159.0
-rotation = -1.5708
-to_position = Vector2(0, -1000)
-metadata/_edit_group_ = true
+offset_right = 52.0
+offset_bottom = 105.0
+texture = ExtResource("4_ommia")
+expand_mode = 1
+stretch_mode = 5
+flip_v = true
 
-[node name="Move2" parent="Rocket_d" index="2" instance=ExtResource("5_p28c2")]
-anim_time = 2.0
+[node name="GPUParticles2D" parent="rocket_t" instance=ExtResource("5_skg63")]
+position = Vector2(23, 105)
+local_coords = true
 
-[node name="GPUParticles2D2" parent="Rocket_d" index="3" instance=ExtResource("3_7agml")]
-position = Vector2(0, 84)
-rotation = 1.5708
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cb5wq")
+}
 
-[connection signal="send_start" from="ScaleToZero" to="Rocket_t" method="move"]
-[connection signal="send_start" from="ScaleToZero" to="Rocket_d" method="move"]
+[node name="smoke" parent="." instance=ExtResource("6_vej24")]
+position = Vector2(59, 57)
+emitting = false
+one_shot = true
+
+[connection signal="send_end" from="Move" to="." method="_on_anim_send_end"]
+[connection signal="send_start" from="Move" to="." method="_on_anim_send_start"]

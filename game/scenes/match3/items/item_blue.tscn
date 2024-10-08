@@ -4,10 +4,5 @@
 [ext_resource type="Texture2D" uid="uid://dck22mg4fwycr" path="res://game/assets/anny_pack/crystal_blue.png" id="2_y5lce"]
 
 [node name="item" instance=ExtResource("1_chbku")]
-anchors_preset = -1
-anchor_right = 0.055
-anchor_bottom = 0.097
-offset_right = -105.6
-offset_bottom = -104.76
 texture = ExtResource("2_y5lce")
 _item = 2

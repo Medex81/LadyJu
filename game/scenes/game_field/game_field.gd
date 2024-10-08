@@ -11,7 +11,7 @@ func _ready():
 	
 	Item.EItem.ROCKET_LINE_H: preload("res://game/scenes/match3/items/item_rocket_h.tscn"),
 	Item.EItem.ROCKET_LINE_V: preload("res://game/scenes/match3/items/item_rocket_v.tscn"),
-	Item.EItem.BOMB: preload("res://game/scenes/match3/items/item_bomb2.tscn"),
+	Item.EItem.BOMB: preload("res://game/scenes/match3/items/item_bomb.tscn"),
 	Item.EItem.AMULET: preload("res://game/scenes/match3/items/item_amulet.tscn"),
 	Item.EItem.BOMB_TOTAL: preload("res://game/scenes/match3/items/item_total_bomb.tscn"),
 	
