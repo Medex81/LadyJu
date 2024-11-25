@@ -312,6 +312,8 @@ func _get_hit_area(cell:Cell, type:ItemBase.EItem = ItemBase.EItem.NONE)->Array[
 							counter -= 1
 						if counter == 0:
 							break
+			for cell_aim in result:
+				cell.get_item().emit_trails(cell_aim.global_position)
 							
 		ItemBase.EItem.BOMB_TOTAL:
 			result.append_array(_cells_not_hole.duplicate())
@@ -357,9 +359,10 @@ func _worker()->bool:
 		if _move_if_can(cell, EDirect.DOWN_LEFT) or _move_if_can(cell, EDirect.DOWN_RIGHT):
 			# приоритет падения вниз! Смещение лево-право по одному шагу и опять вниз.
 			is_event = true
-	if is_event:
-		print("_worker move left-right")
-		return true
+			return true
+	#if is_event:
+		#print("_worker move left-right")
+		#return true
 			
 	# удаление последовательностей(пакетное).
 	# находим последовательности, они будут в виде списков указателей на модели клеток собранных с пересечениями.

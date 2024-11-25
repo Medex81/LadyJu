@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://1gxewvf2hks2"]
+
+[ext_resource type="Script" path="res://test_trail.gd" id="1_vncl2"]
+[ext_resource type="PackedScene" uid="uid://c6dx637k0lx31" path="res://addons/components/effects/smoke_trail.tscn" id="2_br0ht"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_vncl2")
+
+[node name="smoke" parent="." instance=ExtResource("2_br0ht")]
+points = PackedVector2Array(-1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 1

@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgj0gi62024xp"]
+
+[ext_resource type="Script" path="res://game/scenes/game_field/easy_m3/easy_item.gd" id="1_bd3gv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tv8jl"]
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ur5bu"]
+size = Vector2(16, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3dqi"]
+size = Vector2(16, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkcqh"]
+size = Vector2(112, 112)
+
+[node name="item" type="RigidBody2D"]
+z_index = 10
+input_pickable = true
+mass = 0.01
+physics_material_override = SubResource("PhysicsMaterial_tv8jl")
+gravity_scale = 0.4
+lock_rotation = true
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_bd3gv")
+
+[node name="image" type="Sprite2D" parent="."]
+position = Vector2(64, 64)
+scale = Vector2(0.25, 0.25)
+
+[node name="cs_top" type="CollisionShape2D" parent="."]
+position = Vector2(64, 8)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_ur5bu")
+
+[node name="cs_down" type="CollisionShape2D" parent="."]
+position = Vector2(64, 120)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_t3dqi")
+
+[node name="rc_r" type="RayCast2D" parent="."]
+position = Vector2(123, 64)
+target_position = Vector2(24, 0)
+
+[node name="rc_l" type="RayCast2D" parent="."]
+position = Vector2(3, 64)
+target_position = Vector2(-24, 0)
+
+[node name="rc_t" type="RayCast2D" parent="."]
+position = Vector2(64, 3)
+target_position = Vector2(0, -24)
+
+[node name="rc_tl" type="RayCast2D" parent="."]
+position = Vector2(8, 8)
+target_position = Vector2(-32, -32)
+collide_with_areas = true
+
+[node name="rc_tr" type="RayCast2D" parent="."]
+position = Vector2(120, 8)
+target_position = Vector2(32, -32)
+collide_with_areas = true
+
+[node name="rc_d" type="RayCast2D" parent="."]
+position = Vector2(64, 125)
+target_position = Vector2(0, 24)
+
+[node name="rc_dl" type="RayCast2D" parent="."]
+position = Vector2(8, 120)
+target_position = Vector2(-32, 32)
+collide_with_areas = true
+
+[node name="rc_dr" type="RayCast2D" parent="."]
+position = Vector2(120, 120)
+target_position = Vector2(32, 32)
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 16.0
+offset_bottom = 23.0
+vertical_alignment = 1
+
+[node name="a_detect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="a_detect"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_qkcqh")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6dx637k0lx31"]
+
+[ext_resource type="Script" path="res://addons/components/effects/smoke_trail.gd" id="1_4d2qf"]
+[ext_resource type="Texture2D" uid="uid://8lmjd4485ruh" path="res://addons/components/effects/textures/trail.png" id="1_51a1t"]
+
+[sub_resource type="Curve" id="Curve_svxtp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992366, 0.156646), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_x1ptm"]
+offsets = PackedFloat32Array(0, 0.851351)
+colors = PackedColorArray(0, 0, 0, 0.00392157, 1, 1, 1, 1)
+
+[node name="smoke" type="Line2D"]
+width = 30.0
+width_curve = SubResource("Curve_svxtp")
+gradient = SubResource("Gradient_x1ptm")
+texture = ExtResource("1_51a1t")
+texture_mode = 2
+script = ExtResource("1_4d2qf")

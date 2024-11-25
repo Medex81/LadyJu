@@ -1,17 +1,139 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4qnftogf0gth"]
+[gd_scene load_steps=9 format=3 uid="uid://dtb2ixc58hptx"]
 
-[ext_resource type="PackedScene" uid="uid://b3occ26g4cc6o" path="res://game/scenes/match3/item.tscn" id="1_jakre"]
+[ext_resource type="Script" path="res://game/scenes/match3/items/item_amulet.gd" id="1_mktrr"]
+[ext_resource type="PackedScene" uid="uid://cwx4lfkiw8jl0" path="res://addons/components/animations/move.tscn" id="2_17fds"]
 [ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_whkd2"]
 [ext_resource type="PackedScene" uid="uid://2byl5j5qdx5t" path="res://addons/components/effects/simple/shine.tscn" id="3_6cjt1"]
+[ext_resource type="AudioStream" uid="uid://b7mjc482igo6l" path="res://addons/sounds/hums/charging.mp3" id="5_pok0p"]
 
-[node name="item" instance=ExtResource("1_jakre")]
+[sub_resource type="Animation" id="Animation_2dv0i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("audio_activate:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shine:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dusvc"]
+resource_name = "explosion"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("audio_activate:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.349066, 0.698132, 1.0472, 1.39626, 1.74533, 2.0944, 2.44346, 2.79253, 3.14159, 3.49066, 3.83972, 4.18879, 4.53786, 4.88692, 5.23599, 5.58505, 5.93412, 6.28319, 6.63225, 6.98132]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shine:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cb5wq"]
+_data = {
+"RESET": SubResource("Animation_2dv0i"),
+"explosion": SubResource("Animation_dusvc")
+}
+
+[node name="amulet" type="TextureRect"]
+custom_minimum_size = Vector2(105, 105)
 anchors_preset = -1
 anchor_right = 0.055
 anchor_bottom = 0.097
-offset_right = -105.6
-offset_bottom = -104.76
-texture = ExtResource("2_whkd2")
+offset_right = -0.600006
+offset_bottom = 0.239998
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("1_mktrr")
+projectile_path = "res://addons/components/effects/smoke_trail.tscn"
 _item = 10
 
-[node name="GPUParticles2D" parent="." index="4" instance=ExtResource("3_6cjt1")]
-position = Vector2(53, 52)
+[node name="shine" parent="." instance=ExtResource("3_6cjt1")]
+position = Vector2(56, 49)
+one_shot = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(52.5, 52.5)
+texture = ExtResource("2_whkd2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Move" parent="." instance=ExtResource("2_17fds")]
+undo_on_start = false
+anim_time = 0.15
+
+[node name="audio_activate" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(2.06612, 3.5)
+stream = ExtResource("5_pok0p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cb5wq")
+}
+
+[connection signal="send_end" from="Move" to="." method="_on_anim_send_end"]
+[connection signal="send_start" from="Move" to="." method="_on_anim_send_start"]
