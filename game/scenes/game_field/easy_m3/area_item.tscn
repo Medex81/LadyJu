@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tc3yx"]
 size = Vector2(120, 120)
 
-[node name="area_item" type="Area2D"]
+[node name="area_item" type="Area2D" groups=["items"]]
 gravity_space_override = 1
 script = ExtResource("1_7j7s2")
 
@@ -64,4 +64,5 @@ autostart = true
 offset_right = 40.0
 offset_bottom = 23.0
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
