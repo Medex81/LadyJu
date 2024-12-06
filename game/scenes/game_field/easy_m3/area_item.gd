@@ -2,6 +2,12 @@ extends Area2D
 
 class_name AreaItem
 
+@export var move_time:float = 0.25
+@export var is_hole:bool = false
+@export var item_name:String
+@export var life = 1
+@export var _hardness:int = 2
+
 const width = 128
 # подпрыгиваем вверх чтобы не зацепить платформу на которую запрыгиваем
 const to_down_left = Vector2(-width, width)
@@ -10,15 +16,14 @@ const to_down = Vector2(0, width)
 const to_top = Vector2(0, -width)
 const to_right = Vector2(width, 0)
 const to_left = Vector2(-width, 0)
-@export var move_time:float = 0.25
-var is_moving:bool = false
+
 static var occupied:Dictionary
+
+var is_moving:bool = false
 enum EDirect{LEFT, RIGHT, DOWN, TOP, DOWN_LEFT, DOWN_RIGHT, TOP_LEFT, TOP_RIGHT}
 @onready var directs:Dictionary = {EDirect.LEFT:$rc_l, EDirect.RIGHT:$rc_r, EDirect.DOWN:$rc_d, EDirect.TOP:$rc_t,
 EDirect.DOWN_LEFT:$rc_dl, EDirect.DOWN_RIGHT:$rc_dr, EDirect.TOP_LEFT:$rc_tl, EDirect.TOP_RIGHT:$rc_tr}
-var item_name:String # path!
-const _hardness:int = 2
-var life = 1
+#static var item_number:int = 0
 
 func move(direct:Vector2):
 	occupied[self] = Rect2(global_position + direct, Vector2(width, width))
@@ -31,19 +36,22 @@ func on_moved():
 	if occupied.erase(self) == false:
 		print("Error when erase occupied item ", name)
 	is_moving = false
-	matching()
 	check_move()
 	
 func move_direct():
-	if is_moving or $cs_get_hit.disabled:
+	if is_moving or $cs_get_hit.disabled or is_hole:
 		return
 	$rc_d.force_raycast_update()
 	$rc_dl.force_raycast_update()
 	$rc_dr.force_raycast_update()
 
+	var down = $rc_d.get_collider()
+	if down is AreaItem and (down.is_hole or down.is_moving):
+		return
 	if not try_move(to_down, $rc_d.get_collider()):
 		if not try_move(to_down_left, $rc_dl.get_collider()):
-			try_move(to_down_right, $rc_dr.get_collider())
+			if not try_move(to_down_right, $rc_dr.get_collider()):
+				matching()
 	
 func try_move(direct:Vector2, item:Object)->bool:
 	if item is StaticBody2D or item is AreaItem or is_occupied(Rect2(global_position + direct, Vector2(width, width))):
@@ -59,6 +67,9 @@ func is_occupied(rect:Rect2)->bool:
 	return false
 	
 func _ready():
+	#$Label.text = str(item_number)
+	#name = $Label.text
+	#item_number += 1
 	check_move()
 
 func matching()->bool:
@@ -120,15 +131,16 @@ func check_match(matchers:Array[AreaItem], direct:EDirect):
 	# выбираем датчик рейкаста по направлению и смотрим какой предмет он пересекает
 	var next = directs[direct].get_collider() as AreaItem
 	# предмет должен быть того же типа и не падать
-	get_path()
 	if next and next != self and next.is_moving == false and next.item_name == item_name:
 		if not next in matchers:
 			# в массив, переданный в аргументе по ссылке, собираем всех подходящих соседей рекурсивно
 			matchers.append(next)
 		next.check_match(matchers, direct)
 
-
-#func _on_timer_timeout():
-	#if is_moving or $cs_get_hit.disabled:
-		#return
-	#call_deferred("move_direct")
+func _on_timer_timeout():
+	#if is_moving == false and has_overlapping_areas():
+		#for area in get_overlapping_areas():
+			#if not area is EasySpawner and area.is_moving == false:
+				#print("collision ", name, " - ", area.name)
+				#pass
+	call_deferred("move_direct")

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dck22mg4fwycr" path="res://game/assets/anny_pack/crystal_blue.png" id="2_6ynn8"]
 
 [node name="area_item" instance=ExtResource("1_nnwka")]
-move_time = 0.25
 item_name = "blue"
 
 [node name="Sprite2D" parent="." index="1"]

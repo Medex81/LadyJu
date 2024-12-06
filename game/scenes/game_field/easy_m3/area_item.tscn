@@ -58,7 +58,10 @@ target_position = Vector2(-16, -16)
 collide_with_areas = true
 
 [node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

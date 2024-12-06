@@ -3,9 +3,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjpor"]
 size = Vector2(125, 125)
 
-[node name="hole" type="StaticBody2D"]
+[node name="hole" type="Area2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_rjpor")
-one_way_collision = true

@@ -26,7 +26,7 @@ func spawn_item(item_name:String = "")->bool:
 			print("Error. An item with name {0} is not on the list of spawners.".format([item_name]))
 		if packed_items[item_name].can_instantiate():
 			var item = packed_items[item_name].instantiate()
-			item.item_name = item_name
+			#item.item_name = item_name
 			call_deferred("add_child", item)
 			#print("Info. Cteate item {0}, from spawner {1}.".format([item_name, name]))
 			return true
@@ -39,7 +39,12 @@ func spawn_item(item_name:String = "")->bool:
 	#if not has_overlapping_bodies():
 		#call_deferred("spawn_item")
 
-func _on_area_exited(area):
-	await get_tree().create_timer(0.4).timeout
-	if not has_overlapping_bodies():
+#func _on_area_exited(area):
+	#await get_tree().create_timer(0.4).timeout
+	#if not has_overlapping_areas():
+		#call_deferred("spawn_item")
+
+
+func _on_timer_timeout():
+	if not has_overlapping_areas():
 		call_deferred("spawn_item")

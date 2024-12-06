@@ -13,4 +13,8 @@ items = Array[String](["res://game/scenes/game_field/easy_m3/items/blue.tscn", "
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_57wu3")
 
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
