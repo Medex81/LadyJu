@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://game/scenes/game_field/easy_m3/spawner.gd" id="1_68q6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57wu3"]
-size = Vector2(114, 119)
+size = Vector2(125, 125)
 
 [node name="spawner" type="Area2D"]
 script = ExtResource("1_68q6c")
-items = Array[String](["res://game/scenes/game_field/easy_m3/items/amulet.tscn", "res://game/scenes/game_field/easy_m3/items/blue.tscn", "res://game/scenes/game_field/easy_m3/items/bomb.tscn", "res://game/scenes/game_field/easy_m3/items/green.tscn", "res://game/scenes/game_field/easy_m3/items/purple.tscn", "res://game/scenes/game_field/easy_m3/items/red.tscn", "res://game/scenes/game_field/easy_m3/items/white.tscn", "res://game/scenes/game_field/easy_m3/items/yellow.tscn"])
+items = Array[String](["res://game/scenes/game_field/easy_m3/items/blue.tscn", "res://game/scenes/game_field/easy_m3/items/green.tscn", "res://game/scenes/game_field/easy_m3/items/purple.tscn", "res://game/scenes/game_field/easy_m3/items/red.tscn", "res://game/scenes/game_field/easy_m3/items/white.tscn", "res://game/scenes/game_field/easy_m3/items/yellow.tscn"])
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(61, 64.5)
+[node name="cs_detect" type="CollisionShape2D" parent="."]
+position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_57wu3")
 
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

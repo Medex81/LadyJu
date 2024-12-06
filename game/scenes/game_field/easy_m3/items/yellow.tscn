@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj6ktqu2wd358"]
+[gd_scene load_steps=3 format=3 uid="uid://8yh7wc71gv6a"]
 
-[ext_resource type="PackedScene" uid="uid://cgj0gi62024xp" path="res://game/scenes/game_field/easy_m3/easy_item.tscn" id="1_tb54t"]
-[ext_resource type="Texture2D" uid="uid://cvulscfgci0g8" path="res://game/assets/anny_pack/crystal_yellow.png" id="2_o87jl"]
+[ext_resource type="PackedScene" uid="uid://dkvanretasilk" path="res://game/scenes/game_field/easy_m3/area_item.tscn" id="1_wsnwx"]
+[ext_resource type="Texture2D" uid="uid://cvulscfgci0g8" path="res://game/assets/anny_pack/crystal_yellow.png" id="2_8lgh7"]
 
-[node name="item" instance=ExtResource("1_tb54t")]
+[node name="area_item" instance=ExtResource("1_wsnwx")]
+move_time = 0.25
 item_name = "yellow"
 
-[node name="image" parent="." index="0"]
-texture = ExtResource("2_o87jl")
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_8lgh7")

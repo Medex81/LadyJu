@@ -1,10 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmbr5xu2sycob"]
+[gd_scene load_steps=3 format=3 uid="uid://6t70dpxij2ul"]
 
-[ext_resource type="PackedScene" uid="uid://cgj0gi62024xp" path="res://game/scenes/game_field/easy_m3/easy_item.tscn" id="1_xcesd"]
-[ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_qqkoo"]
+[ext_resource type="PackedScene" uid="uid://dkvanretasilk" path="res://game/scenes/game_field/easy_m3/area_item.tscn" id="1_fjpwg"]
+[ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_ykbpp"]
 
-[node name="item" instance=ExtResource("1_xcesd")]
-item_name = "amulet"
+[node name="area_item" instance=ExtResource("1_fjpwg")]
 
-[node name="image" parent="." index="0"]
-texture = ExtResource("2_qqkoo")
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_ykbpp")

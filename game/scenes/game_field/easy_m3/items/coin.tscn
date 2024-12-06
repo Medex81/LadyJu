@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdq8gwtp2jhvf"]
+
+[ext_resource type="PackedScene" uid="uid://dkvanretasilk" path="res://game/scenes/game_field/easy_m3/area_item.tscn" id="1_aqhky"]
+[ext_resource type="Texture2D" uid="uid://b408ymnib5sov" path="res://game/assets/anny_pack/coin.png" id="2_jr48i"]
+
+[node name="area_item" instance=ExtResource("1_aqhky")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_jr48i")

@@ -25,7 +25,8 @@ func spawn_item(item_name:String = "")->bool:
 			item_name = packed_items.keys().pick_random()
 			print("Error. An item with name {0} is not on the list of spawners.".format([item_name]))
 		if packed_items[item_name].can_instantiate():
-			var item = packed_items[item_name].instantiate() as RigidBody2D
+			var item = packed_items[item_name].instantiate()
+			item.item_name = item_name
 			call_deferred("add_child", item)
 			#print("Info. Cteate item {0}, from spawner {1}.".format([item_name, name]))
 			return true
@@ -33,14 +34,12 @@ func spawn_item(item_name:String = "")->bool:
 			print("Error. The scene {0} does not contain nodes.".format([item_name]))
 	return false
 			
+#func _on_body_exited(body):
+	#await get_tree().create_timer(0.4).timeout
+	#if not has_overlapping_bodies():
+		#call_deferred("spawn_item")
 
-func _on_body_exited(body):
+func _on_area_exited(area):
 	await get_tree().create_timer(0.4).timeout
 	if not has_overlapping_bodies():
 		call_deferred("spawn_item")
-
-
-
-
-func _on_input_event(viewport, event, shape_idx):
-	pass # Replace with function body.

@@ -1,16 +1,30 @@
-[gd_scene load_steps=14 format=3 uid="uid://ba74g03xlaj7d"]
+[gd_scene load_steps=17 format=3 uid="uid://ba74g03xlaj7d"]
 
 [ext_resource type="Texture2D" uid="uid://cqvlvff6pb65r" path="res://game/assets/backend_img.jpg" id="1_4i5t1"]
 [ext_resource type="Script" path="res://game/scenes/game_field/game_field.gd" id="1_rn3w4"]
 [ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/game_field/easy_m3/easy_cell.tscn" id="3_onkhp"]
-[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/game_field/easy_m3/spawner.tscn" id="4_73i0j"]
-[ext_resource type="PackedScene" uid="uid://bmbr5xu2sycob" path="res://game/scenes/game_field/easy_m3/items/amulet.tscn" id="5_6rdr6"]
-[ext_resource type="PackedScene" uid="uid://n50u4h2iv5p5" path="res://game/scenes/game_field/easy_m3/easy_hole.tscn" id="6_1ogpu"]
-[ext_resource type="PackedScene" uid="uid://b02t11es5b7id" path="res://game/scenes/game_field/easy_m3/items/white.tscn" id="7_pd7ql"]
-[ext_resource type="PackedScene" uid="uid://bj6ktqu2wd358" path="res://game/scenes/game_field/easy_m3/items/yellow.tscn" id="7_whf1x"]
+[ext_resource type="PackedScene" uid="uid://cd66wdwuli53g" path="res://game/scenes/game_field/easy_m3/items/red.tscn" id="4_acaaa"]
+[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/game_field/easy_m3/spawner.tscn" id="4_e60h6"]
+[ext_resource type="PackedScene" uid="uid://j2bls4fbls8j" path="res://game/scenes/game_field/easy_m3/items/purple.tscn" id="4_mrtvb"]
+[ext_resource type="PackedScene" uid="uid://bbjc7564k1rpv" path="res://game/scenes/game_field/easy_m3/items/white.tscn" id="5_212n8"]
+[ext_resource type="PackedScene" uid="uid://n50u4h2iv5p5" path="res://game/scenes/game_field/easy_m3/easy_hole.tscn" id="5_h6cg3"]
+[ext_resource type="PackedScene" uid="uid://8yh7wc71gv6a" path="res://game/scenes/game_field/easy_m3/items/yellow.tscn" id="6_7a2rr"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hiq80"]
-bg_color = Color(0, 0, 0, 0)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hga6"]
+bg_color = Color(0.35, 0.62, 0.83, 0.41)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.454902)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fv0pu"]
+bg_color = Color(0.35, 0.62, 0.83, 0.41)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -20,17 +34,42 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bdqte"]
-absorbent = true
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ep6ii"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.454902)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5a6c"]
-size = Vector2(1343, 52)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p7fk"]
+bg_color = Color(0.35, 0.62, 0.83, 0.41)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.454902)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_85g4r"]
-size = Vector2(66, 1286)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_s7fj2"]
+a = Vector2(-1, 1282)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eluk3"]
-size = Vector2(60, 1280)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wlfdg"]
+a = Vector2(644, -4)
+b = Vector2(-636, -4)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_rhyr6"]
+a = Vector2(2, 1308)
+b = Vector2(2, 29)
 
 [node name="game_field" type="Control"]
 layout_mode = 3
@@ -78,12 +117,8 @@ layout_mode = 2
 [node name="cell2" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
-[node name="spawner" parent="GridContainer/cell2" instance=ExtResource("4_73i0j")]
-
 [node name="cell3" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
-
-[node name="spawner" parent="GridContainer/cell3" instance=ExtResource("4_73i0j")]
 
 [node name="cell4" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -93,6 +128,8 @@ layout_mode = 2
 
 [node name="cell6" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+
+[node name="spawner" parent="GridContainer/cell6" instance=ExtResource("4_e60h6")]
 
 [node name="cell7" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -127,11 +164,6 @@ layout_mode = 2
 [node name="cell17" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
-[node name="item3" parent="GridContainer/cell17" instance=ExtResource("5_6rdr6")]
-z_as_relative = false
-mass = 1.0
-gravity_scale = 1.0
-
 [node name="cell18" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
@@ -161,6 +193,8 @@ layout_mode = 2
 
 [node name="cell27" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+
+[node name="area_item" parent="GridContainer/cell27" instance=ExtResource("4_mrtvb")]
 
 [node name="cell28" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -209,6 +243,7 @@ layout_mode = 2
 
 [node name="cell43" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4hga6")
 
 [node name="cell44" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -219,12 +254,11 @@ layout_mode = 2
 [node name="cell46" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
+[node name="area_item" parent="GridContainer/cell46" instance=ExtResource("5_212n8")]
+
 [node name="cell47" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hiq80")
-transparent = true
-
-[node name="hole" parent="GridContainer/cell47" instance=ExtResource("6_1ogpu")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_fv0pu")
 
 [node name="cell48" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -244,13 +278,13 @@ layout_mode = 2
 [node name="cell53" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
-[node name="item" parent="GridContainer/cell53" instance=ExtResource("5_6rdr6")]
-
 [node name="cell54" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
 [node name="cell55" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+
+[node name="area_item" parent="GridContainer/cell55" instance=ExtResource("4_acaaa")]
 
 [node name="cell56" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -275,6 +309,10 @@ layout_mode = 2
 
 [node name="cell63" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ep6ii")
+transparent = true
+
+[node name="hole" parent="GridContainer/cell63" instance=ExtResource("5_h6cg3")]
 
 [node name="cell64" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -300,12 +338,9 @@ layout_mode = 2
 [node name="cell71" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
-[node name="item1" parent="GridContainer/cell71" instance=ExtResource("5_6rdr6")]
-z_as_relative = false
-gravity_scale = 0.7
-
 [node name="cell72" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1p7fk")
 
 [node name="cell73" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -321,6 +356,8 @@ layout_mode = 2
 
 [node name="cell77" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+
+[node name="area_item" parent="GridContainer/cell77" instance=ExtResource("6_7a2rr")]
 
 [node name="cell78" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -342,9 +379,6 @@ layout_mode = 2
 
 [node name="cell84" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
-
-[node name="item" parent="GridContainer/cell84" instance=ExtResource("7_whf1x")]
-freeze = true
 
 [node name="cell85" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -370,13 +404,8 @@ layout_mode = 2
 [node name="cell92" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
-[node name="item4" parent="GridContainer/cell92" instance=ExtResource("5_6rdr6")]
-gravity_scale = 0.7
-
 [node name="cell93" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
-
-[node name="item" parent="GridContainer/cell93" instance=ExtResource("7_pd7ql")]
 
 [node name="cell94" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -384,8 +413,12 @@ layout_mode = 2
 [node name="cell95" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
+[node name="area_item" parent="GridContainer/cell95" instance=ExtResource("6_7a2rr")]
+
 [node name="cell96" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+
+[node name="area_item" parent="GridContainer/cell96" instance=ExtResource("6_7a2rr")]
 
 [node name="cell97" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -399,21 +432,15 @@ layout_mode = 2
 [node name="cell100" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
-[node name="sb_perimetr" type="StaticBody2D" parent="GridContainer"]
-position = Vector2(5, -5)
-physics_material_override = SubResource("PhysicsMaterial_bdqte")
+[node name="perimetr" type="StaticBody2D" parent="GridContainer"]
 
-[node name="cs_down" type="CollisionShape2D" parent="GridContainer/sb_perimetr"]
-position = Vector2(600.5, 1312)
-shape = SubResource("RectangleShape2D_p5a6c")
+[node name="cs_left" type="CollisionShape2D" parent="GridContainer/perimetr"]
+shape = SubResource("SegmentShape2D_s7fj2")
 
-[node name="cs_left" type="CollisionShape2D" parent="GridContainer/sb_perimetr"]
-position = Vector2(-39, 647)
-shape = SubResource("RectangleShape2D_85g4r")
+[node name="cs_down" type="CollisionShape2D" parent="GridContainer/perimetr"]
+position = Vector2(634, 1286)
+shape = SubResource("SegmentShape2D_wlfdg")
 
-[node name="cs_right" type="CollisionShape2D" parent="GridContainer/sb_perimetr"]
-position = Vector2(1306, 647)
-shape = SubResource("RectangleShape2D_eluk3")
-
-[connection signal="mouse_entered" from="GridContainer/cell17/item3" to="GridContainer/cell17/item3" method="_on_mouse_entered"]
-[connection signal="mouse_entered" from="GridContainer/cell71/item1" to="GridContainer/cell71/item1" method="_on_mouse_entered"]
+[node name="cs_right" type="CollisionShape2D" parent="GridContainer/perimetr"]
+position = Vector2(1278, -25)
+shape = SubResource("SegmentShape2D_rhyr6")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxiegl4q2ike7"]
+
+[ext_resource type="PackedScene" uid="uid://cgj0gi62024xp" path="res://game/tmp/easy_item.tscn" id="1_tlfdw"]
+[ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="2_0xahn"]
+
+[node name="item" instance=ExtResource("1_tlfdw")]
+item_name = "bomb"
+
+[node name="image" parent="." index="0"]
+texture = ExtResource("2_0xahn")

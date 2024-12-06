@@ -7,7 +7,7 @@ enum EDirect{LEFT, RIGHT, DOWN, TOP}
 
 @export var item_group:EItemGroup = EItemGroup.NONE
 @export var item_name:String
-@export var move_time:float = 0.3
+@export var move_time:float = 0.25
 
 # ширина отскока в сторону - равна ширине предмета!
 const width = 128
@@ -19,8 +19,11 @@ const to_top = Vector2(0, -width)
 const to_right = Vector2(width, 0)
 const to_left = Vector2(-width, 0)
 var is_hit = false
+
 static var swap_node:EasyItem = null
-var is_swaping:bool = false
+static var occupied:Dictionary
+
+var is_sliding:bool = false
 @onready var directs:Dictionary = {EDirect.LEFT:$rc_l, EDirect.RIGHT:$rc_r, EDirect.DOWN:$rc_d, EDirect.TOP:$rc_t}
 @onready var direct_dist:Dictionary
 static var item_number:int = 0
@@ -36,8 +39,7 @@ func _ready():
 # body_shape_index - физическое тело предмета с которым столкнулись (может быть несколько)
 # local_shape_index - наше физическое тело с которым столкнулся предмет (может быть несколько)
 # 0 - top
-# 1 - middle
-# 2 - down
+# 1 - down
 func _on_body_shape_entered(_body_rid, body, body_shape_index, local_shape_index):
 	raycast_update()
 		
@@ -48,18 +50,20 @@ func _on_body_shape_entered(_body_rid, body, body_shape_index, local_shape_index
 	print("jamping ", name, " - ", body.name)
 
 	# нужно знать, что мы упали низом на верх предмета	
-	if local_shape_index == 2 and body_shape_index == 0 and body is EasyItem:
+	if local_shape_index == 1 and body_shape_index == 0 and body is EasyItem:
 		print("impact ", name, " - ", body.name)
 		call_deferred("check_move")
 	
 func check_move():
 	# внизу сбоку нет предмета и слева\справа нет предметов в которые мы уткнёмся при прыжке
-	if not $rc_dr.is_colliding():
+	if not $rc_dr.is_colliding() and not ($rc_r.get_collider() as EasyItem):# and not test_move(transform, to_down_right):
 		move_anim(to_down_right)
 		return
-	if not $rc_dl.is_colliding():
+	if not $rc_dl.is_colliding() and not ($rc_l.get_collider() as EasyItem):# and not test_move(transform, to_down_left):
 		move_anim(to_down_left)
 		return
+	#var hor_distance = int(position.x) % width
+
 	# проверяем матч по вертикали и горизонтали
 	matching()
 	
@@ -73,17 +77,37 @@ func raycast_update():
 	$rc_tl.force_raycast_update()
 	$rc_tr.force_raycast_update()
 	
+#func can_falldown()->bool:
+	#var dl = $rc_dl.get_collider() as EasyItem
+	#var dr = $rc_dr.get_collider() as EasyItem
+	#if dl
+	
 func move_anim(direct:Vector2):
-	$cs_top.disabled = true
-	$cs_middle.disabled = true
-	$cs_down.disabled = true
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", position + direct , move_time)
-	await tween.finished
-	$cs_top.disabled = false
-	$cs_middle.disabled = false
-	$cs_down.disabled = false
-	matching()
+	if not is_occupied(Rect2(global_position + direct, Vector2(width, width))):
+		is_sliding = true
+		$cs_detect.disabled = true
+		#$cs_top.disabled = true
+		$cs_down.disabled = true
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "position", position + direct , move_time)
+		occupied[self] = Rect2(global_position + direct, Vector2(width, width))
+		
+		await tween.finished
+		
+		$cs_detect.disabled = false
+		$cs_down.disabled = false
+		#$cs_top.disabled = false
+		is_sliding = false
+		
+		occupied.erase(self)
+		matching()
+	
+func is_occupied(rect:Rect2)->bool:
+	for ocup_item in occupied:
+		if rect.intersects(occupied[ocup_item]):
+			return true
+	return false
 
 func hit():
 	if is_hit:
@@ -139,10 +163,11 @@ func remove_items_and_me(items:Array[EasyItem]):
 # проверяем по указанному направлению (горизонтально или вертикально) соседство предметов которые могут сматчиться
 func check_match(matchers:Array[EasyItem], direct:EDirect):
 	# выбираем датчик рейкаста по направлению и смотрим какой предмет он пересекает
+	#raycast_update()
 	var next = directs[direct].get_collider() as EasyItem
 	# предмет должен быть того же типа и не падать
 		
-	if next and next != self and next is EasyItem and next.item_name == item_name and not next.is_falling():
+	if next and next != self and next.item_name == item_name and not next.is_falling():
 		if not next in matchers:
 			# в массив, переданный в аргументе по ссылке, собираем всех подходящих соседей рекурсивно
 			matchers.append(next)
@@ -154,27 +179,15 @@ func _on_input_event(viewport, event, shape_idx):
 			swap_node = self
 		if event.is_released():
 			#is_swaping = true
-			swap_anim(swap_node)
+			if swap_node != self:
+				swap_anim(swap_node)
+			swap_node = null
 			
 func swap_anim(item:EasyItem):
-	if swap_node:
-		set_freeze_enabled(true)
-		swap_node.set_freeze_enabled(true)
-		
-		var tween = get_tree().create_tween()
-		tween.tween_property(self, "position", Vector2(0, 256) , 0.3)
-		tween.parallel().tween_property(swap_node, "position", Vector2(0, -128) , 0.3)
-		await tween.finished
-		
-		if not matching():
-			var tween2 = get_tree().create_tween()
-			tween2.tween_property(self, "position", Vector2(0, 128) , 0.3)
-			tween2.parallel().tween_property(swap_node, "position", Vector2(0, 0) , 0.3)
-			await tween2.finished
-		
-		set_freeze_enabled(false)
-		swap_node.set_freeze_enabled(false)
-		swap_node = null
+	if item:
+		item.move_anim(to_right)
+		move_anim(to_left)
+		pass
 			
 func _on_timer_timeout():
 	pass

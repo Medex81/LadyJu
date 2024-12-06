@@ -1,20 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://n50u4h2iv5p5"]
+[gd_scene load_steps=2 format=3 uid="uid://n50u4h2iv5p5"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_88n0x"]
-b = Vector2(120, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0krf"]
-size = Vector2(120, 120)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjpor"]
+size = Vector2(125, 125)
 
 [node name="hole" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 1)
-shape = SubResource("SegmentShape2D_88n0x")
-one_way_collision = true
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(64, 64)
-shape = SubResource("RectangleShape2D_p0krf")
+shape = SubResource("RectangleShape2D_rjpor")
+one_way_collision = true

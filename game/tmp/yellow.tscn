@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj6ktqu2wd358"]
+
+[ext_resource type="PackedScene" uid="uid://cgj0gi62024xp" path="res://game/tmp/easy_item.tscn" id="1_tb54t"]
+[ext_resource type="Texture2D" uid="uid://cvulscfgci0g8" path="res://game/assets/anny_pack/crystal_yellow.png" id="2_o87jl"]
+
+[node name="item" instance=ExtResource("1_tb54t")]
+item_name = "yellow"
+
+[node name="image" parent="." index="0"]
+texture = ExtResource("2_o87jl")
