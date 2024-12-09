@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dkvanretasilk"]
 
-[ext_resource type="Script" path="res://game/scenes/game_field/easy_m3/area_item.gd" id="1_7j7s2"]
+[ext_resource type="Script" path="res://addons/m3core/item.gd" id="1_7j7s2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tc3yx"]
 size = Vector2(120, 120)
