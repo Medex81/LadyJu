@@ -10,7 +10,6 @@ func spawn_item(item_name:String = "")->bool:
 		item.position = Vector2.ZERO
 		add_child(item)
 		item.check_move()
-		item.active_move_timer = true
 		return true
 	return false
 

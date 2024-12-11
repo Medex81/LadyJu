@@ -5,12 +5,12 @@ var _generate_matcher_items:Array[AreaItem]
 # сохраняем имена всех предметов для проверки дублирования имён
 var _generate_item_names:Array[String]
 
-func start():
-	# Для запуска предметов необходимо, чтобы все дочерние узлы были проинициализированы.
-	# В текущей функции будут вызваны методы инициализиции всех дочерних узлов.
-	# Нужно подождать выхода из метода с помощью корутины и сообщить всем предметам о том, что можно двигаться. 
-	await get_tree().create_timer(0.5).timeout
-	get_tree().call_group("items", "check_move")
+#func start():
+	## Для запуска предметов необходимо, чтобы все дочерние узлы были проинициализированы.
+	## В текущей функции будут вызваны методы инициализиции всех дочерних узлов.
+	## Нужно подождать выхода из метода с помощью корутины и сообщить всем предметам о том, что можно двигаться. 
+	#await get_tree().create_timer(0.5).timeout
+	#get_tree().call_group("items", "check_move")
 
 func set_generate_items(container_node:Node):
 	_generate_dynamic_items.clear()
@@ -58,5 +58,6 @@ func process_match(item:AreaItem, items:Array[AreaItem]):
 	if gen_matcher:
 		gen_matcher.position = item.position
 		item.get_parent().add_child(gen_matcher)
+		gen_matcher.active_move_timer = true
 		
 

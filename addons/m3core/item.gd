@@ -19,10 +19,11 @@ class_name AreaItem
 @export var  width = 128
 @export var active_move_timer:bool = true:
 	set(value):
-		if value == false:
-			$Timer.stop()
-		else:
+		$Timer.autostart = value
+		if value:
 			$Timer.start()
+		else:
+			$Timer.stop()
 		active_move_timer = value
 
 # смещения для перехода на размер клетки
