@@ -1,9 +1,6 @@
 extends Control
 
 func _ready():
-	# Для запуска предметов необходимо, чтобы все дочерние узлы были проинициализированы.
-	# В текущей функции будут вызваны методы инициализиции всех дочерних узлов.
-	# Нужно подождать выхода из метода с помощью корутины и сообщить всем предметам о том, что можно двигаться. 
-	await get_tree().create_timer(0.01).timeout
-	get_tree().call_group("items", "check_move")
+	$generates.visible = false
+	M3Core.set_generate_items($generates)
 	

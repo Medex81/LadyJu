@@ -5,6 +5,7 @@
 
 [node name="area_item" instance=ExtResource("1_wsnwx")]
 item_name = "yellow"
+_item_type = 1
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_8lgh7")

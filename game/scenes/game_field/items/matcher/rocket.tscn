@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://darmp5oc5w3wi"]
+
+[ext_resource type="PackedScene" uid="uid://dkvanretasilk" path="res://addons/m3core/item.tscn" id="1_kjp08"]
+[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_afw86"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="3_hf4ns"]
+
+[node name="area_item" instance=ExtResource("1_kjp08")]
+item_name = "rocket_h"
+_item_type = 4
+generate_count = 4
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_afw86")
+
+[node name="GPUParticles2D" parent="Sprite2D" index="0" instance=ExtResource("3_hf4ns")]
+position = Vector2(470.625, 149.031)
+
+[node name="GPUParticles2D2" parent="Sprite2D" index="1" instance=ExtResource("3_hf4ns")]
+position = Vector2(23.5313, 384.344)

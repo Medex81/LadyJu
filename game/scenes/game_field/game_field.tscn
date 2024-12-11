@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://ba74g03xlaj7d"]
+[gd_scene load_steps=18 format=3 uid="uid://ba74g03xlaj7d"]
 
 [ext_resource type="Texture2D" uid="uid://cqvlvff6pb65r" path="res://game/assets/backend_img.jpg" id="1_4i5t1"]
 [ext_resource type="Script" path="res://game/scenes/game_field/game_field.gd" id="1_rn3w4"]
-[ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/game_field/easy_m3/easy_cell.tscn" id="3_onkhp"]
-[ext_resource type="PackedScene" uid="uid://cd66wdwuli53g" path="res://game/scenes/game_field/easy_m3/items/red.tscn" id="4_acaaa"]
-[ext_resource type="PackedScene" uid="uid://j2bls4fbls8j" path="res://game/scenes/game_field/easy_m3/items/purple.tscn" id="4_mrtvb"]
+[ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/game_field/cell.tscn" id="3_onkhp"]
+[ext_resource type="PackedScene" uid="uid://cd66wdwuli53g" path="res://game/scenes/game_field/items/dynamic/red.tscn" id="4_acaaa"]
+[ext_resource type="PackedScene" uid="uid://j2bls4fbls8j" path="res://game/scenes/game_field/items/dynamic/purple.tscn" id="4_mrtvb"]
+[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://addons/m3core/spawner.tscn" id="4_uxuis"]
 [ext_resource type="PackedScene" uid="uid://dkvanretasilk" path="res://addons/m3core/item.tscn" id="5_2bf7n"]
-[ext_resource type="PackedScene" uid="uid://bbjc7564k1rpv" path="res://game/scenes/game_field/easy_m3/items/white.tscn" id="5_212n8"]
-[ext_resource type="PackedScene" uid="uid://c0uw2s4nxwqu5" path="res://game/scenes/game_field/easy_m3/items/green.tscn" id="7_g6mpn"]
+[ext_resource type="PackedScene" uid="uid://bbjc7564k1rpv" path="res://game/scenes/game_field/items/dynamic/white.tscn" id="5_212n8"]
+[ext_resource type="PackedScene" uid="uid://c0uw2s4nxwqu5" path="res://game/scenes/game_field/items/dynamic/green.tscn" id="7_g6mpn"]
+[ext_resource type="PackedScene" uid="uid://dx0l8g1tcqp4l" path="res://game/scenes/game_field/generates.tscn" id="10_2ibw8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hga6"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
@@ -33,7 +35,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0pxa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uixaq"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -70,7 +72,7 @@ b = Vector2(-636, -4)
 a = Vector2(2, 1308)
 b = Vector2(2, 29)
 
-[node name="game_field" type="Control" groups=["items"]]
+[node name="game_field" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,6 +126,8 @@ layout_mode = 2
 
 [node name="cell5" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
+
+[node name="spawner" parent="GridContainer/cell5" instance=ExtResource("4_uxuis")]
 
 [node name="cell6" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -300,7 +304,7 @@ layout_mode = 2
 
 [node name="cell63" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_x0pxa")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uixaq")
 transparent = true
 
 [node name="area_item" parent="GridContainer/cell63" instance=ExtResource("5_2bf7n")]
@@ -371,11 +375,13 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="area_item" parent="GridContainer/cell84" instance=ExtResource("5_212n8")]
+gravity_space_override = 1
 
 [node name="cell85" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
 [node name="area_item" parent="GridContainer/cell85" instance=ExtResource("7_g6mpn")]
+gravity_space_override = 1
 
 [node name="cell86" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -399,26 +405,31 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="area_item" parent="GridContainer/cell92" instance=ExtResource("7_g6mpn")]
+gravity_space_override = 1
 
 [node name="cell93" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
 [node name="area_item" parent="GridContainer/cell93" instance=ExtResource("4_mrtvb")]
+gravity_space_override = 1
 
 [node name="cell94" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
 [node name="area_item" parent="GridContainer/cell94" instance=ExtResource("7_g6mpn")]
+gravity_space_override = 1
 
 [node name="cell95" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
 [node name="area_item" parent="GridContainer/cell95" instance=ExtResource("4_acaaa")]
+gravity_space_override = 1
 
 [node name="cell96" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
 
 [node name="area_item" parent="GridContainer/cell96" instance=ExtResource("7_g6mpn")]
+gravity_space_override = 1
 
 [node name="cell97" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
@@ -444,3 +455,6 @@ shape = SubResource("SegmentShape2D_wlfdg")
 [node name="cs_right" type="CollisionShape2D" parent="GridContainer/perimetr"]
 position = Vector2(1278, -25)
 shape = SubResource("SegmentShape2D_rhyr6")
+
+[node name="generates" parent="." instance=ExtResource("10_2ibw8")]
+visible = false

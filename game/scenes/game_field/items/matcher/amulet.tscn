@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_ykbpp"]
 
 [node name="area_item" instance=ExtResource("1_fjpwg")]
+item_name = "amulet"
+_item_type = 4
+generate_count = 6
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_ykbpp")

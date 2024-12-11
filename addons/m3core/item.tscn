@@ -6,7 +6,6 @@
 size = Vector2(120, 120)
 
 [node name="area_item" type="Area2D" groups=["items"]]
-gravity_space_override = 1
 script = ExtResource("1_7j7s2")
 
 [node name="cs_get_hit" type="CollisionShape2D" parent="."]
@@ -58,6 +57,7 @@ target_position = Vector2(-16, -16)
 collide_with_areas = true
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [node name="Label" type="Label" parent="."]

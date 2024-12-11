@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7ex8xnsqj2n3"]
 
-[ext_resource type="Script" path="res://addons/m3core/m3core.gd" id="1_2wltf"]
+[ext_resource type="Script" path="res://addons/m3core/m3core.gd" id="1_mdito"]
 
 [node name="M3Core" type="Node"]
-script = ExtResource("1_2wltf")
+script = ExtResource("1_mdito")
