@@ -1,0 +1,135 @@
+extends Area2D
+
+class_name Mover
+
+var is_moved:bool = false
+@onready var parent = get_parent()
+# время анимации перемещения
+@export var move_time:float = 0.25
+@export var width_frame = 30
+
+var total_width:int
+var to_down_left:Vector2i
+var to_down_right:Vector2i
+var to_down:Vector2i
+var to_top:Vector2i
+var to_right:Vector2i
+var to_left:Vector2i
+# при переходе, запоминаем квардат куда прибудем. Это нужно для синхронизации перемещений с другими предметами
+# для избежания двойного занятия позиции. Словарь доступен из всех предметов.
+static var occupied:Dictionary
+# для свапа предметов нужно помнить предмет отправитель и получатель для обмена позициями.
+static var swap_node:Mover = null
+
+func _on_timer_timeout():
+	call_deferred("move")
+	
+# проверяем, пустое место которое мы нашли уже кем-то занято для перемещения?
+func _is_occupied(rect:Rect2i)->bool:
+	for ocup_item in occupied:
+		if rect.intersects(occupied[ocup_item]):
+			return true
+	return false
+	
+func is_fall()->bool:
+	$collision/rc_d.force_raycast_update()
+	return not ($collision/rc_d.get_collider() is Mover)
+	
+func direct()->Vector2i:
+	# проверяем находимся ли мы на чём-то с чего нельзя соскользнуть
+	$collision/rc_d.force_raycast_update()
+	$collision/rc_dl.force_raycast_update()
+	$collision/rc_dr.force_raycast_update()
+	$collision/rc_r.force_raycast_update()
+	$collision/rc_l.force_raycast_update()
+	var cld_d = $collision/rc_d.get_collider()
+	var cld_dl = $collision/rc_dl.get_collider()
+	var cld_dr = $collision/rc_dr.get_collider()
+	var cld_l = $collision/rc_l.get_collider()
+	var cld_r = $collision/rc_r.get_collider()
+	var glob_pos_i = Vector2i(parent.global_position)
+	# внизу кто-то есть
+	if cld_d:
+		# статический объект - останавливаемся, по нему не скользим
+		if cld_d is StaticBody2D:
+			$Timer.stop()
+			return Vector2i.ZERO
+		# предмет который двигается, притормаживаем и ждём когда он отдалится
+		if cld_r is Mover and cld_d.is_fall():
+			return Vector2i.ZERO
+	# внизу никого, проверяем двигается ли уже кто-то в это место
+	elif not _is_occupied(Rect2i(glob_pos_i + to_down, to_down_right)):
+		return to_down
+	# лево вниз никого, проверяем что место не занято и слева паралельно нам по соседству не падает предмет
+	if cld_dl == null \
+	and not _is_occupied(Rect2i(glob_pos_i + to_down_left, to_down_right)) \
+	and (cld_l == null or (cld_l is Mover and not cld_l.is_fall())):
+		return to_down_left
+		
+	if cld_dr == null \
+	and not _is_occupied(Rect2i(glob_pos_i + to_down_right, to_down_right))\
+	and (cld_r == null or (cld_r is Mover and not cld_r.is_fall())):
+		return to_down_right
+	
+	return Vector2i.ZERO
+	
+func move(_direct:Vector2i = Vector2i.ZERO):
+	if is_moved:
+		return
+	if _direct == Vector2i.ZERO:
+		_direct = direct()
+	if _direct == Vector2i.ZERO:
+		return
+
+	is_moved = true
+	var glob_pos_i = Vector2i(parent.global_position)
+	occupied[self] = Rect2i(glob_pos_i + _direct, to_down_right)
+	print(parent.name, ", ", Time.get_ticks_usec())
+	var move_tween = get_tree().create_tween()
+	move_tween.tween_property(parent, "position", parent.global_position + Vector2(_direct) , move_time)
+	await move_tween.finished
+	occupied.erase(self)
+	is_moved = false
+	call_deferred("move")
+
+func _get_direction(item:Mover)->Vector2i:
+	var dist = item.global_position - self.global_position
+	var ax = abs(dist.x)
+	var ay = abs(dist.y)
+	if ax < total_width and ay < total_width:
+		return dist
+
+	return Vector2i.ZERO
+
+# свап предметов по тапу мыши с зажиманием и отпусканием
+func _on_input_event(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_pressed():
+			if is_moved:
+				swap_node = null
+				return
+			swap_node = self
+		if event.is_released():
+			# тап на матчер, подрывам его одного
+			if swap_node == self or swap_node == null or swap_node.is_moved or is_moved:
+				swap_node = null
+				return
+				
+			var _direct = _get_direction(swap_node)
+			# проверяем, что свап с соседом
+			if _direct != Vector2i.ZERO:
+				move(_direct)
+				swap_node.move(-_direct)
+				
+			swap_node = null
+
+
+func _on_collision_ready() -> void:
+	var width = $collision.shape.size.x
+	total_width = width + width_frame
+	to_down_left = Vector2i(-width, width)
+	to_down_right = Vector2i(width, width)
+	to_down = Vector2i(0, width)
+	to_top = -to_down
+	to_right = Vector2i(width, 0)
+	to_left = -to_right

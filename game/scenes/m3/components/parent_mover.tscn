@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://cexy6igt35ni4"]
+
+[ext_resource type="Script" path="res://game/scenes/m3/components/parent_mover.gd" id="1_lc8dt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5trx7"]
+size = Vector2(128, 128)
+
+[node name="parent_mover" type="Area2D"]
+script = ExtResource("1_lc8dt")
+move_time = 1.25
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_5trx7")
+
+[node name="rc_d" type="RayCast2D" parent="collision"]
+position = Vector2(0, 56)
+target_position = Vector2(0, 24)
+collide_with_areas = true
+
+[node name="rc_dl" type="RayCast2D" parent="collision"]
+position = Vector2(-56, 56)
+target_position = Vector2(-24, 24)
+collide_with_areas = true
+
+[node name="rc_dr" type="RayCast2D" parent="collision"]
+position = Vector2(56, 56)
+target_position = Vector2(24, 24)
+collide_with_areas = true
+
+[node name="rc_tr" type="RayCast2D" parent="collision"]
+position = Vector2(56, -56)
+target_position = Vector2(24, -24)
+collide_with_areas = true
+
+[node name="rc_t" type="RayCast2D" parent="collision"]
+position = Vector2(0, -56)
+target_position = Vector2(0, -24)
+collide_with_areas = true
+
+[node name="rc_tl" type="RayCast2D" parent="collision"]
+position = Vector2(-56, -56)
+target_position = Vector2(-24, -24)
+collide_with_areas = true
+
+[node name="rc_r" type="RayCast2D" parent="collision"]
+position = Vector2(56, 0)
+target_position = Vector2(24, 0)
+collide_with_areas = true
+
+[node name="rc_l" type="RayCast2D" parent="collision"]
+position = Vector2(-56, 0)
+target_position = Vector2(-24, 0)
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="ready" from="collision" to="." method="_on_collision_ready"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
