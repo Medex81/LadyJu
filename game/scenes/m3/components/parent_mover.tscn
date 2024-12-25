@@ -27,19 +27,9 @@ position = Vector2(56, 56)
 target_position = Vector2(24, 24)
 collide_with_areas = true
 
-[node name="rc_tr" type="RayCast2D" parent="collision"]
-position = Vector2(56, -56)
-target_position = Vector2(24, -24)
-collide_with_areas = true
-
 [node name="rc_t" type="RayCast2D" parent="collision"]
 position = Vector2(0, -56)
 target_position = Vector2(0, -24)
-collide_with_areas = true
-
-[node name="rc_tl" type="RayCast2D" parent="collision"]
-position = Vector2(-56, -56)
-target_position = Vector2(-24, -24)
 collide_with_areas = true
 
 [node name="rc_r" type="RayCast2D" parent="collision"]

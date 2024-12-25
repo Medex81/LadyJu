@@ -1,3 +1,9 @@
+# Компонент отвечает за перемещение родительского узла. Перемещение осуществляется через твин и свойство позиции.
+# Перемещение происходит на расстояние ширины области коллизии. Место на которое перемещается узел 
+# занимается через статический словарь и освобождается при завершении перемещения(для избежания двойного занятия).
+# Приоретет в занятии места у узла падающего вниз. Свап предметов работает по горизонтали и ветрикали через
+# статическое поле с указателем узла перехода.
+
 extends Area2D
 
 class_name Mover
@@ -47,6 +53,7 @@ func direct()->Vector2i:
 	var cld_dr = $collision/rc_dr.get_collider()
 	var cld_l = $collision/rc_l.get_collider()
 	var cld_r = $collision/rc_r.get_collider()
+		
 	var glob_pos_i = Vector2i(_parent.global_position)
 	# внизу кто-то есть
 	if cld_d:
@@ -94,7 +101,7 @@ func _get_direction(item:Mover)->Vector2i:
 	var dist = item.global_position - self.global_position
 	var ax = abs(dist.x)
 	var ay = abs(dist.y)
-	if ax < _total_width and ay < _total_width:
+	if ax < _total_width and ay < _total_width and (ax < _width_frame or ay < _width_frame):
 		return dist
 
 	return Vector2i.ZERO
