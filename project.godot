@@ -12,7 +12,7 @@ config_version=5
 
 config/name="LadyJu"
 run/main_scene="res://game/scenes/game_field/game_field.tscn"
-config/features=PackedStringArray("4.2", "GL Compatibility")
+config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [autoload]
 

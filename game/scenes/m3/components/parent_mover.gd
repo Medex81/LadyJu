@@ -2,19 +2,19 @@ extends Area2D
 
 class_name Mover
 
-var is_moved:bool = false
-@onready var parent = get_parent()
 # время анимации перемещения
-@export var move_time:float = 0.25
-@export var width_frame = 30
+@export var _move_time:float = 0.25
+@export var _width_frame = 30
 
-var total_width:int
-var to_down_left:Vector2i
-var to_down_right:Vector2i
-var to_down:Vector2i
-var to_top:Vector2i
-var to_right:Vector2i
-var to_left:Vector2i
+@onready var _parent = get_parent()
+var is_moved:bool = false
+var _total_width:int
+var _to_down_left:Vector2i
+var _to_down_right:Vector2i
+var _to_down:Vector2i
+var _to_top:Vector2i
+var _to_right:Vector2i
+var _to_left:Vector2i
 # при переходе, запоминаем квардат куда прибудем. Это нужно для синхронизации перемещений с другими предметами
 # для избежания двойного занятия позиции. Словарь доступен из всех предметов.
 static var occupied:Dictionary
@@ -47,7 +47,7 @@ func direct()->Vector2i:
 	var cld_dr = $collision/rc_dr.get_collider()
 	var cld_l = $collision/rc_l.get_collider()
 	var cld_r = $collision/rc_r.get_collider()
-	var glob_pos_i = Vector2i(parent.global_position)
+	var glob_pos_i = Vector2i(_parent.global_position)
 	# внизу кто-то есть
 	if cld_d:
 		# статический объект - останавливаемся, по нему не скользим
@@ -58,18 +58,18 @@ func direct()->Vector2i:
 		if cld_r is Mover and cld_d.is_fall():
 			return Vector2i.ZERO
 	# внизу никого, проверяем двигается ли уже кто-то в это место
-	elif not _is_occupied(Rect2i(glob_pos_i + to_down, to_down_right)):
-		return to_down
+	elif not _is_occupied(Rect2i(glob_pos_i + _to_down, _to_down_right)):
+		return _to_down
 	# лево вниз никого, проверяем что место не занято и слева паралельно нам по соседству не падает предмет
 	if cld_dl == null \
-	and not _is_occupied(Rect2i(glob_pos_i + to_down_left, to_down_right)) \
+	and not _is_occupied(Rect2i(glob_pos_i + _to_down_left, _to_down_right)) \
 	and (cld_l == null or (cld_l is Mover and not cld_l.is_fall())):
-		return to_down_left
+		return _to_down_left
 		
 	if cld_dr == null \
-	and not _is_occupied(Rect2i(glob_pos_i + to_down_right, to_down_right))\
+	and not _is_occupied(Rect2i(glob_pos_i + _to_down_right, _to_down_right))\
 	and (cld_r == null or (cld_r is Mover and not cld_r.is_fall())):
-		return to_down_right
+		return _to_down_right
 	
 	return Vector2i.ZERO
 	
@@ -82,11 +82,9 @@ func move(_direct:Vector2i = Vector2i.ZERO):
 		return
 
 	is_moved = true
-	var glob_pos_i = Vector2i(parent.global_position)
-	occupied[self] = Rect2i(glob_pos_i + _direct, to_down_right)
-	print(parent.name, ", ", Time.get_ticks_usec())
+	occupied[self] = Rect2i(Vector2i(_parent.global_position) + _direct, _to_down_right)
 	var move_tween = get_tree().create_tween()
-	move_tween.tween_property(parent, "position", parent.global_position + Vector2(_direct) , move_time)
+	move_tween.tween_property(_parent, "position", _parent.global_position + Vector2(_direct) , _move_time)
 	await move_tween.finished
 	occupied.erase(self)
 	is_moved = false
@@ -96,7 +94,7 @@ func _get_direction(item:Mover)->Vector2i:
 	var dist = item.global_position - self.global_position
 	var ax = abs(dist.x)
 	var ay = abs(dist.y)
-	if ax < total_width and ay < total_width:
+	if ax < _total_width and ay < _total_width:
 		return dist
 
 	return Vector2i.ZERO
@@ -123,13 +121,12 @@ func _on_input_event(_viewport, event, _shape_idx):
 				
 			swap_node = null
 
-
 func _on_collision_ready() -> void:
 	var width = $collision.shape.size.x
-	total_width = width + width_frame
-	to_down_left = Vector2i(-width, width)
-	to_down_right = Vector2i(width, width)
-	to_down = Vector2i(0, width)
-	to_top = -to_down
-	to_right = Vector2i(width, 0)
-	to_left = -to_right
+	_total_width = width + _width_frame
+	_to_down_left = Vector2i(-width, width)
+	_to_down_right = Vector2i(width, width)
+	_to_down = Vector2i(0, width)
+	_to_top = -_to_down
+	_to_right = Vector2i(width, 0)
+	_to_left = -_to_right
