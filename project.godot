@@ -42,6 +42,12 @@ mb_left={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="move"
+2d_physics/layer_2="match"
+2d_physics/layer_3="hit"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

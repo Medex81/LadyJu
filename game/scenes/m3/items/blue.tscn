@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm6j6jllydy2u"]
+
+[ext_resource type="Texture2D" uid="uid://dck22mg4fwycr" path="res://game/assets/anny_pack/crystal_blue.png" id="1_710la"]
+[ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="2_1bbxx"]
+[ext_resource type="PackedScene" uid="uid://6r8pb666487x" path="res://game/scenes/m3/components/matcher.tscn" id="3_vy706"]
+[ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="4_b6bqt"]
+
+[node name="blue" type="Node2D"]
+
+[node name="item_viewer" type="Sprite2D" parent="."]
+scale = Vector2(0.25498, 0.250996)
+texture = ExtResource("1_710la")
+centered = false
+
+[node name="parent_mover" parent="." instance=ExtResource("2_1bbxx")]
+
+[node name="matcher" parent="." instance=ExtResource("3_vy706")]
+item_name = "blue"
+
+[node name="hitbox" parent="." instance=ExtResource("4_b6bqt")]
+
+[connection signal="send_move_stopped" from="parent_mover" to="matcher" method="on_matchable"]
+[connection signal="send_match" from="matcher" to="hitbox" method="total_hit"]

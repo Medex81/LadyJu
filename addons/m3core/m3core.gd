@@ -60,4 +60,3 @@ func process_match(item:AreaItem, items:Array[AreaItem]):
 		item.get_parent().add_child(gen_matcher)
 		gen_matcher.active_move_timer = true
 		
-

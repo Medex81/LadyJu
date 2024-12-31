@@ -6,7 +6,7 @@
 
 extends Area2D
 
-class_name Mover
+class_name MoverComponent
 
 # время анимации перемещения
 @export var _move_time:float = 0.25
@@ -25,7 +25,9 @@ var _to_left:Vector2i
 # для избежания двойного занятия позиции. Словарь доступен из всех предметов.
 static var occupied:Dictionary
 # для свапа предметов нужно помнить предмет отправитель и получатель для обмена позициями.
-static var swap_node:Mover = null
+static var swap_node:MoverComponent = null
+
+signal send_move_stopped(is_stopped:bool)
 
 func _on_timer_timeout():
 	call_deferred("move")
@@ -39,7 +41,7 @@ func _is_occupied(rect:Rect2i)->bool:
 	
 func is_fall()->bool:
 	$collision/rc_d.force_raycast_update()
-	return not ($collision/rc_d.get_collider() is Mover)
+	return not ($collision/rc_d.get_collider() is MoverComponent)
 	
 func direct()->Vector2i:
 	# проверяем находимся ли мы на чём-то с чего нельзя соскользнуть
@@ -60,9 +62,10 @@ func direct()->Vector2i:
 		# статический объект - останавливаемся, по нему не скользим
 		if cld_d is StaticBody2D:
 			$Timer.stop()
+			send_move_stopped.emit(true)
 			return Vector2i.ZERO
 		# предмет который двигается, притормаживаем и ждём когда он отдалится
-		if cld_r is Mover and cld_d.is_fall():
+		if cld_r is MoverComponent and cld_d.is_fall():
 			return Vector2i.ZERO
 	# внизу никого, проверяем двигается ли уже кто-то в это место
 	elif not _is_occupied(Rect2i(glob_pos_i + _to_down, _to_down_right)):
@@ -70,14 +73,15 @@ func direct()->Vector2i:
 	# лево вниз никого, проверяем что место не занято и слева паралельно нам по соседству не падает предмет
 	if cld_dl == null \
 	and not _is_occupied(Rect2i(glob_pos_i + _to_down_left, _to_down_right)) \
-	and (cld_l == null or (cld_l is Mover and not cld_l.is_fall())):
+	and (cld_l == null or (cld_l is MoverComponent and not cld_l.is_fall())):
 		return _to_down_left
 		
 	if cld_dr == null \
 	and not _is_occupied(Rect2i(glob_pos_i + _to_down_right, _to_down_right))\
-	and (cld_r == null or (cld_r is Mover and not cld_r.is_fall())):
+	and (cld_r == null or (cld_r is MoverComponent and not cld_r.is_fall())):
 		return _to_down_right
 	
+	send_move_stopped.emit(true)
 	return Vector2i.ZERO
 	
 func move(_direct:Vector2i = Vector2i.ZERO):
@@ -88,6 +92,7 @@ func move(_direct:Vector2i = Vector2i.ZERO):
 	if _direct == Vector2i.ZERO:
 		return
 
+	send_move_stopped.emit(false)
 	is_moved = true
 	occupied[self] = Rect2i(Vector2i(_parent.global_position) + _direct, _to_down_right)
 	var move_tween = get_tree().create_tween()
@@ -97,7 +102,7 @@ func move(_direct:Vector2i = Vector2i.ZERO):
 	is_moved = false
 	call_deferred("move")
 
-func _get_direction(item:Mover)->Vector2i:
+func _get_direction(item:MoverComponent)->Vector2i:
 	var dist = item.global_position - self.global_position
 	var ax = abs(dist.x)
 	var ay = abs(dist.y)
@@ -137,3 +142,15 @@ func _on_collision_ready() -> void:
 	_to_top = -_to_down
 	_to_right = Vector2i(width, 0)
 	_to_left = -_to_right
+	
+func _enter_tree() -> void:
+	start_move()
+	
+func start_move():
+	is_moved = false
+	$Timer.start()
+	
+func stop_move():
+	$Timer.stop()
+	is_moved = true
+	position = Vector2.ZERO

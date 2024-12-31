@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bog8shiiuriye"]
 
-[ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="1_5ktt7"]
-[ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="1_24jdb"]
-[ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="2_byyyb"]
+[ext_resource type="PackedScene" uid="uid://bb1jfjnmiupvx" path="res://game/scenes/m3/components/item_generator.tscn" id="1_layab"]
+[ext_resource type="PackedScene" uid="uid://cj1yp84njv61h" path="res://game/scenes/m3/items/rocket.tscn" id="2_hegf1"]
+[ext_resource type="PackedScene" uid="uid://dm6j6jllydy2u" path="res://game/scenes/m3/items/blue.tscn" id="5_3c64g"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_t1gbw"]
 a = Vector2(1110, 640)
@@ -13,30 +13,23 @@ size = Vector2(63, 120)
 
 [node name="Main" type="Node2D"]
 
+[node name="item_generator" parent="." instance=ExtResource("1_layab")]
+position = Vector2(-2, -332)
+
+[node name="rocket" parent="item_generator" instance=ExtResource("2_hegf1")]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("SegmentShape2D_t1gbw")
 
-[node name="item" type="Node2D" parent="."]
-position = Vector2(432, 0)
+[node name="item" parent="." instance=ExtResource("5_3c64g")]
 
-[node name="item_viewer" type="Sprite2D" parent="item"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_24jdb")
-centered = false
+[node name="item2" parent="." instance=ExtResource("5_3c64g")]
+position = Vector2(132, 0)
 
-[node name="parent_mover" parent="item" instance=ExtResource("2_byyyb")]
-
-[node name="item2" type="Node2D" parent="."]
-position = Vector2(300, -1)
-
-[node name="item_viewer" type="Sprite2D" parent="item2"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_5ktt7")
-centered = false
-
-[node name="parent_mover" parent="item2" instance=ExtResource("2_byyyb")]
+[node name="item3" parent="." instance=ExtResource("5_3c64g")]
+position = Vector2(265, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
 
