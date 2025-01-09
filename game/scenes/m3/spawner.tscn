@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4hirur6vsqqi"]
 
-[ext_resource type="Script" path="res://addons/m3core/spawner.gd" id="1_68q6c"]
+[ext_resource type="Script" path="res://game/scenes/m3/spawner.gd" id="1_68q6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57wu3"]
-size = Vector2(125, 125)
+size = Vector2(100, 100)
 
 [node name="spawner" type="Area2D"]
 script = ExtResource("1_68q6c")

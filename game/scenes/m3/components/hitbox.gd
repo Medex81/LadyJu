@@ -1,22 +1,28 @@
+# Компонент хитбокс отвечает за получение урона. Урон получает если сопротивляемость наносящего выше 
+# или равна сопротивляемости хитбокса на указанное количество хитпоинтов. Если количество хитпоинтов
+# ноль или ниже отправляем сигнал завершения жизненного цикла.
+
 extends Area2D
 
 class_name HitboxComponent
 
 @export var resistance:int = 1
-@export var damage:int = 1
 @export var hitpoints:int = 1
+
+var is_dead:bool = false
 
 const total_damage = -1
 const no_resist = -1
 
-@onready var parent = get_parent()
-var is_die:bool = false
+signal send_end()
 
-func hit(_damage:int = total_damage, _resistance:int = no_resist):
-	if is_die == false:
-		pass
+func hit(damage:int = total_damage, _resistance:int = no_resist):
+	if is_dead:
+		return
 		
-func total_hit():
-	if is_die == false:
-		parent.queue_free()
-		is_die = true
+	if resistance <= _resistance:
+		hitpoints -= damage
+
+	if hitpoints <= 0:
+		is_dead = true
+		send_end.emit()

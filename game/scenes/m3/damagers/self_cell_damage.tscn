@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://boo82kcboqmkt"]
+
+[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/damagers/damage.tscn" id="1_hm7ja"]
+
+[node name="damage" instance=ExtResource("1_hm7ja")]
+resistance = 2

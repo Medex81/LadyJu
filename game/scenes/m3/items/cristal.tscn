@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpa2mq42xvtw4"]
+
+[ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="1_2d51j"]
+[ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="2_bneca"]
+[ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_mgim0"]
+[ext_resource type="PackedScene" uid="uid://5wgceo23k5dr" path="res://game/scenes/m3/damagers/weak_damage.tscn" id="4_lmm8j"]
+[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damager.tscn" id="4_oid8c"]
+[ext_resource type="PackedScene" uid="uid://boo82kcboqmkt" path="res://game/scenes/m3/damagers/self_cell_damage.tscn" id="5_dmoql"]
+[ext_resource type="PackedScene" uid="uid://6r8pb666487x" path="res://game/scenes/m3/components/matcher.tscn" id="5_xlqa6"]
+[ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="6_u52hk"]
+[ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="7_ga2p0"]
+
+[node name="cristal" type="Node2D"]
+
+[node name="parent_mover" parent="." instance=ExtResource("1_2d51j")]
+_move_time = 0.15
+
+[node name="hitbox" parent="." instance=ExtResource("3_mgim0")]
+resistance = 2
+
+[node name="damager" parent="." instance=ExtResource("4_oid8c")]
+position = Vector2(65, 63)
+
+[node name="weak_damage" parent="damager" instance=ExtResource("4_lmm8j")]
+visible = false
+
+[node name="self_cell_damage" parent="damager" instance=ExtResource("5_dmoql")]
+visible = false
+
+[node name="matcher" parent="." instance=ExtResource("5_xlqa6")]
+
+[node name="info" parent="." instance=ExtResource("6_u52hk")]
+
+[node name="end" parent="." instance=ExtResource("2_bneca")]
+position = Vector2(64, 64)
+
+[node name="blast_part" parent="end" instance=ExtResource("7_ga2p0")]
+visible = false
+
+[node name="item_viewer" type="Sprite2D" parent="."]
+z_index = 2
+scale = Vector2(0.25498, 0.25498)
+centered = false
+
+[connection signal="send_move_stopped" from="parent_mover" to="matcher" method="on_matchable"]
+[connection signal="send_end" from="hitbox" to="end" method="end"]
+[connection signal="body_entered" from="damager/weak_damage" to="damager/weak_damage" method="_on_body_entered"]
+[connection signal="visibility_changed" from="damager/weak_damage" to="damager/weak_damage" method="_on_visibility_changed"]
+[connection signal="body_entered" from="damager/self_cell_damage" to="damager/self_cell_damage" method="_on_body_entered"]
+[connection signal="visibility_changed" from="damager/self_cell_damage" to="damager/self_cell_damage" method="_on_visibility_changed"]
+[connection signal="send_match" from="matcher" to="damager" method="start"]
+[connection signal="send_item_name" from="info" to="matcher" method="on_item_name_change"]

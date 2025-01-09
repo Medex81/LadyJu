@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0m6t0ryuwyta"]
+
+[ext_resource type="Texture2D" uid="uid://c7citcisvpqjl" path="res://game/assets/anny_pack/rocket_l.png" id="1_oqc1i"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="2_iwv25"]
+
+[node name="Sprite2D" type="Sprite2D"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_oqc1i")
+flip_h = true
+
+[node name="GPUParticles2D" parent="." instance=ExtResource("2_iwv25")]
+position = Vector2(-235, -5)
+rotation = 2.87336

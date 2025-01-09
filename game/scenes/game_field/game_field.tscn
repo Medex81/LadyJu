@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cqvlvff6pb65r" path="res://game/assets/backend_img.jpg" id="1_4i5t1"]
 [ext_resource type="Script" path="res://game/scenes/game_field/game_field.gd" id="1_rn3w4"]
 [ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/game_field/cell.tscn" id="3_onkhp"]
-[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://addons/m3core/spawner.tscn" id="4_pp4my"]
+[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/m3/spawner.tscn" id="4_pp4my"]
 [ext_resource type="PackedScene" uid="uid://dkvanretasilk" path="res://addons/m3core/item.tscn" id="5_2bf7n"]
 [ext_resource type="PackedScene" uid="uid://cd66wdwuli53g" path="res://game/scenes/game_field/items/dynamic/red.tscn" id="6_q8rxv"]
 [ext_resource type="PackedScene" uid="uid://c0uw2s4nxwqu5" path="res://game/scenes/game_field/items/dynamic/green.tscn" id="7_g6mpn"]
@@ -33,7 +33,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m05r8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsl0a"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -302,7 +302,7 @@ layout_mode = 2
 
 [node name="cell63" parent="GridContainer" instance=ExtResource("3_onkhp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m05r8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dsl0a")
 transparent = true
 
 [node name="area_item" parent="GridContainer/cell63" instance=ExtResource("5_2bf7n")]

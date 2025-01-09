@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game/scenes/m3/components/matcher.gd" id="1_20ywi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7a26n"]
-size = Vector2(128, 128)
+size = Vector2(120, 120)
 
 [node name="matcher" type="Area2D"]
 collision_layer = 2
@@ -14,30 +14,30 @@ script = ExtResource("1_20ywi")
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_7a26n")
 
-[node name="rc_d" type="RayCast2D" parent="collision"]
-position = Vector2(0, 56)
-target_position = Vector2(0, 24)
+[node name="rc_d" type="RayCast2D" parent="."]
+position = Vector2(64, 130)
+target_position = Vector2(0, 7)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="rc_t" type="RayCast2D" parent="collision"]
-position = Vector2(0, -56)
-target_position = Vector2(0, -24)
+[node name="rc_t" type="RayCast2D" parent="."]
+position = Vector2(64, -2)
+target_position = Vector2(0, -7)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="rc_r" type="RayCast2D" parent="collision"]
-position = Vector2(56, 0)
-target_position = Vector2(24, 0)
+[node name="rc_r" type="RayCast2D" parent="."]
+position = Vector2(130, 64)
+target_position = Vector2(7, 0)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="rc_l" type="RayCast2D" parent="collision"]
-position = Vector2(-56, 0)
-target_position = Vector2(-24, 0)
+[node name="rc_l" type="RayCast2D" parent="."]
+position = Vector2(-2, 64)
+target_position = Vector2(-7, 0)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false

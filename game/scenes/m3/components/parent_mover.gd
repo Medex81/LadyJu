@@ -11,7 +11,13 @@ class_name MoverComponent
 # время анимации перемещения
 @export var _move_time:float = 0.25
 @export var _width_frame = 30
-
+# шаг перемещения или размер клетки поля. Почему не константа спросишь ты и я тебе отвечу - ниже 
+# мы инициализируем направления с длинами переходов к следующей клетке и изменив её в настройках
+# один раз мы поправим все переходы. Но помни! В других узлах размер клетки зашит в визуале или 
+# настройках узлов - незабудь поменять размер и там. А если ты крут - сделай автоматический ресайз
+# в них, а мне лень.
+@export var _width = 128
+# немного оптимизации, не дёргаем зря метод, а обращаемся к полю с указателем на родителя
 @onready var _parent = get_parent()
 var is_moved:bool = false
 var _total_width:int
@@ -21,14 +27,18 @@ var _to_down:Vector2i
 var _to_top:Vector2i
 var _to_right:Vector2i
 var _to_left:Vector2i
+var is_falling:bool = true
 # при переходе, запоминаем квардат куда прибудем. Это нужно для синхронизации перемещений с другими предметами
-# для избежания двойного занятия позиции. Словарь доступен из всех предметов.
+# для избежания двойного занятия позиции. Словарь доступен из всех компонент перемещения.
 static var occupied:Dictionary
 # для свапа предметов нужно помнить предмет отправитель и получатель для обмена позициями.
 static var swap_node:MoverComponent = null
 
+# оповещаем о событии остановки или начала движения предмета. Это нужно, например, для проверки матчинга.
 signal send_move_stopped(is_stopped:bool)
 
+# когда предмет остановился, он проверяет соседей на матч или движение один раз. Если внизу предмет
+# пропал, нужно включить перемещение.
 func _on_timer_timeout():
 	call_deferred("move")
 	
@@ -39,22 +49,24 @@ func _is_occupied(rect:Rect2i)->bool:
 			return true
 	return false
 	
+# предмет находится в состоянии движения/не остановился - с таким предметом нельзя матчится и т.д.
 func is_fall()->bool:
-	$collision/rc_d.force_raycast_update()
-	return not ($collision/rc_d.get_collider() is MoverComponent)
-	
+	return is_falling
+
+# расчитываем направление для перемещения	
 func direct()->Vector2i:
 	# проверяем находимся ли мы на чём-то с чего нельзя соскользнуть
-	$collision/rc_d.force_raycast_update()
-	$collision/rc_dl.force_raycast_update()
-	$collision/rc_dr.force_raycast_update()
-	$collision/rc_r.force_raycast_update()
-	$collision/rc_l.force_raycast_update()
-	var cld_d = $collision/rc_d.get_collider()
-	var cld_dl = $collision/rc_dl.get_collider()
-	var cld_dr = $collision/rc_dr.get_collider()
-	var cld_l = $collision/rc_l.get_collider()
-	var cld_r = $collision/rc_r.get_collider()
+	# при движении узлы рейкаста не обновляются до конца кадра, обновляем принудительно.
+	$rc_d.force_raycast_update()
+	$rc_dl.force_raycast_update()
+	$rc_dr.force_raycast_update()
+	$rc_r.force_raycast_update()
+	$rc_l.force_raycast_update()
+	var cld_d = $rc_d.get_collider()
+	var cld_dl = $rc_dl.get_collider()
+	var cld_dr = $rc_dr.get_collider()
+	var cld_l = $rc_l.get_collider()
+	var cld_r = $rc_r.get_collider()
 		
 	var glob_pos_i = Vector2i(_parent.global_position)
 	# внизу кто-то есть
@@ -62,46 +74,74 @@ func direct()->Vector2i:
 		# статический объект - останавливаемся, по нему не скользим
 		if cld_d is StaticBody2D:
 			$Timer.stop()
+			is_falling = false
 			send_move_stopped.emit(true)
 			return Vector2i.ZERO
 		# предмет который двигается, притормаживаем и ждём когда он отдалится
-		if cld_r is MoverComponent and cld_d.is_fall():
+		if cld_d is MoverComponent and cld_d.is_fall():
 			return Vector2i.ZERO
 	# внизу никого, проверяем двигается ли уже кто-то в это место
 	elif not _is_occupied(Rect2i(glob_pos_i + _to_down, _to_down_right)):
+		is_falling = true
 		return _to_down
 	# лево вниз никого, проверяем что место не занято и слева паралельно нам по соседству не падает предмет
 	if cld_dl == null \
 	and not _is_occupied(Rect2i(glob_pos_i + _to_down_left, _to_down_right)) \
 	and (cld_l == null or (cld_l is MoverComponent and not cld_l.is_fall())):
+		is_falling = true
 		return _to_down_left
 		
 	if cld_dr == null \
 	and not _is_occupied(Rect2i(glob_pos_i + _to_down_right, _to_down_right))\
 	and (cld_r == null or (cld_r is MoverComponent and not cld_r.is_fall())):
+		is_falling = true
 		return _to_down_right
-	
-	send_move_stopped.emit(true)
+	# сигнал об остановке отправляем только если ранее двигались и остановились
+	if is_falling:
+		send_move_stopped.emit(true)
+	is_falling = false
 	return Vector2i.ZERO
 	
+# Иногда узел удаляется ещё в момент работы твинка и его сигнал о завершении не вызывает корутину,
+# которая блокирует код завершения а методе перемещения на клетку. При выходе узла из дерева,
+# руками удаляем запись о бронировании клетки для перемещения если она небыла удалена корутиной. 
+func _exit_tree() -> void:
+	occupied.erase(self)
+	
+# двигать родительский узел на расстояние размера клетки
 func move(_direct:Vector2i = Vector2i.ZERO):
+	# сейчас движемся, как закончим можно начинать следующее движение, а пока отбрасываем запрос
 	if is_moved:
 		return
+	# запросили движение без указания направления - значит выбираем его сами
 	if _direct == Vector2i.ZERO:
 		_direct = direct()
+	else:
+		# На свапе важно установить состояние перемещения, так как ранее мы стояли. Если перемещаться
+		# без установленного флага падения, то не будет отправлен сигнал об остановке!
+		is_falling = true
+	# направление не определено, нет свободных клеток или внизу движущийся предмет
 	if _direct == Vector2i.ZERO:
 		return
 
+	# уведомляем о начале движения и смене состояния
 	send_move_stopped.emit(false)
 	is_moved = true
+	# заносим в общий список всех компонент движения квадрат куда будем перемещаться, иначе а тот же
+	# квадрат одновременно с нами могут двигаться и другие предметы.
 	occupied[self] = Rect2i(Vector2i(_parent.global_position) + _direct, _to_down_right)
+	# двигаем родителя через твин по свойству позиции
 	var move_tween = get_tree().create_tween()
-	move_tween.tween_property(_parent, "position", _parent.global_position + Vector2(_direct) , _move_time)
+	move_tween.tween_property(_parent, "global_position", _parent.global_position + Vector2(_direct) , _move_time)
+	# тут будет выход из метода и формирование корутины которая активируется при получении сигнала
+	# от завершения твина. После получения сигнала, корутина установит на выполнение код лежащий ниже
 	await move_tween.finished
 	occupied.erase(self)
 	is_moved = false
+	# отложенный на следующий кадр вызов себя для симуляции беспрерывного падения
 	call_deferred("move")
 
+# расчёт смещения из текущего предмета в указанный с учётом расположения по соседству
 func _get_direction(item:MoverComponent)->Vector2i:
 	var dist = item.global_position - self.global_position
 	var ax = abs(dist.x)
@@ -115,16 +155,20 @@ func _get_direction(item:MoverComponent)->Vector2i:
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
+			# когда движемся не нужно запускать ещё одно параллельное движение
 			if is_moved:
 				swap_node = null
 				return
 			swap_node = self
 		if event.is_released():
 			# тап на матчер, подрывам его одного
+			#if swap_node == self:
+				#pass
+			# если предмет не стоит или стремный - отбрасываем свап
 			if swap_node == self or swap_node == null or swap_node.is_moved or is_moved:
 				swap_node = null
 				return
-				
+			# переходим в позицию...	
 			var _direct = _get_direction(swap_node)
 			# проверяем, что свап с соседом
 			if _direct != Vector2i.ZERO:
@@ -133,24 +177,25 @@ func _on_input_event(_viewport, event, _shape_idx):
 				
 			swap_node = null
 
-func _on_collision_ready() -> void:
-	var width = $collision.shape.size.x
-	_total_width = width + _width_frame
-	_to_down_left = Vector2i(-width, width)
-	_to_down_right = Vector2i(width, width)
-	_to_down = Vector2i(0, width)
+func _ready() -> void:
+	_total_width = _width + _width_frame
+	_to_down_left = Vector2i(-_width, _width)
+	_to_down_right = Vector2i(_width, _width)
+	_to_down = Vector2i(0, _width)
 	_to_top = -_to_down
-	_to_right = Vector2i(width, 0)
+	_to_right = Vector2i(_width, 0)
 	_to_left = -_to_right
 	
-func _enter_tree() -> void:
-	start_move()
-	
-func start_move():
-	is_moved = false
-	$Timer.start()
-	
-func stop_move():
-	$Timer.stop()
-	is_moved = true
-	position = Vector2.ZERO
+# узлы у нас делятся на создаваемые в сцене на старте и создаваемые в коде на рантайме. 
+# Создаваемые узлы появляются благодаря дуплицированию уже существующих (для этого у нас есть
+# узел генератора, который содержит необходимые узлы). Можно было бы их создавать через механизм создания
+# узла из распакованной сцены или лоада, но
+# это просадка по перформансу и необходимость составлять список узлов, а мне лень и проще визуально
+# посмотреть что у нас есть в сцене чем листать свойства узлов или конфиги.
+# Таймер заставляет узел двигаться, но узлы в генераторе не должны двигаться. Для этого мы отключаем
+# у компонента таймер и включаем его при изменении видимости - тоесть при добавлении в игровую область.
+func _on_visibility_changed() -> void:
+	if visible:
+		is_moved = false
+		$Timer.autostart = true
+		$Timer.start()

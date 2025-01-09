@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwe77doxkiaf4"]
+
+[ext_resource type="Script" path="res://game/scenes/m3/components/info.gd" id="1_o8ahe"]
+
+[node name="info" type="Node"]
+script = ExtResource("1_o8ahe")

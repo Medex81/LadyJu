@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game/scenes/m3/components/parent_mover.gd" id="1_lc8dt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5trx7"]
-size = Vector2(128, 128)
+size = Vector2(120, 120)
 
 [node name="parent_mover" type="Area2D"]
 script = ExtResource("1_lc8dt")
@@ -12,40 +12,39 @@ script = ExtResource("1_lc8dt")
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_5trx7")
 
-[node name="rc_d" type="RayCast2D" parent="collision"]
-position = Vector2(0, 56)
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="rc_d" type="RayCast2D" parent="."]
+position = Vector2(64, 120)
 target_position = Vector2(0, 24)
 collide_with_areas = true
 
-[node name="rc_dl" type="RayCast2D" parent="collision"]
-position = Vector2(-56, 56)
+[node name="rc_dl" type="RayCast2D" parent="."]
+position = Vector2(2, 126)
 target_position = Vector2(-24, 24)
 collide_with_areas = true
 
-[node name="rc_dr" type="RayCast2D" parent="collision"]
-position = Vector2(56, 56)
+[node name="rc_dr" type="RayCast2D" parent="."]
+position = Vector2(126, 126)
 target_position = Vector2(24, 24)
 collide_with_areas = true
 
-[node name="rc_t" type="RayCast2D" parent="collision"]
-position = Vector2(0, -56)
+[node name="rc_t" type="RayCast2D" parent="."]
+position = Vector2(64, 2)
 target_position = Vector2(0, -24)
 collide_with_areas = true
 
-[node name="rc_r" type="RayCast2D" parent="collision"]
-position = Vector2(56, 0)
+[node name="rc_r" type="RayCast2D" parent="."]
+position = Vector2(126, 64)
 target_position = Vector2(24, 0)
 collide_with_areas = true
 
-[node name="rc_l" type="RayCast2D" parent="collision"]
-position = Vector2(-56, 0)
+[node name="rc_l" type="RayCast2D" parent="."]
+position = Vector2(2, 64)
 target_position = Vector2(-24, 0)
 collide_with_areas = true
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
-
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="ready" from="collision" to="." method="_on_collision_ready"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

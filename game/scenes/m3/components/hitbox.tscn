@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game/scenes/m3/components/hitbox.gd" id="1_gqkfn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2d4w"]
-size = Vector2(128, 128)
+size = Vector2(120, 120)
 
 [node name="hitbox" type="Area2D"]
 collision_layer = 4
