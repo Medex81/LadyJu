@@ -17,13 +17,13 @@ func _ready() -> void:
 	
 	for node in get_children():
 		for component in node.get_children():
-			#if component is MatchedItemComponent:
-				#var arr = _generate_matcher_items.get(component.match_count, [])
-				#arr.append(node)
-				#_generate_matcher_items[component.match_count] = arr
-				#continue
-			
-			_generate_dynamic_items.append(node)
+			if component is MatchInfoComponent:
+				var arr = _generate_matcher_items.get(component.match_count, [])
+				arr.append(node)
+				_generate_matcher_items[component.match_count] = arr
+				continue
+			if component is InfoComponent:
+				_generate_dynamic_items.append(node)
 			
 	if _generate_dynamic_items.is_empty():
 		print("Error. Generator node has not a nodes with components for dynamics.")
