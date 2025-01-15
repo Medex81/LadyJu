@@ -8,13 +8,55 @@ extends Area2D
 
 class_name MoverComponent
 
+# данные по состоянию свапа с соседом
+class SwapData:
+	# свапа нет или после свапа нет матча
+	var _is_active:bool = false
+	# сосед с которым произошел свап
+	var _second_component:MoverComponent = null
+	# направление свапа текущего компонента
+	var _direction:Vector2i = Vector2i.ZERO
+	
+	# в начале свапа запоминаем кто и куда перемещается и устанавливаем состояние активен
+	func begin(second_component:MoverComponent, direction:Vector2i):
+		_is_active = true
+		_second_component = second_component
+		_direction = direction
+		
+	# данных по свапу нет - при выходе из сцены или на автоперемещении
+	func clean():
+		_is_active = false
+		_second_component = null
+		_direction = Vector2i.ZERO
+	# после свапа нет матча - нужно вернуться назад
+	func fail():
+		_is_active = false
+	# компонент в состоянии свапа?
+	func is_active()->bool:
+		return _is_active
+	# может ли компонент вернуться назад?
+	# может только при условии, что второй участник и мы не сматчились.
+	# при этом мы активны, а второй участник нет(или наоборот, смотря кто первый получил ответ по матчу)
+	func can_revert()->bool:
+		if _second_component and not _second_component.swap_data.is_active():
+			return true
+		return false
+		
+	func get_direct()->Vector2i:
+		return _direction
+		
+	func get_second_component()->MoverComponent:
+		return _second_component
+
+var swap_data:SwapData = SwapData.new()
+	
 # время анимации перемещения
 @export var _move_time:float = 0.25
 @export var _width_frame = 30
 # шаг перемещения или размер клетки поля. Почему не константа спросишь ты и я тебе отвечу - ниже 
 # мы инициализируем направления с длинами переходов к следующей клетке и изменив её в настройках
 # один раз мы поправим все переходы. Но помни! В других узлах размер клетки зашит в визуале или 
-# настройках узлов - незабудь поменять размер и там. А если ты крут - сделай автоматический ресайз
+# настройках узлов - не забудь поменять размер и там. А если ты крут - сделай автоматический ресайз
 # в них, а мне лень.
 @export var _width = 128
 # немного оптимизации, не дёргаем зря метод, а обращаемся к полю с указателем на родителя
@@ -36,6 +78,8 @@ static var swap_node:MoverComponent = null
 
 # оповещаем о событии остановки или начала движения предмета. Это нужно, например, для проверки матчинга.
 signal send_move_stopped(is_stopped:bool)
+
+
 
 # когда предмет остановился, он проверяет соседей на матч или движение один раз. Если внизу предмет
 # пропал, нужно включить перемещение.
@@ -107,19 +151,17 @@ func direct()->Vector2i:
 # руками удаляем запись о бронировании клетки для перемещения если она небыла удалена корутиной. 
 func _exit_tree() -> void:
 	occupied.erase(self)
+	swap_data.clean()
 	
 # двигать родительский узел на расстояние размера клетки
-func move(_direct:Vector2i = Vector2i.ZERO):
+# is_automove = true перезапускать перемещение после завершения движения автоматически
+func move(_direct:Vector2i = Vector2i.ZERO, is_automove:bool = true):
 	# сейчас движемся, как закончим можно начинать следующее движение, а пока отбрасываем запрос
 	if is_moved:
 		return
 	# запросили движение без указания направления - значит выбираем его сами
 	if _direct == Vector2i.ZERO:
 		_direct = direct()
-	else:
-		# На свапе важно установить состояние перемещения, так как ранее мы стояли. Если перемещаться
-		# без установленного флага падения, то не будет отправлен сигнал об остановке!
-		is_falling = true
 	# направление не определено, нет свободных клеток или внизу движущийся предмет
 	if _direct == Vector2i.ZERO:
 		return
@@ -139,10 +181,19 @@ func move(_direct:Vector2i = Vector2i.ZERO):
 	occupied.erase(self)
 	is_moved = false
 	# отложенный на следующий кадр вызов себя для симуляции беспрерывного падения
-	call_deferred("move")
+	if is_automove:
+		call_deferred("move")
+		# если у нас автоперемещение и активный свап - сбрасываем свап
+		# обработка свапа по какой-то причине не отработала 
+		if swap_data.is_active():
+			swap_data.clean()
+			print("Error. Active swap in automove!")
+	else:
+		# завершилось перемещение при свапе, уведомление с указанием состояния остановки
+		send_move_stopped.emit(true)
 
 # расчёт смещения из текущего предмета в указанный с учётом расположения по соседству
-func _get_direction(item:MoverComponent)->Vector2i:
+func _get_direction_to(item:MoverComponent)->Vector2i:
 	var dist = item.global_position - self.global_position
 	var ax = abs(dist.x)
 	var ay = abs(dist.y)
@@ -168,12 +219,15 @@ func _on_input_event(_viewport, event, _shape_idx):
 			if swap_node == self or swap_node == null or swap_node.is_moved or is_moved:
 				swap_node = null
 				return
-			# переходим в позицию...	
-			var _direct = _get_direction(swap_node)
+			# переходим в позицию...
+			var _direct = _get_direction_to(swap_node)
 			# проверяем, что свап с соседом
 			if _direct != Vector2i.ZERO:
-				move(_direct)
-				swap_node.move(-_direct)
+				swap_data.begin(swap_node, _direct)
+				swap_node.swap_data.begin(self, -_direct)
+				# делаем одно перемещение на шаг без автоперемещения далее
+				move(_direct, false)
+				swap_node.move(-_direct, false)
 				
 			swap_node = null
 
@@ -199,3 +253,23 @@ func _on_visibility_changed() -> void:
 		is_moved = false
 		$Timer.autostart = true
 		$Timer.start()
+
+# компоненту нужно вернуться назад
+func revert_move():
+	# находимся в состоянии активного свапа
+	if swap_data.is_active():
+		# второй участник уже получил сообщение о своём неудачном свапе
+		if swap_data.can_revert():
+			# двигаем себя в обратном направлении
+			move(-swap_data.get_direct(), false)
+			# второй ещё в дереве
+			var second = swap_data.get_second_component()
+			if second:
+				# двигаем второго обратно
+				second.move(swap_data.get_direct(), false)
+				# очищаем данные свапа у пары
+				second.swap_data.clean()
+				swap_data.clean()
+		else:
+			# свап обработан, второй участник ещё не готов
+			swap_data.fail()

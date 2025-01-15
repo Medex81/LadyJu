@@ -48,5 +48,6 @@ centered = false
 [connection signal="visibility_changed" from="damager/weak_damage" to="damager/weak_damage" method="_on_visibility_changed"]
 [connection signal="body_entered" from="damager/self_cell_damage" to="damager/self_cell_damage" method="_on_body_entered"]
 [connection signal="visibility_changed" from="damager/self_cell_damage" to="damager/self_cell_damage" method="_on_visibility_changed"]
+[connection signal="send_fail_match" from="matcher" to="parent_mover" method="revert_move"]
 [connection signal="send_match" from="matcher" to="damager" method="start"]
 [connection signal="send_item_name" from="info" to="matcher" method="on_item_name_change"]

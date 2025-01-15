@@ -22,6 +22,7 @@ var item_name:String = none
 
 # говорим кому-то, что мы сматчены
 signal send_match()
+signal send_fail_match()
 
 func on_item_name_change(_item_name:String):
 	item_name = _item_name
@@ -62,7 +63,7 @@ func matching()->bool:
 		for matcher in matchers_h:
 			matcher.send_match.emit()
 		return true
-		
+	send_fail_match.emit()
 	return false
 	
 # проверяем по указанному направлению (горизонтально или вертикально) соседство предметов которые могут сматчиться
