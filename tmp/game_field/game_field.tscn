@@ -1,13 +1,13 @@
 [gd_scene load_steps=16 format=3 uid="uid://ba74g03xlaj7d"]
 
 [ext_resource type="Texture2D" uid="uid://cqvlvff6pb65r" path="res://game/assets/backend_img.jpg" id="1_4i5t1"]
-[ext_resource type="Script" path="res://game/scenes/game_field/game_field.gd" id="1_rn3w4"]
-[ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/game_field/cell.tscn" id="3_onkhp"]
+[ext_resource type="Script" path="res://tmp/game_field/game_field.gd" id="1_rn3w4"]
+[ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/m3/cell.tscn" id="3_onkhp"]
 [ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/m3/spawner.tscn" id="4_pp4my"]
 [ext_resource type="PackedScene" uid="uid://dkvanretasilk" path="res://addons/m3core/item.tscn" id="5_2bf7n"]
-[ext_resource type="PackedScene" uid="uid://cd66wdwuli53g" path="res://game/scenes/game_field/items/dynamic/red.tscn" id="6_q8rxv"]
-[ext_resource type="PackedScene" uid="uid://c0uw2s4nxwqu5" path="res://game/scenes/game_field/items/dynamic/green.tscn" id="7_g6mpn"]
-[ext_resource type="PackedScene" uid="uid://dx0l8g1tcqp4l" path="res://game/scenes/game_field/generates.tscn" id="10_2ibw8"]
+[ext_resource type="PackedScene" uid="uid://cd66wdwuli53g" path="res://tmp/game_field/items/dynamic/red.tscn" id="6_q8rxv"]
+[ext_resource type="PackedScene" uid="uid://c0uw2s4nxwqu5" path="res://tmp/game_field/items/dynamic/green.tscn" id="7_g6mpn"]
+[ext_resource type="PackedScene" uid="uid://dx0l8g1tcqp4l" path="res://tmp/game_field/generates.tscn" id="10_2ibw8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hga6"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ca6dwep784lk7" path="res://game/scenes/m3/items/white.tscn" id="6_440aj"]
 [ext_resource type="PackedScene" uid="uid://m5rh2rt32bm0" path="res://game/scenes/m3/items/yellow.tscn" id="7_keo6g"]
 [ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/m3/spawner.tscn" id="8_nya3m"]
-[ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/game_field/cell.tscn" id="8_w6gfp"]
+[ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/m3/cell.tscn" id="8_w6gfp"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_t1gbw"]
 a = Vector2(1304, 1282)
