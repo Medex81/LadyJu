@@ -70,6 +70,7 @@ var _to_top:Vector2i
 var _to_right:Vector2i
 var _to_left:Vector2i
 var is_falling:bool = true
+var _is_ready:bool = false
 # при переходе, запоминаем квардат куда прибудем. Это нужно для синхронизации перемещений с другими предметами
 # для избежания двойного занятия позиции. Словарь доступен из всех компонент перемещения.
 static var occupied:Dictionary
@@ -78,7 +79,7 @@ static var swap_node:MoverComponent = null
 
 # оповещаем о событии остановки или начала движения предмета. Это нужно, например, для проверки матчинга.
 signal send_move_stopped(is_stopped:bool)
-
+signal send_double_click()
 
 
 # когда предмет остановился, он проверяет соседей на матч или движение один раз. Если внизу предмет
@@ -213,21 +214,22 @@ func _on_input_event(_viewport, event, _shape_idx):
 			swap_node = self
 		if event.is_released():
 			# тап на матчер, подрывам его одного
-			#if swap_node == self:
-				#pass
-			# если предмет не стоит или стремный - отбрасываем свап
-			if swap_node == self or swap_node == null or swap_node.is_moved or is_moved:
-				swap_node = null
-				return
-			# переходим в позицию...
-			var _direct = _get_direction_to(swap_node)
-			# проверяем, что свап с соседом
-			if _direct != Vector2i.ZERO:
-				swap_data.begin(swap_node, _direct)
-				swap_node.swap_data.begin(self, -_direct)
-				# делаем одно перемещение на шаг без автоперемещения далее
-				move(_direct, false)
-				swap_node.move(-_direct, false)
+			if swap_node == self:
+				send_double_click.emit()
+			else:
+				# если предмет не стоит или стремный - отбрасываем свап
+				if swap_node == self or swap_node == null or swap_node.is_moved or is_moved:
+					swap_node = null
+					return
+				# переходим в позицию...
+				var _direct = _get_direction_to(swap_node)
+				# проверяем, что свап с соседом
+				if _direct != Vector2i.ZERO:
+					swap_data.begin(swap_node, _direct)
+					swap_node.swap_data.begin(self, -_direct)
+					# делаем одно перемещение на шаг без автоперемещения далее
+					move(_direct, false)
+					swap_node.move(-_direct, false)
 				
 			swap_node = null
 
@@ -239,6 +241,12 @@ func _ready() -> void:
 	_to_top = -_to_down
 	_to_right = Vector2i(_width, 0)
 	_to_left = -_to_right
+	# разрешаем двигаться предметам изначально расположенным на поле
+	if _parent.visible:
+		$Timer.autostart = true
+		$Timer.start()
+	
+	_is_ready = true
 	
 # узлы у нас делятся на создаваемые в сцене на старте и создаваемые в коде на рантайме. 
 # Создаваемые узлы появляются благодаря дуплицированию уже существующих (для этого у нас есть
@@ -249,11 +257,12 @@ func _ready() -> void:
 # Таймер заставляет узел двигаться, но узлы в генераторе не должны двигаться. Для этого мы отключаем
 # у компонента таймер и включаем его при изменении видимости - тоесть при добавлении в игровую область.
 func _on_visibility_changed() -> void:
-	if visible:
+	# разрешаем двигаться предметам дублированным и заспауненым
+	if visible and _is_ready:
 		is_moved = false
 		$Timer.autostart = true
 		$Timer.start()
-
+	
 # компоненту нужно вернуться назад
 func revert_move():
 	# находимся в состоянии активного свапа

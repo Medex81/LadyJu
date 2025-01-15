@@ -13,7 +13,7 @@ position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_5trx7")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.18
 
 [node name="rc_d" type="RayCast2D" parent="."]
 position = Vector2(64, 120)
