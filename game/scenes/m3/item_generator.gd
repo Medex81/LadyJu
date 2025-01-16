@@ -34,7 +34,6 @@ func generate_item()->Node2D:
 	if not _generate_dynamic_items.is_empty():
 		var random_item = _generate_dynamic_items.pick_random()
 		var item = random_item.duplicate()
-		#remove_child(item)
 		return item
 	return null
 	
