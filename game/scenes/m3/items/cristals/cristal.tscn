@@ -1,14 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpa2mq42xvtw4"]
+[gd_scene load_steps=11 format=3 uid="uid://bpa2mq42xvtw4"]
 
 [ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="1_2d51j"]
 [ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="2_bneca"]
 [ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_mgim0"]
 [ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/damagers/damage.tscn" id="4_nasvp"]
 [ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damager.tscn" id="4_oid8c"]
-[ext_resource type="PackedScene" uid="uid://boql4eiookodn" path="res://game/scenes/m3/damagers/damage_zone.tscn" id="5_ovo3w"]
 [ext_resource type="PackedScene" uid="uid://6r8pb666487x" path="res://game/scenes/m3/components/matcher.tscn" id="5_xlqa6"]
 [ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="6_u52hk"]
 [ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="7_ga2p0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ksjv0"]
+radius = 55.0091
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s8jww"]
+radius = 95.6347
 
 [node name="cristal" type="Node2D"]
 
@@ -21,16 +26,18 @@ resistance = 2
 [node name="damager" parent="." instance=ExtResource("4_oid8c")]
 position = Vector2(65, 63)
 
-[node name="damage_self" parent="damager" instance=ExtResource("4_nasvp")]
+[node name="self" parent="damager" instance=ExtResource("4_nasvp")]
 visible = false
 resistance = 2
 
-[node name="collision" parent="damager/damage_self" instance=ExtResource("5_ovo3w")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damager/self"]
+shape = SubResource("CircleShape2D_ksjv0")
 
-[node name="damage_weak" parent="damager" instance=ExtResource("4_nasvp")]
+[node name="weak_neibr" parent="damager" instance=ExtResource("4_nasvp")]
 visible = false
 
-[node name="collision" parent="damager/damage_weak" instance=ExtResource("5_ovo3w")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damager/weak_neibr"]
+shape = SubResource("CircleShape2D_s8jww")
 
 [node name="matcher" parent="." instance=ExtResource("5_xlqa6")]
 
