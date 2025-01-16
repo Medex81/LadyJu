@@ -16,13 +16,11 @@ const no_resist = -1
 
 signal send_end()
 
-func hit(damage:int = total_damage, _resistance:int = no_resist):
-	if is_dead:
-		return
-		
-	if resistance <= _resistance:
+func hit(damage:int = total_damage, _resistance:int = no_resist)->bool:
+	if not is_dead and resistance <= _resistance:
 		hitpoints -= damage
-
-	if hitpoints <= 0:
-		is_dead = true
-		send_end.emit()
+		if hitpoints <= 0:
+			is_dead = true
+			send_end.emit()
+		return true
+	return false
