@@ -57,8 +57,9 @@ func matching()->bool:
 		if item_generator:
 			var match_item = item_generator.generate_matcher(matchers_h.size() + 1)
 			if match_item:
+				get_tree().current_scene.add_child(match_item)
 				match_item.global_position = global_position
-				parent.get_parent().add_child(match_item)
+				match_item.visible = true
 		send_match.emit()
 		for matcher in matchers_h:
 			matcher.send_match.emit()
