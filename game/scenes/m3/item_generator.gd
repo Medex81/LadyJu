@@ -34,14 +34,26 @@ func generate_item()->Node2D:
 	if not _generate_dynamic_items.is_empty():
 		var random_item = _generate_dynamic_items.pick_random()
 		var item = random_item.duplicate()
+		item.position = Vector2i.ZERO
 		return item
 	return null
 	
-func generate_matcher(match_count:int)->Node2D:
+# direct_h - должен ли предмет иметь ориентацию?
+func generate_matcher(match_count:int, direct_h:bool = true)->Node2D:
 	if not _generate_matcher_items.is_empty():
+		# предметы подходять по количеству предметов для матча
 		var arr = _generate_matcher_items.get(match_count, []) as Array
+		for node in arr:
+			# ищем в списке матчер с нужной ориентацией
+			for component in node.get_children():
+				if component is MatchInfoComponent and component.direct_h == direct_h:
+					var item = node.duplicate()
+					item.position = Vector2i.ZERO
+					return item
+		# в списке нет матчера с указанной ориентацией, берем первый из списка.
 		if not arr.is_empty():
-			var item = arr.pick_random().duplicate()
+			var item = arr.front().duplicate()
+			item.position = Vector2i.ZERO
 			return item
 		
 	return null

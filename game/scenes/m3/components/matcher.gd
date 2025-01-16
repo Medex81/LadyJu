@@ -44,18 +44,19 @@ func matching()->bool:
 	var matchers_v:Array[MatcherComponent]
 	check_match(matchers_v, EDirect.TOP)
 	check_match(matchers_v, EDirect.DOWN)
-	
+	var direct_h:bool = true
 	# есть пересечение по вертикали и горизонтали - объединяем в один матч
 	if matchers_h.size() > 1 and matchers_v.size() > 1:
 		matchers_h.append_array(matchers_v.duplicate())
 		matchers_v.clear()
 	if matchers_h.size() < 2:
+		direct_h = false
 		matchers_h = matchers_v
 		
 	if matchers_h.size() > 1:
 		# запрос на генерацию предмета матчера если подходит по количеству
 		if item_generator:
-			var match_item = item_generator.generate_matcher(matchers_h.size() + 1)
+			var match_item = item_generator.generate_matcher(matchers_h.size() + 1, direct_h)
 			if match_item:
 				get_tree().current_scene.add_child(match_item)
 				match_item.global_position = global_position
