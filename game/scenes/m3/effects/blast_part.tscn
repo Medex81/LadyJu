@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://85x0hvrp2113"]
-
-[ext_resource type="Script" path="res://game/scenes/m3/effects/blast_part.gd" id="1_657yo"]
+[gd_scene load_steps=4 format=3 uid="uid://85x0hvrp2113"]
 
 [sub_resource type="Curve" id="Curve_i6smh"]
 _data = [Vector2(0.0120482, 0.835165), 0.0, 0.0, 0, 0, Vector2(0.951807, 1), 0.0, 0.0, 0, 0]
@@ -31,4 +29,3 @@ lifetime = 0.5
 one_shot = true
 speed_scale = 1.59
 explosiveness = 0.66
-script = ExtResource("1_657yo")

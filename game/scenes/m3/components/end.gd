@@ -2,7 +2,7 @@
 
 extends Node2D
 
-class_name EndComponent
+class_name EndContainerComponent
 
 @onready var parent = get_parent()
 var is_dead:bool = false
