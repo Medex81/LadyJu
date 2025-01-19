@@ -6,11 +6,11 @@ extends Node
 class_name InfoComponent
 
 @export var item_name:String = "NONE"
+@export var cell_size:int = 128
 
-signal send_item_name(_item_name:String)
-
-func get_first_child()->Node:
-	return get_child(0) if get_child_count() else null
+func get_item_name()->String:
+	return item_name
 	
-func _ready() -> void:
-	send_item_name.emit(item_name)
+func get_item_size()->int:
+	return cell_size
+	

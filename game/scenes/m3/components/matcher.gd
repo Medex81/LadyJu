@@ -8,6 +8,8 @@ class_name MatcherComponent
 const none = "None"
 
 @export var item_generator_group_name:String = "item_generator"
+@export var check_timeout_msec:int = 3000
+
 @onready var parent = get_parent()
 @onready var item_generator:ItemGenerator = get_tree().get_first_node_in_group(item_generator_group_name)
 
@@ -19,13 +21,18 @@ var is_matchable:bool = false
 enum EDirect{LEFT, RIGHT, DOWN, TOP}
 # имя матчера для матчинга по типу
 var item_name:String = none
+@export var info_path:NodePath
+@onready var info = get_node(info_path)
 
 # говорим кому-то, что мы сматчены
 signal send_match()
 signal send_fail_match()
 
-func on_item_name_change(_item_name:String):
-	item_name = _item_name
+func _ready() -> void:
+	if info and info.has_method("get_item_name"):
+		item_name = info.get_item_name()
+	else:
+		print("Error. No item name for ", parent.name)
 
 # кто-то говорит нам можно ли матчиться (обычно это состояние движения)
 # а заодно проверяем в матчерах соседей движутся ли они
@@ -79,4 +86,3 @@ func check_match(matchers:Array[MatcherComponent], direct:EDirect):
 			# в массив, переданный в аргументе по ссылке, собираем всех подходящих соседей рекурсивно
 			matchers.append(next)
 		next.check_match(matchers, direct)
-	

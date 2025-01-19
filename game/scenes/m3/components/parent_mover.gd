@@ -53,12 +53,6 @@ var swap_data:SwapData = SwapData.new()
 # время анимации перемещения
 @export var _move_time:float = 0.25
 @export var _width_frame = 30
-# шаг перемещения или размер клетки поля. Почему не константа спросишь ты и я тебе отвечу - ниже 
-# мы инициализируем направления с длинами переходов к следующей клетке и изменив её в настройках
-# один раз мы поправим все переходы. Но помни! В других узлах размер клетки зашит в визуале или 
-# настройках узлов - не забудь поменять размер и там. А если ты крут - сделай автоматический ресайз
-# в них, а мне лень.
-@export var _width = 128
 # немного оптимизации, не дёргаем зря метод, а обращаемся к полю с указателем на родителя
 @onready var _parent = get_parent()
 var is_moved:bool = false
@@ -71,6 +65,11 @@ var _to_right:Vector2i
 var _to_left:Vector2i
 var is_falling:bool = true
 var _is_ready:bool = false
+# шаг перемещения или размер клетки поля.
+var _width = 128
+@export var info_path:NodePath
+@onready var info = get_node(info_path)
+
 # при переходе, запоминаем квардат куда прибудем. Это нужно для синхронизации перемещений с другими предметами
 # для избежания двойного занятия позиции. Словарь доступен из всех компонент перемещения.
 static var occupied:Dictionary
@@ -80,7 +79,6 @@ static var swap_node:MoverComponent = null
 # оповещаем о событии остановки или начала движения предмета. Это нужно, например, для проверки матчинга.
 signal send_move_stopped(is_stopped:bool)
 signal send_double_click()
-
 
 # когда предмет остановился, он проверяет соседей на матч или движение один раз. Если внизу предмет
 # пропал, нужно включить перемещение.
@@ -234,6 +232,11 @@ func _on_input_event(_viewport, event, _shape_idx):
 			swap_node = null
 
 func _ready() -> void:
+	if info and info.has_method("get_item_size"):
+		_width = info.get_item_size()
+	else:
+		print("Error. No item size for ", get_parent().name)
+	
 	_total_width = _width + _width_frame
 	_to_down_left = Vector2i(-_width, _width)
 	_to_down_right = Vector2i(_width, _width)

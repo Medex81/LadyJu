@@ -11,6 +11,7 @@
 [node name="match_info" parent="." instance=ExtResource("1_ud3ex")]
 
 [node name="parent_mover" parent="." instance=ExtResource("2_1rd5b")]
+info_path = NodePath("../match_info")
 
 [node name="hitbox" parent="." instance=ExtResource("3_qyejw")]
 
