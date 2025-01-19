@@ -11,6 +11,10 @@ func end():
 	if is_dead == false:
 		is_dead = true
 		for child in get_children():
+			if child is AudioStreamPlayer2D:
+				child.play()
+				break
+		for child in get_children():
 			if child is GPUParticles2D:
 				child.visible = true
 				child.emitting = true
