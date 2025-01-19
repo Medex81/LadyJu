@@ -6,16 +6,19 @@
 
 extends Area2D
 
+class_name DamageComponent
+
 @export var damage:int = 1
 @export var resistance:int = 1
+var activate:bool = false
 
 func _on_area_entered(_area: Area2D) -> void:
-	if visible and _area is HitboxComponent:
+	if activate and _area is HitboxComponent:
 		if _area.hit(damage, resistance):
 			resistance -= _area.resistance
 			if resistance <= 0:
 				queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is StaticBody2D:
+	if activate and body is StaticBody2D:
 		queue_free()

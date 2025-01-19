@@ -29,14 +29,12 @@ resistance = 2
 position = Vector2(65, 63)
 
 [node name="self" parent="damager" instance=ExtResource("4_nasvp")]
-visible = false
 resistance = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damager/self"]
 shape = SubResource("CircleShape2D_ksjv0")
 
 [node name="weak_neibr" parent="damager" instance=ExtResource("4_nasvp")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damager/weak_neibr"]
 shape = SubResource("CircleShape2D_s8jww")
@@ -50,7 +48,6 @@ info_path = NodePath("../info")
 position = Vector2(64, 64)
 
 [node name="blast_part" parent="end" instance=ExtResource("7_ga2p0")]
-script = null
 
 [node name="audio_effect" type="AudioStreamPlayer2D" parent="end"]
 stream = ExtResource("9_b53ed")
