@@ -11,12 +11,9 @@ class_name HitboxComponent
 
 var is_dead:bool = false
 
-const total_damage = -1
-const no_resist = -1
-
 signal send_end()
 
-func hit(damage:int = total_damage, _resistance:int = no_resist)->bool:
+func hit(damage:int, _resistance:int)->bool:
 	if not is_dead and resistance <= _resistance:
 		hitpoints -= damage
 		if hitpoints <= 0:
