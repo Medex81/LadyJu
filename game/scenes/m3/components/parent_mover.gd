@@ -53,8 +53,12 @@ var swap_data:SwapData = SwapData.new()
 # время анимации перемещения
 @export var _move_time:float = 0.25
 @export var _width_frame = 30
+# шаг перемещения или размер клетки поля.
+@export var _width = 128
+
 # немного оптимизации, не дёргаем зря метод, а обращаемся к полю с указателем на родителя
 @onready var _parent = get_parent()
+
 var is_moved:bool = false
 var _total_width:int
 var _to_down_left:Vector2i
@@ -64,11 +68,6 @@ var _to_top:Vector2i
 var _to_right:Vector2i
 var _to_left:Vector2i
 var is_falling:bool = true
-var _is_ready:bool = false
-# шаг перемещения или размер клетки поля.
-var _width = 128
-@export var info_path:NodePath
-@onready var info = get_node(info_path)
 
 # при переходе, запоминаем квардат куда прибудем. Это нужно для синхронизации перемещений с другими предметами
 # для избежания двойного занятия позиции. Словарь доступен из всех компонент перемещения.
@@ -79,6 +78,7 @@ static var swap_node:MoverComponent = null
 # оповещаем о событии остановки или начала движения предмета. Это нужно, например, для проверки матчинга.
 signal send_move_stopped(is_stopped:bool)
 signal send_double_click()
+signal send_swap_done()
 
 # когда предмет остановился, он проверяет соседей на матч или движение один раз. Если внизу предмет
 # пропал, нужно включить перемещение.
@@ -190,6 +190,7 @@ func move(_direct:Vector2i = Vector2i.ZERO, is_automove:bool = true):
 	else:
 		# завершилось перемещение при свапе, уведомление с указанием состояния остановки
 		send_move_stopped.emit(true)
+		send_swap_done.emit()
 
 # расчёт смещения из текущего предмета в указанный с учётом расположения по соседству
 func _get_direction_to(item:MoverComponent)->Vector2i:
@@ -232,11 +233,6 @@ func _on_input_event(_viewport, event, _shape_idx):
 			swap_node = null
 
 func _ready() -> void:
-	if info and info.has_method("get_item_size"):
-		_width = info.get_item_size()
-	else:
-		print("Error. No item size for ", get_parent().name)
-	
 	_total_width = _width + _width_frame
 	_to_down_left = Vector2i(-_width, _width)
 	_to_down_right = Vector2i(_width, _width)
@@ -244,28 +240,7 @@ func _ready() -> void:
 	_to_top = -_to_down
 	_to_right = Vector2i(_width, 0)
 	_to_left = -_to_right
-	# разрешаем двигаться предметам изначально расположенным на поле
-	if _parent.visible:
-		$Timer.autostart = true
-		$Timer.start()
-	
-	_is_ready = true
-	
-# узлы у нас делятся на создаваемые в сцене на старте и создаваемые в коде на рантайме. 
-# Создаваемые узлы появляются благодаря дуплицированию уже существующих (для этого у нас есть
-# узел генератора, который содержит необходимые узлы). Можно было бы их создавать через механизм создания
-# узла из распакованной сцены или лоада, но
-# это просадка по перформансу и необходимость составлять список узлов, а мне лень и проще визуально
-# посмотреть что у нас есть в сцене чем листать свойства узлов или конфиги.
-# Таймер заставляет узел двигаться, но узлы в генераторе не должны двигаться. Для этого мы отключаем
-# у компонента таймер и включаем его при изменении видимости - тоесть при добавлении в игровую область.
-func _on_visibility_changed() -> void:
-	# разрешаем двигаться предметам дублированным и заспауненым
-	if visible and _is_ready:
-		is_moved = false
-		$Timer.autostart = true
-		$Timer.start()
-	
+		
 # компоненту нужно вернуться назад
 func revert_move():
 	# находимся в состоянии активного свапа
@@ -285,3 +260,15 @@ func revert_move():
 		else:
 			# свап обработан, второй участник ещё не готов
 			swap_data.fail()
+
+# узлы у нас делятся на создаваемые в сцене на старте и создаваемые в коде на рантайме. 
+# Создаваемые узлы появляются благодаря дуплицированию уже существующих (для этого у нас есть
+# узел генератора, который содержит необходимые узлы). Можно было бы их создавать через механизм создания
+# узла из распакованной сцены или лоада, но
+# это просадка по перформансу и необходимость составлять список узлов, а мне лень и проще визуально
+# посмотреть что у нас есть в сцене чем листать свойства узлов или конфиги.
+# Таймер заставляет узел двигаться, но узлы в генераторе не должны двигаться. Для этого мы отключаем
+# у компонента таймер и включаем его при активации - сигналом извне(обычно от родителя в игровой области сцены).
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	$Timer.autostart = true
+	$Timer.start()
