@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpa2mq42xvtw4"]
+[gd_scene load_steps=12 format=3 uid="uid://bojh73wyjfn3e"]
 
 [ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="1_2d51j"]
 [ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="2_bneca"]
@@ -10,53 +10,55 @@
 [ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="7_ga2p0"]
 [ext_resource type="AudioStream" uid="uid://bcac1oalwswt0" path="res://game/assets/anny_pack/sounds/explosion-fragments.mp3" id="9_b53ed"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ksjv0"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_766ob"]
 radius = 55.0091
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s8jww"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_py73v"]
 radius = 95.6347
 
-[node name="cristal" type="Node2D"]
+[node name="info" instance=ExtResource("6_u52hk")]
+z_index = 1
 
-[node name="parent_mover" parent="." instance=ExtResource("1_2d51j")]
+[node name="parent_mover" parent="." index="0" instance=ExtResource("1_2d51j")]
 _move_time = 0.15
-info_path = NodePath("../info")
 
-[node name="hitbox" parent="." instance=ExtResource("3_mgim0")]
+[node name="hitbox" parent="." index="1" instance=ExtResource("3_mgim0")]
 resistance = 2
 
-[node name="damager" parent="." instance=ExtResource("4_oid8c")]
+[node name="damager" parent="." index="2" instance=ExtResource("4_oid8c")]
 position = Vector2(65, 63)
 
-[node name="self" parent="damager" instance=ExtResource("4_nasvp")]
+[node name="self" parent="damager" index="0" instance=ExtResource("4_nasvp")]
 resistance = 2
+is_one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="damager/self"]
-shape = SubResource("CircleShape2D_ksjv0")
+[node name="collision" type="CollisionShape2D" parent="damager/self" index="0"]
+shape = SubResource("CircleShape2D_766ob")
+disabled = true
 
-[node name="weak_neibr" parent="damager" instance=ExtResource("4_nasvp")]
+[node name="weak_neibr" parent="damager" index="1" instance=ExtResource("4_nasvp")]
+is_one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="damager/weak_neibr"]
-shape = SubResource("CircleShape2D_s8jww")
+[node name="collision" type="CollisionShape2D" parent="damager/weak_neibr" index="0"]
+shape = SubResource("CircleShape2D_py73v")
+disabled = true
 
-[node name="matcher" parent="." instance=ExtResource("5_xlqa6")]
-info_path = NodePath("../info")
+[node name="matcher" parent="." index="3" instance=ExtResource("5_xlqa6")]
 
-[node name="info" parent="." instance=ExtResource("6_u52hk")]
-
-[node name="end" parent="." instance=ExtResource("2_bneca")]
+[node name="end" parent="." index="4" instance=ExtResource("2_bneca")]
 position = Vector2(64, 64)
 
-[node name="blast_part" parent="end" instance=ExtResource("7_ga2p0")]
+[node name="blast_part" parent="end" index="0" instance=ExtResource("7_ga2p0")]
 
-[node name="audio_effect" type="AudioStreamPlayer2D" parent="end"]
+[node name="audio_effect" type="AudioStreamPlayer2D" parent="end" index="1"]
 stream = ExtResource("9_b53ed")
 
-[node name="item_icon" type="Sprite2D" parent="."]
+[node name="item_icon" type="Sprite2D" parent="." index="5"]
 z_index = 2
 scale = Vector2(0.25498, 0.25498)
 centered = false
 
+[connection signal="send_name_change" from="." to="matcher" method="on_item_name_changed"]
 [connection signal="send_move_stopped" from="parent_mover" to="matcher" method="on_matchable"]
 [connection signal="send_end" from="hitbox" to="end" method="end"]
 [connection signal="send_fail_match" from="matcher" to="parent_mover" method="revert_move"]
