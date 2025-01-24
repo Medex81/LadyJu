@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://bjjkohjh6ui3d"]
 
-[ext_resource type="PackedScene" uid="uid://cb1yt1svcjy3k" path="res://game/scenes/m3/items/matchers/match_item.tscn" id="1_x04qa"]
+[ext_resource type="PackedScene" uid="uid://cb1yt1svcjy3k" path="res://tmp/match_item.tscn" id="1_x04qa"]
 [ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/damagers/damage.tscn" id="2_d6nqt"]
 [ext_resource type="PackedScene" uid="uid://drhrgiyssqnjg" path="res://game/scenes/m3/components/parent_mover_random.tscn" id="4_sip1s"]
-[ext_resource type="PackedScene" uid="uid://d0m6t0ryuwyta" path="res://game/scenes/m3/small_items/rocket_right.tscn" id="5_4ay12"]
+[ext_resource type="PackedScene" uid="uid://d0m6t0ryuwyta" path="res://tmp/small_items/rocket_right.tscn" id="5_4ay12"]
 [ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="6_t6wri"]
 [ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="6_yq5eo"]
 
