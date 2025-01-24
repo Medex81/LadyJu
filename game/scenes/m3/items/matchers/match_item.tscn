@@ -1,25 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb1yt1svcjy3k"]
+[gd_scene load_steps=6 format=3 uid="uid://vejot55t3ovq"]
 
-[ext_resource type="PackedScene" uid="uid://dj0q5ifgmf368" path="res://game/scenes/m3/components/match_info.tscn" id="1_ud3ex"]
-[ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="2_1rd5b"]
-[ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_qyejw"]
-[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damager.tscn" id="4_phalm"]
-[ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="5_7vmm1"]
+[ext_resource type="PackedScene" uid="uid://dj0q5ifgmf368" path="res://game/scenes/m3/components/match_info.tscn" id="1_ix2qj"]
+[ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="2_inxe3"]
+[ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_pyfg4"]
+[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damager.tscn" id="4_081kp"]
+[ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="5_k4v23"]
 
-[node name="match_item" type="Node2D"]
+[node name="match_info" instance=ExtResource("1_ix2qj")]
+z_index = 1
 
-[node name="match_info" parent="." instance=ExtResource("1_ud3ex")]
+[node name="parent_mover" parent="." index="0" instance=ExtResource("2_inxe3")]
 
-[node name="parent_mover" parent="." instance=ExtResource("2_1rd5b")]
-info_path = NodePath("../match_info")
+[node name="hitbox" parent="." index="1" instance=ExtResource("3_pyfg4")]
+resistance = 3
 
-[node name="hitbox" parent="." instance=ExtResource("3_qyejw")]
+[node name="damager" parent="." index="2" instance=ExtResource("4_081kp")]
 
-[node name="damager" parent="." instance=ExtResource("4_phalm")]
+[node name="end" parent="." index="3" instance=ExtResource("5_k4v23")]
 
-[node name="end" parent="." instance=ExtResource("5_7vmm1")]
-
-[node name="item_icon" type="Sprite2D" parent="."]
+[node name="item_icon" type="Sprite2D" parent="." index="4"]
+centered = false
 
 [connection signal="send_double_click" from="parent_mover" to="damager" method="start"]
+[connection signal="send_swap_done" from="parent_mover" to="damager" method="start"]
 [connection signal="send_end" from="hitbox" to="end" method="end"]
