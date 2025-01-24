@@ -4,5 +4,3 @@
 
 [node name="parent_mover_random" type="Node2D"]
 script = ExtResource("1_nisff")
-
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

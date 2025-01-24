@@ -9,10 +9,10 @@ func _physics_process(delta: float) -> void:
 	if can_move:
 		parent.position += direction * (speed * delta)
 		
-func move(_direction:Vector2):
+func move_by(_direction:Vector2):
 	direction = _direction
 	can_move = true
-
-
-func _on_visibility_changed() -> void:
+	
+func move():
 	can_move = true
+	
