@@ -16,14 +16,13 @@ func _ready() -> void:
 	_generate_matcher_items.clear()
 	
 	for node in get_children():
-		for component in node.get_children():
-			if component is MatchInfoComponent:
-				var arr = _generate_matcher_items.get(component.match_count, [])
-				arr.append(node)
-				_generate_matcher_items[component.match_count] = arr
-				continue
-			if component is InfoComponent:
-				_generate_dynamic_items.append(node)
+		if node is MatchInfoComponent:
+			var arr = _generate_matcher_items.get(node.match_count, [])
+			arr.append(node)
+			_generate_matcher_items[node.match_count] = arr
+			continue
+		if node is InfoComponent:
+			_generate_dynamic_items.append(node)
 			
 	if _generate_dynamic_items.is_empty():
 		print("Error. Generator node has not a nodes with components for dynamics.")
@@ -45,15 +44,14 @@ func generate_matcher(match_count:int, direct_h:bool = true)->Node2D:
 		var arr = _generate_matcher_items.get(match_count, []) as Array
 		for node in arr:
 			# ищем в списке матчер с нужной ориентацией
-			for component in node.get_children():
-				if component is MatchInfoComponent and component.direct_h == direct_h:
-					var item = node.duplicate()
-					item.position = Vector2i.ZERO
-					return item
+			if node is MatchInfoComponent and node.direct_h == direct_h:
+				var item = node.duplicate()
+				item.global_position = Vector2i.ZERO
+				return item
 		# в списке нет матчера с указанной ориентацией, берем первый из списка.
 		if not arr.is_empty():
 			var item = arr.front().duplicate()
-			item.position = Vector2i.ZERO
+			item.global_position = Vector2i.ZERO
 			return item
 		
 	return null
