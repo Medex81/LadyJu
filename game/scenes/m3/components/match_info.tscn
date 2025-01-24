@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://game/scenes/m3/components/match_info.gd" id="1_81ejb"]
 
-[node name="match_info" type="Node"]
+[node name="match_info" type="Node2D"]
 script = ExtResource("1_81ejb")
