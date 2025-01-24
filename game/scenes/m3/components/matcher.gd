@@ -16,23 +16,18 @@ const none = "None"
 # для вызова у соседей нужного рейкаста упаковываем в словарь рейкасты и направления к ним в виде ключей
 @onready var _directs:Dictionary = {EDirect.LEFT:$rc_l, EDirect.RIGHT:$rc_r, EDirect.DOWN:$rc_d, EDirect.TOP:$rc_t}
 # матчить можно не в любое время, а только когда стоим мы и стоят соседи по матчингу
-var is_matchable:bool = false
+var is_matchable:bool = true
 # направления в которых матчим
 enum EDirect{LEFT, RIGHT, DOWN, TOP}
 # имя матчера для матчинга по типу
 var item_name:String = none
-@export var info_path:NodePath
-@onready var info = get_node(info_path)
 
 # говорим кому-то, что мы сматчены
 signal send_match()
 signal send_fail_match()
 
-func _ready() -> void:
-	if info and info.has_method("get_item_name"):
-		item_name = info.get_item_name()
-	else:
-		print("Error. No item name for ", parent.name)
+func on_item_name_changed(_item_name:String):
+	item_name = _item_name
 
 # кто-то говорит нам можно ли матчиться (обычно это состояние движения)
 # а заодно проверяем в матчерах соседей движутся ли они
@@ -65,13 +60,14 @@ func matching()->bool:
 		if item_generator:
 			var match_item = item_generator.generate_matcher(matchers_h.size() + 1, direct_h)
 			if match_item:
-				get_tree().current_scene.add_child(match_item)
+				get_tree().current_scene.call_deferred("add_child", match_item)
 				match_item.global_position = global_position
-				match_item.visible = true
+		# можно удалять
 		send_match.emit()
 		for matcher in matchers_h:
 			matcher.send_match.emit()
 		return true
+	# уведомляем о невозможности матчинга в данной позиции
 	send_fail_match.emit()
 	return false
 	
