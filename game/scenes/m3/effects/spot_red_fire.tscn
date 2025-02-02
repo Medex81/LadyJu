@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://blm02s0241ogb"]
 
-[ext_resource type="Texture2D" uid="uid://b8081l1rv6in6" path="res://addons/components/effects/textures/particles/floaty_64.png" id="1_ll5ym"]
+[ext_resource type="Texture2D" uid="uid://b8081l1rv6in6" path="res://addons/components/effects/textures/particles/floaty_64.png" id="1_88kft"]
 
 [sub_resource type="CanvasItemMaterial" id="2"]
 blend_mode = 1
@@ -44,6 +44,6 @@ turbulence_influence_max = 0.637
 material = SubResource("2")
 amount = 10
 process_material = SubResource("5")
-texture = ExtResource("1_ll5ym")
+texture = ExtResource("1_88kft")
 lifetime = 1.5
 explosiveness = 0.14

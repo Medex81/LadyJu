@@ -42,5 +42,6 @@ anim_offset_curve = SubResource("CurveTexture_eu40a")
 [node name="GPUParticles2D" type="GPUParticles2D"]
 modulate = Color(0, 0.635294, 1, 1)
 material = SubResource("14")
+emitting = false
 process_material = SubResource("19")
 texture = ExtResource("1_q8ryg")
