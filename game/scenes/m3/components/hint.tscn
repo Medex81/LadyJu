@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbsn6tjbp4vvg"]
+
+[ext_resource type="Script" path="res://game/scenes/m3/components/hint.gd" id="1_p8nfy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olfkc"]
+size = Vector2(512, 512)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qw2y4"]
+size = Vector2(128, 128)
+
+[node name="hint" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_p8nfy")
+
+[node name="detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="collision" type="CollisionShape2D" parent="detector"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_olfkc")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(64, 64)
+scale = Vector2(6.4, 6.4)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_qw2y4")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
