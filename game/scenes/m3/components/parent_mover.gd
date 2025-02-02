@@ -49,15 +49,15 @@ class SwapData:
 		return _second_component
 
 var swap_data:SwapData = SwapData.new()
+# шаг перемещения или размер клетки поля.
+var _cell_size = 128
 	
 # время анимации перемещения
 @export var _move_time:float = 0.25
 @export var _width_frame = 30
-# шаг перемещения или размер клетки поля.
-@export var _width = 128
-
 # немного оптимизации, не дёргаем зря метод, а обращаемся к полю с указателем на родителя
 @onready var _parent = get_parent()
+@export var  _get_item_size_fn = "get_item_size"
 
 var is_moved:bool = false
 var _total_width:int
@@ -76,9 +76,9 @@ static var occupied:Dictionary
 static var swap_node:MoverComponent = null
 
 # оповещаем о событии остановки или начала движения предмета. Это нужно, например, для проверки матчинга.
-signal send_move_stopped(is_stopped:bool)
-signal send_double_click()
 signal send_swap_done()
+signal send_start_step()
+signal send_stop()
 
 # когда предмет остановился, он проверяет соседей на матч или движение один раз. Если внизу предмет
 # пропал, нужно включить перемещение.
@@ -118,7 +118,7 @@ func direct()->Vector2i:
 		if cld_d is StaticBody2D:
 			$Timer.stop()
 			is_falling = false
-			send_move_stopped.emit(true)
+			send_stop.emit()
 			return Vector2i.ZERO
 		# предмет который двигается, притормаживаем и ждём когда он отдалится
 		if cld_d is MoverComponent and cld_d.is_fall():
@@ -141,7 +141,7 @@ func direct()->Vector2i:
 		return _to_down_right
 	# сигнал об остановке отправляем только если ранее двигались и остановились
 	if is_falling:
-		send_move_stopped.emit(true)
+		send_stop.emit()
 	is_falling = false
 	return Vector2i.ZERO
 	
@@ -166,7 +166,7 @@ func move(_direct:Vector2i = Vector2i.ZERO, is_automove:bool = true):
 		return
 
 	# уведомляем о начале движения и смене состояния
-	send_move_stopped.emit(false)
+	send_start_step.emit()
 	is_moved = true
 	# заносим в общий список всех компонент движения квадрат куда будем перемещаться, иначе а тот же
 	# квадрат одновременно с нами могут двигаться и другие предметы.
@@ -189,8 +189,7 @@ func move(_direct:Vector2i = Vector2i.ZERO, is_automove:bool = true):
 			print("Error. Active swap in automove!")
 	else:
 		# завершилось перемещение при свапе, уведомление с указанием состояния остановки
-		send_move_stopped.emit(true)
-		send_swap_done.emit()
+		send_stop.emit()
 
 # расчёт смещения из текущего предмета в указанный с учётом расположения по соседству
 func _get_direction_to(item:MoverComponent)->Vector2i:
@@ -214,7 +213,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 		if event.is_released():
 			# тап на матчер, подрывам его одного
 			if swap_node == self:
-				send_double_click.emit()
+				send_swap_done.emit()
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап
 				if swap_node == self or swap_node == null or swap_node.is_moved or is_moved:
@@ -233,13 +232,15 @@ func _on_input_event(_viewport, event, _shape_idx):
 			swap_node = null
 
 func _ready() -> void:
-	_total_width = _width + _width_frame
-	_to_down_left = Vector2i(-_width, _width)
-	_to_down_right = Vector2i(_width, _width)
-	_to_down = Vector2i(0, _width)
-	_to_top = -_to_down
-	_to_right = Vector2i(_width, 0)
-	_to_left = -_to_right
+	if _parent.has_method(_get_item_size_fn):
+		_cell_size = _parent.call(_get_item_size_fn)
+		_total_width = _cell_size + _width_frame
+		_to_down_left = Vector2i(-_cell_size, _cell_size)
+		_to_down_right = Vector2i(_cell_size, _cell_size)
+		_to_down = Vector2i(0, _cell_size)
+		_to_top = -_to_down
+		_to_right = Vector2i(_cell_size, 0)
+		_to_left = -_to_right
 		
 # компоненту нужно вернуться назад
 func revert_move():
