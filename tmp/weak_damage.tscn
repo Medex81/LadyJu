@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://5wgceo23k5dr"]
-
-[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/damagers/damage.tscn" id="1_q8dcr"]
-
-[node name="damage" instance=ExtResource("1_q8dcr")]
