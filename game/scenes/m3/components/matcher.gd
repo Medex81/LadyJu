@@ -5,9 +5,8 @@ extends Area2D
 
 class_name MatcherComponent
 
-const none = "None"
-
 @export var item_generator_group_name:String = "item_generator"
+@export var  _get_item_name_fn = "get_item_name"
 @export var check_timeout_msec:int = 3000
 
 @onready var parent = get_parent()
@@ -20,25 +19,25 @@ var is_matchable:bool = true
 # направления в которых матчим
 enum EDirect{LEFT, RIGHT, DOWN, TOP}
 # имя матчера для матчинга по типу
-var item_name:String = none
+var item_name:String
 
 # говорим кому-то, что мы сматчены
 signal send_match()
 signal send_fail_match()
 
-func on_item_name_changed(_item_name:String):
-	item_name = _item_name
+func _ready() -> void:
+	if parent.has_method(_get_item_name_fn):
+		item_name = parent.call(_get_item_name_fn)
 
-# кто-то говорит нам можно ли матчиться (обычно это состояние движения)
-# а заодно проверяем в матчерах соседей движутся ли они
-func on_matchable(state:bool):
-	is_matchable = state
-	if is_matchable:
-		print("call matching")
-		matching()
+func get_item_name()->String:
+	return item_name
+		
+func on_unmatchable():
+	is_matchable = false
 	
 # матчимся с соседями.
-func matching()->bool:
+func on_matching()->bool:
+	is_matchable = true
 	# проходим по вертикали и горизонтали в поисках предметов схожих по типу с нашим
 	var matchers_h:Array[MatcherComponent]
 	check_match(matchers_h, EDirect.LEFT)
@@ -77,7 +76,7 @@ func check_match(matchers:Array[MatcherComponent], direct:EDirect):
 	_directs[direct].force_raycast_update()
 	var next = _directs[direct].get_collider() as MatcherComponent
 	# предмет должен быть того же типа и не падать
-	if next and next != self and is_matchable and next.is_matchable and item_name != none and next.item_name == item_name:
+	if next and next != self and is_matchable and next.is_matchable and not item_name.is_empty() and next.item_name == item_name:
 		if not next in matchers:
 			# в массив, переданный в аргументе по ссылке, собираем всех подходящих соседей рекурсивно
 			matchers.append(next)
