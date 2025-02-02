@@ -27,6 +27,7 @@ var _one_shot:bool = false
 var _current_hint_id:int = -1
 # расстояние до соседних клеток которые могут быть комбинацией для матча
 enum EDistance{NONE, CELL, DIAGONAL, CELL_2}
+@export var _is_solo_hint:bool = false
 # имена методов родителя возвращающие информацию по имени и размеру компонента
 @export var  _get_item_name_fn = "get_item_name"
 @export var  _get_item_size_fn = "get_item_size"
@@ -34,6 +35,7 @@ enum EDistance{NONE, CELL, DIAGONAL, CELL_2}
 @export var cell_offset:int = 5
 # время которое ожидаем если нет действий, после запускаем проверку подсказки
 @export var wait_hint_time_ms = 3000
+@onready var _max_wait_time_ms = $Timer.wait_time * 1000 + wait_hint_time_ms
 # время последнего события
 static var last_event_time_ms:int = Time.get_ticks_msec()
 # идентификатор подсказки
@@ -150,15 +152,25 @@ func on_all_stopped():
 
 # проверяем состояние подсказки и нужно ли её искать
 func _on_timer_timeout() -> void:
+	if is_hint_draw == false and Time.get_ticks_msec() - last_event_time_ms >= _max_wait_time_ms:
+		_no_combinations()
+	
 	# была установлена новая подсказка, старую удалить
 	if _current_hint_id > -1 and _current_hint_id != hint_id:
 		effect_state(false, -1)
+		
 	# однократно запустить проверку если подсказка пока не обнаружена и прошло установленное время
 	if not _one_shot and not is_hint_draw and Time.get_ticks_msec() - last_event_time_ms > wait_hint_time_ms:
-		_check_detector_collisions()
+		if _is_solo_hint:
+			proc_hint([self])
+		else:
+			_check_detector_collisions()
 		_one_shot = true
 
 # таймер слежения за состояние подсказки запускаем для компонент находящихся в пределах экрана
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	$Timer.autostart = true
 	$Timer.start()
+	
+func _no_combinations():
+	is_hint_draw = true
