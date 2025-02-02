@@ -6,11 +6,11 @@ extends Node
 
 class_name InfoComponent
 
-const none = "NONE"
-@export var item_name:String = none
+@export var item_name:String
+@export var item_size:int = 128
 
-signal send_name_change(_item_name:String)
-
-func _ready() -> void:
-	send_name_change.emit(item_name)
+func get_item_name()->String:
+	return item_name
 	
+func get_item_size()->int:
+	return item_size
