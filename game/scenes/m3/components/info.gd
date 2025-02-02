@@ -14,3 +14,7 @@ func get_item_name()->String:
 	
 func get_item_size()->int:
 	return item_size
+
+func _ready() -> void:
+	for child in get_children():
+		child.visible = true

@@ -56,6 +56,7 @@ position = Vector2(64, 64)
 stream = ExtResource("9_b53ed")
 
 [node name="hint" parent="." index="5" instance=ExtResource("10_nxcse")]
+visible = false
 
 [node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("11_6pifp")]
 position = Vector2(62, 69)
