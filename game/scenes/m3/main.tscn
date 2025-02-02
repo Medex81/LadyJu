@@ -1619,8 +1619,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_kpbgh")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3ylh8")
 
-[node name="info" parent="GridContainer/cell61" instance=ExtResource("5_3c64g")]
-
 [node name="cell62" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_swldv")

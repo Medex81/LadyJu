@@ -22,9 +22,11 @@ radius = 95.6347
 z_index = 1
 
 [node name="parent_mover" parent="." index="0" instance=ExtResource("1_2d51j")]
+visible = false
 _move_time = 0.15
 
 [node name="hitbox" parent="." index="1" instance=ExtResource("3_mgim0")]
+visible = false
 resistance = 2
 
 [node name="damager" parent="." index="2" instance=ExtResource("4_oid8c")]
@@ -47,6 +49,7 @@ shape = SubResource("CircleShape2D_py73v")
 disabled = true
 
 [node name="matcher" parent="." index="3" instance=ExtResource("5_xlqa6")]
+visible = false
 
 [node name="end" parent="." index="4" instance=ExtResource("2_bneca")]
 position = Vector2(64, 64)

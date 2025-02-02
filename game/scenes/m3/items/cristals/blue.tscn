@@ -6,8 +6,5 @@
 [node name="info" instance=ExtResource("1_yj1cm")]
 item_name = "blue"
 
-[node name="hint" parent="." index="5"]
-visible = false
-
 [node name="item_icon" parent="." index="6"]
 texture = ExtResource("1_710la")

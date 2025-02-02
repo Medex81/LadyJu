@@ -12,11 +12,14 @@
 z_index = 1
 
 [node name="parent_mover" parent="." index="0" instance=ExtResource("2_inxe3")]
+visible = false
 
 [node name="hitbox" parent="." index="1" instance=ExtResource("3_pyfg4")]
+visible = false
 resistance = 3
 
 [node name="damager" parent="." index="2" instance=ExtResource("4_081kp")]
+visible = false
 
 [node name="end" parent="." index="3" instance=ExtResource("5_k4v23")]
 
