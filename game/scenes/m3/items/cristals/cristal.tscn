@@ -1,14 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://bojh73wyjfn3e"]
+[gd_scene load_steps=14 format=3 uid="uid://bojh73wyjfn3e"]
 
 [ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="1_2d51j"]
 [ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="2_bneca"]
 [ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_mgim0"]
-[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/damagers/damage.tscn" id="4_nasvp"]
+[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/components/damage.tscn" id="4_nasvp"]
 [ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damager.tscn" id="4_oid8c"]
 [ext_resource type="PackedScene" uid="uid://6r8pb666487x" path="res://game/scenes/m3/components/matcher.tscn" id="5_xlqa6"]
 [ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="6_u52hk"]
 [ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="7_ga2p0"]
 [ext_resource type="AudioStream" uid="uid://bcac1oalwswt0" path="res://game/assets/anny_pack/sounds/explosion-fragments.mp3" id="9_b53ed"]
+[ext_resource type="PackedScene" uid="uid://cbsn6tjbp4vvg" path="res://game/scenes/m3/components/hint.tscn" id="10_nxcse"]
+[ext_resource type="PackedScene" uid="uid://2byl5j5qdx5t" path="res://game/scenes/m3/effects/shine.tscn" id="11_6pifp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_766ob"]
 radius = 55.0091
@@ -53,13 +55,19 @@ position = Vector2(64, 64)
 [node name="audio_effect" type="AudioStreamPlayer2D" parent="end" index="1"]
 stream = ExtResource("9_b53ed")
 
-[node name="item_icon" type="Sprite2D" parent="." index="5"]
+[node name="hint" parent="." index="5" instance=ExtResource("10_nxcse")]
+
+[node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("11_6pifp")]
+position = Vector2(62, 69)
+
+[node name="item_icon" type="Sprite2D" parent="." index="6"]
 z_index = 2
 scale = Vector2(0.25498, 0.25498)
 centered = false
 
-[connection signal="send_name_change" from="." to="matcher" method="on_item_name_changed"]
-[connection signal="send_move_stopped" from="parent_mover" to="matcher" method="on_matchable"]
+[connection signal="send_start_step" from="parent_mover" to="matcher" method="on_unmatchable"]
+[connection signal="send_stop" from="parent_mover" to="matcher" method="on_matching"]
+[connection signal="send_stop" from="parent_mover" to="hint" method="on_all_stopped"]
 [connection signal="send_end" from="hitbox" to="end" method="end"]
 [connection signal="send_fail_match" from="matcher" to="parent_mover" method="revert_move"]
 [connection signal="send_match" from="matcher" to="damager" method="start"]

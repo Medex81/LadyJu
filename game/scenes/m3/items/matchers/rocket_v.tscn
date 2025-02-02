@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://20t5pgd36us0"]
 
 [ext_resource type="PackedScene" uid="uid://vejot55t3ovq" path="res://game/scenes/m3/items/matchers/match_item.tscn" id="1_vprr4"]
-[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/damagers/damage.tscn" id="2_d8y08"]
+[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/components/damage.tscn" id="2_d8y08"]
 [ext_resource type="PackedScene" uid="uid://drhrgiyssqnjg" path="res://game/scenes/m3/components/parent_mover_random.tscn" id="3_0sx06"]
 [ext_resource type="Texture2D" uid="uid://bo1ldn7at06xy" path="res://game/assets/anny_pack/rocket_d.png" id="5_346eu"]
-[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://addons/components/effects/simple/spot_red_fire.tscn" id="6_ksmdf"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="6_ksmdf"]
 [ext_resource type="Texture2D" uid="uid://cal416y67ueej" path="res://game/assets/anny_pack/rocket2v.png" id="6_l3guu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_amc2v"]

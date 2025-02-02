@@ -47,6 +47,8 @@ mb_left={
 2d_physics/layer_1="move"
 2d_physics/layer_2="match"
 2d_physics/layer_3="hit"
+2d_physics/layer_4="hint"
+2d_physics/layer_5="perimetr"
 
 [rendering]
 

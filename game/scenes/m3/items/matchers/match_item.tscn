@@ -21,6 +21,5 @@ resistance = 3
 [node name="item_icon" type="Sprite2D" parent="." index="4"]
 centered = false
 
-[connection signal="send_double_click" from="parent_mover" to="damager" method="start"]
 [connection signal="send_swap_done" from="parent_mover" to="damager" method="start"]
 [connection signal="send_end" from="hitbox" to="end" method="end"]
