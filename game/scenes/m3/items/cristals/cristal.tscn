@@ -28,6 +28,7 @@ _move_time = 0.15
 resistance = 2
 
 [node name="damager" parent="." index="2" instance=ExtResource("4_oid8c")]
+visible = false
 position = Vector2(65, 63)
 
 [node name="self" parent="damager" index="0" instance=ExtResource("4_nasvp")]
