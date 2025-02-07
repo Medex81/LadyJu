@@ -28,9 +28,9 @@ centered = false
 
 [node name="hint" parent="." index="5" instance=ExtResource("6_ctupi")]
 visible = false
-_is_solo_hint = true
+is_solo_hint = true
 
-[node name="GPUParticles2D" parent="hint" index="4" instance=ExtResource("7_n6qu8")]
+[node name="GPUParticles2D" parent="hint" index="3" instance=ExtResource("7_n6qu8")]
 position = Vector2(66, 67)
 
 [connection signal="send_stop" from="parent_mover" to="hint" method="on_all_stopped"]

@@ -76,3 +76,4 @@ centered = false
 [connection signal="send_end" from="hitbox" to="end" method="end"]
 [connection signal="send_fail_match" from="matcher" to="parent_mover" method="revert_move"]
 [connection signal="send_match" from="matcher" to="damager" method="start"]
+[connection signal="send_hasnt_hint" from="hint" to="." method="_on_hint_send_hasnt_hint"]

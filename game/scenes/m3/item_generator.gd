@@ -8,7 +8,7 @@ extends Node
 
 class_name ItemGenerator
 
-var _generate_dynamic_items:Array
+var _generate_dynamic_items:Array[InfoComponent]
 var _generate_matcher_items:Dictionary
 
 func _ready() -> void:
@@ -29,7 +29,7 @@ func _ready() -> void:
 	if _generate_matcher_items.is_empty():
 		print("Error. Generator node has not a nodes with components for matchers.")
 	
-func generate_item()->Node2D:
+func generate_item()->InfoComponent:
 	if not _generate_dynamic_items.is_empty():
 		var random_item = _generate_dynamic_items.pick_random()
 		var item = random_item.duplicate()
@@ -37,8 +37,16 @@ func generate_item()->Node2D:
 		return item
 	return null
 	
+func get_item(item_name:String)->InfoComponent:
+	for item in _generate_dynamic_items:
+		if item.get_item_name() == item_name:
+			var new_item = item.duplicate()
+			new_item.position = Vector2i.ZERO
+			return new_item
+	return null
+	
 # direct_h - должен ли предмет иметь ориентацию?
-func generate_matcher(match_count:int, direct_h:bool = true)->Node2D:
+func generate_matcher(match_count:int, direct_h:bool = true)->MatchInfoComponent:
 	if not _generate_matcher_items.is_empty():
 		# предметы подходять по количеству предметов для матча
 		var arr = _generate_matcher_items.get(match_count, []) as Array
