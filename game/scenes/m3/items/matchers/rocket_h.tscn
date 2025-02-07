@@ -17,17 +17,13 @@ radius = 50.3587
 match_count = 4
 item_name = "rocket_h"
 
-[node name="hitbox" parent="." index="1"]
-resistance = 3
-hitpoints = 1
-
 [node name="rocket_r" parent="damager" index="0" instance=ExtResource("2_guhuf")]
 collision_mask = 20
 monitorable = true
 resistance = 3
 
 [node name="parent_mover_random" parent="damager/rocket_r" index="0" instance=ExtResource("3_a3rsx")]
-speed = 500
+speed = 800
 direction = Vector2(1, 0)
 
 [node name="collision" type="CollisionShape2D" parent="damager/rocket_r" index="1"]
@@ -53,7 +49,7 @@ monitorable = true
 resistance = 3
 
 [node name="parent_mover_random" parent="damager/rocket_l" index="0" instance=ExtResource("3_a3rsx")]
-speed = 500
+speed = 800
 direction = Vector2(-1, 0)
 
 [node name="collision" type="CollisionShape2D" parent="damager/rocket_l" index="1"]
