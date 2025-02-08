@@ -36,6 +36,19 @@ func change_to_item(new_item_name:String)->InfoComponent:
 		else:
 			print("Error. Change item {0} to {1}".format([item_name, new_item_name]))
 	return new_item
+	
+func change_to_matcher(match_count:int, direct_h:bool)->MatchInfoComponent:
+	var new_item:MatchInfoComponent = null
+	if item_generator:
+		new_item = item_generator.generate_matcher(match_count, direct_h)
+		if new_item:
+			get_parent().add_child(new_item)
+			new_item.global_position = global_position
+			queue_free()
+			return new_item
+		else:
+			print("Error. Change item {0} to matcher".format([item_name]))
+	return new_item
 
 func _on_hint_send_hasnt_hint() -> void:
 	get_tree().call_group(main_scene_group_name, "items_event", EInfoEvent.NO_HINT)
