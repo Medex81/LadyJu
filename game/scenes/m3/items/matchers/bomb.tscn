@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpaqr4sn2ukbc"]
+[gd_scene load_steps=9 format=3 uid="uid://bpaqr4sn2ukbc"]
 
 [ext_resource type="PackedScene" uid="uid://vejot55t3ovq" path="res://game/scenes/m3/items/matchers/match_item.tscn" id="1_vdp1b"]
 [ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/components/damage.tscn" id="2_35qsw"]
+[ext_resource type="PackedScene" uid="uid://w04fhibkoagm" path="res://game/scenes/m3/effects/fire_whirlpool.tscn" id="3_nxgmw"]
 [ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="3_q1eoe"]
+[ext_resource type="AudioStream" uid="uid://4rki2rv0ibnn" path="res://game/assets/anny_pack/sounds/exlosive_bomb.mp3" id="4_c3qos"]
 [ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="4_opjl7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slvsk"]
@@ -30,6 +32,12 @@ is_one_shot = true
 [node name="collision" type="CollisionShape2D" parent="damager/damage_weak" index="0"]
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_aeciy")
+
+[node name="GPUParticles2D" parent="end" index="0" instance=ExtResource("3_nxgmw")]
+position = Vector2(64, 64)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="end" index="1"]
+stream = ExtResource("4_c3qos")
 
 [node name="item_icon" parent="." index="4"]
 scale = Vector2(0.25498, 0.25498)
