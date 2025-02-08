@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpaqr4sn2ukbc"]
+
+[ext_resource type="PackedScene" uid="uid://vejot55t3ovq" path="res://game/scenes/m3/items/matchers/match_item.tscn" id="1_vdp1b"]
+[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/components/damage.tscn" id="2_35qsw"]
+[ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="3_q1eoe"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="4_opjl7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slvsk"]
+size = Vector2(256, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aeciy"]
+size = Vector2(512, 512)
+
+[node name="match_info" instance=ExtResource("1_vdp1b")]
+match_count = 5
+direct_h = false
+item_name = "bomb"
+
+[node name="damage_total" parent="damager" index="0" instance=ExtResource("2_35qsw")]
+resistance = 3
+is_one_shot = true
+
+[node name="collision" type="CollisionShape2D" parent="damager/damage_total" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_slvsk")
+
+[node name="damage_weak" parent="damager" index="1" instance=ExtResource("2_35qsw")]
+is_one_shot = true
+
+[node name="collision" type="CollisionShape2D" parent="damager/damage_weak" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_aeciy")
+
+[node name="item_icon" parent="." index="4"]
+scale = Vector2(0.25498, 0.25498)
+texture = ExtResource("3_q1eoe")
+
+[node name="GPUParticles2D" parent="item_icon" index="0" instance=ExtResource("4_opjl7")]
+position = Vector2(125.5, 0)
