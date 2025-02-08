@@ -182,6 +182,11 @@ func check_all_and_hint()->bool:
 	for hint in get_tree().get_nodes_in_group(_group_name):
 		if hint is HintComponent and hint.is_active and hint.check_detector_collisions():
 			return true
+	for hint in get_tree().get_nodes_in_group(_group_name):
+		if hint is HintComponent and hint.is_active and hint.is_solo_hint:
+			var hints:Array[HintComponent] = [hint]
+			hint.proc_hint(hints)
+			return true
 	return false
 	
 # добавить предмет для появления комбинации
@@ -230,4 +235,3 @@ func on_all_stopped():
 # таймер слежения за состояние подсказки запускаем для компонент находящихся в пределах экрана
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	is_active = true
-	pass
