@@ -162,6 +162,7 @@ func _physics_process(_delta: float) -> void:
 			has_hint = add_combination()
 			if has_hint == false:
 				send_hasnt_hint.emit()
+		call_deferred("check_all_and_hint")
 
 func has_combination_in_current()->bool:
 	# матчер - ?
@@ -224,7 +225,6 @@ func on_all_stopped():
 		get_tree().call_group(_group_name, "effect_state", false)
 		is_hint_draw = false
 	last_event_time_ms = Time.get_ticks_msec()
-	check_all_and_hint()
 	has_hint = true
 	
 # таймер слежения за состояние подсказки запускаем для компонент находящихся в пределах экрана
