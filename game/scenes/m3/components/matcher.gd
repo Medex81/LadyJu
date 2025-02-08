@@ -21,7 +21,6 @@ signal send_match()
 signal send_fail_match()
 
 func _ready() -> void:
-	var parent = get_parent()
 	if parent is InfoComponent:
 		item_name = parent.item_name
 
