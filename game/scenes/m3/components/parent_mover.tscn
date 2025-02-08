@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5trx7"]
 size = Vector2(120, 120)
 
-[node name="parent_mover" type="Area2D"]
+[node name="parent_mover" type="Area2D" groups=["movers"]]
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_lc8dt")
@@ -13,9 +13,6 @@ script = ExtResource("1_lc8dt")
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_5trx7")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.18
 
 [node name="rc_d" type="RayCast2D" parent="."]
 position = Vector2(64, 120)
@@ -58,5 +55,4 @@ position = Vector2(64, 64)
 scale = Vector2(6.4, 6.4)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
