@@ -59,16 +59,16 @@ position = Vector2(64, 64)
 [node name="audio_effect" type="AudioStreamPlayer2D" parent="end" index="1"]
 stream = ExtResource("9_b53ed")
 
-[node name="hint" parent="." index="5" instance=ExtResource("10_nxcse")]
+[node name="item_icon" type="Sprite2D" parent="." index="5"]
+z_index = 2
+scale = Vector2(0.25498, 0.25498)
+centered = false
+
+[node name="hint" parent="." index="6" instance=ExtResource("10_nxcse")]
 visible = false
 
 [node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("11_6pifp")]
 position = Vector2(62, 69)
-
-[node name="item_icon" type="Sprite2D" parent="." index="6"]
-z_index = 2
-scale = Vector2(0.25498, 0.25498)
-centered = false
 
 [connection signal="send_start_step" from="parent_mover" to="matcher" method="on_unmatchable"]
 [connection signal="send_stop" from="parent_mover" to="matcher" method="on_matching"]
