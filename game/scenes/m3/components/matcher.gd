@@ -5,13 +5,8 @@ extends Area2D
 
 class_name MatcherComponent
 
-@export var item_generator_group_name:String = "item_generator"
-@export var  _get_item_name_fn = "get_item_name"
-@export var check_timeout_msec:int = 3000
-
+#@export var check_timeout_msec:int = 3000
 @onready var parent = get_parent()
-@onready var item_generator:ItemGenerator = get_tree().get_first_node_in_group(item_generator_group_name)
-
 # для вызова у соседей нужного рейкаста упаковываем в словарь рейкасты и направления к ним в виде ключей
 @onready var _directs:Dictionary = {EDirect.LEFT:$rc_l, EDirect.RIGHT:$rc_r, EDirect.DOWN:$rc_d, EDirect.TOP:$rc_t}
 # матчить можно не в любое время, а только когда стоим мы и стоят соседи по матчингу
@@ -26,8 +21,9 @@ signal send_match()
 signal send_fail_match()
 
 func _ready() -> void:
-	if parent.has_method(_get_item_name_fn):
-		item_name = parent.call(_get_item_name_fn)
+	var parent = get_parent()
+	if parent is InfoComponent:
+		item_name = parent.item_name
 
 func get_item_name()->String:
 	return item_name
@@ -56,11 +52,7 @@ func on_matching()->bool:
 		
 	if matchers_h.size() > 1:
 		# запрос на генерацию предмета матчера если подходит по количеству
-		if item_generator:
-			var match_item = item_generator.generate_matcher(matchers_h.size() + 1, direct_h)
-			if match_item:
-				get_tree().current_scene.call_deferred("add_child", match_item)
-				match_item.global_position = global_position
+		get_parent().change_to_matcher(matchers_h.size() + 1, direct_h)
 		# можно удалять
 		send_match.emit()
 		for matcher in matchers_h:
