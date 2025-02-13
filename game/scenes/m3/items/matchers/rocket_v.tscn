@@ -1,76 +1,49 @@
-[gd_scene load_steps=9 format=3 uid="uid://20t5pgd36us0"]
+[gd_scene load_steps=5 format=3 uid="uid://20t5pgd36us0"]
 
 [ext_resource type="PackedScene" uid="uid://vejot55t3ovq" path="res://game/scenes/m3/items/matchers/match_item.tscn" id="1_vprr4"]
-[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/components/damage.tscn" id="2_d8y08"]
-[ext_resource type="PackedScene" uid="uid://drhrgiyssqnjg" path="res://game/scenes/m3/components/parent_mover_random.tscn" id="3_0sx06"]
+[ext_resource type="PackedScene" uid="uid://beid0w0e1cdvg" path="res://game/scenes/m3/components/damage/projectile.tscn" id="2_5hgqh"]
 [ext_resource type="Texture2D" uid="uid://bo1ldn7at06xy" path="res://game/assets/anny_pack/rocket_d.png" id="5_346eu"]
 [ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="6_ksmdf"]
-[ext_resource type="Texture2D" uid="uid://cal416y67ueej" path="res://game/assets/anny_pack/rocket2v.png" id="6_l3guu"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_amc2v"]
-radius = 52.1536
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_uckju"]
-radius = 50.3587
 
 [node name="match_info" instance=ExtResource("1_vprr4")]
 match_count = 4
 direct_h = false
 item_name = "rocket_v"
 
-[node name="rocket_t" parent="damager" index="0" instance=ExtResource("2_d8y08")]
-collision_mask = 20
-monitorable = true
-resistance = 3
+[node name="damager" parent="." index="2"]
+visible = true
 
-[node name="parent_mover_random" parent="damager/rocket_t" index="0" instance=ExtResource("3_0sx06")]
-speed = 800
+[node name="projectile_t" parent="damager" index="0" instance=ExtResource("2_5hgqh")]
 direction = Vector2(0, -1)
+speed = 800
 
-[node name="collision" type="CollisionShape2D" parent="damager/rocket_t" index="1"]
-position = Vector2(64, 64)
-shape = SubResource("CircleShape2D_amc2v")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="damager/rocket_t" index="2"]
+[node name="Sprite2D" type="Sprite2D" parent="damager/projectile_t" index="3"]
+z_index = 1
+position = Vector2(-64, -64)
 scale = Vector2(0.254826, 0.25)
 texture = ExtResource("5_346eu")
 centered = false
 flip_v = true
 
-[node name="GPUParticles2D" parent="damager/rocket_t/Sprite2D" index="0" instance=ExtResource("6_ksmdf")]
+[node name="GPUParticles2D" parent="damager/projectile_t/Sprite2D" index="0" instance=ExtResource("6_ksmdf")]
 position = Vector2(117.727, 480)
 scale = Vector2(0.9537, 0.996016)
 
-[node name="rocket_d" parent="damager" index="1" instance=ExtResource("2_d8y08")]
-collision_mask = 20
-monitorable = true
-resistance = 3
-
-[node name="parent_mover_random" parent="damager/rocket_d" index="0" instance=ExtResource("3_0sx06")]
-speed = 800
+[node name="projectile_d" parent="damager" index="1" instance=ExtResource("2_5hgqh")]
 direction = Vector2(0, 1)
+speed = 800
 
-[node name="collision" type="CollisionShape2D" parent="damager/rocket_d" index="1"]
-position = Vector2(64, 64)
-shape = SubResource("CircleShape2D_uckju")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="damager/rocket_d" index="2"]
-position = Vector2(58, 0)
+[node name="Sprite2D" type="Sprite2D" parent="damager/projectile_d" index="3"]
+position = Vector2(-6, -64)
 scale = Vector2(0.247104, 0.248)
 texture = ExtResource("5_346eu")
 centered = false
 
-[node name="GPUParticles2D2" parent="damager/rocket_d/Sprite2D" index="0" instance=ExtResource("6_ksmdf")]
+[node name="GPUParticles2D2" parent="damager/projectile_d/Sprite2D" index="0" instance=ExtResource("6_ksmdf")]
 position = Vector2(125.453, 28.2257)
 scale = Vector2(1.18763, 1.00405)
 
 [node name="item_icon" parent="." index="4"]
 position = Vector2(1, 0)
 scale = Vector2(0.243028, 0.249004)
-texture = ExtResource("6_l3guu")
 flip_v = true
-
-[connection signal="send_start" from="damager/rocket_t" to="damager/rocket_t/parent_mover_random" method="move"]
-[connection signal="send_start" from="damager/rocket_d" to="damager/rocket_d/parent_mover_random" method="move"]

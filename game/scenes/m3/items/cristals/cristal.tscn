@@ -3,20 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="1_2d51j"]
 [ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="2_bneca"]
 [ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_mgim0"]
-[ext_resource type="PackedScene" uid="uid://dinrxkuh55rmf" path="res://game/scenes/m3/components/damage.tscn" id="4_nasvp"]
-[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damager.tscn" id="4_oid8c"]
+[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="4_oid8c"]
 [ext_resource type="PackedScene" uid="uid://6r8pb666487x" path="res://game/scenes/m3/components/matcher.tscn" id="5_xlqa6"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/detonator.tscn" id="6_cbfx1"]
+[ext_resource type="PackedScene" uid="uid://cgyu3hf6c7hqc" path="res://game/scenes/m3/components/damage/detonator_cell.tscn" id="6_tegm2"]
 [ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="6_u52hk"]
 [ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="7_ga2p0"]
 [ext_resource type="AudioStream" uid="uid://bcac1oalwswt0" path="res://game/assets/anny_pack/sounds/explosion-fragments.mp3" id="9_b53ed"]
 [ext_resource type="PackedScene" uid="uid://cbsn6tjbp4vvg" path="res://game/scenes/m3/components/hint.tscn" id="10_nxcse"]
 [ext_resource type="PackedScene" uid="uid://2byl5j5qdx5t" path="res://game/scenes/m3/effects/shine.tscn" id="11_6pifp"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_766ob"]
-radius = 55.0091
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_py73v"]
-radius = 95.6347
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x80ww"]
+size = Vector2(256, 256)
 
 [node name="info" instance=ExtResource("6_u52hk")]
 z_index = 1
@@ -31,22 +29,15 @@ resistance = 2
 
 [node name="damager" parent="." index="2" instance=ExtResource("4_oid8c")]
 visible = false
-position = Vector2(65, 63)
 
-[node name="self" parent="damager" index="0" instance=ExtResource("4_nasvp")]
+[node name="self_destroy" parent="damager" index="0" instance=ExtResource("6_tegm2")]
 resistance = 2
-is_one_shot = true
 
-[node name="collision" type="CollisionShape2D" parent="damager/self" index="0"]
-shape = SubResource("CircleShape2D_766ob")
-disabled = true
+[node name="weak" parent="damager" index="1" instance=ExtResource("6_cbfx1")]
 
-[node name="weak_neibr" parent="damager" index="1" instance=ExtResource("4_nasvp")]
-is_one_shot = true
-
-[node name="collision" type="CollisionShape2D" parent="damager/weak_neibr" index="0"]
-shape = SubResource("CircleShape2D_py73v")
-disabled = true
+[node name="collision" type="CollisionShape2D" parent="damager/weak" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_x80ww")
 
 [node name="matcher" parent="." index="3" instance=ExtResource("5_xlqa6")]
 visible = false
