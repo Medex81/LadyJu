@@ -180,12 +180,12 @@ func has_combination_at_all()->bool:
 # проверить комбинации и подсветить
 func check_all_and_hint()->bool:
 	for hint in get_tree().get_nodes_in_group(_group_name):
-		if hint is HintComponent and hint.is_active and hint.check_detector_collisions():
-			return true
-	for hint in get_tree().get_nodes_in_group(_group_name):
 		if hint is HintComponent and hint.is_active and hint.is_solo_hint:
 			var hints:Array[HintComponent] = [hint]
 			hint.proc_hint(hints)
+			return true
+	for hint in get_tree().get_nodes_in_group(_group_name):
+		if hint is HintComponent and hint.is_active and hint.check_detector_collisions():
 			return true
 	return false
 	
