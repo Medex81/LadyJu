@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu7okrbyr3rwe"]
+
+[ext_resource type="Script" path="res://game/scenes/m3/components/damage/detonator.gd" id="1_wyc1x"]
+
+[node name="detonator" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_wyc1x")
