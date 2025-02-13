@@ -76,9 +76,10 @@ static var swap_node:MoverComponent = null
 const mover_group = "movers"
 
 # оповещаем о событии остановки или начала движения предмета. Это нужно, например, для проверки матчинга.
-signal send_swap_done()
+signal send_double_click()
 signal send_start_step()
 signal send_stop()
+signal send_swap(is_second_matcher:bool, second_name:String)
 
 # проверяем, пустое место которое мы нашли уже кем-то занято для перемещения?
 func _is_occupied(rect:Rect2i)->bool:
@@ -178,10 +179,13 @@ func move(_direct:Vector2i = Vector2i.ZERO, is_automove:bool = true):
 		# обработка свапа по какой-то причине не отработала 
 		if swap_data.is_active():
 			swap_data.clean()
-			print("Error. Active swap in automove!")
+			#print("Error. Active swap in automove!")
 	else:
 		# завершилось перемещение при свапе, уведомление с указанием состояния остановки
 		send_stop.emit()
+		#TODO переделать этот костыль
+		swap_notification(swap_data._second_component)
+		swap_data._second_component.swap_notification(self)
 
 func _exit_tree() -> void:
 	check_move_all()
@@ -208,7 +212,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 		if event.is_released():
 			# тап на матчер, подрывам его одного
 			if swap_node == self:
-				send_swap_done.emit()
+				send_double_click.emit()
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап
 				if swap_node == self or swap_node == null or swap_node.is_moved or is_moved:
@@ -220,10 +224,19 @@ func _on_input_event(_viewport, event, _shape_idx):
 				if _direct != Vector2i.ZERO:
 					swap_data.begin(swap_node, _direct)
 					swap_node.swap_data.begin(self, -_direct)
+					
 					move(_direct, false)
 					swap_node.move(-_direct, false)
+					##TODO переделать этот костыль
+					#swap_notification(swap_node)
+					#swap_node.swap_notification(self)
 				
 			swap_node = null
+			
+func swap_notification(second_node:MoverComponent):
+	var is_matcher = second_node.get_parent() is MatchInfoComponent
+	var second_name = second_node.get_parent().item_name
+	send_swap.emit(is_matcher, second_name)
 
 func _ready() -> void:
 	if _parent is InfoComponent:
