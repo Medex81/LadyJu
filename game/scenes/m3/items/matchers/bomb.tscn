@@ -17,9 +17,6 @@ match_count = 5
 direct_h = false
 item_name = "bomb"
 
-[node name="damager" parent="." index="2"]
-visible = true
-
 [node name="detonator" parent="damager" index="0" instance=ExtResource("2_hvcwy")]
 resistance = 3
 
