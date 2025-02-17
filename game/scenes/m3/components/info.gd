@@ -14,6 +14,10 @@ class_name InfoComponent
 
 enum EInfoEvent{NO_HINT}
 
+var is_active:bool = false
+
+signal send_quiet_end()
+
 func get_item_name()->String:
 	return item_name
 	
@@ -31,11 +35,17 @@ func change_to_item(new_item_name:String)->InfoComponent:
 		if new_item:
 			get_parent().add_child(new_item)
 			new_item.global_position = global_position
+			send_quiet_end.emit()
 			queue_free()
 			return new_item
 		else:
 			print("Error. Change item {0} to {1}".format([item_name, new_item_name]))
 	return new_item
+	
+func get_items_name()->Array[String]:
+	if item_generator:
+		return item_generator.get_name_list(ItemGenerator.EItemType.ITEM)
+	return []
 	
 func change_to_matcher(match_count:int, direct_h:bool)->MatchInfoComponent:
 	var new_item:MatchInfoComponent = null
@@ -44,11 +54,38 @@ func change_to_matcher(match_count:int, direct_h:bool)->MatchInfoComponent:
 		if new_item:
 			get_parent().add_child(new_item)
 			new_item.global_position = global_position
+			send_quiet_end.emit()
 			queue_free()
 			return new_item
 		else:
 			print("Error. Change item {0} to matcher".format([item_name]))
 	return new_item
+	
+func change_to_matcher_name(new_item_name:String)->MatchInfoComponent:
+	var new_item:MatchInfoComponent = null
+	if item_generator:
+		new_item = item_generator.get_matcher(new_item_name)
+		if new_item:
+			get_parent().add_child(new_item)
+			new_item.global_position = global_position
+			send_quiet_end.emit()
+			queue_free()
+			return new_item
+		else:
+			print("Error. Change item {0} to matcher".format([item_name]))
+	return new_item
+	
+func change_to(new_item_name:String)->InfoComponent:
+	var new_item:InfoComponent = null
+	new_item = change_to_item(new_item_name)
+	if new_item != null:
+		return new_item
+	new_item = change_to_matcher_name(new_item_name)
+	return new_item
 
 func _on_hint_send_hasnt_hint() -> void:
 	get_tree().call_group(main_scene_group_name, "items_event", EInfoEvent.NO_HINT)
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	is_active = true
