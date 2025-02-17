@@ -38,7 +38,7 @@ class SwapData:
 	# может только при условии, что второй участник и мы не сматчились.
 	# при этом мы активны, а второй участник нет(или наоборот, смотря кто первый получил ответ по матчу)
 	func can_revert()->bool:
-		if _second_component and not _second_component.swap_data.is_active():
+		if _second_component != null and not _second_component.swap_data.is_active():
 			return true
 		return false
 		
@@ -183,9 +183,6 @@ func move(_direct:Vector2i = Vector2i.ZERO, is_automove:bool = true):
 	else:
 		# завершилось перемещение при свапе, уведомление с указанием состояния остановки
 		send_stop.emit()
-		#TODO переделать этот костыль
-		swap_notification(swap_data._second_component)
-		swap_data._second_component.swap_notification(self)
 
 func _exit_tree() -> void:
 	check_move_all()
@@ -224,12 +221,12 @@ func _on_input_event(_viewport, event, _shape_idx):
 				if _direct != Vector2i.ZERO:
 					swap_data.begin(swap_node, _direct)
 					swap_node.swap_data.begin(self, -_direct)
-					
 					move(_direct, false)
+					swap_node.is_swaped = true
 					swap_node.move(-_direct, false)
-					##TODO переделать этот костыль
-					#swap_notification(swap_node)
-					#swap_node.swap_notification(self)
+					#TODO переделать этот костыль
+					swap_notification(swap_node)
+					swap_node.swap_notification(self)
 				
 			swap_node = null
 			
