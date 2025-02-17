@@ -50,11 +50,13 @@ func on_matching()->bool:
 		matchers_h = matchers_v
 		
 	if matchers_h.size() > 1:
+		is_matchable = false
 		# запрос на генерацию предмета матчера если подходит по количеству
 		get_parent().change_to_matcher(matchers_h.size() + 1, direct_h)
 		# можно удалять
 		send_match.emit()
 		for matcher in matchers_h:
+			matcher.is_matchable = false
 			matcher.send_match.emit()
 		return true
 	# уведомляем о невозможности матчинга в данной позиции
