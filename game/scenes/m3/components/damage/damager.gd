@@ -12,24 +12,31 @@ var _second_name:String
 
 @export var add_boost_resist:int = 2
 
+const start_damage_fn = "start"
+
 func activate_damage():
 	for child in get_children():
-		# отвязываем компоненты дамага от себя и передаём основной сцене.
-		# смысл в том, чтобы воздействие компонента продолжалось и после уничтожения контейнера(self)
-		if child is BaseDamageComponent or child is ProjectileComponent:
+		if child is ExchangeDamageComponent:
+			if _second_name.is_empty():
+				var names = get_parent().get_items_name() as Array[String]
+				if not names.is_empty():
+					_second_name = names.pick_random()
+			child.call_deferred(start_damage_fn, _second_name)
+		
+		if child is ProjectileComponent:
+			# отвязываем компоненты дамага от себя и передаём основной сцене.
+			# смысл в том, чтобы воздействие компонента продолжалось и после уничтожения контейнера(self)
 			remove_child(child)
 			get_tree().current_scene.call_deferred("add_child", child)
 			child.global_position = global_position
-		
-		if child is ProjectileComponent:
 			if _is_second_matcher:
 				child.add_boost = add_boost_resist
-			child.call_deferred("start")
+			child.call_deferred(start_damage_fn)
 			
 		if child is DetonatorComponent:
 			if _is_second_matcher:
 				child.resistance += add_boost_resist
-			child.call_deferred("start", 0.2)
+			child.call_deferred(start_damage_fn, 0.2)
 
 func start():
 	# урон уже был активирован, значит хитпоинтов нет
@@ -38,6 +45,9 @@ func start():
 	is_damaged = true
 	
 	activate_damage()
+	
+func on_quiet():
+	is_damaged = true
 	
 # Урон нанесен снаружи и хитпоинтов больше нет, запускается рука мертвеца
 func _exit_tree() -> void:
