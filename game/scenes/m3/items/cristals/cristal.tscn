@@ -16,7 +16,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x80ww"]
 size = Vector2(256, 256)
 
-[node name="info" instance=ExtResource("6_u52hk")]
+[node name="info" groups=["crystals"] instance=ExtResource("6_u52hk")]
 z_index = 1
 
 [node name="parent_mover" parent="." index="0" instance=ExtResource("1_2d51j")]
@@ -61,6 +61,7 @@ visible = false
 [node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("11_6pifp")]
 position = Vector2(62, 69)
 
+[connection signal="send_quiet_end" from="." to="damager" method="on_quiet"]
 [connection signal="send_start_step" from="parent_mover" to="matcher" method="on_unmatchable"]
 [connection signal="send_stop" from="parent_mover" to="matcher" method="on_matching"]
 [connection signal="send_stop" from="parent_mover" to="hint" method="on_all_stopped"]
