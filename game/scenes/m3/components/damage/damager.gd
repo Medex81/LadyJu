@@ -4,58 +4,53 @@ extends Node2D
 
 class_name DamageContainerComponent
 
-# компонент уже был использован
-var is_damaged:bool = false
-
-var _is_second_matcher:bool = false
-var _second_name:String
-
+var _swap_item_name:String = ""
 @export var add_boost_resist:int = 2
+@export var info_component:InfoComponent = null
 
-const start_damage_fn = "start"
+signal send_finish_damage()
 
-func activate_damage():
+func set_swap_item_name(_item_name:String):
+	if _item_name.is_empty():
+		print("Error. set_swap_item_name is empty!")
+		return
+	_swap_item_name = _item_name
+	
+func has_damage()->bool:
+	for child in get_children():
+		if child is OneShotDamageComponent \
+		#or child is ProjectileDamageComponent \
+		#or child is TransferDamageComponent\
+		or child is ExchangeDamageComponent:
+			return true
+	return false
+
+func run_damage() -> void:
+	if not _swap_item_name.is_empty() and info_component and not info_component.is_item_name_valid(_swap_item_name):
+		print("Error. run_damage in ExchangeDamageComponent with invalid item name ", _swap_item_name)
+		return
+	
 	for child in get_children():
 		if child is ExchangeDamageComponent:
-			if _second_name.is_empty():
-				var names = get_parent().get_items_name() as Array[String]
-				if not names.is_empty():
-					_second_name = names.pick_random()
-			child.call_deferred(start_damage_fn, _second_name)
+			if info_component:
+				if _swap_item_name.is_empty():
+					_swap_item_name = info_component.get_random_item_name()
+				child.start(_swap_item_name)
+				#await child.send_damage_done
 		
-		if child is ProjectileComponent:
-			# отвязываем компоненты дамага от себя и передаём основной сцене.
-			# смысл в том, чтобы воздействие компонента продолжалось и после уничтожения контейнера(self)
-			remove_child(child)
-			get_tree().current_scene.call_deferred("add_child", child)
-			child.global_position = global_position
-			if _is_second_matcher:
-				child.add_boost = add_boost_resist
-			child.call_deferred(start_damage_fn)
-			
-		if child is DetonatorComponent:
-			if _is_second_matcher:
+		if child is OneShotDamageComponent:
+			if not _swap_item_name.is_empty() and info_component and info_component.is_item_name_matcher(_swap_item_name):
 				child.resistance += add_boost_resist
-			child.call_deferred(start_damage_fn, 0.2)
-
-func start():
-	# урон уже был активирован, значит хитпоинтов нет
-	if is_damaged:
-		return
-	is_damaged = true
-	
-	activate_damage()
-	
-func on_quiet():
-	is_damaged = true
-	
-# Урон нанесен снаружи и хитпоинтов больше нет, запускается рука мертвеца
-func _exit_tree() -> void:
-	if is_damaged == false:
-		activate_damage()
-			
-func on_damage_from_component(is_second_matcher:bool, second_name:String):
-	_is_second_matcher = is_second_matcher
-	_second_name = second_name
-	start()
-	
+			child.start()
+			#await child.send_damage_done
+		#if child is ProjectileComponent:
+			## отвязываем компоненты дамага от себя и передаём основной сцене.
+			## смысл в том, чтобы воздействие компонента продолжалось и после уничтожения контейнера(self)
+			##remove_child(child)
+			##get_tree().current_scene.call_deferred("add_child", child)
+			##child.global_position = global_position
+			#if _swap_item_name.is_empty():
+				#child.add_boost = add_boost_resist
+			#child.start()
+			#
+	send_finish_damage.emit()

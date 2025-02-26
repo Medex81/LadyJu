@@ -17,6 +17,7 @@ class_name BaseDamageComponent
 # наносимый урон
 @export var damage:int = 1
 
+signal send_damage_done()
 
-func start(_wait_time_ms:float = 0.0):
-	pass
+func start(values = null):
+	send_damage_done.emit()
