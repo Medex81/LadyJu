@@ -8,82 +8,68 @@ extends Node
 
 class_name ItemGenerator
 
-var _generate_dynamic_items:Array[InfoComponent]
-var _item_names:Array[String]
-var _generate_matcher_items:Dictionary
-var _matcher_names:Array[String]
-enum EItemType{ITEM, MATCHER}
+var _items:Array[InfoComponent]
+var _matche_items:Array[MatchInfoComponent]
+var _match_name_equal_enum:Dictionary
 
 func _ready() -> void:
-	_generate_dynamic_items.clear()
-	_generate_matcher_items.clear()
+	_items.clear()
+	_matche_items.clear()
 	
 	for node in get_children():
 		if node is MatchInfoComponent:
-			var arr = _generate_matcher_items.get(node.match_count, [])
-			arr.append(node)
-			_generate_matcher_items[node.match_count] = arr
-			_matcher_names.append(node.get_item_name())
-			continue
-		if node is InfoComponent:
-			_generate_dynamic_items.append(node)
-			_item_names.append(node.get_item_name())
-	_matcher_names.make_read_only()
-	_item_names.make_read_only()
-	if _generate_dynamic_items.is_empty():
+			_matche_items.append(node)
+			_match_name_equal_enum[node.get_match_type()] = node.get_item_name()
+		elif node is InfoComponent:
+			_items.append(node)
+	
+	if _items.is_empty():
 		print("Error. Generator node has not a nodes with components for dynamics.")
-	if _generate_matcher_items.is_empty():
+	if _matche_items.is_empty():
 		print("Error. Generator node has not a nodes with components for matchers.")
-	
-func generate_item()->InfoComponent:
-	if not _generate_dynamic_items.is_empty():
-		var random_item = _generate_dynamic_items.pick_random()
-		var item = random_item.duplicate()
-		item.position = Vector2i.ZERO
-		return item
-	return null
-	
-func get_item(item_name:String)->InfoComponent:
-	for item in _generate_dynamic_items:
-		if item.get_item_name() == item_name:
-			var new_item = item.duplicate()
+		
+func get_random_item(exclude:String = "")->String:
+	if not exclude.is_empty():
+		while true:
+			var _name = _items.pick_random().get_item_name()
+			if _name != exclude:
+				return _name
+				
+	return _items.pick_random().get_item_name()
+
+func _get_from(_arr:Array, _name:String = "")->InfoComponent:
+	if not _arr.is_empty():
+		var new_item:InfoComponent = null
+		if _name.is_empty():
+			new_item = _arr.pick_random().duplicate()
+		for item in _arr:
+			if item.get_item_name() == _name:
+				new_item = item.duplicate()
+				break
+		if new_item != null:
 			new_item.position = Vector2i.ZERO
 			return new_item
 	return null
+
+func get_item(item_name:String = "")->InfoComponent:
+	return _get_from(_items, item_name)
 	
-# direct_h - должен ли предмет иметь ориентацию?
-func generate_matcher(match_count:int, direct_h:bool = true)->MatchInfoComponent:
-	if not _generate_matcher_items.is_empty():
-		# предметы подходять по количеству предметов для матча
-		var arr = _generate_matcher_items.get(match_count, []) as Array
-		for node in arr:
-			# ищем в списке матчер с нужной ориентацией
-			if node is MatchInfoComponent and node.direct_h == direct_h:
-				var item = node.duplicate()
-				item.global_position = Vector2i.ZERO
-				return item
-		# в списке нет матчера с указанной ориентацией, берем первый из списка.
-		if not arr.is_empty():
-			var item = arr.front().duplicate()
-			item.global_position = Vector2i.ZERO
-			return item
-	return null
+func get_matcher(item_name:String = "")->MatchInfoComponent:
+	return _get_from(_matche_items, item_name)
 	
-func get_matcher(matcher_name:String)->MatchInfoComponent:
-	if not _generate_matcher_items.is_empty():
-		# предметы подходят по количеству предметов для матча
-		for arr_key in _generate_matcher_items:
-			for item in _generate_matcher_items[arr_key]:
-				if item.get_item_name() == matcher_name:
-					var new_item = item.duplicate()
-					new_item.position = Vector2i.ZERO
-					return new_item
+func get_matcher_from_enum(_match_type:MatcherComponent.EMatcher)->MatchInfoComponent:
+	if _match_name_equal_enum.has(_match_type):
+		return _get_from(_matche_items, _match_name_equal_enum[_match_type])
 	return null
 
-func get_name_list(type:EItemType)->Array[String]:
-	match type:
-		EItemType.ITEM:
-			return _item_names
-		EItemType.MATCHER:
-			return _matcher_names
-	return []
+func is_item_name_matcher(item_name:String)->bool:
+	for item in _matche_items:
+		if item.get_item_name() == item_name:
+			return true
+	return false
+	
+func is_item_name_item(item_name:String)->bool:
+	for item in _items:
+		if item.get_item_name() == item_name:
+			return true
+	return false
