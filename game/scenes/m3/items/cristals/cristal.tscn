@@ -1,71 +1,59 @@
-[gd_scene load_steps=14 format=3 uid="uid://bojh73wyjfn3e"]
+[gd_scene load_steps=12 format=3 uid="uid://dnlb0etbpjc5p"]
 
-[ext_resource type="PackedScene" uid="uid://cexy6igt35ni4" path="res://game/scenes/m3/components/parent_mover.tscn" id="1_2d51j"]
-[ext_resource type="PackedScene" uid="uid://dtmwkocylij0i" path="res://game/scenes/m3/components/end.tscn" id="2_bneca"]
-[ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_mgim0"]
-[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="4_oid8c"]
-[ext_resource type="PackedScene" uid="uid://6r8pb666487x" path="res://game/scenes/m3/components/matcher.tscn" id="5_xlqa6"]
-[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/detonator.tscn" id="6_cbfx1"]
-[ext_resource type="PackedScene" uid="uid://cgyu3hf6c7hqc" path="res://game/scenes/m3/components/damage/detonator_cell.tscn" id="6_tegm2"]
-[ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="6_u52hk"]
-[ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="7_ga2p0"]
-[ext_resource type="AudioStream" uid="uid://bcac1oalwswt0" path="res://game/assets/anny_pack/sounds/explosion-fragments.mp3" id="9_b53ed"]
-[ext_resource type="PackedScene" uid="uid://cbsn6tjbp4vvg" path="res://game/scenes/m3/components/hint.tscn" id="10_nxcse"]
-[ext_resource type="PackedScene" uid="uid://2byl5j5qdx5t" path="res://game/scenes/m3/effects/shine.tscn" id="11_6pifp"]
+[ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="1_66i38"]
+[ext_resource type="PackedScene" uid="uid://bvtr2nb2dyo74" path="res://game/scenes/m3/components/pmover.tscn" id="2_t6qtp"]
+[ext_resource type="PackedScene" uid="uid://c8qgn02bmtbfk" path="res://game/scenes/m3/components/matcher.tscn" id="3_ypktk"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="5_37x17"]
+[ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="6_0cvcd"]
+[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="6_lxexa"]
+[ext_resource type="PackedScene" uid="uid://b8duo154simny" path="res://game/scenes/m3/components/view.tscn" id="7_kau2c"]
+[ext_resource type="PackedScene" uid="uid://cbsn6tjbp4vvg" path="res://game/scenes/m3/components/hint.tscn" id="7_rk1qk"]
+[ext_resource type="PackedScene" uid="uid://2byl5j5qdx5t" path="res://game/scenes/m3/effects/shine.tscn" id="8_14swi"]
+[ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="8_bkde5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x80ww"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8hih8"]
 size = Vector2(256, 256)
 
-[node name="info" groups=["crystals"] instance=ExtResource("6_u52hk")]
+[node name="info" node_paths=PackedStringArray("_damager_component", "_view_component", "_pmover_component") instance=ExtResource("1_66i38")]
+_damager_component = NodePath("damager")
+_view_component = NodePath("view")
+_pmover_component = NodePath("pmover")
+
+[node name="pmover" parent="." index="0" node_paths=PackedStringArray("_match_component", "info_component", "_damager_component", "_hint_component") instance=ExtResource("2_t6qtp")]
+visible = false
+_match_component = NodePath("../matcher")
+info_component = NodePath("..")
+_damager_component = NodePath("../damager")
+_hint_component = NodePath("../hint")
+
+[node name="matcher" parent="." index="1" node_paths=PackedStringArray("info_component") instance=ExtResource("3_ypktk")]
+visible = false
+info_component = NodePath("..")
+
+[node name="damager" parent="." index="2" node_paths=PackedStringArray("info_component") instance=ExtResource("6_lxexa")]
+visible = false
+info_component = NodePath("..")
+
+[node name="one_shot_damage_weak" parent="damager" index="0" instance=ExtResource("5_37x17")]
+
+[node name="collision" type="CollisionShape2D" parent="damager/one_shot_damage_weak" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_8hih8")
+
+[node name="hitbox" parent="." index="3" node_paths=PackedStringArray("info_component") instance=ExtResource("6_0cvcd")]
+visible = false
+resistance = 2
+info_component = NodePath("..")
+
+[node name="hint" parent="." index="4" node_paths=PackedStringArray("info_component") instance=ExtResource("7_rk1qk")]
+visible = false
+info_component = NodePath("..")
+
+[node name="GPUParticles2D" parent="hint" index="3" instance=ExtResource("8_14swi")]
+position = Vector2(64, 64)
+
+[node name="view" parent="." index="5" node_paths=PackedStringArray("_end_effect") instance=ExtResource("7_kau2c")]
 z_index = 1
+_end_effect = NodePath("blast_part")
 
-[node name="parent_mover" parent="." index="0" instance=ExtResource("1_2d51j")]
-visible = false
-_move_time = 0.15
-
-[node name="hitbox" parent="." index="1" instance=ExtResource("3_mgim0")]
-visible = false
-resistance = 2
-
-[node name="damager" parent="." index="2" instance=ExtResource("4_oid8c")]
-visible = false
-
-[node name="self_destroy" parent="damager" index="0" instance=ExtResource("6_tegm2")]
-resistance = 2
-
-[node name="weak" parent="damager" index="1" instance=ExtResource("6_cbfx1")]
-
-[node name="collision" type="CollisionShape2D" parent="damager/weak" index="0"]
-position = Vector2(64, 64)
-shape = SubResource("RectangleShape2D_x80ww")
-
-[node name="matcher" parent="." index="3" instance=ExtResource("5_xlqa6")]
-visible = false
-
-[node name="end" parent="." index="4" instance=ExtResource("2_bneca")]
-position = Vector2(64, 64)
-
-[node name="blast_part" parent="end" index="0" instance=ExtResource("7_ga2p0")]
-
-[node name="audio_effect" type="AudioStreamPlayer2D" parent="end" index="1"]
-stream = ExtResource("9_b53ed")
-
-[node name="item_icon" type="Sprite2D" parent="." index="5"]
-z_index = 2
-scale = Vector2(0.25498, 0.25498)
-centered = false
-
-[node name="hint" parent="." index="6" instance=ExtResource("10_nxcse")]
-visible = false
-
-[node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("11_6pifp")]
-position = Vector2(62, 69)
-
-[connection signal="send_quiet_end" from="." to="damager" method="on_quiet"]
-[connection signal="send_start_step" from="parent_mover" to="matcher" method="on_unmatchable"]
-[connection signal="send_stop" from="parent_mover" to="matcher" method="on_matching"]
-[connection signal="send_stop" from="parent_mover" to="hint" method="on_all_stopped"]
-[connection signal="send_end" from="hitbox" to="end" method="end"]
-[connection signal="send_fail_match" from="matcher" to="parent_mover" method="revert_move"]
-[connection signal="send_match" from="matcher" to="damager" method="start"]
-[connection signal="send_hasnt_hint" from="hint" to="." method="_on_hint_send_hasnt_hint"]
+[node name="blast_part" parent="view" index="0" instance=ExtResource("8_bkde5")]

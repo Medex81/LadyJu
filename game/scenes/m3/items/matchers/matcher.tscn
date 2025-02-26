@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwti8o7ew17hu"]
+
+[ext_resource type="PackedScene" uid="uid://dj0q5ifgmf368" path="res://game/scenes/m3/components/match_info.tscn" id="1_h7gjo"]
+[ext_resource type="PackedScene" uid="uid://bvtr2nb2dyo74" path="res://game/scenes/m3/components/pmover.tscn" id="2_exhvr"]
+[ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="3_end4u"]
+[ext_resource type="PackedScene" uid="uid://cbsn6tjbp4vvg" path="res://game/scenes/m3/components/hint.tscn" id="4_3h1xf"]
+[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="5_jvep5"]
+[ext_resource type="PackedScene" uid="uid://b8duo154simny" path="res://game/scenes/m3/components/view.tscn" id="6_e6ag0"]
+
+[node name="match_info" node_paths=PackedStringArray("_damager_component", "_view_component", "_pmover_component") instance=ExtResource("1_h7gjo")]
+_damager_component = NodePath("damager")
+_view_component = NodePath("view")
+_pmover_component = NodePath("pmover")
+
+[node name="pmover" parent="." index="0" node_paths=PackedStringArray("info_component", "_damager_component", "_hint_component") instance=ExtResource("2_exhvr")]
+info_component = NodePath("..")
+_damager_component = NodePath("../damager")
+_hint_component = NodePath("../hint")
+
+[node name="hitbox" parent="." index="1" node_paths=PackedStringArray("info_component") instance=ExtResource("3_end4u")]
+visible = false
+resistance = 2
+info_component = NodePath("..")
+
+[node name="hint" parent="." index="2" node_paths=PackedStringArray("info_component") instance=ExtResource("4_3h1xf")]
+visible = false
+info_component = NodePath("..")
+
+[node name="damager" parent="." index="3" node_paths=PackedStringArray("info_component") instance=ExtResource("5_jvep5")]
+info_component = NodePath("..")
+
+[node name="view" parent="." index="4" instance=ExtResource("6_e6ag0")]
+z_index = 1

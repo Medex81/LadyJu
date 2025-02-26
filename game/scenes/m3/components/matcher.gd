@@ -1,76 +1,135 @@
-# Компонент сматчивает предметы с этим компонентом и одинаковым именем. Сматченый список отправляется
-# в генератор для получения матч предмета и отправляем сигнал во все сматченные предметы о завершении предмета.
-
 extends Area2D
 
 class_name MatcherComponent
 
-#@export var check_timeout_msec:int = 3000
-@onready var parent = get_parent()
-# для вызова у соседей нужного рейкаста упаковываем в словарь рейкасты и направления к ним в виде ключей
-@onready var _directs:Dictionary = {EDirect.LEFT:$rc_l, EDirect.RIGHT:$rc_r, EDirect.DOWN:$rc_d, EDirect.TOP:$rc_t}
-# матчить можно не в любое время, а только когда стоим мы и стоят соседи по матчингу
-var is_matchable:bool = true
-# направления в которых матчим
-enum EDirect{LEFT, RIGHT, DOWN, TOP}
-# имя матчера для матчинга по типу
+const _sqrt_2 = 1.414213562
 var item_name:String
+var fake_item_name:String
+var _cell_size:int = 128
+# от размера клетки расчитываем длину диагонали
+var _cell_diagonal:int = 181
+# радиус поиска - 2 размера клетки
+var _cell_2size:int = 256
+enum EDistance{NONE, CELL, DIAGONAL, CELL_2}
+enum EMatcher{NONE, LINE3, LINE4_H, LINE4_V, LINE5, ANGLE5, SQUARE4, T4, T5, T6, T7}
+@export var cell_offset:int = 5
+@export var info_component:InfoComponent = null
 
-# говорим кому-то, что мы сматчены
-signal send_match()
-signal send_fail_match()
 
 func _ready() -> void:
-	if parent is InfoComponent:
-		item_name = parent.item_name
+	if info_component:
+		item_name = info_component.get_item_name()
+		_cell_size = info_component.get_item_size()
+		_cell_diagonal = int(_cell_size * _sqrt_2)
+		_cell_2size = _cell_size * 2
+		
+# проверяем дистанцию по компонента, ответ перечисляемым типом
+func distance_to_enum(area:MatcherComponent)->EDistance:
+	var distance = global_position.distance_to(area.global_position)
+	if absi(distance - _cell_size) < cell_offset:
+		return EDistance.CELL
+	if absi(distance - _cell_diagonal) < cell_offset:
+		return EDistance.DIAGONAL
+	if absi(distance - _cell_2size) < cell_offset:
+		return EDistance.CELL_2
+	return EDistance.NONE
+	
+func get_neighbors(_compose_hints:Dictionary):
+	_compose_hints.clear()
+	# получаем два списка с компонентами нашего типа и другие в области обнаружения
+	for area in $detector.get_overlapping_areas():
+		if area is MatcherComponent:
+			# дистанция в размерах клетки
+			var distance = distance_to_enum(area)
+			# свой предмет исключаем из поисковой выдачи
+			if distance != EDistance.NONE:
+				# предметы вокруг, которые совпадают с нашим предметом по имени
+				if not get_item_name().is_empty() and area.get_item_name() == get_item_name():
+					# сортируем поисковую выдачу по расстояниям от нашего предмета
+					var arr = _compose_hints.get(distance, []) as Array[MatcherComponent]
+					arr.append(area)
+					_compose_hints[distance] = arr
+
+func check_detector_collisions(with_remove:bool = true)->EMatcher:
+	var _compose_hints:Dictionary
+	get_neighbors(_compose_hints)
+
+	if _compose_hints.has(EDistance.CELL):
+		var cell_link_count = 0
+		var matched_cells:Array[MatcherComponent] 
+		var neighbors_cell_count = _compose_hints[EDistance.CELL].size()
+		if _compose_hints.has(EDistance.CELL_2):
+			for cell in _compose_hints[EDistance.CELL]:
+				for _cell in _compose_hints[EDistance.CELL_2]:
+					if cell.distance_to_enum(_cell) == EDistance.CELL:
+						cell_link_count += 1
+						matched_cells.append(_cell)
+		matched_cells.append_array(_compose_hints[EDistance.CELL])
+		var match_result:EMatcher = EMatcher.NONE
+		if neighbors_cell_count == 3:
+			match  cell_link_count:
+				0:
+					match_result = EMatcher.T4
+				1:
+					match_result = EMatcher.T5
+				2:
+					match_result = EMatcher.T6
+				3:
+					match_result = EMatcher.T7
+					
+		if neighbors_cell_count == 2:
+			match  cell_link_count:
+				0:
+					if _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.DIAGONAL:
+						if _compose_hints.has(EDistance.DIAGONAL):
+							for cell in _compose_hints[EDistance.DIAGONAL]:
+								if cell.distance_to_enum(_compose_hints[EDistance.CELL].front()) == EDistance.CELL:
+									matched_cells.append(cell)
+									match_result = EMatcher.SQUARE4
+									break
+					else:
+						match_result = EMatcher.LINE3
+				1:
+					if _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.CELL_2:
+						if absi(_compose_hints[EDistance.CELL].front().global_position.x - _compose_hints[EDistance.CELL].back().global_position.x) < cell_offset:
+							match_result = EMatcher.LINE4_V
+						else:
+							match_result = EMatcher.LINE4_H
+				2:
+					if _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.CELL_2:
+						match_result = EMatcher.LINE5
+					else:
+						match_result = EMatcher.ANGLE5
+						
+		if neighbors_cell_count == 1 and cell_link_count == 1:
+			match_result = EMatcher.LINE3
+			
+		if match_result != EMatcher.NONE:
+			if with_remove:
+				remove_and_change(matched_cells, match_result)
+			return match_result
+			
+	return EMatcher.NONE
+	
+func remove_and_change(neighbors:Array[MatcherComponent], change_enum:EMatcher):
+	for item in neighbors:
+		if item.info_component:
+			item.info_component.finalize()
+		
+	if change_enum > EMatcher.LINE3:
+		if info_component:
+			info_component.change_to_matcher_enum(change_enum)
+	elif info_component:
+			info_component.finalize()
+	
+func has_match()->bool:
+	return check_detector_collisions(false)
+	
+func matching()->bool:
+	return check_detector_collisions()
 
 func get_item_name()->String:
-	return item_name
-		
-func on_unmatchable():
-	is_matchable = false
+	return item_name if fake_item_name.is_empty() or fake_item_name == item_name else fake_item_name
 	
-# матчимся с соседями.
-func on_matching()->bool:
-	is_matchable = true
-	# проходим по вертикали и горизонтали в поисках предметов схожих по типу с нашим
-	var matchers_h:Array[MatcherComponent]
-	check_match(matchers_h, EDirect.LEFT)
-	check_match(matchers_h, EDirect.RIGHT)
-	var matchers_v:Array[MatcherComponent]
-	check_match(matchers_v, EDirect.TOP)
-	check_match(matchers_v, EDirect.DOWN)
-	var direct_h:bool = true
-	# есть пересечение по вертикали и горизонтали - объединяем в один матч
-	if matchers_h.size() > 1 and matchers_v.size() > 1:
-		matchers_h.append_array(matchers_v.duplicate())
-		matchers_v.clear()
-	if matchers_h.size() < 2:
-		direct_h = false
-		matchers_h = matchers_v
-		
-	if matchers_h.size() > 1:
-		is_matchable = false
-		# запрос на генерацию предмета матчера если подходит по количеству
-		get_parent().change_to_matcher(matchers_h.size() + 1, direct_h)
-		# можно удалять
-		send_match.emit()
-		for matcher in matchers_h:
-			matcher.is_matchable = false
-			matcher.send_match.emit()
-		return true
-	# уведомляем о невозможности матчинга в данной позиции
-	send_fail_match.emit()
-	return false
-	
-# проверяем по указанному направлению (горизонтально или вертикально) соседство предметов которые могут сматчиться
-func check_match(matchers:Array[MatcherComponent], direct:EDirect):
-	# выбираем датчик рейкаста по направлению и смотрим какой предмет он пересекает
-	_directs[direct].force_raycast_update()
-	var next = _directs[direct].get_collider() as MatcherComponent
-	# предмет должен быть того же типа и не падать
-	if next and next != self and is_matchable and next.is_matchable and not item_name.is_empty() and next.item_name == item_name:
-		if not next in matchers:
-			# в массив, переданный в аргументе по ссылке, собираем всех подходящих соседей рекурсивно
-			matchers.append(next)
-		next.check_match(matchers, direct)
+func set_fake_item_name(_item_name:String):
+	fake_item_name = _item_name
