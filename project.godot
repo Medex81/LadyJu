@@ -14,10 +14,6 @@ config/name="LadyJu"
 run/main_scene="res://tmp/game_field/game_field.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
-[autoload]
-
-M3Core="*res://addons/m3core/m3core.tscn"
-
 [debug]
 
 gdscript/warnings/unassigned_variable=0
@@ -32,7 +28,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/m3core/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
@@ -44,11 +40,10 @@ mb_left={
 
 [layer_names]
 
-2d_physics/layer_1="move"
+2d_physics/layer_1="obstacles"
 2d_physics/layer_2="match"
 2d_physics/layer_3="hit"
 2d_physics/layer_4="hint"
-2d_physics/layer_5="perimetr"
 
 [rendering]
 
