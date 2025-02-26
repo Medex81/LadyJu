@@ -17,10 +17,3 @@ func start(_wait_time_ms:float = 0.0):
 func on_area_entered(_area: Area2D) -> void:
 	if is_activate and _area is HitboxComponent:
 		_area.hit(damage, resistance)
-
-# при пересечении границ поля нанесения урона - удаляемся.
-func on_body_entered(body: Node2D) -> void:
-	if is_activate and body is StaticBody2D:
-		is_activate = false
-		send_end.emit()
-		queue_free()

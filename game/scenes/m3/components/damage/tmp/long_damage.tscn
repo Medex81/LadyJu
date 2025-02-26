@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bp7sndm3t18e4"]
 
-[ext_resource type="Script" path="res://game/scenes/m3/components/damage/long_damage.gd" id="1_hls2l"]
+[ext_resource type="Script" path="res://game/scenes/m3/components/damage/tmp/long_damage.gd" id="1_hls2l"]
 
 [node name="long_damage" type="Area2D"]
 collision_layer = 0
