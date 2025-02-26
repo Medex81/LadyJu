@@ -34,14 +34,14 @@ static var is_hint_draw:bool = false
 # нет доступных компонент для подсказки
 static var has_hint:bool = false
 # сообщаем, что подсказок больше нет - вероятно завершение игры
-signal send_hasnt_hint()
+#signal send_hasnt_hint()
+@export var info_component:InfoComponent = null
 
 func _ready() -> void:
 	# забираем у родителя имя и размер компонента, необходимые для проверки подсказки
-	var parent = get_parent()
-	if parent is InfoComponent:
-		item_name = parent.item_name
-		_cell_size = parent.item_size
+	if info_component:
+		item_name = info_component.get_item_name()
+		_cell_size = info_component.get_item_size()
 		_cell_diagonal = int(_cell_size * _sqrt_2)
 		_cell_2size = _cell_size * 2
 
@@ -152,7 +152,7 @@ func check_detector_collisions(check_only:bool = false)->bool:
 
 func _physics_process(_delta: float) -> void:
 	# подсказки вероятно ещё есть и таймаут вышел
-	if has_hint and Time.get_ticks_msec() - last_event_time_ms >= wait_hint_time_ms:
+	if has_hint and Time.get_ticks_msec() - last_event_time_ms >= wait_hint_time_ms and is_hint_draw == false:
 		# отсекаем другие входы в метод на время
 		last_event_time_ms = Time.get_ticks_msec()
 		# проверяем есть ли подсказки
@@ -161,7 +161,7 @@ func _physics_process(_delta: float) -> void:
 			# добавили - выходим, после замены предмет стартует и пробует двигаться чем активирует on_all_stopped
 			has_hint = add_combination()
 			if has_hint == false:
-				send_hasnt_hint.emit()
+				info_component.on_no_hint()
 		call_deferred("check_all_and_hint")
 
 func has_combination_in_current()->bool:
@@ -205,9 +205,9 @@ func add_combination()->bool:
 				var pot_real_name = diff_hint.item_name
 				diff_hint.item_name = hint.item_name
 				# есть комбинация!
-				if hint.check_detector_collisions(true):
+				if hint.check_detector_collisions(true) and diff_hint.info_component:
 					# заменить соседа на предмет с нашим именем
-					diff_hint.get_parent().change_to_item(hint.item_name)
+					diff_hint.info_component.change_to_item(hint.get_item_name())
 					return true
 				# комбинаций нет - возврящаем имя
 				diff_hint.item_name = pot_real_name
@@ -217,9 +217,9 @@ func add_combination()->bool:
 		if hint.is_active:
 			hint.get_neighbors(_diff_hints, _compose_hints, true)
 			# работаем если предметов сматчиваемое количество
-			if _diff_hints.size() > 2:
+			if info_component and _diff_hints.size() > 2:
 				var diff_hint = _diff_hints.front()
-				diff_hint.get_parent().change_to_item(hint.item_name)
+				diff_hint.info_component.change_to_item(hint.item_name)
 				return true
 	
 	return false

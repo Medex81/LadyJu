@@ -8,16 +8,14 @@ class_name HitboxComponent
 
 @export var resistance:int = 1
 @export var hitpoints:int = 1
-
-var is_dead:bool = false
-
-signal send_end()
+@export var info_component:InfoComponent = null
 
 func hit(damage:int, _resistance:int)->bool:
-	if not is_dead and resistance <= _resistance:
+	if hitpoints <= 0:
+		return false
+	if resistance <= _resistance:
 		hitpoints -= damage
 		if hitpoints <= 0:
-			is_dead = true
-			send_end.emit()
+			info_component.finalize()
 		return true
 	return false
