@@ -1,19 +1,18 @@
 [gd_scene load_steps=114 format=3 uid="uid://bog8shiiuriye"]
 
 [ext_resource type="PackedScene" uid="uid://bb1jfjnmiupvx" path="res://game/scenes/m3/item_generator.tscn" id="1_layab"]
-[ext_resource type="PackedScene" uid="uid://dtfyk2usoiurh" path="res://game/scenes/m3/items/cristals/green.tscn" id="3_ve0cl"]
-[ext_resource type="PackedScene" uid="uid://xduwab1n4i3k" path="res://game/scenes/m3/items/cristals/purple.tscn" id="4_udhk0"]
-[ext_resource type="PackedScene" uid="uid://dmgu0e88pq8q" path="res://game/scenes/m3/items/cristals/red.tscn" id="5_1grpq"]
-[ext_resource type="PackedScene" uid="uid://brdwyxj2ng864" path="res://game/scenes/m3/items/cristals/blue.tscn" id="5_3c64g"]
-[ext_resource type="PackedScene" uid="uid://d6nd5gnd7jj5" path="res://game/scenes/m3/items/cristals/white.tscn" id="6_440aj"]
-[ext_resource type="PackedScene" uid="uid://dipmrnccd3mh8" path="res://game/scenes/m3/items/cristals/yellow.tscn" id="7_keo6g"]
-[ext_resource type="PackedScene" uid="uid://20t5pgd36us0" path="res://game/scenes/m3/items/matchers/rocket_v.tscn" id="8_7te6f"]
+[ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/cristals/purple.tscn" id="4_qw1qg"]
+[ext_resource type="PackedScene" uid="uid://c37um85cxcf5l" path="res://game/scenes/m3/items/cristals/red.tscn" id="5_unyqu"]
+[ext_resource type="PackedScene" uid="uid://cqjp4t6rjk2ng" path="res://game/scenes/m3/items/cristals/white.tscn" id="6_nexjw"]
+[ext_resource type="PackedScene" uid="uid://bbwyoqheqg34l" path="res://game/scenes/m3/items/cristals/yellow.tscn" id="7_m3rei"]
+[ext_resource type="PackedScene" uid="uid://brh78gb3s8kkn" path="res://game/scenes/m3/items/matchers/rocket_h.tscn" id="8_62ygg"]
 [ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/m3/cell.tscn" id="8_w6gfp"]
-[ext_resource type="PackedScene" uid="uid://c0loc85ewk34j" path="res://game/scenes/m3/items/matchers/rocket_h.tscn" id="9_kh5wq"]
+[ext_resource type="PackedScene" uid="uid://doviksuk44trd" path="res://game/scenes/m3/items/cristals/blue.tscn" id="13_oy6er"]
+[ext_resource type="PackedScene" uid="uid://du2wl6jnbyff0" path="res://game/scenes/m3/items/cristals/green.tscn" id="14_gks4x"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_t1gbw"]
-a = Vector2(1304, 1282)
-b = Vector2(-2, 1280)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_j42qh"]
+a = Vector2(0, 1)
+b = Vector2(1281, -1)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_j03er"]
 a = Vector2(-4, 2)
@@ -1158,8 +1157,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3e1g"]
-bg_color = Color(0.35, 0.62, 0.83, 0.41)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jg6x"]
+bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -1170,6 +1169,9 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ro34"]
+size = Vector2(92, 95)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdwx6"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
@@ -1319,42 +1321,33 @@ corner_radius_bottom_left = 8
 [node name="item_generator" parent="." instance=ExtResource("1_layab")]
 position = Vector2(-2, -332)
 
-[node name="blue" parent="item_generator" instance=ExtResource("5_3c64g")]
-z_index = 0
-position = Vector2(1008, 11)
+[node name="blue" parent="item_generator" instance=ExtResource("13_oy6er")]
 
-[node name="green" parent="item_generator" instance=ExtResource("3_ve0cl")]
-z_index = 0
-position = Vector2(805, 11)
+[node name="green" parent="item_generator" instance=ExtResource("14_gks4x")]
+position = Vector2(726, -8)
 
-[node name="purple" parent="item_generator" instance=ExtResource("4_udhk0")]
-z_index = 0
-position = Vector2(602, 11)
+[node name="purple" parent="item_generator" instance=ExtResource("4_qw1qg")]
+position = Vector2(578, -4)
 
-[node name="red" parent="item_generator" instance=ExtResource("5_1grpq")]
-z_index = 0
-position = Vector2(399, 4)
+[node name="red" parent="item_generator" instance=ExtResource("5_unyqu")]
+position = Vector2(438, -4)
 
-[node name="white" parent="item_generator" instance=ExtResource("6_440aj")]
-z_index = 0
-position = Vector2(196, 4)
+[node name="white" parent="item_generator" instance=ExtResource("6_nexjw")]
+position = Vector2(288, -4)
 
-[node name="yellow" parent="item_generator" instance=ExtResource("7_keo6g")]
-z_index = 0
+[node name="yellow" parent="item_generator" instance=ExtResource("7_m3rei")]
+position = Vector2(142, 2)
 
-[node name="rocket_v" parent="item_generator" instance=ExtResource("8_7te6f")]
-position = Vector2(4, -196)
+[node name="rocket_h" parent="item_generator" instance=ExtResource("8_62ygg")]
+position = Vector2(-2, -148)
 
-[node name="rocket_h" parent="item_generator" instance=ExtResource("9_kh5wq")]
-position = Vector2(150, -192)
-
-[node name="perimetr" type="StaticBody2D" parent="."]
-collision_layer = 16
+[node name="perimetr" type="Area2D" parent="."]
 collision_mask = 0
+monitoring = false
 
 [node name="cs_d" type="CollisionShape2D" parent="perimetr"]
-position = Vector2(0, 2)
-shape = SubResource("SegmentShape2D_t1gbw")
+position = Vector2(0, 1284)
+shape = SubResource("SegmentShape2D_j42qh")
 
 [node name="cs_l" type="CollisionShape2D" parent="perimetr"]
 shape = SubResource("SegmentShape2D_j03er")
@@ -1425,6 +1418,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_6i1ka")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x0yft")
 
+[node name="info" parent="GridContainer/cell13" instance=ExtResource("13_oy6er")]
+
 [node name="cell14" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_44wsx")
@@ -1472,8 +1467,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_bhnld")
 [node name="cell25" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdy0y")
-
-[node name="match_info" parent="GridContainer/cell25" instance=ExtResource("8_7te6f")]
 
 [node name="cell26" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1551,6 +1544,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_i8o16")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hpy1b")
 
+[node name="info" parent="GridContainer/cell44" instance=ExtResource("13_oy6er")]
+
 [node name="cell45" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_damdv")
@@ -1582,6 +1577,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_kc8wp")
 [node name="cell52" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5rn41")
+
+[node name="info" parent="GridContainer/cell52" instance=ExtResource("13_oy6er")]
 
 [node name="cell53" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1627,6 +1624,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_swldv")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wwujc")
 
+[node name="info" parent="GridContainer/cell63" instance=ExtResource("14_gks4x")]
+
 [node name="cell64" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lhs3v")
@@ -1634,6 +1633,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_lhs3v")
 [node name="cell65" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e4bsf")
+
+[node name="info" parent="GridContainer/cell65" instance=ExtResource("13_oy6er")]
 
 [node name="cell66" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1659,13 +1660,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ilil7")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rb0p5")
 
-[node name="info" parent="GridContainer/cell71" instance=ExtResource("3_ve0cl")]
-
 [node name="cell72" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pk03t")
-
-[node name="info" parent="GridContainer/cell72" instance=ExtResource("5_1grpq")]
 
 [node name="cell73" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1703,21 +1700,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_byemq")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tmu35")
 
-[node name="info" parent="GridContainer/cell81" instance=ExtResource("5_3c64g")]
-
 [node name="cell82" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qhk51")
 
-[node name="info" parent="GridContainer/cell82" instance=ExtResource("3_ve0cl")]
-z_index = 0
-
 [node name="cell83" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_juf5q")
-
-[node name="info" parent="GridContainer/cell83" instance=ExtResource("6_440aj")]
-z_index = 0
 
 [node name="cell84" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1741,7 +1730,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_w35wf")
 
 [node name="cell89" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f3e1g")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8jg6x")
+transparent = true
+
+[node name="Area2D" type="Area2D" parent="GridContainer/cell89"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GridContainer/cell89/Area2D"]
+position = Vector2(63, 61.5)
+shape = SubResource("RectangleShape2D_1ro34")
 
 [node name="cell90" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1751,34 +1748,21 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_cdwx6")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_brmmx")
 
-[node name="info" parent="GridContainer/cell91" instance=ExtResource("5_3c64g")]
-
 [node name="cell92" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yq1f7")
-
-[node name="info" parent="GridContainer/cell92" instance=ExtResource("4_udhk0")]
-z_index = 0
 
 [node name="cell93" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_d1nbx")
 
-[node name="info" parent="GridContainer/cell93" instance=ExtResource("4_udhk0")]
-z_index = 0
-
 [node name="cell94" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nl7ji")
 
-[node name="info" parent="GridContainer/cell94" instance=ExtResource("7_keo6g")]
-z_index = 0
-
 [node name="cell95" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_dphp8")
-
-[node name="match_info" parent="GridContainer/cell95" instance=ExtResource("9_kh5wq")]
 
 [node name="cell96" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1788,11 +1772,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_u4lmx")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oguqi")
 
-[node name="info" parent="GridContainer/cell97" instance=ExtResource("5_3c64g")]
-
-[node name="info2" parent="GridContainer/cell97" instance=ExtResource("3_ve0cl")]
-z_index = 0
-
 [node name="cell98" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xrc4s")
@@ -1800,8 +1779,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrc4s")
 [node name="cell99" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3jir0")
-
-[node name="match_info" parent="GridContainer/cell99" instance=ExtResource("9_kh5wq")]
 
 [node name="cell100" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
