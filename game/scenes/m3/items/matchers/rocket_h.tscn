@@ -1,47 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0loc85ewk34j"]
+[gd_scene load_steps=6 format=3 uid="uid://brh78gb3s8kkn"]
 
-[ext_resource type="PackedScene" uid="uid://vejot55t3ovq" path="res://game/scenes/m3/items/matchers/match_item.tscn" id="1_tn6mm"]
-[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="4_7vu12"]
-[ext_resource type="Texture2D" uid="uid://c7citcisvpqjl" path="res://game/assets/anny_pack/rocket_l.png" id="5_4rfol"]
-[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="5_ce43u"]
-[ext_resource type="PackedScene" uid="uid://beid0w0e1cdvg" path="res://game/scenes/m3/components/damage/projectile.tscn" id="6_bjsva"]
+[ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_7cpye"]
+[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_mdyu7"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_w2rlw"]
 
-[node name="match_info" instance=ExtResource("1_tn6mm")]
-match_count = 4
-item_name = "rocket_h"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_au22k"]
+size = Vector2(2496, 48)
 
-[node name="projectile_r" parent="damager" index="0" instance=ExtResource("6_bjsva")]
-direction = Vector2(1, 0)
-speed = 800
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3v6sa"]
+size = Vector2(2584, 192)
 
-[node name="Sprite2D" type="Sprite2D" parent="damager/projectile_r" index="3"]
-z_index = 1
-position = Vector2(-64, 0)
-scale = Vector2(0.256, 0.247104)
-texture = ExtResource("5_4rfol")
-centered = false
-flip_h = true
-flip_v = true
+[node name="match_info" instance=ExtResource("1_7cpye")]
+_match_type = 2
+_item_name = "rocket_h"
 
-[node name="GPUParticles2D" parent="damager/projectile_r/Sprite2D" index="0" instance=ExtResource("4_7vu12")]
-position = Vector2(20.3252, 137.855)
-scale = Vector2(1.01221, 1.0402)
+[node name="one_shot_damage" parent="damager" index="0" instance=ExtResource("2_w2rlw")]
+resistance = 2
 
-[node name="projectile_l" parent="damager" index="1" instance=ExtResource("6_bjsva")]
-direction = Vector2(-1, 0)
-speed = 800
+[node name="collision" type="CollisionShape2D" parent="damager/one_shot_damage" index="0"]
+position = Vector2(0, 64)
+shape = SubResource("RectangleShape2D_au22k")
 
-[node name="Sprite2D" type="Sprite2D" parent="damager/projectile_l" index="3"]
-position = Vector2(-64, -55)
-scale = Vector2(0.248, 0.212355)
-texture = ExtResource("5_4rfol")
-centered = false
-flip_v = true
+[node name="one_shot_damage_weak" parent="damager" index="1" instance=ExtResource("2_w2rlw")]
 
-[node name="GPUParticles2D2" parent="damager/projectile_l/Sprite2D" index="0" instance=ExtResource("4_7vu12")]
-position = Vector2(500, 129.5)
-scale = Vector2(1.00405, 1.07487)
+[node name="collision" type="CollisionShape2D" parent="damager/one_shot_damage_weak" index="0"]
+position = Vector2(4, 64)
+shape = SubResource("RectangleShape2D_3v6sa")
 
-[node name="item_icon" parent="." index="4"]
-scale = Vector2(0.25498, 0.25498)
-texture = ExtResource("5_ce43u")
+[node name="view" parent="." index="4"]
+texture = ExtResource("2_mdyu7")
