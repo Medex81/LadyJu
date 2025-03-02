@@ -43,7 +43,7 @@ func _get_from(_arr:Array, _name:String = "")->InfoComponent:
 		if _name.is_empty():
 			new_item = _arr.pick_random().duplicate()
 		for item in _arr:
-			if item.get_item_name() == _name:
+			if item != null and item is InfoComponent and item.get_item_name() == _name:
 				new_item = item.duplicate()
 				break
 		if new_item != null:
@@ -70,6 +70,6 @@ func is_item_name_matcher(item_name:String)->bool:
 	
 func is_item_name_item(item_name:String)->bool:
 	for item in _items:
-		if item.get_item_name() == item_name:
+		if item != null and item.get_item_name() == item_name:
 			return true
 	return false
