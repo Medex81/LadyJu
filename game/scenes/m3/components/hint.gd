@@ -207,7 +207,7 @@ func add_combination()->bool:
 				# есть комбинация!
 				if hint.check_detector_collisions(true) and diff_hint.info_component:
 					# заменить соседа на предмет с нашим именем
-					diff_hint.info_component.change_to_item(hint.get_item_name())
+					diff_hint.info_component.change_to_item(hint.item_name)
 					return true
 				# комбинаций нет - возврящаем имя
 				diff_hint.item_name = pot_real_name
