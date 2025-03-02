@@ -76,7 +76,7 @@ func change_to_matcher(_name:String)->MatchInfoComponent:
 func change_to_matcher_enum(_match_type:MatcherComponent.EMatcher)->MatchInfoComponent:
 	var new_item:MatchInfoComponent = null
 	if _item_generator:
-		new_item = _item_generator.get_matcher_from_enum(_match_type)
+		new_item = _item_generator.get_matcher_from_enum(_match_type) as MatchInfoComponent
 		if new_item:
 			new_item.position = position
 			get_parent().add_child(new_item)
@@ -96,9 +96,10 @@ func finalize(is_quiet:bool = false):
 	is_died = true
 	if is_quiet == false:
 		if _view_component and _view_component.has_end_effect():
+			remove_child(_view_component)
+			get_parent().add_child(_view_component)
+			_view_component.position = position
 			_view_component.run_end_effect()
-			await _view_component.send_finish_effect
 		if _damager_component and _damager_component.has_damage():
 			_damager_component.run_damage()
-			#await _damager_component.send_finish_damage
 	queue_free()
