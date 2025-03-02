@@ -24,6 +24,7 @@ info_component = NodePath("..")
 
 [node name="hint" parent="." index="2" node_paths=PackedStringArray("info_component") instance=ExtResource("4_3h1xf")]
 visible = false
+is_solo_hint = true
 info_component = NodePath("..")
 
 [node name="damager" parent="." index="3" node_paths=PackedStringArray("info_component") instance=ExtResource("5_jvep5")]
