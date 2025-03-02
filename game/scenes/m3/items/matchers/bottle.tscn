@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo6n48r23muso"]
+
+[ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_5bl8e"]
+[ext_resource type="Texture2D" uid="uid://bt2nymi1bncp7" path="res://game/assets/anny_pack/bottle.png" id="2_rjt8d"]
+[ext_resource type="PackedScene" uid="uid://bumw3tmstnfr5" path="res://game/scenes/m3/effects/spot_firewerk.tscn" id="3_yioqv"]
+[ext_resource type="PackedScene" uid="uid://c8wraotihval0" path="res://game/scenes/m3/effects/orbital_spots.tscn" id="4_l256v"]
+
+[node name="match_info" instance=ExtResource("1_5bl8e")]
+_match_type = 5
+_item_name = "bootle"
+
+[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
+texture = ExtResource("2_rjt8d")
+_end_effect = NodePath("blue_orbital")
+
+[node name="Node2D" type="Node2D" parent="view" index="0"]
+
+[node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("3_yioqv")]
+position = Vector2(-31.375, 94.125)
+
+[node name="blue_orbital" parent="view" index="1" instance=ExtResource("4_l256v")]
+position = Vector2(251, 251)
+lifetime = 2.0
+speed_scale = 2.0
+explosiveness = 0.75
+randomness = 0.7
