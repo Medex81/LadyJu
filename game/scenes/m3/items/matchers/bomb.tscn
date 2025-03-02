@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ilvgvxtt3wob"]
+
+[ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_pkepy"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_q0218"]
+[ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="2_rm6n1"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="3_6yokk"]
+[ext_resource type="PackedScene" uid="uid://w04fhibkoagm" path="res://game/scenes/m3/effects/fire_whirlpool.tscn" id="5_1tpap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ftg6"]
+size = Vector2(256, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmpne"]
+size = Vector2(512, 512)
+
+[node name="match_info" instance=ExtResource("1_pkepy")]
+_match_type = 4
+_item_name = "bomb"
+
+[node name="pmover" parent="." index="0"]
+visible = false
+
+[node name="damager" parent="." index="3"]
+visible = false
+
+[node name="strong" parent="damager" index="0" instance=ExtResource("2_q0218")]
+resistance = 2
+
+[node name="collider" type="CollisionShape2D" parent="damager/strong" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_1ftg6")
+
+[node name="weak" parent="damager" index="1" instance=ExtResource("2_q0218")]
+
+[node name="collider" type="CollisionShape2D" parent="damager/weak" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_fmpne")
+
+[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
+texture = ExtResource("2_rm6n1")
+_end_effect = NodePath("explosive")
+
+[node name="Node2D" type="Node2D" parent="view" index="0"]
+
+[node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("3_6yokk")]
+position = Vector2(-94.125, -251)
+
+[node name="explosive" parent="view" index="1" instance=ExtResource("5_1tpap")]
+position = Vector2(251, 251)
+speed_scale = 1.6
+explosiveness = 1.0
