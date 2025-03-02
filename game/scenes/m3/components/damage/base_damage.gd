@@ -19,5 +19,5 @@ class_name BaseDamageComponent
 
 signal send_damage_done()
 
-func start(values = null):
+func start(_values = null):
 	send_damage_done.emit()

@@ -57,3 +57,4 @@ z_index = 1
 _end_effect = NodePath("blast_part")
 
 [node name="blast_part" parent="view" index="0" instance=ExtResource("8_bkde5")]
+position = Vector2(251, 251)
