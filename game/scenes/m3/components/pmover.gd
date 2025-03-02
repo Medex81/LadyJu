@@ -26,9 +26,9 @@ var moving_to_rect:Rect2
 var cell_size:Vector2 = Vector2(_cell_width, _cell_width)
 var is_active:bool = false
 static var swap_node:PMoverComponent = null
-var _top:PMoverComponent = null
-var _top_l:PMoverComponent = null
-var _top_r:PMoverComponent = null
+var _top:Node2D = null
+var _top_l:Node2D = null
+var _top_r:Node2D = null
 
 func get_item_name()->String:
 	return _item_name
@@ -56,11 +56,11 @@ func notify_top():
 		_top_r.call_deferred(try_move_fn)
 		
 func _exit_tree() -> void:
-	if _top_l is PMoverComponent:
+	if _top_l != null and _top_l is PMoverComponent:
 		_top_l.call_deferred(try_move_fn) 
-	if _top is PMoverComponent:
+	if _top != null and _top is PMoverComponent:
 		_top.call_deferred(try_move_fn)
-	if _top_r is PMoverComponent:
+	if _top_r != null and _top_r is PMoverComponent:
 		_top_r.call_deferred(try_move_fn)
 	
 func try_move():
@@ -70,17 +70,11 @@ func try_move():
 	is_moving = true
 	# проверяем находимся ли мы на чём-то с чего нельзя соскользнуть
 	# при движении узлы рейкаста не обновляются до конца кадра, обновляем принудительно.
-	$rc_t.force_raycast_update()
-	$rc_tl.force_raycast_update()
-	$rc_tr.force_raycast_update()
 	$rc_r.force_raycast_update()
 	$rc_l.force_raycast_update()
 	$rc_d.force_raycast_update()
 	$rc_dl.force_raycast_update()
 	$rc_dr.force_raycast_update()
-	var top = $rc_t.get_collider()
-	var top_l = $rc_tl.get_collider()
-	var top_r = $rc_tr.get_collider()
 	var right = $rc_r.get_collider()
 	var left = $rc_l.get_collider()
 	var down = $rc_d.get_collider()
@@ -90,7 +84,7 @@ func try_move():
 	var direct:Vector2 = Vector2.ZERO
 	if down == null:
 		direct = Vector2.DOWN
-	elif not right is PMoverComponent and down_r == null:
+	elif down is PMoverComponent and not right is PMoverComponent and down_r == null:
 		direct = down_right
 	elif not left is PMoverComponent and down_l == null:
 		direct = down_left
@@ -123,9 +117,8 @@ func swap_move(direct:Vector2, second_name:String = ""):
 		var move_tween = get_tree().create_tween()
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
-		moving_to_rect = Rect2(0, 0, 0, 0)
 		
-		if _damager_component and second_name.is_empty() and info_component is MatchInfoComponent:
+		if _damager_component and not second_name.is_empty() and info_component is MatchInfoComponent:
 			_damager_component.set_swap_item_name(second_name)
 
 		if info_component is MatchInfoComponent:
@@ -137,7 +130,7 @@ func swap_move(direct:Vector2, second_name:String = ""):
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	is_active = true
-	call_deferred("try_move")
+	call_deferred(try_move_fn)
 
 # проверяем, пустое место которое мы нашли уже кем-то занято для перемещения?
 func _is_occupied(rect:Rect2)->bool:

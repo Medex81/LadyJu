@@ -27,20 +27,20 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="rc_tr" type="RayCast2D" parent="."]
-position = Vector2(120, 8)
-target_position = Vector2(40, -40)
+position = Vector2(128, 8)
+target_position = Vector2(64, -176)
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="rc_t" type="RayCast2D" parent="."]
 position = Vector2(64, 8)
-target_position = Vector2(0, -40)
+target_position = Vector2(0, -176)
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="rc_tl" type="RayCast2D" parent="."]
-position = Vector2(8, 8)
-target_position = Vector2(-40, -40)
+position = Vector2(0, 8)
+target_position = Vector2(-64, -176)
 collide_with_areas = true
 collide_with_bodies = false
 
