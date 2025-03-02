@@ -13,6 +13,7 @@ _view_component = NodePath("view")
 _pmover_component = NodePath("pmover")
 
 [node name="pmover" parent="." index="0" node_paths=PackedStringArray("info_component", "_damager_component", "_hint_component") instance=ExtResource("2_exhvr")]
+visible = false
 info_component = NodePath("..")
 _damager_component = NodePath("../damager")
 _hint_component = NodePath("../hint")
