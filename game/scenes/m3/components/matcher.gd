@@ -79,30 +79,32 @@ func check_detector_collisions(with_remove:bool = true)->EMatcher:
 					
 		if neighbors_cell_count == 2:
 			match  cell_link_count:
-				0:
+				0, 1:
 					if _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.DIAGONAL:
 						if _compose_hints.has(EDistance.DIAGONAL):
 							for cell in _compose_hints[EDistance.DIAGONAL]:
-								if cell.distance_to_enum(_compose_hints[EDistance.CELL].front()) == EDistance.CELL:
+								if cell.distance_to_enum(_compose_hints[EDistance.CELL].front()) == EDistance.CELL and \
+								cell.distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.CELL:
 									matched_cells.append(cell)
 									match_result = EMatcher.SQUARE4
-									break
-					else:
-						match_result = EMatcher.LINE3
-				1:
-					if _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.CELL_2:
+					elif _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.CELL_2 \
+					and cell_link_count == 1:
 						if absi(_compose_hints[EDistance.CELL].front().global_position.x - _compose_hints[EDistance.CELL].back().global_position.x) < cell_offset:
 							match_result = EMatcher.LINE4_V
 						else:
 							match_result = EMatcher.LINE4_H
+					elif _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.CELL_2:
+						match_result = EMatcher.LINE3
 				2:
 					if _compose_hints[EDistance.CELL].front().distance_to_enum(_compose_hints[EDistance.CELL].back()) == EDistance.CELL_2:
 						match_result = EMatcher.LINE5
 					else:
 						match_result = EMatcher.ANGLE5
 						
-		if neighbors_cell_count == 1 and cell_link_count == 1:
-			match_result = EMatcher.LINE3
+		if neighbors_cell_count == 1:
+			match cell_link_count:
+				1: match_result = EMatcher.LINE3
+				2: match_result = EMatcher.T4
 			
 		if match_result != EMatcher.NONE:
 			if with_remove:
