@@ -1,0 +1,131 @@
+[gd_scene load_steps=16 format=3 uid="uid://5306ng0nlcfa"]
+
+[ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_cshsw"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_oyesm"]
+[ext_resource type="Texture2D" uid="uid://cupfwqs3crmph" path="res://game/assets/third_party/arbalet.png" id="3_k4bvn"]
+[ext_resource type="PackedScene" uid="uid://dhfd3qntic8ra" path="res://game/scenes/m3/effects/star.tscn" id="4_f44mr"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_m8c70"]
+a = Vector2(64, 64)
+b = Vector2(-56, 184)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_71whw"]
+a = Vector2(64, 64)
+b = Vector2(184, 184)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6nty7"]
+a = Vector2(64, 64)
+b = Vector2(-56, -56)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_sm4d1"]
+a = Vector2(64, 64)
+b = Vector2(184, -56)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_icvgo"]
+a = Vector2(-152, -72)
+b = Vector2(-272, -192)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ctv2x"]
+a = Vector2(240, -192)
+b = Vector2(120, -72)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_q876q"]
+a = Vector2(-192, 320)
+b = Vector2(-72, 200)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_t0s7n"]
+a = Vector2(320, 320)
+b = Vector2(200, 200)
+
+[sub_resource type="Animation" id="Animation_p3ufj"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_q8f4d"]
+resource_name = "start"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.733333, 1, 1.23333, 2.82895),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(64, 64), Vector2(64, 64), Vector2(88, 48), Vector2(40, 96), Vector2(64, 64), Vector2(64, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f08pn"]
+_data = {
+"RESET": SubResource("Animation_p3ufj"),
+"start": SubResource("Animation_q8f4d")
+}
+
+[node name="match_info" instance=ExtResource("1_cshsw")]
+_match_type = 6
+_item_name = "crist_rocket"
+
+[node name="damager" parent="." index="3"]
+visible = false
+
+[node name="strong" parent="damager" index="0" instance=ExtResource("2_oyesm")]
+resistance = 2
+
+[node name="collision_dl" type="CollisionShape2D" parent="damager/strong" index="0"]
+shape = SubResource("SegmentShape2D_m8c70")
+
+[node name="collision_dr" type="CollisionShape2D" parent="damager/strong" index="1"]
+shape = SubResource("SegmentShape2D_71whw")
+
+[node name="collision_tl" type="CollisionShape2D" parent="damager/strong" index="2"]
+shape = SubResource("SegmentShape2D_6nty7")
+
+[node name="collision_tr" type="CollisionShape2D" parent="damager/strong" index="3"]
+shape = SubResource("SegmentShape2D_sm4d1")
+
+[node name="weak" parent="damager" index="1" instance=ExtResource("2_oyesm")]
+
+[node name="collision_tl" type="CollisionShape2D" parent="damager/weak" index="0"]
+position = Vector2(80, 0)
+shape = SubResource("SegmentShape2D_icvgo")
+
+[node name="collision_tr" type="CollisionShape2D" parent="damager/weak" index="1"]
+position = Vector2(80, 0)
+shape = SubResource("SegmentShape2D_ctv2x")
+
+[node name="collision_dl" type="CollisionShape2D" parent="damager/weak" index="2"]
+shape = SubResource("SegmentShape2D_q876q")
+
+[node name="collision_dr" type="CollisionShape2D" parent="damager/weak" index="3"]
+shape = SubResource("SegmentShape2D_t0s7n")
+
+[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
+texture = ExtResource("3_k4bvn")
+_end_effect = NodePath("star")
+
+[node name="star" parent="view" index="0" instance=ExtResource("4_f44mr")]
+position = Vector2(-3.05176e-05, -6.10352e-05)
+
+[node name="Node2D" type="Node2D" parent="view" index="1"]
+position = Vector2(38.4264, -22.1855)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view/Node2D" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_f08pn")
+}
+autoplay = "start"
