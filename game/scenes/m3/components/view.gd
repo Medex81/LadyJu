@@ -20,6 +20,3 @@ func run_end_effect():
 			await _end_effect.send_effects_done
 			
 	queue_free()
-	
-func has_end_effect()->bool:
-	return _end_effect != null
