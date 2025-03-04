@@ -14,7 +14,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8hih8"]
 size = Vector2(256, 256)
 
-[node name="info" node_paths=PackedStringArray("_damager_component", "_view_component", "_pmover_component") instance=ExtResource("1_66i38")]
+[node name="info" node_paths=PackedStringArray("_damager_component", "_view_component", "_pmover_component") groups=["crystals"] instance=ExtResource("1_66i38")]
 _damager_component = NodePath("damager")
 _view_component = NodePath("view")
 _pmover_component = NodePath("pmover")
