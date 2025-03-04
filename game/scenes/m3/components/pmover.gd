@@ -113,14 +113,13 @@ func swap_move(direct:Vector2, second_name:String = ""):
 	is_moving = true
 
 	if info_component and direct != Vector2.ZERO:
+		if _damager_component and not second_name.is_empty() and info_component is MatchInfoComponent:
+			_damager_component.set_swap_item_name(second_name)
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
 		var move_tween = get_tree().create_tween()
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
 		
-		if _damager_component and not second_name.is_empty() and info_component is MatchInfoComponent:
-			_damager_component.set_swap_item_name(second_name)
-
 		if info_component is MatchInfoComponent:
 			info_component.finalize()
 		else:
@@ -180,6 +179,10 @@ func check_match()->bool:
 	return _match_component and _match_component.has_match()
 	
 func matching()->bool:
+	return _match_component and _match_component.matching()
+	
+func timer_matching(timeout:float = 2.0)->bool:
+	await get_tree().create_timer(timeout).timeout
 	return _match_component and _match_component.matching()
 
 func set_fake_item_name(new_item_name:String = "")->bool:
