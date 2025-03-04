@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjmvm3ucen6l5"]
+
+[ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_7na8t"]
+[ext_resource type="PackedScene" uid="uid://dq5ifcqr5rba" path="res://game/scenes/m3/components/damage/exchange_damage.tscn" id="2_db17i"]
+[ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_iue6o"]
+[ext_resource type="PackedScene" uid="uid://b0xpei85tn5ic" path="res://game/scenes/m3/effects/green_whirlpool.tscn" id="4_ck2db"]
+
+[node name="match_info" instance=ExtResource("1_7na8t")]
+_match_type = 9
+_item_name = "amulet"
+
+[node name="exchange_damage" parent="damager" index="0" instance=ExtResource("2_db17i")]
+
+[node name="view" parent="." index="4"]
+texture = ExtResource("2_iue6o")
+
+[node name="Node2D" type="Node2D" parent="view" index="0"]
+
+[node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("4_ck2db")]
