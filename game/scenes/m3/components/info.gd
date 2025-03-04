@@ -20,6 +20,7 @@ class_name InfoComponent
 enum EInfoEvent{NO_HINT}
 
 var is_died:bool = false
+var is_active:bool = false
 
 func _ready() -> void:
 	for child in get_children():
@@ -56,6 +57,8 @@ func change_to_item(_name:String = "")->InfoComponent:
 		if new_item:
 			new_item.position = position
 			get_parent().add_child(new_item)
+			if new_item._pmover_component:
+				new_item._pmover_component.call_deferred("timer_matching", 2.0)
 			finalize(true)
 		else:
 			print("Error. Change item {0} to {1}".format([_item_name, _name]))
@@ -95,11 +98,14 @@ func finalize(is_quiet:bool = false):
 		_pmover_component.notify_top()
 	is_died = true
 	if is_quiet == false:
-		if _view_component and _view_component.has_end_effect():
+		if _view_component:
 			remove_child(_view_component)
 			get_parent().add_child(_view_component)
 			_view_component.position = position
 			_view_component.run_end_effect()
-		if _damager_component and _damager_component.has_damage():
+		if _damager_component:
 			_damager_component.run_damage()
 	queue_free()
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	is_active = true
