@@ -23,14 +23,19 @@ curve = SubResource("28")
 emission_shape = 2
 emission_sphere_radius = 1.0
 gravity = Vector3(0, 0, 0)
-scale_min = 0.3
-scale_max = 2.0
+linear_accel_min = 4.0
+linear_accel_max = 4.0
+scale_min = 5.0
+scale_max = 5.0
 scale_curve = SubResource("29")
 color_ramp = SubResource("27")
 
 [node name="GPUParticles2D" type="GPUParticles2D"]
 modulate = Color(0.635294, 0.74902, 0.419608, 1)
 material = SubResource("20")
-amount = 5
+rotation = 0.785398
+emitting = false
+amount = 3
 process_material = SubResource("30")
 texture = ExtResource("1_psano")
+one_shot = true
