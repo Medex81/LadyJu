@@ -8,5 +8,3 @@ func start(_variant = null):
 	for component in get_overlapping_areas():
 		if component is HitboxComponent:
 			component.hit(damage, resistance)
-	#super.start()
-	#send_damage_done.emit()
