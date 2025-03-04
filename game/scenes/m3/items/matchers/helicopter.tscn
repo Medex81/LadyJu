@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://buol7j31kopps"]
+
+[ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_g4agv"]
+[ext_resource type="Texture2D" uid="uid://bhh8x58gkgxy4" path="res://game/assets/third_party/helicopter.png" id="2_gkfow"]
+
+[sub_resource type="Animation" id="Animation_d0ae2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_5tq1p"]
+resource_name = "stop"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5, 0.733333, 0.966667, 1.2, 1.5, 1.73333, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(64, 64), Vector2(56, 56), Vector2(72, 56), Vector2(64, 64), Vector2(48, 80), Vector2(64, 72), Vector2(48, 64), Vector2(48, 80), Vector2(64, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t54pl"]
+_data = {
+"RESET": SubResource("Animation_d0ae2"),
+"stop": SubResource("Animation_5tq1p")
+}
+
+[node name="match_info" instance=ExtResource("1_g4agv")]
+_match_type = 7
+_item_name = "helicopter"
+
+[node name="view" parent="." index="4"]
+texture = ExtResource("2_gkfow")
+
+[node name="Node2D" type="Node2D" parent="view" index="0"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view/Node2D" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_t54pl")
+}
+autoplay = "stop"
