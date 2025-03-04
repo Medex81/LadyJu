@@ -1,0 +1,76 @@
+[gd_scene load_steps=13 format=3 uid="uid://bk84c1r8vxq6o"]
+
+[ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_e14wd"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_22itk"]
+[ext_resource type="Texture2D" uid="uid://dv1nt8t3q7tn6" path="res://game/assets/anny_pack/total_bomb.png" id="3_km0md"]
+[ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="4_bw34h"]
+[ext_resource type="Texture2D" uid="uid://df5njoddce7su" path="res://game/assets/particle/fire_01.png" id="5_eg4k4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f0dpf"]
+radius = 504.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4co0t"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_ldvrj"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mo3y2"]
+gradient = SubResource("Gradient_ldvrj")
+
+[sub_resource type="Curve" id="Curve_aarvj"]
+_data = [Vector2(0.0180723, 0.32967), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8f1fb"]
+curve = SubResource("Curve_aarvj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nl01y"]
+particle_flag_disable_z = true
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 7.59
+radial_accel_max = 37.97
+tangential_accel_min = 7.59
+tangential_accel_max = 60.75
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_8f1fb")
+scale_over_velocity_min = 2.0
+scale_over_velocity_max = 2.0
+color = Color(0.851202, 0.387649, 0.18767, 1)
+color_ramp = SubResource("GradientTexture1D_mo3y2")
+
+[node name="match_info" instance=ExtResource("1_e14wd")]
+_match_type = 10
+_item_name = "super_bomb"
+
+[node name="damager" parent="." index="3"]
+visible = false
+
+[node name="strong" parent="damager" index="0" instance=ExtResource("2_22itk")]
+resistance = 3
+
+[node name="collision" type="CollisionShape2D" parent="damager/strong" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("CircleShape2D_f0dpf")
+
+[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
+texture = ExtResource("3_km0md")
+_end_effect = NodePath("super_explosion")
+
+[node name="Node2D" type="Node2D" parent="view" index="0"]
+
+[node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("4_bw34h")]
+position = Vector2(219.625, -219.625)
+
+[node name="super_explosion" type="GPUParticles2D" parent="view" index="1"]
+material = SubResource("CanvasItemMaterial_4co0t")
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_nl01y")
+texture = ExtResource("5_eg4k4")
+lifetime = 4.0
+one_shot = true
+speed_scale = 5.19
+explosiveness = 0.32
+randomness = 0.57
