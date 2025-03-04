@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ilvgvxtt3wob"]
+[gd_scene load_steps=11 format=3 uid="uid://ilvgvxtt3wob"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_pkepy"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_q0218"]
@@ -12,12 +12,46 @@ size = Vector2(256, 256)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmpne"]
 size = Vector2(512, 512)
 
+[sub_resource type="Animation" id="Animation_h36e0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25498, 0.25498)]
+}
+
+[sub_resource type="Animation" id="Animation_40r10"]
+resource_name = "start"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.25498, 0.25498), Vector2(0.28, 0.28), Vector2(0.25498, 0.25498)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nnj72"]
+_data = {
+"RESET": SubResource("Animation_h36e0"),
+"start": SubResource("Animation_40r10")
+}
+
 [node name="match_info" instance=ExtResource("1_pkepy")]
 _match_type = 4
 _item_name = "bomb"
-
-[node name="pmover" parent="." index="0"]
-visible = false
 
 [node name="damager" parent="." index="3"]
 visible = false
@@ -43,6 +77,12 @@ _end_effect = NodePath("explosive")
 
 [node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("3_6yokk")]
 position = Vector2(-94.125, -251)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view/Node2D" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_nnj72")
+}
+autoplay = "start"
 
 [node name="explosive" parent="view" index="1" instance=ExtResource("5_1tpap")]
 position = Vector2(251, 251)
