@@ -30,9 +30,6 @@ scale_max = 0.4
 _match_type = 2
 _item_name = "rocket_h"
 
-[node name="pmover" parent="." index="0"]
-visible = false
-
 [node name="damager" parent="." index="3"]
 visible = false
 
