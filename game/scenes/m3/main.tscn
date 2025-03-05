@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://bog8shiiuriye"]
+[gd_scene load_steps=124 format=3 uid="uid://bog8shiiuriye"]
 
 [ext_resource type="PackedScene" uid="uid://bb1jfjnmiupvx" path="res://game/scenes/m3/item_generator.tscn" id="1_layab"]
 [ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/cristals/purple.tscn" id="4_qw1qg"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://d13s4jlos8yhb" path="res://game/scenes/m3/items/matchers/sword.tscn" id="14_sljku"]
 [ext_resource type="PackedScene" uid="uid://bjmvm3ucen6l5" path="res://game/scenes/m3/items/matchers/amulet.tscn" id="15_d0t87"]
 [ext_resource type="PackedScene" uid="uid://bk84c1r8vxq6o" path="res://game/scenes/m3/items/matchers/super_bomb.tscn" id="16_vqq8s"]
+[ext_resource type="PackedScene" uid="uid://cf7wvyrd2pwpq" path="res://game/scenes/m3/items/blockers/chain.tscn" id="18_pye7e"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_j42qh"]
 a = Vector2(0, 1)
@@ -1088,7 +1089,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkdwm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2np36"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -1169,7 +1170,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22ni7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6kb03"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -1713,7 +1714,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pjptu")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g0qxr")
 
-[node name="match_info" parent="GridContainer/cell75" instance=ExtResource("16_vqq8s")]
+[node name="match_info" parent="GridContainer/cell75" instance=ExtResource("9_sfhho")]
 
 [node name="cell76" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1749,7 +1750,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qhk51")
 
 [node name="cell83" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hkdwm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2np36")
 transparent = true
 
 [node name="Area2D" type="Area2D" parent="GridContainer/cell83"]
@@ -1769,7 +1770,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wxeqg")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fyl5f")
 
-[node name="info" parent="GridContainer/cell85" groups=["cristals"] instance=ExtResource("14_gks4x")]
+[node name="green" parent="GridContainer/cell85" node_paths=PackedStringArray("_top_item") groups=["cristals"] instance=ExtResource("14_gks4x")]
+_top_item = NodePath("../chain")
+
+[node name="chain" parent="GridContainer/cell85" instance=ExtResource("18_pye7e")]
 
 [node name="cell86" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
@@ -1787,7 +1791,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_w35wf")
 
 [node name="cell89" parent="GridContainer" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_22ni7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6kb03")
 transparent = true
 
 [node name="hole" parent="GridContainer/cell89" instance=ExtResource("11_tyapa")]

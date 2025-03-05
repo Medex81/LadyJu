@@ -15,6 +15,8 @@ class_name InfoComponent
 @export var _view_component:ViewComponent = null
 @export var _pmover_component:PMoverComponent = null
 
+@export var _top_item:InfoComponent = null
+
 @onready var _item_generator:ItemGenerator = get_tree().get_first_node_in_group(_item_generator_group_name)
 
 enum EInfoEvent{NO_HINT}
@@ -91,9 +93,18 @@ func change_to_matcher_enum(_match_type:MatcherComponent.EMatcher)->MatchInfoCom
 func on_no_hint() -> void:
 	get_tree().call_group(_main_scene_group_name, "items_event", EInfoEvent.NO_HINT)
 
+func is_blocked()->bool:
+	return _top_item != null
+
 func finalize(is_quiet:bool = false):
 	if is_died:
 		return
+		
+	if _top_item != null:
+		_top_item.finalize()
+		return
+		
+	
 	if _pmover_component:
 		_pmover_component.notify_top()
 	is_died = true
