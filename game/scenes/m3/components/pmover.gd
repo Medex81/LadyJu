@@ -2,8 +2,8 @@ extends Node2D
 
 class_name PMoverComponent
 
-const top_left = -Vector2.ONE
 const down_right = Vector2.ONE
+const top_left = -down_right
 const top_right = Vector2(1, -1)
 const down_left = -top_right
 const mover_group = "movers"
@@ -24,11 +24,11 @@ var _item_name:String
 var is_moving:bool = false
 var moving_to_rect:Rect2
 var cell_size:Vector2 = Vector2(_cell_width, _cell_width)
-var is_active:bool = false
-static var swap_node:PMoverComponent = null
 var _top:Node2D = null
 var _top_l:Node2D = null
 var _top_r:Node2D = null
+
+static var swap_node:PMoverComponent = null
 
 func get_item_name()->String:
 	return _item_name
@@ -64,7 +64,7 @@ func _exit_tree() -> void:
 		_top_r.call_deferred(try_move_fn)
 	
 func try_move():
-	if is_moving == true or is_active == false:
+	if is_moving == true or (info_component != null and (not info_component.is_active or info_component.is_blocked())):
 		return
 
 	is_moving = true
@@ -80,14 +80,22 @@ func try_move():
 	var down = $rc_d.get_collider()
 	var down_l = $rc_dl.get_collider()
 	var down_r = $rc_dr.get_collider()
+	
+	$rc_t.force_raycast_update()
+	$rc_tl.force_raycast_update()
+	$rc_tr.force_raycast_update()
+	_top = $rc_t.get_collider()
+	_top_l = $rc_tl.get_collider()
+	_top_r = $rc_tr.get_collider()
 
 	var direct:Vector2 = Vector2.ZERO
 	if down == null:
 		direct = Vector2.DOWN
-	elif down is PMoverComponent and not right is PMoverComponent and down_r == null:
-		direct = down_right
-	elif not left is PMoverComponent and down_l == null:
-		direct = down_left
+	elif down is PMoverComponent:
+		if (not right is PMoverComponent or (right.info_component != null and  right.info_component.is_blocked())) and down_r == null:
+			direct = down_right
+		elif (not left is PMoverComponent or (left.info_component != null and  left.info_component.is_blocked())) and down_l == null:
+			direct = down_left
 
 	if info_component and direct != Vector2.ZERO and not _is_occupied(Rect2(global_position + direct * _cell_width, cell_size)):
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
@@ -95,7 +103,12 @@ func try_move():
 		var move_tween = get_tree().create_tween()
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
-		notify_top()
+		if _top_l != null and _top_l is PMoverComponent:
+			_top_l.call_deferred(try_move_fn) 
+		if _top != null and _top is PMoverComponent:
+			_top.call_deferred(try_move_fn)
+		if _top_r != null and _top_r is PMoverComponent:
+			_top_r.call_deferred(try_move_fn)
 		call_deferred(try_move_fn)
 	else:
 		if move_state == EMoveState.FALL:
@@ -106,8 +119,8 @@ func try_move():
 		
 	is_moving = false
 	
-func swap_move(direct:Vector2, second_name:String = ""):
-	if is_moving == true or is_active == false:
+func swap_move(direct:Vector2, second_name:String = "", is_step_counting:bool = true):
+	if is_moving == true or (info_component != null and info_component.is_active == false):
 		return
 		
 	is_moving = true
@@ -124,12 +137,10 @@ func swap_move(direct:Vector2, second_name:String = ""):
 			info_component.finalize()
 		else:
 			matching()
+		if is_step_counting:
+			get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestContainer.quest_step)
 
 	is_moving = false
-
-func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	is_active = true
-	call_deferred(try_move_fn)
 
 # проверяем, пустое место которое мы нашли уже кем-то занято для перемещения?
 func _is_occupied(rect:Rect2)->bool:
@@ -148,9 +159,10 @@ func _on_input_event(_viewport, event, _shape_idx):
 			swap_node = self
 		if event.is_released():
 			# тап на матчер, подрывам его одного
-			if swap_node == self:
-				if info_component:
+			if swap_node == self and self.info_component is MatchInfoComponent:
+				if info_component != null and not info_component.is_blocked():
 					info_component.finalize()
+					get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestContainer.quest_step)
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап
 				if not swap_node is PMoverComponent or swap_node.is_moving or is_moving:
@@ -159,7 +171,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 					
 				if info_component is MatchInfoComponent or swap_node.info_component is MatchInfoComponent:
 					var direct = global_position.direction_to(swap_node.global_position).sign()
-					swap_move(direct, swap_node.get_item_name())
+					swap_move(direct, swap_node.get_item_name(), false)
 					swap_node.swap_move(-direct, get_item_name())
 
 				elif set_fake_item_name(swap_node.get_item_name()) and swap_node.set_fake_item_name(get_item_name()) \
@@ -167,7 +179,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 					set_fake_item_name()
 					swap_node.set_fake_item_name()
 					var direct = global_position.direction_to(swap_node.global_position).sign()
-					swap_move(direct)
+					swap_move(direct, "", false)
 					swap_node.swap_move(-direct)
 				
 				set_fake_item_name()

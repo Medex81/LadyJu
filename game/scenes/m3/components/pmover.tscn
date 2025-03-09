@@ -6,6 +6,8 @@
 size = Vector2(96, 96)
 
 [node name="pmover" type="Area2D" groups=["movers"]]
+collision_mask = 0
+monitoring = false
 script = ExtResource("1_lhfdv")
 
 [node name="rc_d" type="RayCast2D" parent="."]
@@ -27,20 +29,20 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="rc_tr" type="RayCast2D" parent="."]
-position = Vector2(128, 8)
-target_position = Vector2(64, -176)
+position = Vector2(120, 8)
+target_position = Vector2(40, -40)
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="rc_t" type="RayCast2D" parent="."]
 position = Vector2(64, 8)
-target_position = Vector2(0, -176)
+target_position = Vector2(0, -40)
 collide_with_areas = true
 collide_with_bodies = false
 
 [node name="rc_tl" type="RayCast2D" parent="."]
-position = Vector2(0, 8)
-target_position = Vector2(-64, -176)
+position = Vector2(8, 8)
+target_position = Vector2(-40, -40)
 collide_with_areas = true
 collide_with_bodies = false
 
@@ -60,8 +62,4 @@ collide_with_bodies = false
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_3yv6h")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(64, 64)
-
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
