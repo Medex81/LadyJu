@@ -29,7 +29,7 @@ visible = false
 is_solo_hint = true
 info_component = NodePath("..")
 
-[node name="GPUParticles2D" parent="hint" index="3" instance=ExtResource("5_2d03l")]
+[node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("5_2d03l")]
 position = Vector2(64, 64)
 
 [node name="damager" parent="." index="3" node_paths=PackedStringArray("info_component") instance=ExtResource("5_jvep5")]

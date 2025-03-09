@@ -114,16 +114,16 @@ func check_detector_collisions(with_remove:bool = true)->EMatcher:
 	return EMatcher.NONE
 	
 func remove_and_change(neighbors:Array[MatcherComponent], change_enum:EMatcher):
+	if info_component != null:
+		if change_enum > EMatcher.LINE3:
+			info_component.change_to_matcher_enum(change_enum)
+		else:
+			info_component.finalize()
+			
 	for item in neighbors:
 		if item.info_component:
 			item.info_component.finalize()
-		
-	if change_enum > EMatcher.LINE3:
-		if info_component:
-			info_component.change_to_matcher_enum(change_enum)
-	elif info_component:
-			info_component.finalize()
-	
+			
 func has_match()->bool:
 	return check_detector_collisions(false)
 	
