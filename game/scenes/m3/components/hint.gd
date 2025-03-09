@@ -10,6 +10,8 @@ class_name HintComponent
 # Коэффициент гипотенузы прямоугольного треугольника, нужен для расчёта длины диагонали клетки.
 const _sqrt_2 = 1.414213562
 const _group_name = "hints"
+const _effect_state_fn  = "effect_state"
+
 # имя, по которому сравниваем компоненты и находим потенциальные комбинации
 var item_name:String
 # размер клетки по умолчанию, устанавливается на старте от родителя
@@ -19,7 +21,7 @@ var _cell_diagonal:int = 181
 # радиус поиска - 2 размера клетки
 var _cell_2size:int = 256
 # компонент активен и участвует в игре
-var is_active:bool = false
+#var is_active:bool = false
 # расстояние до соседних клеток которые могут быть комбинацией для матча
 enum EDistance{NONE, CELL, DIAGONAL, CELL_2}
 @export var is_solo_hint:bool = false
@@ -59,7 +61,7 @@ func distance_to_enum(area:HintComponent)->EDistance:
 # есть потенциальный матч
 func proc_hint(hints:Array[HintComponent]):
 	# снимаем подсказку с текущих компонент и устанавливаем в новые
-	get_tree().call_group(_group_name, "effect_state", false)
+	get_tree().call_group(_group_name, _effect_state_fn, false)
 	is_hint_draw = true
 	for hint in hints:
 		hint.effect_state(true)
@@ -151,18 +153,19 @@ func check_detector_collisions(check_only:bool = false)->bool:
 	return false
 
 func _physics_process(_delta: float) -> void:
-	# подсказки вероятно ещё есть и таймаут вышел
-	if has_hint and Time.get_ticks_msec() - last_event_time_ms >= wait_hint_time_ms and is_hint_draw == false:
-		# отсекаем другие входы в метод на время
-		last_event_time_ms = Time.get_ticks_msec()
-		# проверяем есть ли подсказки
-		if not has_combination_at_all():
-			# добавить нельзя - конец игры
-			# добавили - выходим, после замены предмет стартует и пробует двигаться чем активирует on_all_stopped
-			has_hint = add_combination()
-			if has_hint == false:
-				info_component.on_no_hint()
-		call_deferred("check_all_and_hint")
+	if info_component != null and info_component.is_active == true:
+		# подсказки вероятно ещё есть и таймаут вышел
+		if has_hint and Time.get_ticks_msec() - last_event_time_ms >= wait_hint_time_ms and is_hint_draw == false:
+			# отсекаем другие входы в метод на время
+			last_event_time_ms = Time.get_ticks_msec()
+			# проверяем есть ли подсказки
+			if not has_combination_at_all():
+				# добавить нельзя - конец игры
+				# добавили - выходим, после замены предмет стартует и пробует двигаться чем активирует on_all_stopped
+				has_hint = add_combination()
+				if has_hint == false:
+					info_component.on_no_hint()
+			call_deferred("check_all_and_hint")
 
 func has_combination_in_current()->bool:
 	# матчер - ?
@@ -173,19 +176,19 @@ func has_combination_in_current()->bool:
 # проверить комбинации 
 func has_combination_at_all()->bool:
 	for hint in get_tree().get_nodes_in_group(_group_name):
-		if hint is HintComponent and hint.is_active and hint.has_combination_in_current():
+		if hint is HintComponent and hint.info_component != null and hint.info_component.is_active and hint.has_combination_in_current():
 			return true
 	return false
 
 # проверить комбинации и подсветить
 func check_all_and_hint()->bool:
 	for hint in get_tree().get_nodes_in_group(_group_name):
-		if hint is HintComponent and hint.is_active and hint.is_solo_hint:
+		if hint is HintComponent and hint.info_component != null and hint.info_component.is_active and hint.is_solo_hint:
 			var hints:Array[HintComponent] = [hint]
 			hint.proc_hint(hints)
 			return true
 	for hint in get_tree().get_nodes_in_group(_group_name):
-		if hint is HintComponent and hint.is_active and hint.check_detector_collisions():
+		if hint is HintComponent and hint.info_component != null and hint.info_component.is_active and hint.check_detector_collisions():
 			return true
 	return false
 	
@@ -226,12 +229,10 @@ func add_combination()->bool:
 
 # произошло внешнее событие, подсказка пока ненужна
 func on_all_stopped():
-	if is_hint_draw:
-		get_tree().call_group(_group_name, "effect_state", false)
-		is_hint_draw = false
-	last_event_time_ms = Time.get_ticks_msec()
-	has_hint = true
+	if info_component != null and info_component.is_active:
+		if is_hint_draw:
+			get_tree().call_group(_group_name, _effect_state_fn, false)
+			is_hint_draw = false
+		last_event_time_ms = Time.get_ticks_msec()
+		has_hint = true
 	
-# таймер слежения за состояние подсказки запускаем для компонент находящихся в пределах экрана
-func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	is_active = true

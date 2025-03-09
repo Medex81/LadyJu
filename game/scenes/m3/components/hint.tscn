@@ -22,12 +22,6 @@ monitorable = false
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_olfkc")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(64, 64)
-scale = Vector2(6.4, 6.4)
-
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_qw2y4")
-
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
