@@ -8,18 +8,13 @@ class_name InfoComponent
 
 @export var _item_name:String
 @export var _item_size:int = 128
-@export var _item_generator_group_name:String = "item_generator"
-@export var _main_scene_group_name:String = "main_scene"
-
 @export var _damager_component:DamageContainerComponent = null
 @export var _view_component:ViewComponent = null
 @export var _pmover_component:PMoverComponent = null
-
 @export var _top_item:InfoComponent = null
+@export var is_interactive:bool = true
 
-@onready var _item_generator:ItemGenerator = get_tree().get_first_node_in_group(_item_generator_group_name)
-
-enum EInfoEvent{NO_HINT}
+@onready var _item_generator:ItemGenerator = get_tree().get_first_node_in_group(ItemGenerator.group_name)
 
 var is_died:bool = false
 var is_active:bool = false
@@ -91,20 +86,19 @@ func change_to_matcher_enum(_match_type:MatcherComponent.EMatcher)->MatchInfoCom
 	return new_item
 
 func on_no_hint() -> void:
-	get_tree().call_group(_main_scene_group_name, "items_event", EInfoEvent.NO_HINT)
+	get_tree().call_group(BaseM3Layer.group_name, BaseM3Layer.events_fn, BaseM3Layer.EEvents.NO_HINTS)
 
 func is_blocked()->bool:
 	return _top_item != null
 
 func finalize(is_quiet:bool = false):
-	if is_died:
+	if not is_interactive or is_died:
 		return
-		
+
 	if _top_item != null:
 		_top_item.finalize()
 		return
 		
-	
 	if _pmover_component:
 		_pmover_component.notify_top()
 	is_died = true
@@ -116,7 +110,12 @@ func finalize(is_quiet:bool = false):
 			_view_component.run_end_effect()
 		if _damager_component:
 			_damager_component.run_damage()
+	get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, _item_name)
 	queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	is_active = true
+	if is_interactive and not is_blocked() and _pmover_component != null:
+		_pmover_component.call_deferred(_pmover_component.try_move_fn)
+		await get_tree().create_timer(0.5).timeout
+		_pmover_component.call_deferred(_pmover_component.try_move_fn)
