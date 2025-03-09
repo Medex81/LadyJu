@@ -4,3 +4,7 @@
 
 [node name="match_info" type="Node2D"]
 script = ExtResource("1_81ejb")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
