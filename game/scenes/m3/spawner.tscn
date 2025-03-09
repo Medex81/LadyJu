@@ -6,6 +6,7 @@
 size = Vector2(100, 100)
 
 [node name="spawner" type="Area2D"]
+collision_layer = 0
 script = ExtResource("1_68q6c")
 
 [node name="cs_detect" type="CollisionShape2D" parent="."]
