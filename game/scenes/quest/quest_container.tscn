@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgwx0xjnkvb3u"]
+
+[ext_resource type="Script" path="res://game/scenes/quest/quest_container.gd" id="1_lrune"]
+
+[node name="quests_layer" type="GridContainer"]
+columns = 2
+script = ExtResource("1_lrune")
