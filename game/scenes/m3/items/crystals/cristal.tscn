@@ -49,7 +49,7 @@ info_component = NodePath("..")
 visible = false
 info_component = NodePath("..")
 
-[node name="GPUParticles2D" parent="hint" index="3" instance=ExtResource("8_14swi")]
+[node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("8_14swi")]
 position = Vector2(64, 64)
 
 [node name="view" parent="." index="5" node_paths=PackedStringArray("_end_effect") instance=ExtResource("7_kau2c")]
