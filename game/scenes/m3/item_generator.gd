@@ -11,6 +11,7 @@ class_name ItemGenerator
 var _items:Array[InfoComponent]
 var _matche_items:Array[MatchInfoComponent]
 var _match_name_equal_enum:Dictionary
+const group_name:String = "item_generator"
 
 func _ready() -> void:
 	_items.clear()
@@ -48,6 +49,7 @@ func _get_from(_arr:Array, _name:String = "")->InfoComponent:
 				break
 		if new_item != null:
 			new_item.position = Vector2i.ZERO
+			new_item.is_interactive = true
 			return new_item
 	return null
 
