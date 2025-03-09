@@ -38,6 +38,10 @@ mb_left={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://game/assets/translate/translate.en.translation", "res://game/assets/translate/translate.ru.translation")
+
 [layer_names]
 
 2d_physics/layer_1="obstacles"
