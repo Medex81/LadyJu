@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://km31k43ulsdt"]
+
+[ext_resource type="PackedScene" uid="uid://bw4vow58857wf" path="res://game/scenes/quest/quest.tscn" id="1_lgiul"]
+[ext_resource type="PackedScene" uid="uid://du2wl6jnbyff0" path="res://game/scenes/m3/items/crystals/green.tscn" id="1_lslsn"]
+[ext_resource type="PackedScene" uid="uid://dgwx0xjnkvb3u" path="res://game/scenes/quest/quest_container.tscn" id="1_ro472"]
+[ext_resource type="PackedScene" uid="uid://bog8shiiuriye" path="res://game/scenes/m3/m3.tscn" id="1_va1ah"]
+[ext_resource type="Script" path="res://game/scenes/game_field/game_field.gd" id="1_xjl07"]
+[ext_resource type="PackedScene" uid="uid://c4j5eb74l08be" path="res://game/scenes/m3/items/misc/step.tscn" id="5_l5cl4"]
+
+[node name="base_field" type="Control" groups=["game_field"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_xjl07")
+
+[node name="main_container" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="left" type="VBoxContainer" parent="main_container"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="quests_window" type="VBoxContainer" parent="main_container/left"]
+layout_mode = 2
+
+[node name="quest_title" type="Label" parent="main_container/left/quests_window"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "a_quest_bar_title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quest_container" parent="main_container/left/quests_window" node_paths=PackedStringArray("_base_m3_layer") instance=ExtResource("1_ro472")]
+layout_mode = 2
+_base_m3_layer = NodePath("../../../..")
+
+[node name="quest" parent="main_container/left/quests_window/quest_container" node_paths=PackedStringArray("quest_container") instance=ExtResource("1_lgiul")]
+layout_mode = 2
+item_count = 10
+quest_container = NodePath("..")
+
+[node name="green" parent="main_container/left/quests_window/quest_container/quest" instance=ExtResource("1_lslsn")]
+is_interactive = false
+
+[node name="quest_steps" parent="main_container/left/quests_window/quest_container" node_paths=PackedStringArray("quest_container") instance=ExtResource("1_lgiul")]
+layout_mode = 2
+item_count = 6
+quest_container = NodePath("..")
+is_monitoring = false
+
+[node name="steps" parent="main_container/left/quests_window/quest_container/quest_steps" instance=ExtResource("5_l5cl4")]
+
+[node name="centr" type="VBoxContainer" parent="main_container"]
+custom_minimum_size = Vector2(1300, 0)
+layout_mode = 2
+
+[node name="m3" parent="main_container/centr" node_paths=PackedStringArray("_base_m3_layer") instance=ExtResource("1_va1ah")]
+_base_m3_layer = NodePath("../../..")
+
+[node name="right" type="VBoxContainer" parent="main_container"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
