@@ -15,6 +15,7 @@ const try_move_fn = "try_move"
 @export var info_component:InfoComponent = null
 @export var _damager_component:DamageContainerComponent = null
 @export var _hint_component:HintComponent = null
+@export var _swap_move_logic:BaseMoveComponent = null
 
 enum EMoveState{STOP, FALL}
 
@@ -40,29 +41,6 @@ func _ready() -> void:
 		_item_name = info_component.get_item_name()
 	moving_to_rect = Rect2(global_position, cell_size)
 	
-func notify_top():
-	$rc_t.force_raycast_update()
-	$rc_tl.force_raycast_update()
-	$rc_tr.force_raycast_update()
-	_top = $rc_t.get_collider()
-	_top_l = $rc_tl.get_collider()
-	_top_r = $rc_tr.get_collider()
-	
-	if _top_l is PMoverComponent:
-		_top_l.call_deferred(try_move_fn) 
-	if _top is PMoverComponent:
-		_top.call_deferred(try_move_fn)
-	if _top_r is PMoverComponent:
-		_top_r.call_deferred(try_move_fn)
-		
-func _exit_tree() -> void:
-	if _top_l != null and _top_l is PMoverComponent:
-		_top_l.call_deferred(try_move_fn) 
-	if _top != null and _top is PMoverComponent:
-		_top.call_deferred(try_move_fn)
-	if _top_r != null and _top_r is PMoverComponent:
-		_top_r.call_deferred(try_move_fn)
-	
 func try_move():
 	if is_moving == true or (info_component != null and (not info_component.is_active or info_component.is_blocked())):
 		return
@@ -80,13 +58,6 @@ func try_move():
 	var down = $rc_d.get_collider()
 	var down_l = $rc_dl.get_collider()
 	var down_r = $rc_dr.get_collider()
-	
-	$rc_t.force_raycast_update()
-	$rc_tl.force_raycast_update()
-	$rc_tr.force_raycast_update()
-	_top = $rc_t.get_collider()
-	_top_l = $rc_tl.get_collider()
-	_top_r = $rc_tr.get_collider()
 
 	var direct:Vector2 = Vector2.ZERO
 	if down == null:
@@ -103,12 +74,6 @@ func try_move():
 		var move_tween = get_tree().create_tween()
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
-		if _top_l != null and _top_l is PMoverComponent:
-			_top_l.call_deferred(try_move_fn) 
-		if _top != null and _top is PMoverComponent:
-			_top.call_deferred(try_move_fn)
-		if _top_r != null and _top_r is PMoverComponent:
-			_top_r.call_deferred(try_move_fn)
 		call_deferred(try_move_fn)
 	else:
 		if move_state == EMoveState.FALL:
@@ -134,7 +99,10 @@ func swap_move(direct:Vector2, second_name:String = "", is_step_counting:bool = 
 		await move_tween.finished
 		
 		if info_component is MatchInfoComponent:
-			info_component.finalize()
+			if _swap_move_logic != null:
+				_swap_move_logic.start(info_component, second_name)
+			else:
+				info_component.finalize()
 		else:
 			matching()
 		if is_step_counting:
@@ -161,7 +129,10 @@ func _on_input_event(_viewport, event, _shape_idx):
 			# тап на матчер, подрывам его одного
 			if swap_node == self and self.info_component is MatchInfoComponent:
 				if info_component != null and not info_component.is_blocked():
-					info_component.finalize()
+					if _swap_move_logic != null:
+						_swap_move_logic.start(info_component)
+					else:
+						info_component.finalize()
 					get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestContainer.quest_step)
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап

@@ -14,6 +14,8 @@ class_name InfoComponent
 @export var _top_item:InfoComponent = null
 @export var is_interactive:bool = true
 
+const group_name = "info"
+
 @onready var _item_generator:ItemGenerator = get_tree().get_first_node_in_group(ItemGenerator.group_name)
 
 var is_died:bool = false
@@ -98,24 +100,21 @@ func finalize(is_quiet:bool = false):
 	if _top_item != null:
 		_top_item.finalize()
 		return
-		
-	if _pmover_component:
-		_pmover_component.notify_top()
+
 	is_died = true
 	if is_quiet == false:
-		if _view_component:
-			remove_child(_view_component)
-			get_parent().add_child(_view_component)
-			_view_component.position = position
-			_view_component.run_end_effect()
 		if _damager_component:
 			_damager_component.run_damage()
+		if _view_component:
+			_view_component.run_end_effect()
+			await _view_component.send_effect_done
 	get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, _item_name)
 	queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	is_active = true
-	if is_interactive and not is_blocked() and _pmover_component != null:
-		_pmover_component.call_deferred(_pmover_component.try_move_fn)
-		await get_tree().create_timer(0.5).timeout
-		_pmover_component.call_deferred(_pmover_component.try_move_fn)
+	if is_interactive:
+		is_active = true
+		
+func check_move():
+	if _pmover_component:
+		_pmover_component.call_deferred("try_move")
