@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://w0gbdkvhebwd"]
+
+[ext_resource type="PackedScene" uid="uid://bw4vow58857wf" path="res://game/scenes/game_field/quest/quest.tscn" id="1_ktjvu"]
+[ext_resource type="PackedScene" uid="uid://c4j5eb74l08be" path="res://game/scenes/m3/items/misc/step.tscn" id="2_bwbic"]
+
+[node name="quest" instance=ExtResource("1_ktjvu")]
+
+[node name="info" parent="." index="1" instance=ExtResource("2_bwbic")]
+position = Vector2(12, 12)
