@@ -199,7 +199,7 @@ func add_combination()->bool:
 	# для пар подсказок - добавляем одну подменную в подсказку с другим типом рядом
 	for hint in get_tree().get_nodes_in_group(_group_name):
 		# отбрасываем те, что в генераторе
-		if hint.is_active:
+		if hint.info_component != null and hint.info_component.is_active:
 			# запрос на всех соседей без потенциальной комбинации (true)
 			hint.get_neighbors(_diff_hints, _compose_hints, true)
 			# идём по соседям с другим именем
@@ -217,7 +217,7 @@ func add_combination()->bool:
 	# пар нет, есть одиночки - будем наращивать их до пары или сворачивать игру
 	# заменяем один и подменный предмет ещё раз нас активирует
 	for hint in get_tree().get_nodes_in_group(_group_name):
-		if hint.is_active:
+		if hint.info_component != null and hint.info_component.is_active:
 			hint.get_neighbors(_diff_hints, _compose_hints, true)
 			# работаем если предметов сматчиваемое количество
 			if info_component and _diff_hints.size() > 2:
