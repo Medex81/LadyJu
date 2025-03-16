@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf1cgujm3ihba"]
+
+[ext_resource type="PackedScene" uid="uid://bw4vow58857wf" path="res://game/scenes/game_field/quest/quest.tscn" id="1_jk8p3"]
+[ext_resource type="PackedScene" uid="uid://doviksuk44trd" path="res://game/scenes/m3/items/crystals/blue.tscn" id="2_64u3f"]
+
+[node name="quest" instance=ExtResource("1_jk8p3")]
+
+[node name="info" parent="." index="1" instance=ExtResource("2_64u3f")]
+position = Vector2(13, 2)
+is_interactive = false

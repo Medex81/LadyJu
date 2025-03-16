@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://7qgsn20awh2p"]
+
+[ext_resource type="PackedScene" uid="uid://km31k43ulsdt" path="res://game/scenes/game_field/game_field.tscn" id="1_tsk47"]
+[ext_resource type="PackedScene" uid="uid://casg8jw8jtwkf" path="res://game/scenes/areas/start/quests_panel.tscn" id="2_7yuyv"]
+[ext_resource type="PackedScene" uid="uid://jklnu344kvjx" path="res://game/scenes/areas/start/m_3.tscn" id="3_j0c6q"]
+
+[node name="base_field" instance=ExtResource("1_tsk47")]
+mouse_filter = 1
+
+[node name="MarginContainer" parent="." index="0"]
+mouse_filter = 1
+
+[node name="quests_panel" parent="MarginContainer/main_container/left/quests_window" index="1" node_paths=PackedStringArray("_base_m3_layer") instance=ExtResource("2_7yuyv")]
+layout_mode = 2
+_base_m3_layer = NodePath("../../../../..")
+
+[node name="m3" parent="MarginContainer/main_container" index="1" instance=ExtResource("3_j0c6q")]
+layout_mode = 2

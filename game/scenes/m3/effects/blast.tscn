@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://7ib5egdayv20"]
 
-[ext_resource type="Texture2D" uid="uid://ks4v4ruk65t4" path="res://addons/components/effects/textures/particles/spotlight_7.png" id="1_ox0v4"]
+[ext_resource type="Texture2D" uid="uid://ks4v4ruk65t4" path="res://addons/components/effects/textures/particles/spotlight_7.png" id="1_2gt7o"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vya6j"]
 blend_mode = 1
@@ -60,8 +60,8 @@ material = SubResource("CanvasItemMaterial_vya6j")
 emitting = false
 amount = 40
 process_material = SubResource("ParticleProcessMaterial_s5e84")
-texture = ExtResource("1_ox0v4")
-lifetime = 0.6
+texture = ExtResource("1_2gt7o")
+lifetime = 0.5
 one_shot = true
 speed_scale = 1.87
 explosiveness = 0.58
