@@ -78,9 +78,10 @@ func try_move():
 	else:
 		if move_state == EMoveState.FALL:
 			matching()
-		move_state = EMoveState.STOP
-		if _hint_component:
-			_hint_component.on_all_stopped()
+			move_state = EMoveState.STOP
+			get_tree().call_group(QuestsPanel.group_name, QuestsPanel.on_stop_move_fn)
+			if _hint_component:
+				_hint_component.on_all_stopped()
 		
 	is_moving = false
 	
@@ -98,15 +99,16 @@ func swap_move(direct:Vector2, second_name:String = "", is_step_counting:bool = 
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
 		
-		if info_component is MatchInfoComponent:
-			if _swap_move_logic != null:
-				_swap_move_logic.start(info_component, second_name)
-			else:
-				info_component.finalize()
+		if info_component is MatchInfoComponent and _swap_move_logic != null:
+			is_moving = true
+			_swap_move_logic.start(info_component)
+			await _swap_move_logic.send_done
+			is_moving = false
+			info_component.finalize()
 		else:
 			matching()
 		if is_step_counting:
-			get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestContainer.quest_step)
+			get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestsPanel.quest_step)
 
 	is_moving = false
 
@@ -125,15 +127,17 @@ func _on_input_event(_viewport, event, _shape_idx):
 				swap_node = null
 				return
 			swap_node = self
-		if event.is_released():
+		if event.is_released() and QuestsPanel.is_no_step == false:
 			# тап на матчер, подрывам его одного
 			if swap_node == self and self.info_component is MatchInfoComponent:
 				if info_component != null and not info_component.is_blocked():
 					if _swap_move_logic != null:
+						is_moving = true
 						_swap_move_logic.start(info_component)
-					else:
-						info_component.finalize()
-					get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestContainer.quest_step)
+						await _swap_move_logic.send_done
+						is_moving = false
+					get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestsPanel.quest_step)
+					info_component.finalize()
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап
 				if not swap_node is PMoverComponent or swap_node.is_moving or is_moving:
