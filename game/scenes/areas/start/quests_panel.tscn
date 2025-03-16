@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://casg8jw8jtwkf"]
+
+[ext_resource type="PackedScene" uid="uid://bnl5a87k356jx" path="res://game/scenes/game_field/quest/quests_panel.tscn" id="1_2oo5t"]
+[ext_resource type="PackedScene" uid="uid://w0gbdkvhebwd" path="res://game/scenes/game_field/quest/quests/steps.tscn" id="2_at22e"]
+[ext_resource type="PackedScene" uid="uid://cf1cgujm3ihba" path="res://game/scenes/game_field/quest/quests/blue.tscn" id="4_ggaec"]
+
+[node name="quests_panel" instance=ExtResource("1_2oo5t")]
+
+[node name="steps" parent="MarginContainer/quest_container" index="0" node_paths=PackedStringArray("quests_panel") instance=ExtResource("2_at22e")]
+layout_mode = 2
+quests_panel = NodePath("../../..")
+is_monitoring = false
+
+[node name="blue" parent="MarginContainer/quest_container" index="1" node_paths=PackedStringArray("quests_panel") instance=ExtResource("4_ggaec")]
+layout_mode = 2
+item_count = 4
+quests_panel = NodePath("../../..")
