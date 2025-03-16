@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://buol7j31kopps"]
+[gd_scene load_steps=11 format=3 uid="uid://buol7j31kopps"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_g4agv"]
+[ext_resource type="PackedScene" uid="uid://dte0r5rm7rw2a" path="res://game/scenes/m3/components/projectile.tscn" id="2_0v288"]
 [ext_resource type="Texture2D" uid="uid://bhh8x58gkgxy4" path="res://game/assets/third_party/helicopter.png" id="2_gkfow"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="3_o2fw2"]
+[ext_resource type="PackedScene" uid="uid://dhfd3qntic8ra" path="res://game/scenes/m3/effects/star.tscn" id="5_5hu2w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03o"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crxov"]
+size = Vector2(208, 208)
 
 [sub_resource type="Animation" id="Animation_d0ae2"]
 length = 0.001
@@ -45,8 +54,30 @@ _data = {
 _match_type = 7
 _item_name = "helicopter"
 
-[node name="view" parent="." index="4"]
+[node name="pmover" parent="." index="0" node_paths=PackedStringArray("_swap_move_logic")]
+_swap_move_logic = NodePath("projectile")
+
+[node name="projectile" parent="pmover" index="9" instance=ExtResource("2_0v288")]
+
+[node name="damager" parent="." index="3"]
+visible = false
+
+[node name="strong" parent="damager" index="0" instance=ExtResource("3_o2fw2")]
+resistance = 2
+
+[node name="collision" type="CollisionShape2D" parent="damager/strong" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_wr03o")
+
+[node name="weak" parent="damager" index="1" instance=ExtResource("3_o2fw2")]
+
+[node name="collision" type="CollisionShape2D" parent="damager/weak" index="0"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_crxov")
+
+[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
 texture = ExtResource("2_gkfow")
+_end_effect = NodePath("GPUParticles2D")
 
 [node name="Node2D" type="Node2D" parent="view" index="0"]
 
@@ -55,3 +86,5 @@ libraries = {
 "": SubResource("AnimationLibrary_t54pl")
 }
 autoplay = "stop"
+
+[node name="GPUParticles2D" parent="view" index="1" instance=ExtResource("5_5hu2w")]
