@@ -8,8 +8,6 @@ var _swap_item_name:String = ""
 @export var add_boost_resist:int = 2
 @export var info_component:InfoComponent = null
 
-signal send_finish_damage()
-
 func set_swap_item_name(_item_name:String):
 	if _item_name.is_empty():
 		return
@@ -30,4 +28,3 @@ func run_damage() -> void:
 			if not _swap_item_name.is_empty() and info_component and info_component.is_item_name_matcher(_swap_item_name):
 				child.resistance += add_boost_resist
 			child.start()
-	send_finish_damage.emit()
