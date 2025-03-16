@@ -122,7 +122,7 @@ _end_effect = NodePath("star")
 position = Vector2(-3.05176e-05, -6.10352e-05)
 
 [node name="Node2D" type="Node2D" parent="view" index="1"]
-position = Vector2(38.4264, -22.1855)
+position = Vector2(-1.14441e-05, 7.62939e-06)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="view/Node2D" index="0"]
 libraries = {

@@ -85,6 +85,6 @@ libraries = {
 autoplay = "start"
 
 [node name="explosive" parent="view" index="1" instance=ExtResource("5_1tpap")]
-position = Vector2(251, 251)
+position = Vector2(-1.52588e-05, -1.52588e-05)
 speed_scale = 1.6
 explosiveness = 1.0

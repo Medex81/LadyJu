@@ -33,3 +33,4 @@ material = SubResource("CanvasItemMaterial_ovaga")
 amount = 7
 process_material = SubResource("ParticleProcessMaterial_tog0j")
 texture = ExtResource("1_i6jpn")
+lifetime = 0.5

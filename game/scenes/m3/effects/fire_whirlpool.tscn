@@ -38,4 +38,5 @@ emitting = false
 amount = 4
 process_material = SubResource("25")
 texture = ExtResource("1_1i452")
+lifetime = 0.5
 one_shot = true

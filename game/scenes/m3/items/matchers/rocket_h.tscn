@@ -51,9 +51,10 @@ texture = ExtResource("2_mdyu7")
 _end_effect = NodePath("container")
 
 [node name="container" parent="view" index="0" instance=ExtResource("4_8rj6i")]
-position = Vector2(251, 251)
+position = Vector2(-1.52588e-05, -1.52588e-05)
 
 [node name="right" type="GPUParticles2D" parent="view/container" index="0"]
+position = Vector2(1.52588e-05, 1.52588e-05)
 emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_oemnb")
@@ -62,6 +63,7 @@ lifetime = 0.7
 one_shot = true
 
 [node name="left" type="GPUParticles2D" parent="view/container" index="1"]
+position = Vector2(1.52588e-05, 1.52588e-05)
 emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_dh3ew")

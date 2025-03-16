@@ -38,4 +38,5 @@ emitting = false
 amount = 3
 process_material = SubResource("30")
 texture = ExtResource("1_psano")
+lifetime = 0.5
 one_shot = true

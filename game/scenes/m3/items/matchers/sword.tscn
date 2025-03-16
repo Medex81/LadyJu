@@ -170,7 +170,7 @@ autoplay = "start"
 
 [node name="circle" type="GPUParticles2D" parent="view" index="1"]
 material = SubResource("CanvasItemMaterial_5pyca")
-position = Vector2(0, 31.375)
+position = Vector2(0, -9.53674e-06)
 emitting = false
 amount = 3
 process_material = SubResource("ParticleProcessMaterial_cykh4")

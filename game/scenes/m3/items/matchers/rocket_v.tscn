@@ -30,9 +30,6 @@ scale_max = 0.4
 _match_type = 3
 _item_name = "rocket_v"
 
-[node name="pmover" parent="." index="0"]
-visible = false
-
 [node name="damager" parent="." index="3"]
 visible = false
 
@@ -54,7 +51,7 @@ texture = ExtResource("3_hudvy")
 _end_effect = NodePath("container")
 
 [node name="container" parent="view" index="0" instance=ExtResource("4_dvvry")]
-position = Vector2(251, 251)
+position = Vector2(-1.52588e-05, -1.52588e-05)
 
 [node name="up" type="GPUParticles2D" parent="view/container" index="0"]
 emitting = false
@@ -72,10 +69,10 @@ texture = ExtResource("5_fnndd")
 one_shot = true
 
 [node name="Node2D" type="Node2D" parent="view" index="1"]
-position = Vector2(31.375, 31.375)
+position = Vector2(-9.53674e-06, -9.53674e-06)
 
 [node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("7_jbsxb")]
-position = Vector2(62.75, 219.625)
+position = Vector2(94.125, 219.625)
 
 [node name="GPUParticles2D2" parent="view/Node2D" index="1" instance=ExtResource("7_jbsxb")]
-position = Vector2(-156.875, -251)
+position = Vector2(-125.5, -219.625)

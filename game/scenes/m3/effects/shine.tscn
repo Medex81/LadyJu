@@ -45,3 +45,4 @@ material = SubResource("14")
 emitting = false
 process_material = SubResource("19")
 texture = ExtResource("1_q8ryg")
+lifetime = 0.5
