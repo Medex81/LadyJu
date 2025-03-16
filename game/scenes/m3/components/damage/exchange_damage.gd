@@ -1,12 +1,12 @@
-extends BaseDamageComponent
+extends Node2D
 
 class_name ExchangeDamageComponent
 
 @export var change_percent:float = 0.5
 @export var group_crystals = "crystals"
 
-func start(item_name = null):
-	if item_name is String and not item_name.is_empty():
+func start(item_name:String):
+	if not item_name.is_empty():
 		var crystals_arr = get_tree().get_nodes_in_group(group_crystals) as Array[InfoComponent]
 		var without_arr:Array[InfoComponent]
 		for item in crystals_arr:
