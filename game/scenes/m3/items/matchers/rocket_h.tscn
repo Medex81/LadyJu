@@ -26,9 +26,10 @@ gravity = Vector3(-4000, 0, 0)
 scale_min = 0.4
 scale_max = 0.4
 
-[node name="match_info" instance=ExtResource("1_7cpye")]
+[node name="match_info" node_paths=PackedStringArray("damager_component") instance=ExtResource("1_7cpye")]
 _match_type = 2
 _item_name = "rocket_h"
+damager_component = NodePath("damager")
 
 [node name="damager" parent="." index="3"]
 visible = false

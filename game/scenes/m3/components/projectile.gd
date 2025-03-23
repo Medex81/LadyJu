@@ -35,7 +35,6 @@ func start(_self_item:InfoComponent, item_name:String = ""):
 			else:
 				send_done.emit()
 
-
 func tween_step(inx:int):
 	if tween != null:
 		if to_item == null:

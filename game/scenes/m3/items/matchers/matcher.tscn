@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="5_jvep5"]
 [ext_resource type="PackedScene" uid="uid://b8duo154simny" path="res://game/scenes/m3/components/view.tscn" id="6_e6ag0"]
 
-[node name="match_info" node_paths=PackedStringArray("_damager_component", "_view_component", "_pmover_component") instance=ExtResource("1_h7gjo")]
-_damager_component = NodePath("damager")
+[node name="match_info" node_paths=PackedStringArray("damager_component", "_view_component", "_pmover_component") instance=ExtResource("1_h7gjo")]
+damager_component = NodePath("damager")
 _view_component = NodePath("view")
 _pmover_component = NodePath("pmover")
 

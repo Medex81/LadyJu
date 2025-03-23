@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://game/scenes/m3/components/match_info.gd" id="1_81ejb"]
 
-[node name="match_info" type="Node2D"]
+[node name="match_info" type="Node2D" groups=["info"]]
 script = ExtResource("1_81ejb")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

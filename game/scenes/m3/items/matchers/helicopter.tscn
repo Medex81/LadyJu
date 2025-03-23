@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://buol7j31kopps"]
+[gd_scene load_steps=12 format=3 uid="uid://buol7j31kopps"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_g4agv"]
 [ext_resource type="PackedScene" uid="uid://dte0r5rm7rw2a" path="res://game/scenes/m3/components/projectile.tscn" id="2_0v288"]
 [ext_resource type="Texture2D" uid="uid://bhh8x58gkgxy4" path="res://game/assets/third_party/helicopter.png" id="2_gkfow"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="3_o2fw2"]
 [ext_resource type="PackedScene" uid="uid://dhfd3qntic8ra" path="res://game/scenes/m3/effects/star.tscn" id="5_5hu2w"]
+[ext_resource type="PackedScene" uid="uid://bn61mdmxk0sdd" path="res://game/scenes/m3/components/swap_logic/swap_logic_helicopter.tscn" id="6_uniph"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03o"]
 size = Vector2(80, 80)
@@ -50,9 +51,10 @@ _data = {
 "stop": SubResource("Animation_5tq1p")
 }
 
-[node name="match_info" instance=ExtResource("1_g4agv")]
+[node name="match_info" node_paths=PackedStringArray("_swap_logic") instance=ExtResource("1_g4agv")]
 _match_type = 7
 _item_name = "helicopter"
+_swap_logic = NodePath("swap_logic_helicopter")
 
 [node name="pmover" parent="." index="0" node_paths=PackedStringArray("_swap_move_logic")]
 _swap_move_logic = NodePath("projectile")
@@ -88,3 +90,8 @@ libraries = {
 autoplay = "stop"
 
 [node name="GPUParticles2D" parent="view" index="1" instance=ExtResource("5_5hu2w")]
+
+[node name="swap_logic_helicopter" parent="." index="6" instance=ExtResource("6_uniph")]
+copy_count = 2
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered2"]
