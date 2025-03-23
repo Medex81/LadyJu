@@ -8,9 +8,10 @@ class_name InfoComponent
 
 @export var _item_name:String
 @export var _item_size:int = 128
-@export var _damager_component:DamageContainerComponent = null
+@export var damager_component:DamageContainerComponent = null
 @export var _view_component:ViewComponent = null
 @export var _pmover_component:PMoverComponent = null
+@export var _swap_logic:BaseSwapLogicComponent = null
 @export var _top_item:InfoComponent = null
 @export var is_interactive:bool = true
 
@@ -63,6 +64,16 @@ func change_to_item(_name:String = "")->InfoComponent:
 			print("Error. Change item {0} to {1}".format([_item_name, _name]))
 	return new_item
 	
+func get_matcher_for_name(_name:String = ""):
+	if _name.is_empty():
+		_name = _item_name
+	var new_item:MatchInfoComponent = null
+	if _item_generator:
+		new_item = _item_generator.get_matcher(_name)
+		if new_item == null:
+			print("Error. get_matcher_for_name {0} no matcher".format([_item_name]))
+	return new_item
+
 func change_to_matcher(_name:String)->MatchInfoComponent:
 	var new_item:MatchInfoComponent = null
 	if _item_generator:
@@ -96,6 +107,10 @@ func is_blocked()->bool:
 func finalize(is_quiet:bool = false):
 	if not is_interactive or is_died:
 		return
+		
+	if _pmover_component != null and _pmover_component.has_swap_move():
+		_pmover_component.call_deferred("final_swap_move_logic")
+		return
 
 	if _top_item != null:
 		_top_item.finalize()
@@ -103,8 +118,8 @@ func finalize(is_quiet:bool = false):
 
 	is_died = true
 	if is_quiet == false:
-		if _damager_component:
-			_damager_component.run_damage()
+		if damager_component:
+			damager_component.run_damage()
 		if _view_component:
 			_view_component.run_end_effect()
 			await _view_component.send_effect_done
@@ -119,3 +134,7 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 func check_move():
 	if _pmover_component:
 		_pmover_component.call_deferred("try_move")
+
+func proc_swap_logic(second_swap_name:String):
+	if _swap_logic:
+		_swap_logic.start(self, second_swap_name)
