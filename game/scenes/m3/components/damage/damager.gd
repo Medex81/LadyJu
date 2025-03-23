@@ -9,8 +9,6 @@ var _swap_item_name:String = ""
 @export var info_component:InfoComponent = null
 
 func set_swap_item_name(_item_name:String):
-	if _item_name.is_empty():
-		return
 	_swap_item_name = _item_name
 
 func run_damage() -> void:
