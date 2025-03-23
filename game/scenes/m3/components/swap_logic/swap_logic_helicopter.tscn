@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn61mdmxk0sdd"]
+
+[ext_resource type="Script" path="res://game/scenes/m3/components/swap_logic/swap_logic_helicopter.gd" id="1_3jky5"]
+
+[node name="swap_logic_helicopter" type="Node2D"]
+script = ExtResource("1_3jky5")
