@@ -84,12 +84,12 @@ func try_move():
 			if _hint_component:
 				_hint_component.on_all_stopped()
 	
-func swap_move(direct:Vector2, second_name:String = "", is_step_counting:bool = true):
+func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_counting:bool = true):
 	if is_moving == true or (info_component != null and info_component.is_active == false):
 		return
 		
 	is_moving = true
-
+	var second_name = second_mover.info_component.get_item_name() if second_mover != null and second_mover.info_component != null else ""
 	if info_component and direct != Vector2.ZERO:
 		if _damager_component and not second_name.is_empty() and info_component is MatchInfoComponent:
 			_damager_component.set_swap_item_name(second_name)
@@ -100,7 +100,7 @@ func swap_move(direct:Vector2, second_name:String = "", is_step_counting:bool = 
 		
 		if info_component is MatchInfoComponent:
 			move_state = EMoveState.FINAL
-			info_component.proc_swap_logic(second_name)
+			info_component.proc_swap_logic(second_mover.info_component)
 			if _swap_move_logic != null:
 				is_moving = true
 				_swap_move_logic.start(info_component)
@@ -160,15 +160,15 @@ func _on_input_event(_viewport, event, _shape_idx):
 					
 				if info_component is MatchInfoComponent or swap_node.info_component is MatchInfoComponent:
 					var direct = global_position.direction_to(swap_node.global_position).sign()
-					swap_move(direct, swap_node.get_item_name(), false)
-					swap_node.swap_move(-direct, get_item_name())
+					swap_move(direct, swap_node, false)
+					swap_node.swap_move(-direct, self)
 
 				elif set_fake_item_name(swap_node.get_item_name()) and swap_node.set_fake_item_name(get_item_name()) \
 				and (swap_node.check_match() or check_match()):
 					set_fake_item_name()
 					swap_node.set_fake_item_name()
 					var direct = global_position.direction_to(swap_node.global_position).sign()
-					swap_move(direct, "", false)
+					swap_move(direct, null, false)
 					swap_node.swap_move(-direct)
 				
 				set_fake_item_name()

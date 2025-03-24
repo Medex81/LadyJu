@@ -2,9 +2,9 @@ extends BaseSwapLogicComponent
 
 @export var copy_count:int = 1
 
-func start(item:InfoComponent, second_swap_name:String):
+func start(item:InfoComponent, second_swap:InfoComponent):
 	# при особых условиях движения снимаем усиление удара с предметов
-	if item.get_item_name() == second_swap_name and item.damager_component:
+	if second_swap != null and item.get_item_name() == second_swap.get_item_name() and item.damager_component:
 		item.damager_component.set_swap_item_name("")
 		
 	for count in range(copy_count):

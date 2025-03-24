@@ -135,6 +135,6 @@ func check_move():
 	if _pmover_component:
 		_pmover_component.call_deferred("try_move")
 
-func proc_swap_logic(second_swap_name:String):
+func proc_swap_logic(second_swap:InfoComponent):
 	if _swap_logic:
-		_swap_logic.start(self, second_swap_name)
+		_swap_logic.start(self, second_swap)
