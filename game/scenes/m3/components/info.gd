@@ -86,6 +86,11 @@ func change_to_matcher(_name:String)->MatchInfoComponent:
 			print("Error. Change item {0} to matcher".format([_item_name]))
 	return new_item
 	
+func change_to(_name:String)->InfoComponent:
+	if is_item_name_valid(_name):
+		return change_to_item(_name) if is_item_name_item(_name) else change_to_matcher(_name)
+	return null
+	
 func change_to_matcher_enum(_match_type:MatcherComponent.EMatcher)->MatchInfoComponent:
 	var new_item:MatchInfoComponent = null
 	if _item_generator:
@@ -103,15 +108,24 @@ func on_no_hint() -> void:
 
 func is_blocked()->bool:
 	return _top_item != null
+	
+func is_movable()->bool:
+	return not is_blocked() and is_interactive and not is_died and is_active 
 
 func finalize(is_quiet:bool = false):
 	if not is_interactive or is_died:
 		return
 		
+	for item_child in get_children():
+		if item_child is InfoComponent:
+			item_child.is_active = true
+			item_child.is_interactive = true
+			item_child.call_deferred("finalize")
+		
 	if _pmover_component != null and _pmover_component.has_swap_move():
 		_pmover_component.call_deferred("final_swap_move_logic")
 		return
-
+		
 	if _top_item != null:
 		_top_item.finalize()
 		return
@@ -120,10 +134,11 @@ func finalize(is_quiet:bool = false):
 	if is_quiet == false:
 		if damager_component:
 			damager_component.run_damage()
-		if _view_component:
+		if _view_component and _view_component.has_end_effect():
 			_view_component.run_end_effect()
 			await _view_component.send_effect_done
 	get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, _item_name)
+
 	queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
@@ -135,6 +150,6 @@ func check_move():
 	if _pmover_component:
 		_pmover_component.call_deferred("try_move")
 
-func proc_swap_logic(second_swap:InfoComponent):
+func proc_swap_logic(second_swap:InfoComponent = null):
 	if _swap_logic:
 		_swap_logic.start(self, second_swap)
