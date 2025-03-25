@@ -78,6 +78,7 @@ position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_crxov")
 
 [node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
+z_index = 3
 texture = ExtResource("2_gkfow")
 _end_effect = NodePath("GPUParticles2D")
 
