@@ -8,6 +8,9 @@ class_name ViewComponent
 
 signal send_effect_done
 
+func has_end_effect()->bool:
+	return _end_effect != null
+
 func run_end_effect():
 	texture = null
 	for effect in get_children():
