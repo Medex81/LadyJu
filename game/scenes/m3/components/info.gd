@@ -150,6 +150,8 @@ func check_move():
 	if _pmover_component:
 		_pmover_component.call_deferred("try_move")
 
-func proc_swap_logic(second_swap:InfoComponent = null):
+func proc_swap_logic(second_swap:InfoComponent = null)->bool:
 	if _swap_logic:
 		_swap_logic.start(self, second_swap)
+		return true
+	return false

@@ -104,13 +104,17 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 		if info_component is MatchInfoComponent:
 			# всё - компонент больше нельзя использовать
 			move_state = EMoveState.FINAL
-			info_component.proc_swap_logic(second_mover.info_component)
+			# логика свапа была установлена для этого предмета
+			var is_swap_logic = info_component.proc_swap_logic(second_mover.info_component)
+			# логика перемещения при свапе была установлена для этого предмета
 			if _swap_move_logic != null:
 				is_moving = true
 				_swap_move_logic.start(info_component)
 				await _swap_move_logic.send_done
 				is_moving = false
-			info_component.finalize()
+			# если была установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.
+			if is_swap_logic:
+				info_component.finalize()
 		else:
 			matching()
 		if is_step_counting:
