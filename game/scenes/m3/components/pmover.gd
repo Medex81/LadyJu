@@ -25,9 +25,6 @@ var _item_name:String
 var is_moving:bool = false
 var moving_to_rect:Rect2
 var cell_size:Vector2 = Vector2(_cell_width, _cell_width)
-var _top:Node2D = null
-var _top_l:Node2D = null
-var _top_r:Node2D = null
 
 static var swap_node:PMoverComponent = null
 

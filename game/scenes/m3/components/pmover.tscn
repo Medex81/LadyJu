@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvtr2nb2dyo74"]
 
-[ext_resource type="Script" path="res://game/scenes/m3/components/pmover.gd" id="1_lhfdv"]
+[ext_resource type="Script" uid="uid://df2o8xxbwfk84" path="res://game/scenes/m3/components/pmover.gd" id="1_lhfdv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3yv6h"]
 size = Vector2(96, 96)
