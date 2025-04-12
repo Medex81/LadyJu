@@ -1,2 +1,18 @@
 key,en,ru
-a_quest_bar_title,Quest conditions,Условия квеста
+a_end_window_title,The layer is completed,Уровень пройден
+a_to_map,To the map,На карту
+a_level,Level,Уровень
+a_ok,OK,ОК
+a_complete,Complete,Пройден
+a_score,Score :,Счёт :
+a_reward,Reward,Награда
+a_yes,Yes,Да
+a_no,No,Нет
+a_goto,Go to,Перейти
+a_close,Close,Закрыть
+a_select_level,Select level,Выберите уровень
+a_quest,Quest,Задание
+a_cave,Cave,Пещера
+a_result,Result,Результат
+a_coins,Coins :,Монет :
+a_game_title,lady Ju,Леди Жу
