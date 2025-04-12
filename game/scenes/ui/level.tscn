@@ -1,0 +1,122 @@
+[gd_scene load_steps=9 format=3 uid="uid://km31k43ulsdt"]
+
+[ext_resource type="Script" path="res://game/scenes/ui/level.gd" id="1_c003j"]
+[ext_resource type="PackedScene" uid="uid://dkgrhv0r5hgn" path="res://game/scenes/ui/windows/quest_window.tscn" id="2_pjsrg"]
+[ext_resource type="PackedScene" uid="uid://d1gx0u0dn6jlw" path="res://game/scenes/ui/hud/bar_score.tscn" id="3_2fmyu"]
+[ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="3_3ie58"]
+[ext_resource type="PackedScene" uid="uid://dwqu2idis3vys" path="res://game/scenes/ui/buttons/boost_hummer.tscn" id="5_jywpp"]
+[ext_resource type="PackedScene" uid="uid://dvy8ek6oqf0rt" path="res://game/scenes/ui/buttons/boost_h_rocket.tscn" id="6_7qgj1"]
+[ext_resource type="PackedScene" uid="uid://d24ua2fwn0uhc" path="res://game/scenes/ui/buttons/boost_v_rocket.tscn" id="7_035cq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmv5m"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.911921, 0.797923, 0.282678, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="level" type="Control" groups=["game_field"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_c003j")
+
+[node name="back" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="main_margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="main_container" type="HBoxContainer" parent="main_margin"]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="left" type="VBoxContainer" parent="main_margin/main_container"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="frame" type="Panel" parent="main_margin/main_container/left"]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vmv5m")
+
+[node name="debug_image" type="TextureRect" parent="main_margin/main_container/left/frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_3ie58")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Lady_Ju" type="SubViewport" parent="main_margin/main_container/left/frame"]
+size = Vector2i(350, 350)
+size_2d_override = Vector2i(350, 350)
+size_2d_override_stretch = true
+
+[node name="bar" parent="main_margin/main_container/left" instance=ExtResource("3_2fmyu")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="aims" parent="main_margin/main_container/left" instance=ExtResource("2_pjsrg")]
+custom_minimum_size = Vector2(100, 500)
+layout_mode = 2
+
+[node name="margin_aims" type="MarginContainer" parent="main_margin/main_container/left/aims"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="boosts" type="VBoxContainer" parent="main_margin/main_container/left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="hummer" parent="main_margin/main_container/left/boosts" instance=ExtResource("5_jywpp")]
+layout_mode = 2
+
+[node name="h_rocket" parent="main_margin/main_container/left/boosts" instance=ExtResource("6_7qgj1")]
+layout_mode = 2
+
+[node name="v_rocket" parent="main_margin/main_container/left/boosts" instance=ExtResource("7_035cq")]
+layout_mode = 2

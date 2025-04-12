@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://7qgsn20awh2p"]
+
+[ext_resource type="PackedScene" uid="uid://km31k43ulsdt" path="res://game/scenes/ui/level.tscn" id="1_mijpn"]
+[ext_resource type="Texture2D" uid="uid://buej8r7uubwoh" path="res://game/scenes/locations/cave/cave.png" id="2_2nes3"]
+[ext_resource type="Resource" uid="uid://btjfphbjdeq5m" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/quest_info.tres" id="2_anft4"]
+[ext_resource type="PackedScene" uid="uid://casg8jw8jtwkf" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/quests_panel.tscn" id="3_hkwu5"]
+[ext_resource type="PackedScene" uid="uid://jklnu344kvjx" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/m_3.tscn" id="4_tiwxl"]
+
+[node name="level" instance=ExtResource("1_mijpn")]
+mouse_filter = 1
+back_to_location = "res://game/scenes/locations/cave/location.tscn"
+quest_info = ExtResource("2_anft4")
+
+[node name="back" parent="." index="0"]
+texture = ExtResource("2_2nes3")
+
+[node name="quests_panel" parent="main_margin/main_container/left/aims/margin_aims" index="0" node_paths=PackedStringArray("_base_m3_layer") instance=ExtResource("3_hkwu5")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+_base_m3_layer = NodePath("../../../../../..")
+
+[node name="m3" parent="main_margin/main_container" index="1" node_paths=PackedStringArray("_base_m3_level") instance=ExtResource("4_tiwxl")]
+layout_mode = 2
+size_flags_horizontal = 6
+_base_m3_level = NodePath("../../..")

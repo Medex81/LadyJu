@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://bq4huc4silfei"]
+
+[ext_resource type="PackedScene" uid="uid://bnpaxcpo7awhf" path="res://game/scenes/ui/stars.tscn" id="1_34dpo"]
+[ext_resource type="Texture2D" uid="uid://0x1ybhdiot46" path="res://game/assets/anny_pack/chains.png" id="1_kk27l"]
+[ext_resource type="Script" uid="uid://vumxr4b60a6v" path="res://game/scenes/ui/windows/level.gd" id="1_oturq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0csk"]
+bg_color = Color(0.990583, 0.893554, 0.762714, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.87451, 0.772549, 0.505882, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_5hlg8"]
+font_size = 35
+font_color = Color(0.568627, 0.435294, 0.137255, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="level" type="Panel"]
+custom_minimum_size = Vector2(80, 80)
+anchors_preset = -1
+anchor_right = 0.039
+anchor_bottom = 0.052
+offset_right = -9.872
+offset_bottom = -9.872
+theme_override_styles/panel = SubResource("StyleBoxFlat_e0csk")
+script = ExtResource("1_oturq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="level_number" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_5hlg8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="chains" type="TextureRect" parent="MarginContainer/VBoxContainer/level_number"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kk27l")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="stars" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_34dpo")]
+layout_mode = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

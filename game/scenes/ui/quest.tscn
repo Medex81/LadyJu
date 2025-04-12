@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://df46gi73bkxrl"]
+
+[ext_resource type="Script" path="res://game/scenes/ui/quest.gd" id="1_mutqn"]
+[ext_resource type="Texture2D" uid="uid://chp3pwa2kmms2" path="res://game/assets/third_party/icon_checkmark.png" id="2_upll8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbgac"]
+bg_color = Color(0.992157, 0.894118, 0.760784, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87451, 0.772549, 0.505882, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_eh0uf"]
+font_size = 40
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="quest" type="Panel" groups=["quest"]]
+custom_minimum_size = Vector2(150, 150)
+anchors_preset = -1
+anchor_right = 0.073
+anchor_bottom = 0.098
+offset_right = 0.495987
+offset_bottom = -0.528015
+theme_override_styles/panel = SubResource("StyleBoxFlat_sbgac")
+script = ExtResource("1_mutqn")
+metadata/_edit_use_anchors_ = true
+
+[node name="count" type="Label" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.587
+anchor_top = 0.747
+anchor_right = 0.907
+anchor_bottom = 1.02
+offset_left = -0.0500031
+offset_top = -8.05
+offset_right = -0.0500031
+offset_bottom = -5.00002
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+text = "1"
+label_settings = SubResource("LabelSettings_eh0uf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="done" type="Sprite2D" parent="."]
+z_index = 4
+position = Vector2(81, 97)
+scale = Vector2(2.2, 2.52778)
+texture = ExtResource("2_upll8")

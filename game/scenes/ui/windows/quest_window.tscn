@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkgrhv0r5hgn"]
+
+[ext_resource type="PackedScene" uid="uid://ciphw1666vdqt" path="res://game/scenes/ui/windows/window.tscn" id="1_4tles"]
+
+[node name="window" instance=ExtResource("1_4tles")]
+anchor_right = 0.136891
+anchor_bottom = 0.161354
+offset_right = -0.352005
+offset_bottom = 0.159988
+
+[node name="window_title" parent="title" index="0"]
+anchors_preset = -1
+anchor_bottom = 0.925
+offset_bottom = -3.8147e-06
+text = "a_quest"
+
+[node name="close" parent="title" index="1"]
+visible = false

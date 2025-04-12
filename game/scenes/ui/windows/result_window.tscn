@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0o8gxyncngod"]
+
+[ext_resource type="PackedScene" uid="uid://ciphw1666vdqt" path="res://game/scenes/ui/windows/window.tscn" id="1_x57qb"]
+[ext_resource type="LabelSettings" uid="uid://3jgengig3lcc" path="res://game/scenes/ui/windows/result_window_black.tres" id="2_hhd7d"]
+[ext_resource type="PackedScene" uid="uid://bnpaxcpo7awhf" path="res://game/scenes/ui/stars.tscn" id="3_m4isf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ojwke"]
+font_size = 30
+font_color = Color(0, 0, 0, 1)
+
+[node name="window" instance=ExtResource("1_x57qb")]
+anchor_bottom = 0.18775
+
+[node name="window_title" parent="title" index="0"]
+text = "a_result"
+
+[node name="vcontainer" parent="margin" index="0"]
+alignment = 1
+
+[node name="hbox_digits" type="HBoxContainer" parent="margin/vcontainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="vbox_title_digits" type="VBoxContainer" parent="margin/vcontainer/hbox_digits" index="0"]
+layout_mode = 2
+
+[node name="score" type="Label" parent="margin/vcontainer/hbox_digits/vbox_title_digits" index="0"]
+layout_mode = 2
+text = "a_score"
+label_settings = ExtResource("2_hhd7d")
+vertical_alignment = 1
+
+[node name="coins" type="Label" parent="margin/vcontainer/hbox_digits/vbox_title_digits" index="1"]
+layout_mode = 2
+text = "a_coins"
+label_settings = ExtResource("2_hhd7d")
+vertical_alignment = 1
+
+[node name="vbox_values" type="VBoxContainer" parent="margin/vcontainer/hbox_digits" index="1"]
+layout_mode = 2
+
+[node name="score" type="Label" parent="margin/vcontainer/hbox_digits/vbox_values" index="0"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_ojwke")
+vertical_alignment = 1
+
+[node name="coins" type="Label" parent="margin/vcontainer/hbox_digits/vbox_values" index="1"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_ojwke")
+vertical_alignment = 1
+
+[node name="hbox_stars" type="HBoxContainer" parent="margin/vcontainer" index="1"]
+layout_mode = 2
+alignment = 1
+
+[node name="stars" parent="margin/vcontainer/hbox_stars" index="0" instance=ExtResource("3_m4isf")]
+custom_minimum_size = Vector2(250, 70)
+layout_mode = 2

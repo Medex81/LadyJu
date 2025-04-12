@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://ciphw1666vdqt"]
+
+[ext_resource type="Script" path="res://game/scenes/ui/windows/window.gd" id="1_118ex"]
+[ext_resource type="Texture2D" uid="uid://wfqip6cv4mk2" path="res://game/assets/third_party/icon_cross.png" id="2_gxklm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cunlj"]
+bg_color = Color(0.937255, 0.929412, 0.627451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.87451, 0.772549, 0.505882, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vuhd6"]
+bg_color = Color(0.836931, 0.511405, 0.205852, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.733972, 0.396265, 0.127937, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_8i7x3"]
+font_size = 28
+font_color = Color(0.944682, 0.871636, 0.706218, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="window" type="Panel"]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = -1
+anchor_right = 0.159906
+anchor_bottom = 0.229417
+offset_right = 0.511993
+offset_bottom = -0.384033
+theme_override_styles/panel = SubResource("StyleBoxFlat_cunlj")
+script = ExtResource("1_118ex")
+metadata/_edit_use_anchors_ = true
+
+[node name="title" type="Panel" parent="."]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vuhd6")
+
+[node name="window_title" type="Label" parent="title"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "a_none"
+label_settings = SubResource("LabelSettings_8i7x3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="close" type="Button" parent="title"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -39.9995
+offset_right = 0.000518799
+offset_bottom = 40.0
+grow_horizontal = 0
+icon = ExtResource("2_gxklm")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.113636
+anchor_right = 1.0
+anchor_bottom = 0.999999
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="vcontainer" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[connection signal="pressed" from="title/close" to="." method="_on_close_pressed"]
