@@ -7,7 +7,7 @@ var start_global_pos:Vector2
 # список с разными целями по квестам для уровня
 static var processed_aims:Array[InfoComponent]
 
-func start(_self_item:InfoComponent, item_name:String = ""):
+func start(_self_item:InfoComponent, _item_name:String = ""):
 	if _self_item != null:
 		from_item = _self_item
 		var quest_item_names:Array[String]
@@ -35,7 +35,7 @@ func start(_self_item:InfoComponent, item_name:String = ""):
 			else:
 				send_done.emit()
 
-func tween_step(inx:int):
+func tween_step(_inx:int):
 	if tween != null:
 		if to_item == null:
 			tween.step_finished.disconnect(tween_step)

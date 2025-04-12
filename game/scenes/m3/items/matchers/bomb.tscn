@@ -45,8 +45,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nnj72"]
 _data = {
-"RESET": SubResource("Animation_h36e0"),
-"start": SubResource("Animation_40r10")
+&"RESET": SubResource("Animation_h36e0"),
+&"start": SubResource("Animation_40r10")
 }
 
 [node name="match_info" instance=ExtResource("1_pkepy")]

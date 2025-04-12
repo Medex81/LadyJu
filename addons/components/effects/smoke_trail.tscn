@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c6dx637k0lx31"]
 
-[ext_resource type="Script" path="res://addons/components/effects/smoke_trail.gd" id="1_4d2qf"]
+[ext_resource type="Script" uid="uid://c5wtmljw3m0vk" path="res://addons/components/effects/smoke_trail.gd" id="1_4d2qf"]
 [ext_resource type="Texture2D" uid="uid://8lmjd4485ruh" path="res://addons/components/effects/textures/trail.png" id="1_51a1t"]
 
 [sub_resource type="Curve" id="Curve_svxtp"]

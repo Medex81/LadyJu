@@ -2,7 +2,7 @@ extends Control
 
 class_name M3
 
-@export var _base_m3_layer:BaseM3Layer = null
+@export var _base_m3_level:BaseM3Level = null
 @export var _move_timeout:float = 0.2 
 var timeout_counter:float = 0
 @onready var tree = get_tree()

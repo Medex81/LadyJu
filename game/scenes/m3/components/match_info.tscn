@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dj0q5ifgmf368"]
 
-[ext_resource type="Script" path="res://game/scenes/m3/components/match_info.gd" id="1_81ejb"]
+[ext_resource type="Script" uid="uid://gvmunehcypbk" path="res://game/scenes/m3/components/match_info.gd" id="1_81ejb"]
 
 [node name="match_info" type="Node2D" groups=["info"]]
 script = ExtResource("1_81ejb")

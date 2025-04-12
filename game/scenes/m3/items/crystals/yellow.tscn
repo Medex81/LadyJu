@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbwyoqheqg34l"]
 
 [ext_resource type="PackedScene" uid="uid://dnlb0etbpjc5p" path="res://game/scenes/m3/items/crystals/cristal.tscn" id="1_3weq5"]
-[ext_resource type="Texture2D" uid="uid://cvulscfgci0g8" path="res://game/assets/anny_pack/crystal_yellow.png" id="2_uwb3b"]
+[ext_resource type="Texture2D" uid="uid://cvulscfgci0g8" path="res://game/assets/anny_pack/crystal_yellow.png" id="2_bdmjw"]
 
 [node name="info" instance=ExtResource("1_3weq5")]
 _item_name = "yellow"
 
 [node name="view" parent="." index="5"]
-texture = ExtResource("2_uwb3b")
+texture = ExtResource("2_bdmjw")

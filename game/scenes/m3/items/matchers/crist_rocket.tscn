@@ -72,8 +72,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f08pn"]
 _data = {
-"RESET": SubResource("Animation_p3ufj"),
-"start": SubResource("Animation_q8f4d")
+&"RESET": SubResource("Animation_p3ufj"),
+&"start": SubResource("Animation_q8f4d")
 }
 
 [node name="match_info" instance=ExtResource("1_cshsw")]

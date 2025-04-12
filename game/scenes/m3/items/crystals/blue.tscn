@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://doviksuk44trd"]
 
-[ext_resource type="PackedScene" uid="uid://dnlb0etbpjc5p" path="res://game/scenes/m3/items/cristals/cristal.tscn" id="1_qeu06"]
-[ext_resource type="Texture2D" uid="uid://dck22mg4fwycr" path="res://game/assets/anny_pack/crystal_blue.png" id="2_absgm"]
+[ext_resource type="PackedScene" uid="uid://dnlb0etbpjc5p" path="res://game/scenes/m3/items/crystals/cristal.tscn" id="1_qeu06"]
+[ext_resource type="Texture2D" uid="uid://dck22mg4fwycr" path="res://game/assets/anny_pack/crystal_blue.png" id="2_stqyu"]
 
 [node name="info" instance=ExtResource("1_qeu06")]
 _item_name = "blue"
 
 [node name="view" parent="." index="5"]
-texture = ExtResource("2_absgm")
+texture = ExtResource("2_stqyu")

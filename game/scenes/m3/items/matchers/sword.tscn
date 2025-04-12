@@ -96,8 +96,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7aebf"]
 _data = {
-"RESET": SubResource("Animation_2y2ai"),
-"start": SubResource("Animation_s78kx")
+&"RESET": SubResource("Animation_2y2ai"),
+&"start": SubResource("Animation_s78kx")
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5pyca"]

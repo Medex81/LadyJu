@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpw8vv66rntf0"]
 
-[ext_resource type="Script" path="res://addons/components/effects/blast.gd" id="1_s3avq"]
+[ext_resource type="Script" uid="uid://drvtenh41vjtp" path="res://addons/components/effects/blast.gd" id="1_s3avq"]
 [ext_resource type="PackedScene" uid="uid://7ib5egdayv20" path="res://game/scenes/m3/effects/blast.tscn" id="3_05kdr"]
 [ext_resource type="AudioStream" uid="uid://cmn1xx8tn8j2n" path="res://addons/sounds/hits/weak-explosion-with-overcharge.mp3" id="3_y4hpn"]
 

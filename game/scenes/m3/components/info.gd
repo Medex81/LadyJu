@@ -104,7 +104,7 @@ func change_to_matcher_enum(_match_type:MatcherComponent.EMatcher)->MatchInfoCom
 	return new_item
 
 func on_no_hint() -> void:
-	get_tree().call_group(BaseM3Layer.group_name, BaseM3Layer.events_fn, BaseM3Layer.EEvents.NO_HINTS)
+	get_tree().call_group(BaseM3Level.group_name, BaseM3Level.events_fn, BaseM3Level.EEvents.NO_HINTS)
 
 func is_blocked()->bool:
 	return _top_item != null
@@ -137,7 +137,7 @@ func finalize(is_quiet:bool = false):
 		if _view_component and _view_component.has_end_effect():
 			_view_component.run_end_effect()
 			await _view_component.send_effect_done
-	get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, _item_name)
+		get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, _item_name)
 
 	queue_free()
 

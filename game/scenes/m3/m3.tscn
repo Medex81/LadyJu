@@ -1,6 +1,6 @@
 [gd_scene load_steps=122 format=3 uid="uid://bog8shiiuriye"]
 
-[ext_resource type="Script" path="res://game/scenes/m3/m_3.gd" id="1_ct7pn"]
+[ext_resource type="Script" uid="uid://xbq7eix6676f" path="res://game/scenes/m3/m_3.gd" id="1_ct7pn"]
 [ext_resource type="PackedScene" uid="uid://bb1jfjnmiupvx" path="res://game/scenes/m3/item_generator.tscn" id="1_layab"]
 [ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/crystals/purple.tscn" id="4_qw1qg"]
 [ext_resource type="PackedScene" uid="uid://c37um85cxcf5l" path="res://game/scenes/m3/items/crystals/red.tscn" id="5_unyqu"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cu7okrbyr3rwe"]
 
-[ext_resource type="Script" path="res://game/scenes/m3/components/damage/one_shot_damage.gd" id="1_h6lu3"]
+[ext_resource type="Script" uid="uid://h3fx8gnsolpj" path="res://game/scenes/m3/components/damage/one_shot_damage.gd" id="1_h6lu3"]
 
 [node name="one_shot_damage" type="Area2D"]
 collision_layer = 0

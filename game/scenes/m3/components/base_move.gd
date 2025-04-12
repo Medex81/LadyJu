@@ -4,5 +4,5 @@ class_name BaseMoveComponent
 
 signal send_done()
 
-func start(_self_item:InfoComponent, item_name:String = ""):
+func start(_self_item:InfoComponent, _item_name:String = ""):
 	send_done.emit()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bb1jfjnmiupvx"]
 
-[ext_resource type="Script" path="res://game/scenes/m3/item_generator.gd" id="1_6ndf6"]
+[ext_resource type="Script" uid="uid://ddkqu6sr3auf3" path="res://game/scenes/m3/item_generator.gd" id="1_6ndf6"]
 
 [node name="item_generator" type="Node2D" groups=["item_generator"]]
 script = ExtResource("1_6ndf6")

@@ -10,8 +10,7 @@ particles_anim_v_frames = 7
 particles_anim_loop = false
 
 [sub_resource type="Curve" id="Curve_wlhsj"]
-min_value = -2.0
-max_value = 2.0
+_limits = [-2.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0.0120482, -1.50759), 0.0, 0.0, 0, 0, Vector2(0.987952, 2), 0.0, 0.0, 0, 0]
 point_count = 2
 
