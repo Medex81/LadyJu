@@ -14,6 +14,7 @@ enum EDistance{NONE, CELL, DIAGONAL, CELL_2}
 enum EMatcher{NONE, LINE3, LINE4_H, LINE4_V, LINE5, ANGLE5, SQUARE4, T4, T5, T6, T7}
 @export var cell_offset:int = 5
 @export var info_component:InfoComponent = null
+@onready var player_state:PlayerState = Globals.player_state
 
 
 func _ready() -> void:
@@ -116,8 +117,10 @@ func check_detector_collisions(with_remove:bool = true)->EMatcher:
 func remove_and_change(neighbors:Array[MatcherComponent], change_enum:EMatcher):
 	if info_component != null:
 		if change_enum > EMatcher.LINE3:
+			player_state.coins += int(change_enum)
 			info_component.change_to_matcher_enum(change_enum)
 		else:
+			player_state.coins += 1
 			info_component.finalize()
 			
 	for item in neighbors:
