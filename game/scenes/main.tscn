@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://dorxncabpvvcj"]
+
+[ext_resource type="Texture2D" uid="uid://b84ebqs7asg6d" path="res://game/assets/backend_img_2.jpg" id="1_avnmd"]
+[ext_resource type="Script" path="res://game/scenes/main.gd" id="1_mioy5"]
+[ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="3_2787e"]
+[ext_resource type="Texture2D" uid="uid://cwm1sg1jcvblu" path="res://game/assets/main_match.png" id="4_iaign"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8utux"]
+font_size = 150
+font_color = Color(0.829317, 0.564793, 0.389354, 1)
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mioy5")
+start_location = "res://game/scenes/locations/cave/location.tscn"
+
+[node name="back" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_avnmd")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="main_margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="title" type="Label" parent="main_margin"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "a_game_title"
+label_settings = SubResource("LabelSettings_8utux")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="images" type="HBoxContainer" parent="main_margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Ju_puppy" type="TextureRect" parent="main_margin/images"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_2787e")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="match_image" type="TextureRect" parent="main_margin/images"]
+custom_minimum_size = Vector2(900, 900)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_iaign")
+expand_mode = 1
+stretch_mode = 5
