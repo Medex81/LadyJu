@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="QuestInfo" load_steps=2 format=3 uid="uid://tdr2e0nhuf2t"]
+
+[ext_resource type="Script" path="res://game/config/quest_info.gd" id="1_rwmo3"]
+
+[resource]
+script = ExtResource("1_rwmo3")
+quest_name = "kerosine"
+level_path = "res://game/scenes/locations/cave/queue_quests/lamp_and_light/kerosine/level.tscn"
