@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1pok1fmu7d3d"]
+
+[ext_resource type="StyleBox" uid="uid://74h8r1ad63nx" path="res://game/scenes/ui/buttons/blue_bottom.tres" id="1_cgtpl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2j67i"]
+bg_color = Color(0.0434553, 0.522485, 0.742034, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0862745, 0.141176, 0.788235, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ldkh"]
+bg_color = Color(0.386195, 0.764847, 0.991221, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(100, 100)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_2j67i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7ldkh")
+theme_override_styles/normal = ExtResource("1_cgtpl")
+icon_alignment = 1
+expand_icon = true

@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://3ttrsow3d8o4"]
+
+[ext_resource type="PackedScene" uid="uid://8bpxcsw74l5u" path="res://game/scenes/ui/location.tscn" id="1_vngce"]
+[ext_resource type="Texture2D" uid="uid://buej8r7uubwoh" path="res://game/scenes/locations/cave/cave.png" id="2_dqixm"]
+[ext_resource type="PackedScene" uid="uid://tiq77pwuco7v" path="res://game/scenes/ui/quest_icon.tscn" id="3_f7c46"]
+[ext_resource type="Texture2D" uid="uid://c5mm5h70k48lr" path="res://game/assets/third_party/matches.png" id="4_toexi"]
+[ext_resource type="Resource" uid="uid://btjfphbjdeq5m" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/quest_info.tres" id="5_o50dn"]
+[ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="5_r6fgf"]
+[ext_resource type="Texture2D" uid="uid://c2uhj2khmc2ql" path="res://game/assets/third_party/kerosine.png" id="6_vtaqi"]
+[ext_resource type="Resource" uid="uid://tdr2e0nhuf2t" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/kerosine/quest_info.tres" id="7_5g3wx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x37nb"]
+bg_color = Color(0.583001, 0.608957, 0.582069, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+
+[node name="location" instance=ExtResource("1_vngce")]
+location_name = "cave"
+metadata/_edit_horizontal_guides_ = [1301.0]
+
+[node name="back" parent="." index="0"]
+texture = ExtResource("2_dqixm")
+
+[node name="matches" parent="HUD/main_v/top/scroll_quests/queue_quests" index="0" instance=ExtResource("3_f7c46")]
+self_modulate = Color(1, 1, 1, 1)
+layout_mode = 2
+texture = ExtResource("4_toexi")
+quest_info = ExtResource("5_o50dn")
+
+[node name="kerosine" parent="HUD/main_v/top/scroll_quests/queue_quests" index="1" instance=ExtResource("3_f7c46")]
+self_modulate = Color(1, 1, 1, 1)
+layout_mode = 2
+texture = ExtResource("6_vtaqi")
+quest_info = ExtResource("7_5g3wx")
+
+[node name="bar_score" parent="HUD/main_v/top" index="2"]
+size_flags_horizontal = 8
+
+[node name="next_quest" parent="HUD/main_v/bottom" index="0" node_paths=PackedStringArray("location")]
+location = NodePath("../../../..")
+
+[node name="hint_puppy" type="TextureRect" parent="." index="2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.535
+anchor_top = 0.847
+anchor_right = 0.535
+anchor_bottom = 0.847
+offset_left = -108.68
+offset_top = -551.992
+offset_right = 312.32
+offset_bottom = 0.00793457
+texture = ExtResource("5_r6fgf")
+
+[node name="hint" type="Panel" parent="hint_puppy" index="0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.656
+anchor_right = 0.656
+offset_left = -0.175995
+offset_top = -215.0
+offset_right = 276.824
+offset_bottom = -13.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_x37nb")
+
+[node name="margin" type="MarginContainer" parent="hint_puppy/hint" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+metadata/_edit_use_anchors_ = true
+
+[node name="item" type="TextureRect" parent="hint_puppy/hint/margin" index="0"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5

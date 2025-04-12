@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://p05v13liro31"]
+
+[ext_resource type="Texture2D" uid="uid://byh3uqobt4bys" path="res://game/assets/third_party/white_icons/singleplayer.png" id="1_7dkmc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2q1gi"]
+bg_color = Color(0.6, 0.6, 0.6, 0.0156863)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.932785, 0.74184, 0.262629, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="player_icon" type="TextureRect"]
+custom_minimum_size = Vector2(150, 150)
+texture = ExtResource("1_7dkmc")
+expand_mode = 1
+
+[node name="frame" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2q1gi")
+metadata/_edit_use_anchors_ = true

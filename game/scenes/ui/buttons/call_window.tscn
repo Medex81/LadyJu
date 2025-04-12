@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1pkjshu1hxb6"]
+
+[ext_resource type="StyleBox" uid="uid://dcp7lxby3g2ji" path="res://game/scenes/ui/buttons/green.tres" id="1_kvr4r"]
+[ext_resource type="Script" path="res://game/scenes/ui/buttons/call_window.gd" id="3_bu22e"]
+
+[node name="call_window" type="Button"]
+custom_minimum_size = Vector2(200, 50)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = ExtResource("1_kvr4r")
+theme_override_styles/pressed = ExtResource("1_kvr4r")
+theme_override_styles/normal = ExtResource("1_kvr4r")
+alignment = 0
+icon_alignment = 1
+script = ExtResource("3_bu22e")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
