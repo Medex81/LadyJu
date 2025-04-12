@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1gx0u0dn6jlw"]
+
+[ext_resource type="PackedScene" uid="uid://c7dpfp66u4ejj" path="res://game/scenes/ui/hud/bar.tscn" id="1_5j3q6"]
+[ext_resource type="Script" path="res://game/scenes/ui/hud/bar_score.gd" id="2_htb7b"]
+[ext_resource type="Texture2D" uid="uid://b408ymnib5sov" path="res://game/assets/anny_pack/coin.png" id="2_mpcye"]
+
+[node name="bar" instance=ExtResource("1_5j3q6")]
+script = ExtResource("2_htb7b")
+
+[node name="icon" parent="." index="0"]
+texture_normal = ExtResource("2_mpcye")

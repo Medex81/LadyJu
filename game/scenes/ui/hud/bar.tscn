@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7dpfp66u4ejj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyh1x"]
+bg_color = Color(0.905545, 0.849931, 0.803054, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.450648, 0.450648, 0.450648, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_qce71"]
+font_size = 30
+font_color = Color(0.055541, 1.6557e-05, 0.248382, 1)
+
+[node name="bar" type="Panel"]
+custom_minimum_size = Vector2(150, 50)
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_jyh1x")
+
+[node name="icon" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = -56.0
+offset_top = -11.0
+offset_right = 19.0
+offset_bottom = 64.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="value" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.94
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_qce71")
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
