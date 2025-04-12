@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="LadyJu"
-run/main_scene="res://tmp/game_field/game_field.tscn"
+run/main_scene="res://game/scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/image="res://game/assets/splash.png"
+
+[autoload]
+
+Globals="*res://game/config/Globals.gd"
 
 [debug]
 
@@ -23,7 +28,7 @@ gdscript/warnings/integer_division=0
 
 window/size/viewport_width=2048
 window/size/viewport_height=1536
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [editor_plugins]
