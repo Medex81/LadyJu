@@ -14,10 +14,12 @@ enum EDistance{NONE, CELL, DIAGONAL, CELL_2}
 enum EMatcher{NONE, LINE3, LINE4_H, LINE4_V, LINE5, ANGLE5, SQUARE4, T4, T5, T6, T7}
 @export var cell_offset:int = 5
 @export var info_component:InfoComponent = null
-@onready var player_state:PlayerState = Globals.player_state
-
+@export var save_value_type:PlayerState.EPS = PlayerState.EPS.NONE
+var save_coins:PlayerStateValueInt = null
 
 func _ready() -> void:
+	if save_value_type != PlayerState.EPS.NONE:
+		save_coins = Globals.player_state.get_int_value(save_value_type)
 	if info_component:
 		item_name = info_component.get_item_name()
 		_cell_size = info_component.get_item_size()
@@ -117,10 +119,12 @@ func check_detector_collisions(with_remove:bool = true)->EMatcher:
 func remove_and_change(neighbors:Array[MatcherComponent], change_enum:EMatcher):
 	if info_component != null:
 		if change_enum > EMatcher.LINE3:
-			player_state.coins += int(change_enum) * 10
+			if save_coins:
+				save_coins.value += int(change_enum) * 10
 			info_component.change_to_matcher_enum(change_enum)
 		else:
-			player_state.coins += 10
+			if save_coins:
+				save_coins.value += 10
 			info_component.finalize()
 			
 	for item in neighbors:
