@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7dpfp66u4ejj"]
+[gd_scene load_steps=4 format=3 uid="uid://c7dpfp66u4ejj"]
+
+[ext_resource type="Script" path="res://game/scenes/ui/hud/bar.gd" id="1_anwcy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyh1x"]
 bg_color = Color(0.905545, 0.849931, 0.803054, 1)
@@ -21,6 +23,7 @@ custom_minimum_size = Vector2(150, 50)
 size_flags_horizontal = 10
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_jyh1x")
+script = ExtResource("1_anwcy")
 
 [node name="icon" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(75, 75)
