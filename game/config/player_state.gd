@@ -6,24 +6,16 @@ class_name PlayerState
 @export var current_quest:String
 @export var quest_done:String
 
-@export var coins:int = 0:
-	set(value):
-		coins = value
-		send_coins_change.emit(coins)
-@export var boost_hummer:int = 0:
-	set(value):
-		boost_hummer = value
-		send_boost_hummer_change.emit(boost_hummer)
-@export var boost_v_rocket:int = 0:
-	set(value):
-		boost_v_rocket = value
-		send_boost_v_rocket_change.emit(boost_v_rocket)
-@export var boost_h_rocket:int = 0:
-	set(value):
-		boost_h_rocket = value
-		send_boost_h_rocket_change.emit(boost_h_rocket)
+enum EPS{NONE, COINS, HUMMER, V_ROCKET, H_ROCKET}
 
-signal send_coins_change(value:int)
-signal send_boost_hummer_change(value:int)
-signal send_boost_v_rocket_change(value:int)
-signal send_boost_h_rocket_change(value:int)
+@export var coins:PlayerStateValueInt = null
+@export var boost_hummer:PlayerStateValueInt = null
+@export var boost_v_rocket:PlayerStateValueInt = null
+@export var boost_h_rocket:PlayerStateValueInt = null
+
+var int_values = {}
+
+func get_int_value(key:EPS)->PlayerStateValueInt:
+	if int_values.is_empty():
+		int_values = {EPS.COINS:coins, EPS.HUMMER:boost_hummer, EPS.V_ROCKET:boost_v_rocket, EPS.H_ROCKET:boost_h_rocket}
+	return int_values.get(key, null)
