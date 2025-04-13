@@ -14,6 +14,8 @@ class_name InfoComponent
 @export var _swap_logic:BaseSwapLogicComponent = null
 @export var _top_item:InfoComponent = null
 @export var is_interactive:bool = true
+@export var reward_count:int = 1
+@onready var player_state:PlayerState = Globals.player_state
 
 const group_name = "info"
 
@@ -138,6 +140,7 @@ func finalize(is_quiet:bool = false):
 			_view_component.run_end_effect()
 			await _view_component.send_effect_done
 		get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, _item_name)
+		player_state.coins += int(reward_count)
 
 	queue_free()
 

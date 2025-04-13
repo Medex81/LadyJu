@@ -117,10 +117,10 @@ func check_detector_collisions(with_remove:bool = true)->EMatcher:
 func remove_and_change(neighbors:Array[MatcherComponent], change_enum:EMatcher):
 	if info_component != null:
 		if change_enum > EMatcher.LINE3:
-			player_state.coins += int(change_enum)
+			player_state.coins += int(change_enum) * 10
 			info_component.change_to_matcher_enum(change_enum)
 		else:
-			player_state.coins += 1
+			player_state.coins += 10
 			info_component.finalize()
 			
 	for item in neighbors:
