@@ -16,9 +16,37 @@
 [node name="m3" instance=ExtResource("1_ea8fm")]
 mouse_filter = 1
 
+[node name="rocket_h" parent="item_generator" index="6"]
+save_value_type = 0
+
+[node name="rocket_v" parent="item_generator" index="7"]
+save_value_type = 0
+
+[node name="bomb" parent="item_generator" index="8"]
+save_value_type = 0
+
+[node name="bottle" parent="item_generator" index="9"]
+save_value_type = 0
+
+[node name="crist_rocket" parent="item_generator" index="10"]
+save_value_type = 0
+
+[node name="helicopter" parent="item_generator" index="11"]
+save_value_type = 0
+
+[node name="sword" parent="item_generator" index="12"]
+save_value_type = 0
+
+[node name="amulet" parent="item_generator" index="13"]
+save_value_type = 0
+
+[node name="super_bomb" parent="item_generator" index="14"]
+save_value_type = 0
+
 [node name="spawner" parent="m3_grid/cell5" index="0" instance=ExtResource("2_nf78v")]
 
 [node name="match_info" parent="m3_grid/cell18" index="0" instance=ExtResource("2_smlnx")]
+save_value_type = 0
 
 [node name="info" parent="m3_grid/cell71" index="0" instance=ExtResource("2_se0sj")]
 
@@ -43,9 +71,13 @@ mouse_filter = 1
 [node name="info" parent="m3_grid/cell96" index="0" instance=ExtResource("2_se0sj")]
 
 [node name="match_info" parent="m3_grid/cell97" index="0" instance=ExtResource("3_3rwwx")]
+save_value_type = 0
 
 [node name="match_info" parent="m3_grid/cell98" index="0" instance=ExtResource("10_4lfvp")]
+save_value_type = 0
 
 [node name="match_info" parent="m3_grid/cell99" index="0" instance=ExtResource("10_4lfvp")]
+save_value_type = 0
 
 [node name="match_info" parent="m3_grid/cell100" index="0" instance=ExtResource("7_r5b0b")]
+save_value_type = 0

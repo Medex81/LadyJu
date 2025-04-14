@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://c5mt6uy42wt18"]
+
+[ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="1_e0ok5"]
+[ext_resource type="PackedScene" uid="uid://b8duo154simny" path="res://game/scenes/m3/components/view.tscn" id="2_l5ivh"]
+[ext_resource type="Texture2D" uid="uid://bgpvjr4wo0axn" path="res://game/assets/kenney_particle-pack/PNG (Transparent)/spark_06.png" id="3_sgunn"]
+[ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="4_a4612"]
+[ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="5_yack5"]
+
+[sub_resource type="Curve" id="Curve_e0ok5"]
+_data = [Vector2(0.0723684, 0.202247), 0.0, 0.0, 0, 0, Vector2(0.756579, 0.662921), 0.0, 0.0, 0, 0, Vector2(0.921053, 0.685393), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_e0ok5"]
+curve = SubResource("Curve_e0ok5")
+
+[sub_resource type="Gradient" id="Gradient_sgunn"]
+offsets = PackedFloat32Array(0, 0.174603, 0.698413, 1)
+colors = PackedColorArray(0.67451, 0, 0, 1, 0.174603, 0.174603, 0.174603, 1, 0.254902, 0.698039, 0.698039, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l5ivh"]
+gradient = SubResource("Gradient_sgunn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yack5"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 200, 1)
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color = Color(0.462745, 1, 1, 1)
+color_ramp = SubResource("GradientTexture1D_l5ivh")
+alpha_curve = SubResource("CurveTexture_e0ok5")
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3dkju"]
+a = Vector2(0, -568)
+b = Vector2(0, 576)
+
+[node name="v_flash" node_paths=PackedStringArray("damager_component", "_view_component") instance=ExtResource("1_e0ok5")]
+z_index = 3
+_item_name = "v_flash"
+damager_component = NodePath("damager")
+_view_component = NodePath("view")
+
+[node name="view" parent="." index="1" node_paths=PackedStringArray("_end_effect") instance=ExtResource("2_l5ivh")]
+self_modulate = Color(0.458989, 0.503368, 0.952653, 1)
+position = Vector2(3.8147e-06, -9.34601e-05)
+scale = Vector2(0.71875, 2.25)
+_end_effect = NodePath("v_flash_particle")
+
+[node name="v_flash_particle" type="GPUParticles2D" parent="view" index="0"]
+emitting = false
+amount = 6
+texture = ExtResource("3_sgunn")
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_yack5")
+
+[node name="Node2D" type="Node2D" parent="view" index="1"]
+
+[node name="Sprite2D" type="Sprite2D" parent="view/Node2D" index="0"]
+self_modulate = Color(0.370357, 0.6692, 0.99999, 1)
+texture = ExtResource("3_sgunn")
+
+[node name="damager" parent="." index="2" node_paths=PackedStringArray("info_component") instance=ExtResource("4_a4612")]
+info_component = NodePath("..")
+
+[node name="one_shot_damage" parent="damager" index="0" instance=ExtResource("5_yack5")]
+collision_layer = 4
+monitorable = true
+resistance = 2
+
+[node name="collider" type="CollisionShape2D" parent="damager/one_shot_damage" index="0"]
+shape = SubResource("SegmentShape2D_3dkju")
