@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bccu41oyfpa5"]
+
+[ext_resource type="Script" uid="uid://bmdxjpdcbj1yn" path="res://game/scenes/ui/hud/boosts/boost_intersector.gd" id="1_4ff1d"]
+
+[node name="boost_intersector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ff1d")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
