@@ -18,6 +18,7 @@ size = Vector2(256, 256)
 damager_component = NodePath("damager")
 _view_component = NodePath("view")
 _pmover_component = NodePath("pmover")
+save_value_type = 1
 
 [node name="pmover" parent="." index="0" node_paths=PackedStringArray("_match_component", "info_component", "_damager_component", "_hint_component") instance=ExtResource("2_t6qtp")]
 visible = false

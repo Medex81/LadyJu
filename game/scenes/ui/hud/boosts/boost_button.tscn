@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dtou8ba7nbsyf"]
 
 [ext_resource type="StyleBox" uid="uid://bcrqcvckkwefw" path="res://game/scenes/ui/hud/boosts/boost_button.tres" id="1_dpgkl"]
-[ext_resource type="Script" uid="uid://70ei72qcsxmw" path="res://game/scenes/ui/hud/boosts/boost_button.gd" id="2_tnhql"]
+[ext_resource type="Script" uid="uid://c1nx6i4kpm0p4" path="res://game/scenes/ui/hud/boosts/boost_button.gd" id="2_tnhql"]
 [ext_resource type="ButtonGroup" uid="uid://b4naojiw6jw5" path="res://game/scenes/ui/hud/boosts/level_buttons_group.tres" id="2_vfp78"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muopn"]

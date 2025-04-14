@@ -1,10 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bwe77doxkiaf4"]
 
-[ext_resource type="Script" uid="uid://c35f8f6y3sqre" path="res://game/scenes/m3/components/info.gd" id="1_o8ahe"]
+[ext_resource type="Script" uid="uid://bo36ty43guilj" path="res://game/scenes/m3/components/info.gd" id="1_o8ahe"]
 
 [node name="info" type="Node2D" groups=["info"]]
 script = ExtResource("1_o8ahe")
-save_value_type = 1
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

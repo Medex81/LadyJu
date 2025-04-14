@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://b7c3cvffh4h1i"]
 
-[ext_resource type="Script" uid="uid://c35f8f6y3sqre" path="res://game/scenes/m3/components/info.gd" id="1_yqrkj"]
+[ext_resource type="Script" uid="uid://bo36ty43guilj" path="res://game/scenes/m3/components/info.gd" id="1_yqrkj"]
 [ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="2_sj4x7"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="3_7f34y"]
 [ext_resource type="PackedScene" uid="uid://b8duo154simny" path="res://game/scenes/m3/components/view.tscn" id="4_mvhbi"]
@@ -141,7 +141,8 @@ damager_component = NodePath("damager")
 _view_component = NodePath("view")
 metadata/_edit_group_ = true
 
-[node name="damager" parent="." instance=ExtResource("2_sj4x7")]
+[node name="damager" parent="." node_paths=PackedStringArray("info_component") instance=ExtResource("2_sj4x7")]
+info_component = NodePath("..")
 
 [node name="one_shot_damage" parent="damager" instance=ExtResource("3_7f34y")]
 collision_layer = 4

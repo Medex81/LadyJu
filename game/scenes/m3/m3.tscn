@@ -1,6 +1,6 @@
 [gd_scene load_steps=122 format=3 uid="uid://bog8shiiuriye"]
 
-[ext_resource type="Script" uid="uid://sqwjdullfdlj" path="res://game/scenes/m3/m_3.gd" id="1_ct7pn"]
+[ext_resource type="Script" uid="uid://b1hedmtkrqh32" path="res://game/scenes/m3/m_3.gd" id="1_ct7pn"]
 [ext_resource type="PackedScene" uid="uid://bb1jfjnmiupvx" path="res://game/scenes/m3/item_generator.tscn" id="1_layab"]
 [ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/crystals/purple.tscn" id="4_qw1qg"]
 [ext_resource type="PackedScene" uid="uid://c37um85cxcf5l" path="res://game/scenes/m3/items/crystals/red.tscn" id="5_unyqu"]
@@ -1360,38 +1360,47 @@ is_interactive = false
 [node name="rocket_h" parent="item_generator" instance=ExtResource("8_62ygg")]
 position = Vector2(0, -185)
 is_interactive = false
+save_value_type = 0
 
 [node name="rocket_v" parent="item_generator" instance=ExtResource("9_sfhho")]
 position = Vector2(148, -189)
 is_interactive = false
+save_value_type = 0
 
 [node name="bomb" parent="item_generator" instance=ExtResource("10_tnq3m")]
 position = Vector2(302, -194)
 is_interactive = false
+save_value_type = 0
 
 [node name="bottle" parent="item_generator" instance=ExtResource("11_lep67")]
 position = Vector2(464, -189)
 is_interactive = false
+save_value_type = 0
 
 [node name="crist_rocket" parent="item_generator" instance=ExtResource("12_fas2r")]
 position = Vector2(610, -194)
 is_interactive = false
+save_value_type = 0
 
 [node name="helicopter" parent="item_generator" instance=ExtResource("13_x3llh")]
 position = Vector2(738, -199)
 is_interactive = false
+save_value_type = 0
 
 [node name="sword" parent="item_generator" instance=ExtResource("14_sljku")]
 position = Vector2(862, -207)
 is_interactive = false
+save_value_type = 0
 
 [node name="amulet" parent="item_generator" instance=ExtResource("15_d0t87")]
 position = Vector2(1009, -189)
 is_interactive = false
+save_value_type = 0
 
 [node name="super_bomb" parent="item_generator" instance=ExtResource("16_vqq8s")]
 position = Vector2(1180, -189)
 is_interactive = false
+save_value_type = 0
 
 [node name="perimetr" type="Area2D" parent="."]
 collision_mask = 0

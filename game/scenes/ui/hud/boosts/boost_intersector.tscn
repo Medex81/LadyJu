@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bccu41oyfpa5"]
 
-[ext_resource type="Script" uid="uid://bmdxjpdcbj1yn" path="res://game/scenes/ui/hud/boosts/boost_intersector.gd" id="1_4ff1d"]
+[ext_resource type="Script" uid="uid://b33d6jgdhkgll" path="res://game/scenes/ui/hud/boosts/boost_intersector.gd" id="1_4ff1d"]
 
 [node name="boost_intersector" type="Control"]
 layout_mode = 3
