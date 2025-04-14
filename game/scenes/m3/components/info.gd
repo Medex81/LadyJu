@@ -137,11 +137,11 @@ func finalize(is_quiet:bool = false):
 
 	is_died = true
 	if is_quiet == false:
-		if damager_component:
-			damager_component.run_damage()
 		if _view_component and _view_component.has_end_effect():
 			_view_component.run_end_effect()
 			await _view_component.send_effect_done
+		if damager_component:
+			damager_component.run_damage()
 		get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, _item_name)
 		if save_coins:
 			save_coins.value += int(reward_count)
