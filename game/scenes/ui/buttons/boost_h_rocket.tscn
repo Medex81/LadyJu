@@ -1,9 +1,0 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvy8ek6oqf0rt"]
-
-[ext_resource type="PackedScene" uid="uid://dtou8ba7nbsyf" path="res://game/scenes/ui/buttons/boost_button.tscn" id="1_wi2kj"]
-[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_c5gfg"]
-[ext_resource type="Script" path="res://game/scenes/ui/buttons/boost_h_rocket.gd" id="3_nqany"]
-
-[node name="boost" instance=ExtResource("1_wi2kj")]
-icon = ExtResource("2_c5gfg")
-script = ExtResource("3_nqany")

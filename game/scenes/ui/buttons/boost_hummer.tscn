@@ -1,9 +1,0 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwqu2idis3vys"]
-
-[ext_resource type="PackedScene" uid="uid://dtou8ba7nbsyf" path="res://game/scenes/ui/buttons/boost_button.tscn" id="1_5se3c"]
-[ext_resource type="Texture2D" uid="uid://0pyv0y1e8hxs" path="res://game/assets/anny_pack/hummer.png" id="2_j8vkj"]
-[ext_resource type="Script" path="res://game/scenes/ui/buttons/boost_hummer.gd" id="3_vkonb"]
-
-[node name="boost" instance=ExtResource("1_5se3c")]
-icon = ExtResource("2_j8vkj")
-script = ExtResource("3_vkonb")
