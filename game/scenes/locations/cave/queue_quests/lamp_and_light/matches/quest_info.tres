@@ -1,11 +1,8 @@
-[gd_resource type="Resource" script_class="QuestInfo" load_steps=3 format=3 uid="uid://btjfphbjdeq5m"]
+[gd_resource type="Resource" script_class="QuestInfo" load_steps=2 format=3 uid="uid://btjfphbjdeq5m"]
 
-[ext_resource type="Script" path="res://game/config/quest_info.gd" id="1_sec7n"]
-[ext_resource type="Texture2D" uid="uid://c5mm5h70k48lr" path="res://game/assets/third_party/matches.png" id="1_y8jso"]
+[ext_resource type="Script" uid="uid://dnudigt8hk7rx" path="res://game/config/quest_info.gd" id="1_sec7n"]
 
 [resource]
 script = ExtResource("1_sec7n")
 quest_name = "matches"
-reward = "matches"
-icon_tex = ExtResource("1_y8jso")
 level_path = "res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/level.tscn"

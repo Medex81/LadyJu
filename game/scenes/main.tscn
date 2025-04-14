@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dorxncabpvvcj"]
 
 [ext_resource type="Texture2D" uid="uid://b84ebqs7asg6d" path="res://game/assets/backend_img_2.jpg" id="1_avnmd"]
-[ext_resource type="Script" path="res://game/scenes/main.gd" id="1_mioy5"]
+[ext_resource type="Script" uid="uid://bfsh7avh6pb8s" path="res://game/scenes/main.gd" id="1_mioy5"]
 [ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="3_2787e"]
 [ext_resource type="Texture2D" uid="uid://cwm1sg1jcvblu" path="res://game/assets/main_match.png" id="4_iaign"]
 

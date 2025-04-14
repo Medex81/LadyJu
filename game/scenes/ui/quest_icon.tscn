@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://tiq77pwuco7v"]
 
-[ext_resource type="Script" path="res://game/scenes/ui/quest_icon.gd" id="2_emj1o"]
+[ext_resource type="Script" uid="uid://ch8fwb66mxavg" path="res://game/scenes/ui/quest_icon.gd" id="2_emj1o"]
 [ext_resource type="Texture2D" uid="uid://chp3pwa2kmms2" path="res://game/assets/third_party/icon_checkmark.png" id="3_v04mx"]
 
 [node name="quest_icon" type="TextureRect"]

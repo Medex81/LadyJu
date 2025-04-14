@@ -1,6 +1,6 @@
 [gd_scene load_steps=122 format=3 uid="uid://bog8shiiuriye"]
 
-[ext_resource type="Script" uid="uid://xbq7eix6676f" path="res://game/scenes/m3/m_3.gd" id="1_ct7pn"]
+[ext_resource type="Script" uid="uid://sqwjdullfdlj" path="res://game/scenes/m3/m_3.gd" id="1_ct7pn"]
 [ext_resource type="PackedScene" uid="uid://bb1jfjnmiupvx" path="res://game/scenes/m3/item_generator.tscn" id="1_layab"]
 [ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/crystals/purple.tscn" id="4_qw1qg"]
 [ext_resource type="PackedScene" uid="uid://c37um85cxcf5l" path="res://game/scenes/m3/items/crystals/red.tscn" id="5_unyqu"]
@@ -1413,6 +1413,7 @@ position = Vector2(0, -4)
 shape = SubResource("SegmentShape2D_y6784")
 
 [node name="m3_grid" type="GridContainer" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/h_separation = 0
@@ -1817,3 +1818,5 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3jir0")
 [node name="cell100" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mp8la")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

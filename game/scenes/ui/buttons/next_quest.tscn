@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://dcp7lxby3g2ji" path="res://game/scenes/ui/buttons/green.tres" id="1_n2sy8"]
 [ext_resource type="Texture2D" uid="uid://d4dg6hbu08q27" path="res://game/assets/third_party/white_icons/open.png" id="2_41jlp"]
-[ext_resource type="Script" path="res://game/scenes/ui/buttons/next_quest.gd" id="3_vd3gv"]
+[ext_resource type="Script" uid="uid://cos56w05fumei" path="res://game/scenes/ui/buttons/next_quest.gd" id="3_vd3gv"]
 
 [node name="next_quest" type="Button"]
 custom_minimum_size = Vector2(200, 80)

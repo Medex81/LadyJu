@@ -1,12 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://km31k43ulsdt"]
+[gd_scene load_steps=10 format=3 uid="uid://km31k43ulsdt"]
 
-[ext_resource type="Script" path="res://game/scenes/ui/level.gd" id="1_c003j"]
+[ext_resource type="Script" uid="uid://dwqs6dhqvg811" path="res://game/scenes/ui/level.gd" id="1_c003j"]
 [ext_resource type="PackedScene" uid="uid://dkgrhv0r5hgn" path="res://game/scenes/ui/windows/quest_window.tscn" id="2_pjsrg"]
 [ext_resource type="PackedScene" uid="uid://d1gx0u0dn6jlw" path="res://game/scenes/ui/hud/bar_score.tscn" id="3_2fmyu"]
 [ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="3_3ie58"]
-[ext_resource type="PackedScene" uid="uid://dwqu2idis3vys" path="res://game/scenes/ui/buttons/boost_hummer.tscn" id="5_jywpp"]
-[ext_resource type="PackedScene" uid="uid://dvy8ek6oqf0rt" path="res://game/scenes/ui/buttons/boost_h_rocket.tscn" id="6_7qgj1"]
-[ext_resource type="PackedScene" uid="uid://d24ua2fwn0uhc" path="res://game/scenes/ui/buttons/boost_v_rocket.tscn" id="7_035cq"]
+[ext_resource type="PackedScene" uid="uid://dtou8ba7nbsyf" path="res://game/scenes/ui/hud/boosts/boost_button.tscn" id="5_jmh58"]
+[ext_resource type="Texture2D" uid="uid://0pyv0y1e8hxs" path="res://game/assets/anny_pack/hummer.png" id="6_vqp1y"]
+[ext_resource type="PackedScene" uid="uid://b7c3cvffh4h1i" path="res://game/scenes/ui/hud/boosts/hummer.tscn" id="7_vqp1y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmv5m"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -19,6 +19,9 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_vqp1y"]
+allow_unpress = true
 
 [node name="level" type="Control" groups=["game_field"]]
 layout_mode = 3
@@ -112,11 +115,11 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="hummer" parent="main_margin/main_container/left/boosts" instance=ExtResource("5_jywpp")]
+[node name="hummer" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_vqp1y")
+icon = ExtResource("6_vqp1y")
+save_value_type = 2
+item = NodePath("hummer")
 
-[node name="h_rocket" parent="main_margin/main_container/left/boosts" instance=ExtResource("6_7qgj1")]
-layout_mode = 2
-
-[node name="v_rocket" parent="main_margin/main_container/left/boosts" instance=ExtResource("7_035cq")]
-layout_mode = 2
+[node name="hummer" parent="main_margin/main_container/left/boosts/hummer" instance=ExtResource("7_vqp1y")]

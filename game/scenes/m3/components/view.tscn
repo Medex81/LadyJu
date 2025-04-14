@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8duo154simny"]
 
-[ext_resource type="Script" path="res://game/scenes/m3/components/view.gd" id="1_bl4uw"]
+[ext_resource type="Script" uid="uid://hgvgaatc33al" path="res://game/scenes/m3/components/view.gd" id="1_bl4uw"]
 
 [node name="view" type="Sprite2D"]
 position = Vector2(64, 64)

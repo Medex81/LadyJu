@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://8bpxcsw74l5u"]
 
-[ext_resource type="Script" path="res://game/scenes/ui/location.gd" id="1_ls6w8"]
+[ext_resource type="Script" uid="uid://ka5b5sfirlo2" path="res://game/scenes/ui/location.gd" id="1_ls6w8"]
 [ext_resource type="PackedScene" uid="uid://c1pok1fmu7d3d" path="res://game/scenes/ui/buttons/blue_bottom.tscn" id="2_f0ovu"]
 [ext_resource type="PackedScene" uid="uid://p05v13liro31" path="res://game/scenes/ui/hud/player_icon.tscn" id="2_mq4wl"]
 [ext_resource type="Texture2D" uid="uid://bnf7c4tvcg1pv" path="res://game/assets/third_party/white_icons/shoppingCart.png" id="3_jjmi4"]

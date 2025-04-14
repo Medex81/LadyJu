@@ -1,6 +1,5 @@
 [gd_scene load_steps=6 format=3 uid="uid://bq4huc4silfei"]
 
-[ext_resource type="PackedScene" uid="uid://bnpaxcpo7awhf" path="res://game/scenes/ui/stars.tscn" id="1_34dpo"]
 [ext_resource type="Texture2D" uid="uid://0x1ybhdiot46" path="res://game/assets/anny_pack/chains.png" id="1_kk27l"]
 [ext_resource type="Script" uid="uid://vumxr4b60a6v" path="res://game/scenes/ui/windows/level.gd" id="1_oturq"]
 
@@ -21,6 +20,9 @@ font_size = 35
 font_color = Color(0.568627, 0.435294, 0.137255, 1)
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_kk27l"]
+metadata/__load_path__ = "res://game/scenes/ui/stars.tscn"
 
 [node name="level" type="Panel"]
 custom_minimum_size = Vector2(80, 80)
@@ -66,7 +68,7 @@ texture = ExtResource("1_kk27l")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="stars" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_34dpo")]
+[node name="stars" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

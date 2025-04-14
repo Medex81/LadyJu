@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://df46gi73bkxrl"]
 
-[ext_resource type="Script" path="res://game/scenes/ui/quest.gd" id="1_mutqn"]
+[ext_resource type="Script" uid="uid://3htae7da0l2x" path="res://game/scenes/ui/quest.gd" id="1_mutqn"]
 [ext_resource type="Texture2D" uid="uid://chp3pwa2kmms2" path="res://game/assets/third_party/icon_checkmark.png" id="2_upll8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbgac"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1pkjshu1hxb6"]
 
 [ext_resource type="StyleBox" uid="uid://dcp7lxby3g2ji" path="res://game/scenes/ui/buttons/green.tres" id="1_kvr4r"]
-[ext_resource type="Script" path="res://game/scenes/ui/buttons/call_window.gd" id="3_bu22e"]
+[ext_resource type="Script" uid="uid://dmi4jorxyn2ul" path="res://game/scenes/ui/buttons/call_window.gd" id="3_bu22e"]
 
 [node name="call_window" type="Button"]
 custom_minimum_size = Vector2(200, 50)

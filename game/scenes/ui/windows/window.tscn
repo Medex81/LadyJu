@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ciphw1666vdqt"]
 
-[ext_resource type="Script" path="res://game/scenes/ui/windows/window.gd" id="1_118ex"]
+[ext_resource type="Script" uid="uid://cxnn6ok5q510o" path="res://game/scenes/ui/windows/window.gd" id="1_118ex"]
 [ext_resource type="Texture2D" uid="uid://wfqip6cv4mk2" path="res://game/assets/third_party/icon_cross.png" id="2_gxklm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cunlj"]
