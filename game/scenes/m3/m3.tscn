@@ -19,9 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://bjmvm3ucen6l5" path="res://game/scenes/m3/items/matchers/amulet.tscn" id="15_d0t87"]
 [ext_resource type="PackedScene" uid="uid://bk84c1r8vxq6o" path="res://game/scenes/m3/items/matchers/super_bomb.tscn" id="16_vqq8s"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_j42qh"]
-a = Vector2(0, 1)
-b = Vector2(1281, -1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_al683"]
+size = Vector2(1290, 78)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_j03er"]
 a = Vector2(-4, 2)
@@ -1407,8 +1406,8 @@ collision_mask = 0
 monitoring = false
 
 [node name="cs_d" type="CollisionShape2D" parent="perimetr"]
-position = Vector2(0, 1284)
-shape = SubResource("SegmentShape2D_j42qh")
+position = Vector2(635, 1313)
+shape = SubResource("RectangleShape2D_al683")
 
 [node name="cs_l" type="CollisionShape2D" parent="perimetr"]
 shape = SubResource("SegmentShape2D_j03er")
