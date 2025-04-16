@@ -75,11 +75,11 @@ func try_move():
 		call_deferred(try_move_fn)
 	else:
 		if move_state == EMoveState.FALL:
-			matching()
 			move_state = EMoveState.STOP
 			get_tree().call_group(QuestsPanel.group_name, QuestsPanel.on_stop_move_fn)
 			if _hint_component:
 				_hint_component.on_all_stopped()
+		matching()
 	
 func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_counting:bool = true):
 	if is_moving == true or (info_component != null and info_component.is_active == false):
@@ -190,6 +190,7 @@ func matching()->bool:
 	
 func timer_matching(timeout:float = 2.0)->bool:
 	await get_tree().create_timer(timeout).timeout
+	print("pmover->match check")
 	return _match_component and _match_component.matching()
 
 func set_fake_item_name(new_item_name:String = "")->bool:
