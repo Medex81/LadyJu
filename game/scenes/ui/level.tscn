@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://km31k43ulsdt"]
+[gd_scene load_steps=13 format=3 uid="uid://km31k43ulsdt"]
 
 [ext_resource type="Script" uid="uid://bklie6rf7y5gi" path="res://game/scenes/ui/level.gd" id="1_c003j"]
 [ext_resource type="PackedScene" uid="uid://dkgrhv0r5hgn" path="res://game/scenes/ui/windows/quest_window.tscn" id="2_pjsrg"]
@@ -23,15 +23,6 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_ddvsv"]
-allow_unpress = true
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_5x4x5"]
-allow_unpress = true
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_m47w1"]
-allow_unpress = true
 
 [node name="level" type="Control" groups=["game_field"]]
 layout_mode = 3
@@ -122,7 +113,6 @@ alignment = 1
 
 [node name="hummer" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_ddvsv")
 icon = ExtResource("6_vqp1y")
 save_value_type = 2
 item = NodePath("hummer")
@@ -134,7 +124,6 @@ reward_count = 0
 
 [node name="v_splash" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_5x4x5")
 icon = ExtResource("8_ddvsv")
 save_value_type = 3
 item = NodePath("v_flash")
@@ -144,7 +133,6 @@ visible = false
 
 [node name="h_splash" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_m47w1")
 icon = ExtResource("10_k0dd4")
 save_value_type = 4
 item = NodePath("h_flash")
