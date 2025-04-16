@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://km31k43ulsdt"]
+[gd_scene load_steps=16 format=3 uid="uid://km31k43ulsdt"]
 
 [ext_resource type="Script" uid="uid://bklie6rf7y5gi" path="res://game/scenes/ui/level.gd" id="1_c003j"]
 [ext_resource type="PackedScene" uid="uid://dkgrhv0r5hgn" path="res://game/scenes/ui/windows/quest_window.tscn" id="2_pjsrg"]
@@ -28,6 +28,9 @@ corner_radius_bottom_left = 30
 allow_unpress = true
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_5x4x5"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_m47w1"]
 allow_unpress = true
 
 [node name="level" type="Control" groups=["game_field"]]
@@ -90,11 +93,6 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="Lady_Ju" type="SubViewport" parent="main_margin/main_container/left/frame"]
-size = Vector2i(350, 350)
-size_2d_override = Vector2i(350, 350)
-size_2d_override_stretch = true
-
 [node name="bar" parent="main_margin/main_container/left" instance=ExtResource("3_2fmyu")]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -146,9 +144,9 @@ visible = false
 
 [node name="h_splash" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_5x4x5")
+button_group = SubResource("ButtonGroup_m47w1")
 icon = ExtResource("10_k0dd4")
-save_value_type = 3
+save_value_type = 4
 item = NodePath("h_flash")
 
 [node name="h_flash" parent="main_margin/main_container/left/boosts/h_splash" instance=ExtResource("11_5x4x5")]

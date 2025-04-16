@@ -53,12 +53,6 @@ texture = ExtResource("3_sgunn")
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_yack5")
 
-[node name="Node2D" type="Node2D" parent="view" index="1"]
-
-[node name="Sprite2D" type="Sprite2D" parent="view/Node2D" index="0"]
-self_modulate = Color(0.370357, 0.6692, 0.99999, 1)
-texture = ExtResource("3_sgunn")
-
 [node name="damager" parent="." index="2" node_paths=PackedStringArray("info_component") instance=ExtResource("4_a4612")]
 info_component = NodePath("..")
 

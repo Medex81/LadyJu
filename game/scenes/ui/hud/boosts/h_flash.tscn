@@ -52,16 +52,7 @@ texture = ExtResource("3_fsal4")
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_6j6ja")
 
-[node name="Node2D" type="Node2D" parent="view" index="1"]
-
-[node name="Sprite2D" type="Sprite2D" parent="view/Node2D" index="0"]
-self_modulate = Color(0.370357, 0.6692, 0.99999, 1)
-position = Vector2(5.56522, 1.77783)
-scale = Vector2(3.1087, 0.326389)
-texture = ExtResource("3_fsal4")
-
-[node name="damager" parent="." index="2" node_paths=PackedStringArray("info_component") instance=ExtResource("4_fntng")]
-info_component = NodePath("")
+[node name="damager" parent="." index="2" instance=ExtResource("4_fntng")]
 
 [node name="one_shot_damage" parent="damager" index="0" instance=ExtResource("5_gfxnw")]
 collision_layer = 4
