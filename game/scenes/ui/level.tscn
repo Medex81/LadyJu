@@ -1,13 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://km31k43ulsdt"]
+[gd_scene load_steps=18 format=3 uid="uid://km31k43ulsdt"]
 
 [ext_resource type="Script" uid="uid://bklie6rf7y5gi" path="res://game/scenes/ui/level.gd" id="1_c003j"]
 [ext_resource type="PackedScene" uid="uid://dkgrhv0r5hgn" path="res://game/scenes/ui/windows/quest_window.tscn" id="2_pjsrg"]
 [ext_resource type="PackedScene" uid="uid://d1gx0u0dn6jlw" path="res://game/scenes/ui/hud/bar_score.tscn" id="3_2fmyu"]
 [ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="3_3ie58"]
-[ext_resource type="PackedScene" uid="uid://dtou8ba7nbsyf" path="res://game/scenes/ui/hud/boosts/boost_button.tscn" id="5_jmh58"]
+[ext_resource type="StyleBox" uid="uid://bcrqcvckkwefw" path="res://game/scenes/ui/hud/boosts/boost_button.tres" id="5_vqp1y"]
+[ext_resource type="StyleBox" uid="uid://u5vb3moo56ve" path="res://game/scenes/ui/hud/boosts/boost_button_press.tres" id="6_6gekt"]
 [ext_resource type="Texture2D" uid="uid://0pyv0y1e8hxs" path="res://game/assets/anny_pack/hummer.png" id="6_vqp1y"]
 [ext_resource type="PackedScene" uid="uid://b7c3cvffh4h1i" path="res://game/scenes/ui/hud/boosts/hummer.tscn" id="7_vqp1y"]
+[ext_resource type="ButtonGroup" uid="uid://b4naojiw6jw5" path="res://game/scenes/ui/hud/boosts/level_buttons_group.tres" id="8_6gekt"]
 [ext_resource type="Texture2D" uid="uid://bgpvjr4wo0axn" path="res://game/assets/kenney_particle-pack/PNG (Transparent)/spark_06.png" id="8_ddvsv"]
+[ext_resource type="Script" uid="uid://c1nx6i4kpm0p4" path="res://game/scenes/ui/hud/boosts/boost_button.gd" id="9_dg3qw"]
 [ext_resource type="PackedScene" uid="uid://c5mt6uy42wt18" path="res://game/scenes/ui/hud/boosts/v_flash.tscn" id="9_k0dd4"]
 [ext_resource type="Texture2D" uid="uid://cm8ka5hd83mfw" path="res://game/assets/kenney_particle-pack/PNG (Transparent)/spark_07.png" id="10_k0dd4"]
 [ext_resource type="PackedScene" uid="uid://cpstrseik8oio" path="res://game/scenes/ui/hud/boosts/h_flash.tscn" id="11_5x4x5"]
@@ -23,6 +26,23 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg3qw"]
+bg_color = Color(0.988235, 0.117647, 0.188235, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_54bbi"]
+font_size = 25
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [node name="level" type="Control" groups=["game_field"]]
 layout_mode = 3
@@ -111,32 +131,141 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="hummer" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
+[node name="hummer" type="Button" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item")]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/hover = ExtResource("5_vqp1y")
+theme_override_styles/pressed = ExtResource("6_6gekt")
+theme_override_styles/normal = ExtResource("5_vqp1y")
+toggle_mode = true
+button_group = ExtResource("8_6gekt")
 icon = ExtResource("6_vqp1y")
+expand_icon = true
+script = ExtResource("9_dg3qw")
 save_value_type = 2
 item = NodePath("hummer")
 
 [node name="hummer" parent="main_margin/main_container/left/boosts/hummer" instance=ExtResource("7_vqp1y")]
 visible = false
-_item_name = "boost_hummer"
-reward_count = 0
 
-[node name="v_splash" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
+[node name="count_panel" type="Panel" parent="main_margin/main_container/left/boosts/hummer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.667
+anchor_top = 0.667
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.94999
+offset_top = 9.94999
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dg3qw")
+metadata/_edit_use_anchors_ = true
+
+[node name="value" type="Label" parent="main_margin/main_container/left/boosts/hummer/count_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_54bbi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="h_flash" type="Button" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item")]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-icon = ExtResource("8_ddvsv")
-save_value_type = 3
-item = NodePath("v_flash")
-
-[node name="v_flash" parent="main_margin/main_container/left/boosts/v_splash" instance=ExtResource("9_k0dd4")]
-visible = false
-
-[node name="h_splash" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item") instance=ExtResource("5_jmh58")]
-layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/hover = ExtResource("5_vqp1y")
+theme_override_styles/pressed = ExtResource("6_6gekt")
+theme_override_styles/normal = ExtResource("5_vqp1y")
+toggle_mode = true
+button_group = ExtResource("8_6gekt")
 icon = ExtResource("10_k0dd4")
+expand_icon = true
+script = ExtResource("9_dg3qw")
 save_value_type = 4
 item = NodePath("h_flash")
 
-[node name="h_flash" parent="main_margin/main_container/left/boosts/h_splash" instance=ExtResource("11_5x4x5")]
+[node name="h_flash" parent="main_margin/main_container/left/boosts/h_flash" instance=ExtResource("11_5x4x5")]
 visible = false
-_item_name = "h_flash"
+
+[node name="count_panel" type="Panel" parent="main_margin/main_container/left/boosts/h_flash"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.667
+anchor_top = 0.667
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.94999
+offset_top = 9.94999
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dg3qw")
+metadata/_edit_use_anchors_ = true
+
+[node name="value" type="Label" parent="main_margin/main_container/left/boosts/h_flash/count_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_54bbi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="v_flash" type="Button" parent="main_margin/main_container/left/boosts" node_paths=PackedStringArray("item")]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/hover = ExtResource("5_vqp1y")
+theme_override_styles/pressed = ExtResource("6_6gekt")
+theme_override_styles/normal = ExtResource("5_vqp1y")
+toggle_mode = true
+button_group = ExtResource("8_6gekt")
+icon = ExtResource("8_ddvsv")
+expand_icon = true
+script = ExtResource("9_dg3qw")
+save_value_type = 3
+item = NodePath("v_flash")
+
+[node name="v_flash" parent="main_margin/main_container/left/boosts/v_flash" instance=ExtResource("9_k0dd4")]
+visible = false
+
+[node name="count_panel" type="Panel" parent="main_margin/main_container/left/boosts/v_flash"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.667
+anchor_top = 0.667
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.94999
+offset_top = 9.94999
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dg3qw")
+metadata/_edit_use_anchors_ = true
+
+[node name="value" type="Label" parent="main_margin/main_container/left/boosts/v_flash/count_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_54bbi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="toggled" from="main_margin/main_container/left/boosts/hummer" to="main_margin/main_container/left/boosts/hummer" method="_on_toggled"]
+[connection signal="toggled" from="main_margin/main_container/left/boosts/h_flash" to="main_margin/main_container/left/boosts/h_flash" method="_on_toggled"]
+[connection signal="toggled" from="main_margin/main_container/left/boosts/v_flash" to="main_margin/main_container/left/boosts/v_flash" method="_on_toggled"]

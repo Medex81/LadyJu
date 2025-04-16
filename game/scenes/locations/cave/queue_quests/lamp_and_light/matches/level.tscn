@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://7qgsn20awh2p"]
+[gd_scene load_steps=8 format=3 uid="uid://7qgsn20awh2p"]
 
 [ext_resource type="PackedScene" uid="uid://km31k43ulsdt" path="res://game/scenes/ui/level.tscn" id="1_mijpn"]
 [ext_resource type="Texture2D" uid="uid://buej8r7uubwoh" path="res://game/scenes/locations/cave/cave.png" id="2_2nes3"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://casg8jw8jtwkf" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/quests_panel.tscn" id="3_hkwu5"]
 [ext_resource type="PackedScene" uid="uid://jklnu344kvjx" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/m_3.tscn" id="4_tiwxl"]
 [ext_resource type="PackedScene" uid="uid://bccu41oyfpa5" path="res://game/scenes/ui/hud/boosts/boost_intersector.tscn" id="6_hbxgj"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hbxgj"]
+allow_unpress = true
 
 [node name="level" instance=ExtResource("1_mijpn")]
 mouse_filter = 1
@@ -22,12 +25,15 @@ size_flags_vertical = 0
 _base_m3_layer = NodePath("../../../../../..")
 
 [node name="hummer" parent="main_margin/main_container/left/boosts" index="0" node_paths=PackedStringArray("boost_interseptor")]
+button_group = SubResource("ButtonGroup_hbxgj")
 boost_interseptor = NodePath("../../../m3/boost_intersector")
 
-[node name="v_splash" parent="main_margin/main_container/left/boosts" index="1" node_paths=PackedStringArray("boost_interseptor")]
+[node name="h_flash" parent="main_margin/main_container/left/boosts" index="1" node_paths=PackedStringArray("boost_interseptor")]
+button_group = SubResource("ButtonGroup_hbxgj")
 boost_interseptor = NodePath("../../../m3/boost_intersector")
 
-[node name="h_splash" parent="main_margin/main_container/left/boosts" index="2" node_paths=PackedStringArray("boost_interseptor")]
+[node name="v_flash" parent="main_margin/main_container/left/boosts" index="2" node_paths=PackedStringArray("boost_interseptor")]
+button_group = SubResource("ButtonGroup_hbxgj")
 boost_interseptor = NodePath("../../../m3/boost_intersector")
 
 [node name="m3" parent="main_margin/main_container" index="1" node_paths=PackedStringArray("_base_m3_level") instance=ExtResource("4_tiwxl")]
@@ -37,4 +43,4 @@ _base_m3_level = NodePath("../../..")
 
 [node name="boost_intersector" parent="main_margin/main_container/m3" index="3" node_paths=PackedStringArray("boosts_button") instance=ExtResource("6_hbxgj")]
 layout_mode = 1
-boosts_button = [NodePath("../../left/boosts/hummer"), NodePath("../../left/boosts/v_splash"), NodePath("../../left/boosts/h_splash")]
+boosts_button = [NodePath("../../left/boosts/hummer"), NodePath("../../left/boosts/h_flash"), NodePath("../../left/boosts/v_flash")]
