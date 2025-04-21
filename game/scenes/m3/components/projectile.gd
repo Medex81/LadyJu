@@ -11,8 +11,8 @@ func start(_self_item:InfoComponent, _item_name:String = ""):
 	if _self_item != null:
 		from_item = _self_item
 		var quest_item_names:Array[String]
-		for item in get_tree().get_nodes_in_group(Quest.group_name):
-			if item is Quest and item.is_monitoring and not item.get_item_name().is_empty():
+		for item in get_tree().get_nodes_in_group(Task.group):
+			if item is Task and item.is_item and not item.get_item_name().is_empty():
 				quest_item_names.append(item.get_item_name())
 		if not quest_item_names.is_empty():
 			#var random_item_name = quest_item_names.pick_random()

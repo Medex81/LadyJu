@@ -2,7 +2,7 @@ extends Control
 
 class_name BaseM3Level
 
-enum EEvents{QUESTS_DONE, NO_HINTS, NO_STEPS}
+enum EEvents{TASKS_DONE, NO_HINTS, CONDITION_FAIL}
 const group_name:String = "game_field"
 const events_fn:String = "events"
 @export var back_to_location:String
@@ -15,8 +15,8 @@ func back():
 
 func events(event:EEvents):
 	match event:
-		EEvents.QUESTS_DONE:
-			print("QUESTS_DONE")
+		EEvents.TASKS_DONE:
+			print("TASKS_DONE")
 			if quest_info != null:
 				player_state.quest_done = quest_info.quest_name
 				
@@ -24,8 +24,8 @@ func events(event:EEvents):
 		EEvents.NO_HINTS:
 			print("NO_HINTS")
 			back()
-		EEvents.NO_STEPS:
-			print("NO_STEPS")
+		EEvents.CONDITION_FAIL:
+			print("CONDITION_FAIL")
 			back()
 			
 func _exit_tree() -> void:

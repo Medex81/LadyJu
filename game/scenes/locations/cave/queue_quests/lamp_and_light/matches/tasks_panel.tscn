@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://casg8jw8jtwkf"]
 
-[ext_resource type="PackedScene" uid="uid://bnl5a87k356jx" path="res://game/scenes/ui/quests_panel.tscn" id="1_2oo5t"]
+[ext_resource type="PackedScene" uid="uid://bnl5a87k356jx" path="res://game/scenes/ui/tasks_panel.tscn" id="1_2oo5t"]
 [ext_resource type="PackedScene" uid="uid://bscmdp5q4jj57" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/aims/quest_steps.tscn" id="2_erd0t"]
 [ext_resource type="PackedScene" uid="uid://du8gcojfhndtp" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/aims/quest_blue.tscn" id="3_sa35a"]
 
@@ -15,10 +15,13 @@ grow_vertical = 1
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 
-[node name="step_quest" parent="." index="1" node_paths=PackedStringArray("quests_panel") instance=ExtResource("2_erd0t")]
+[node name="step_quest" parent="." index="1" node_paths=PackedStringArray("tasks_panel") groups=["quest"] instance=ExtResource("2_erd0t")]
 layout_mode = 2
-quests_panel = NodePath("..")
+_count = 5
+tasks_panel = NodePath("..")
+is_item = false
 
-[node name="blue_quest" parent="." index="2" node_paths=PackedStringArray("quests_panel") instance=ExtResource("3_sa35a")]
+[node name="blue_quest" parent="." index="2" node_paths=PackedStringArray("tasks_panel") groups=["quest"] instance=ExtResource("3_sa35a")]
 layout_mode = 2
-quests_panel = NodePath("..")
+_count = 4
+tasks_panel = NodePath("..")

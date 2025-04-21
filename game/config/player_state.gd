@@ -8,10 +8,10 @@ class_name PlayerState
 
 enum EPS{NONE, COINS, HUMMER, V_ROCKET, H_ROCKET}
 
-@export var coins:PlayerStateValueInt = null
-@export var boost_hummer:PlayerStateValueInt = null
-@export var boost_v_rocket:PlayerStateValueInt = null
-@export var boost_h_rocket:PlayerStateValueInt = null
+@export var coins:PlayerStateValueInt = PlayerStateValueInt.new()
+@export var boost_hummer:PlayerStateValueInt = PlayerStateValueInt.new()
+@export var boost_v_rocket:PlayerStateValueInt = PlayerStateValueInt.new()
+@export var boost_h_rocket:PlayerStateValueInt = PlayerStateValueInt.new()
 
 var int_values = {}
 

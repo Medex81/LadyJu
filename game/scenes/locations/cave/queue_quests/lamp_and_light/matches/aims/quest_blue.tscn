@@ -1,13 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://du8gcojfhndtp"]
 
-[ext_resource type="PackedScene" uid="uid://df46gi73bkxrl" path="res://game/scenes/ui/quest.tscn" id="1_yugf7"]
+[ext_resource type="PackedScene" uid="uid://df46gi73bkxrl" path="res://game/scenes/ui/task.tscn" id="1_yugf7"]
 [ext_resource type="PackedScene" uid="uid://doviksuk44trd" path="res://game/scenes/m3/items/crystals/blue.tscn" id="2_dqa0w"]
 
-[node name="quest" instance=ExtResource("1_yugf7")]
-item_count = 5
-
-[node name="count" parent="." index="0"]
-text = "5"
+[node name="task" instance=ExtResource("1_yugf7")]
 
 [node name="info" parent="." index="2" instance=ExtResource("2_dqa0w")]
 position = Vector2(10, 10)

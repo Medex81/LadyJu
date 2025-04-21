@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://bnl5a87k356jx"]
 
-[ext_resource type="Script" uid="uid://ddurecpr1lomp" path="res://game/scenes/ui/quests_panel.gd" id="1_ai2i2"]
+[ext_resource type="Script" uid="uid://ctlm3daoilwpv" path="res://game/scenes/ui/tasks_panel.gd" id="1_kmr64"]
 
-[node name="quests_panel" type="GridContainer" groups=["quests_panel"]]
+[node name="tasks_panel" type="GridContainer" groups=["tasks_panel"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 2
-script = ExtResource("1_ai2i2")
+script = ExtResource("1_kmr64")
 metadata/_edit_use_anchors_ = true
 
 [node name="Timer" type="Timer" parent="."]

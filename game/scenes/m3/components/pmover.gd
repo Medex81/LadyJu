@@ -68,6 +68,7 @@ func try_move():
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
 		move_state = EMoveState.FALL
 		is_moving = true
+		get_tree().call_group(TasksPanel.group, TasksPanel.final_fn)
 		var move_tween = get_tree().create_tween()
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
@@ -76,7 +77,6 @@ func try_move():
 	else:
 		if move_state == EMoveState.FALL:
 			move_state = EMoveState.STOP
-			get_tree().call_group(QuestsPanel.group_name, QuestsPanel.on_stop_move_fn)
 			if _hint_component:
 				_hint_component.on_all_stopped()
 		matching()
@@ -115,7 +115,7 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 		else:
 			matching()
 		if is_step_counting:
-			get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestsPanel.quest_step)
+			get_tree().call_group(Task.group, Task.final_fn, Task.condition_steps)
 
 	is_moving = false
 
@@ -146,7 +146,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 				swap_node = null
 				return
 			swap_node = self
-		if event.is_released() and QuestsPanel.is_no_step == false:
+		if event.is_released() and is_instance_valid(swap_node) and TasksPanel.is_end == false:
 			# тап на матчер, подрывам его одного
 			if swap_node == self and info_component is MatchInfoComponent:
 				info_component.proc_swap_logic()
@@ -156,11 +156,11 @@ func _on_input_event(_viewport, event, _shape_idx):
 					_swap_move_logic.start(info_component)
 					await _swap_move_logic.send_done
 					is_moving = false
-				get_tree().call_group(Quest.group_name, Quest.on_final_item_fn, QuestsPanel.quest_step)
+				get_tree().call_group(Task.group, Task.final_fn, Task.condition_steps)
 				info_component.finalize()
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап
-				if not swap_node is PMoverComponent or swap_node.is_moving or is_moving:
+				if swap_node is PMoverComponent and (swap_node.is_moving or is_moving):
 					swap_node = null
 					return
 					
@@ -178,8 +178,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 					swap_node.swap_move(-direct)
 				
 				set_fake_item_name()
-				if swap_node:
-					swap_node.set_fake_item_name()
+				swap_node.set_fake_item_name()
 			swap_node = null
 
 func check_match()->bool:
