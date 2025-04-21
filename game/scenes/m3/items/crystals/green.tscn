@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://du2wl6jnbyff0"]
 
 [ext_resource type="PackedScene" uid="uid://dnlb0etbpjc5p" path="res://game/scenes/m3/items/crystals/cristal.tscn" id="1_eftau"]
-[ext_resource type="Texture2D" uid="uid://dcuks6y3wkgh7" path="res://game/assets/anny_pack/crystal_green.png" id="2_ibewa"]
+[ext_resource type="Texture2D" uid="uid://ca44oxvdwvdy" path="res://game/assets/anny_pack/crystal_green.png" id="2_ibewa"]
 
 [node name="info" instance=ExtResource("1_eftau")]
 _item_name = "green"

@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://7qgsn20awh2p"]
 
 [ext_resource type="PackedScene" uid="uid://km31k43ulsdt" path="res://game/scenes/ui/level.tscn" id="1_mijpn"]
-[ext_resource type="Texture2D" uid="uid://buej8r7uubwoh" path="res://game/scenes/locations/cave/cave.png" id="2_2nes3"]
+[ext_resource type="Texture2D" uid="uid://dx64hd27hv6qy" path="res://game/scenes/locations/cave/cave.png" id="2_2nes3"]
 [ext_resource type="Resource" uid="uid://btjfphbjdeq5m" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/quest_info.tres" id="2_anft4"]
-[ext_resource type="PackedScene" uid="uid://casg8jw8jtwkf" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/quests_panel.tscn" id="3_hkwu5"]
+[ext_resource type="PackedScene" uid="uid://casg8jw8jtwkf" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/tasks_panel.tscn" id="3_hkwu5"]
 [ext_resource type="PackedScene" uid="uid://jklnu344kvjx" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/m_3.tscn" id="4_tiwxl"]
 [ext_resource type="PackedScene" uid="uid://bccu41oyfpa5" path="res://game/scenes/ui/hud/boosts/boost_intersector.tscn" id="6_hbxgj"]
 
