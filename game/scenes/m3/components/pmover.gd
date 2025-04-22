@@ -68,7 +68,6 @@ func try_move():
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
 		move_state = EMoveState.FALL
 		is_moving = true
-		get_tree().call_group(TasksPanel.group, TasksPanel.final_fn)
 		var move_tween = get_tree().create_tween()
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
