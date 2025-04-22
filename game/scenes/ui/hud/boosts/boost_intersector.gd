@@ -8,3 +8,7 @@ func _on_gui_input(event: InputEvent) -> void:
 		var glob_mouse_pos = get_global_mouse_position()
 		for boost in boosts_button:
 			boost.hit_on_position(glob_mouse_pos)
+
+# скрываем зону полгощения тапа до открытия через бустовые кнопки. При сборке сцены можно забыть скрыть.
+func _ready() -> void:
+	visible = false
