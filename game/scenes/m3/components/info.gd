@@ -151,7 +151,6 @@ func finalize(is_quiet:bool = false):
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	if is_interactive:
 		is_active = true
-		check_move()
 		
 func check_move():
 	if _pmover_component:
