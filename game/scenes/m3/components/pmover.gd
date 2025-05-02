@@ -78,7 +78,7 @@ func try_move():
 			move_state = EMoveState.STOP
 			if _hint_component:
 				_hint_component.on_all_stopped()
-		matching()
+			call_deferred("matching")
 	
 func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_counting:bool = true):
 	if is_moving == true or (info_component != null and info_component.is_active == false):
@@ -112,7 +112,7 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 			if is_swap_logic:
 				info_component.finalize()
 		else:
-			matching()
+			call_deferred("matching")
 		if is_step_counting:
 			get_tree().call_group(Task.group, Task.final_fn, Task.condition_steps)
 
@@ -162,7 +162,6 @@ func _on_input_event(_viewport, event, _shape_idx):
 				if swap_node is PMoverComponent and (swap_node.is_moving or is_moving):
 					swap_node = null
 					return
-					
 				# сматчивание с матчером
 				if info_component is MatchInfoComponent or swap_node.info_component is MatchInfoComponent:
 					var direct = global_position.direction_to(swap_node.global_position).sign()
@@ -188,7 +187,6 @@ func matching()->bool:
 	
 func timer_matching(timeout:float = 2.0)->bool:
 	await get_tree().create_timer(timeout).timeout
-	print("pmover->match check")
 	return _match_component and _match_component.matching()
 
 func set_fake_item_name(new_item_name:String = "")->bool:
