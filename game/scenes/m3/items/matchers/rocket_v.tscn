@@ -27,7 +27,7 @@ scale_min = 0.4
 scale_max = 0.4
 
 [node name="match_info" instance=ExtResource("1_xv86x")]
-_match_type = 3
+_match_type = 2
 _item_name = "rocket_v"
 
 [node name="damager" parent="." index="3"]
@@ -56,17 +56,17 @@ position = Vector2(-1.52588e-05, -1.52588e-05)
 [node name="up" type="GPUParticles2D" parent="view/container" index="0"]
 emitting = false
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_d3cy6")
 texture = ExtResource("6_xltnb")
 lifetime = 0.7
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_d3cy6")
 
 [node name="down" type="GPUParticles2D" parent="view/container" index="1"]
 emitting = false
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_jcrpg")
 texture = ExtResource("5_fnndd")
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_jcrpg")
 
 [node name="Node2D" type="Node2D" parent="view" index="1"]
 position = Vector2(-9.53674e-06, -9.53674e-06)

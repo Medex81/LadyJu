@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dq5ifcqr5rba" path="res://game/scenes/m3/components/swap_logic/swap_logic_amulet.tscn" id="4_op7hc"]
 
 [node name="match_info" node_paths=PackedStringArray("_swap_logic") instance=ExtResource("1_7na8t")]
-_match_type = 9
+_match_type = 4
 _item_name = "amulet"
 _swap_logic = NodePath("swap_logic_amulet")
 

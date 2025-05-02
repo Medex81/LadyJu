@@ -50,7 +50,7 @@ _data = {
 }
 
 [node name="match_info" instance=ExtResource("1_pkepy")]
-_match_type = 4
+_match_type = 3
 _item_name = "bomb"
 
 [node name="damager" parent="." index="3"]
@@ -80,7 +80,7 @@ position = Vector2(-94.125, -251)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="view/Node2D" index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_nnj72")
+&"": SubResource("AnimationLibrary_nnj72")
 }
 autoplay = "start"
 
