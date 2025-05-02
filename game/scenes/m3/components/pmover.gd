@@ -108,11 +108,12 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 				_swap_move_logic.start(info_component)
 				await _swap_move_logic.send_done
 				is_moving = false
-			# если была установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.
-			if is_swap_logic:
-				info_component.finalize()
+			# если была не установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.
+			if not is_swap_logic:
+				info_component.call_deferred("finalize")
 		else:
 			call_deferred("matching")
+		# шаг засчитываем в конце движения свапа, иначе условие на последнем шаге выполнится быстрее сматчивания
 		if is_step_counting:
 			get_tree().call_group(Task.group, Task.final_fn, Task.condition_steps)
 
@@ -135,7 +136,7 @@ func final_swap_move_logic():
 		_swap_move_logic.start(info_component)
 		await _swap_move_logic.send_done
 		is_moving = false
-		info_component.finalize()
+		info_component.call_deferred("finalize")
 
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -156,7 +157,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 					await _swap_move_logic.send_done
 					is_moving = false
 				get_tree().call_group(Task.group, Task.final_fn, Task.condition_steps)
-				info_component.finalize()
+				info_component.call_deferred("finalize")
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап
 				if swap_node is PMoverComponent and (swap_node.is_moving or is_moving):
@@ -167,6 +168,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 					var direct = global_position.direction_to(swap_node.global_position).sign()
 					swap_move(direct, swap_node, false)
 					swap_node.swap_move(-direct, self)
+					
 				elif set_fake_item_name(swap_node.get_item_name()) and swap_node.set_fake_item_name(get_item_name()) \
 				and (swap_node.check_match() or check_match()):
 					set_fake_item_name()
