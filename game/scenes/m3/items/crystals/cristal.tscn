@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnlb0etbpjc5p"]
+[gd_scene load_steps=10 format=3 uid="uid://dnlb0etbpjc5p"]
 
 [ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="1_66i38"]
 [ext_resource type="PackedScene" uid="uid://bvtr2nb2dyo74" path="res://game/scenes/m3/components/pmover.tscn" id="2_t6qtp"]
@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dktf3k2kbsn0x" path="res://game/scenes/m3/components/hitbox.tscn" id="6_0cvcd"]
 [ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="6_lxexa"]
 [ext_resource type="PackedScene" uid="uid://b8duo154simny" path="res://game/scenes/m3/components/view.tscn" id="7_kau2c"]
-[ext_resource type="PackedScene" uid="uid://cbsn6tjbp4vvg" path="res://game/scenes/m3/components/hint.tscn" id="7_rk1qk"]
-[ext_resource type="PackedScene" uid="uid://2byl5j5qdx5t" path="res://game/scenes/m3/effects/shine.tscn" id="8_14swi"]
 [ext_resource type="PackedScene" uid="uid://85x0hvrp2113" path="res://game/scenes/m3/effects/blast_part.tscn" id="8_bkde5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8hih8"]
@@ -20,12 +18,11 @@ _view_component = NodePath("view")
 _pmover_component = NodePath("pmover")
 save_value_type = 1
 
-[node name="pmover" parent="." index="0" node_paths=PackedStringArray("_match_component", "info_component", "_damager_component", "_hint_component") instance=ExtResource("2_t6qtp")]
+[node name="pmover" parent="." index="0" node_paths=PackedStringArray("_match_component", "info_component", "_damager_component") instance=ExtResource("2_t6qtp")]
 visible = false
 _match_component = NodePath("../matcher")
 info_component = NodePath("..")
 _damager_component = NodePath("../damager")
-_hint_component = NodePath("../hint")
 
 [node name="matcher" parent="." index="1" node_paths=PackedStringArray("info_component") instance=ExtResource("3_ypktk")]
 visible = false
@@ -46,14 +43,7 @@ visible = false
 resistance = 2
 info_component = NodePath("..")
 
-[node name="hint" parent="." index="4" node_paths=PackedStringArray("info_component") instance=ExtResource("7_rk1qk")]
-visible = false
-info_component = NodePath("..")
-
-[node name="GPUParticles2D" parent="hint" index="2" instance=ExtResource("8_14swi")]
-position = Vector2(64, 64)
-
-[node name="view" parent="." index="5" node_paths=PackedStringArray("_end_effect") instance=ExtResource("7_kau2c")]
+[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect") instance=ExtResource("7_kau2c")]
 z_index = 1
 _end_effect = NodePath("blast_part")
 
