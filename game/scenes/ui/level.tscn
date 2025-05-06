@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://km31k43ulsdt"]
+[gd_scene load_steps=21 format=3 uid="uid://km31k43ulsdt"]
 
 [ext_resource type="Script" uid="uid://c7bd6osgv4mkv" path="res://game/scenes/ui/level.gd" id="1_c003j"]
 [ext_resource type="PackedScene" uid="uid://dkgrhv0r5hgn" path="res://game/scenes/ui/windows/quest_window.tscn" id="2_pjsrg"]
@@ -27,6 +27,8 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dg3qw"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dg3qw"]
 bg_color = Color(0.988235, 0.117647, 0.188235, 1)
 border_width_left = 2
@@ -43,6 +45,10 @@ corner_radius_bottom_left = 20
 font_size = 25
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_54bbi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxbji"]
 
 [node name="level" type="Control" groups=["game_field"]]
 layout_mode = 3
@@ -135,6 +141,7 @@ alignment = 1
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dg3qw")
 theme_override_styles/hover = ExtResource("5_vqp1y")
 theme_override_styles/pressed = ExtResource("6_6gekt")
 theme_override_styles/normal = ExtResource("5_vqp1y")
@@ -180,6 +187,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_54bbi")
 theme_override_styles/hover = ExtResource("5_vqp1y")
 theme_override_styles/pressed = ExtResource("6_6gekt")
 theme_override_styles/normal = ExtResource("5_vqp1y")
@@ -225,6 +233,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sxbji")
 theme_override_styles/hover = ExtResource("5_vqp1y")
 theme_override_styles/pressed = ExtResource("6_6gekt")
 theme_override_styles/normal = ExtResource("5_vqp1y")

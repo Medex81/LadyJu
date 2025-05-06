@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://8bpxcsw74l5u"]
+[gd_scene load_steps=17 format=3 uid="uid://8bpxcsw74l5u"]
 
 [ext_resource type="Script" uid="uid://ka5b5sfirlo2" path="res://game/scenes/ui/location.gd" id="1_ls6w8"]
 [ext_resource type="PackedScene" uid="uid://c1pok1fmu7d3d" path="res://game/scenes/ui/buttons/blue_bottom.tscn" id="2_f0ovu"]
@@ -10,6 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://b7rfkcjtqph66" path="res://game/assets/third_party/white_icons/home.png" id="5_bxkkn"]
 [ext_resource type="Texture2D" uid="uid://cqew3lokagvo8" path="res://game/assets/third_party/white_icons/massiveMultiplayer.png" id="6_bn1hn"]
 [ext_resource type="Texture2D" uid="uid://c6ojr8kxwin4r" path="res://game/assets/third_party/white_icons/gear.png" id="9_tjhp2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2r2ye"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a5nxl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukiyi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xd84k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xubtf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mqkt5"]
 
 [node name="location" type="Control"]
 layout_mode = 3
@@ -77,6 +89,7 @@ theme_override_constants/separation = 30
 
 [node name="next_quest" parent="HUD/main_v/bottom" instance=ExtResource("4_oa2y3")]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2r2ye")
 
 [node name="window_buttons" type="HBoxContainer" parent="HUD/main_v/bottom"]
 layout_mode = 2
@@ -85,21 +98,26 @@ alignment = 1
 
 [node name="shop" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_a5nxl")
 icon = ExtResource("3_jjmi4")
 
 [node name="rating" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ukiyi")
 icon = ExtResource("4_7o0fj")
 
 [node name="main" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xd84k")
 icon = ExtResource("5_bxkkn")
 
 [node name="commands" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xubtf")
 icon = ExtResource("6_bn1hn")
 
 [node name="options" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mqkt5")
 icon = ExtResource("9_tjhp2")
