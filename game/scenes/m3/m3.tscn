@@ -1,6 +1,6 @@
 [gd_scene load_steps=122 format=3 uid="uid://bog8shiiuriye"]
 
-[ext_resource type="Script" uid="uid://b1hedmtkrqh32" path="res://game/scenes/m3/m_3.gd" id="1_ct7pn"]
+[ext_resource type="Script" uid="uid://cchy151a5puxm" path="res://game/scenes/m3/m3.gd" id="1_ct7pn"]
 [ext_resource type="PackedScene" uid="uid://bb1jfjnmiupvx" path="res://game/scenes/m3/item_generator.tscn" id="1_layab"]
 [ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/crystals/purple.tscn" id="4_qw1qg"]
 [ext_resource type="PackedScene" uid="uid://c37um85cxcf5l" path="res://game/scenes/m3/items/crystals/red.tscn" id="5_unyqu"]
@@ -10,12 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://bf03qetwd7agr" path="res://game/scenes/m3/cell.tscn" id="8_w6gfp"]
 [ext_resource type="PackedScene" uid="uid://bv6svht2f4up7" path="res://game/scenes/m3/items/matchers/rocket_v.tscn" id="9_sfhho"]
 [ext_resource type="PackedScene" uid="uid://ilvgvxtt3wob" path="res://game/scenes/m3/items/matchers/bomb.tscn" id="10_tnq3m"]
-[ext_resource type="PackedScene" uid="uid://bo6n48r23muso" path="res://game/scenes/m3/items/matchers/bottle.tscn" id="11_lep67"]
-[ext_resource type="PackedScene" uid="uid://5306ng0nlcfa" path="res://game/scenes/m3/items/matchers/crist_rocket.tscn" id="12_fas2r"]
 [ext_resource type="PackedScene" uid="uid://doviksuk44trd" path="res://game/scenes/m3/items/crystals/blue.tscn" id="13_oy6er"]
 [ext_resource type="PackedScene" uid="uid://buol7j31kopps" path="res://game/scenes/m3/items/matchers/helicopter.tscn" id="13_x3llh"]
 [ext_resource type="PackedScene" uid="uid://du2wl6jnbyff0" path="res://game/scenes/m3/items/crystals/green.tscn" id="14_gks4x"]
-[ext_resource type="PackedScene" uid="uid://d13s4jlos8yhb" path="res://game/scenes/m3/items/matchers/sword.tscn" id="14_sljku"]
 [ext_resource type="PackedScene" uid="uid://bjmvm3ucen6l5" path="res://game/scenes/m3/items/matchers/amulet.tscn" id="15_d0t87"]
 [ext_resource type="PackedScene" uid="uid://bk84c1r8vxq6o" path="res://game/scenes/m3/items/matchers/super_bomb.tscn" id="16_vqq8s"]
 
@@ -1321,7 +1318,44 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="m3" type="Control"]
+[sub_resource type="Animation" id="Animation_bjchk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.976471)]
+}
+
+[sub_resource type="Animation" id="Animation_tam2h"]
+resource_name = "fade"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.976471), Color(1, 1, 1, 0.0117647), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_18unx"]
+_data = {
+&"RESET": SubResource("Animation_bjchk"),
+&"fade": SubResource("Animation_tam2h")
+}
+
+[node name="m3" type="Control" groups=["m3"]]
 custom_minimum_size = Vector2(1280, 1280)
 layout_mode = 3
 anchors_preset = 0
@@ -1371,33 +1405,18 @@ position = Vector2(302, -194)
 is_interactive = false
 save_value_type = 0
 
-[node name="bottle" parent="item_generator" instance=ExtResource("11_lep67")]
-position = Vector2(464, -189)
-is_interactive = false
-save_value_type = 0
-
-[node name="crist_rocket" parent="item_generator" instance=ExtResource("12_fas2r")]
-position = Vector2(610, -194)
-is_interactive = false
-save_value_type = 0
-
 [node name="helicopter" parent="item_generator" instance=ExtResource("13_x3llh")]
-position = Vector2(738, -199)
-is_interactive = false
-save_value_type = 0
-
-[node name="sword" parent="item_generator" instance=ExtResource("14_sljku")]
-position = Vector2(862, -207)
+position = Vector2(482, -164)
 is_interactive = false
 save_value_type = 0
 
 [node name="amulet" parent="item_generator" instance=ExtResource("15_d0t87")]
-position = Vector2(1009, -189)
+position = Vector2(642, -180)
 is_interactive = false
 save_value_type = 0
 
 [node name="super_bomb" parent="item_generator" instance=ExtResource("16_vqq8s")]
-position = Vector2(1180, -189)
+position = Vector2(810, -164)
 is_interactive = false
 save_value_type = 0
 
@@ -1827,4 +1846,28 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3jir0")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mp8la")
 
+[node name="move_timer" type="Timer" parent="."]
+
+[node name="hint_timer" type="Timer" parent="."]
+
+[node name="hint" type="ReferenceRect" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.976471)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+border_color = Color(1, 0.968627, 0.968627, 1)
+border_width = 10.0
+editor_only = false
+
+[node name="anim_blink" type="AnimationPlayer" parent="hint"]
+libraries = {
+&"": SubResource("AnimationLibrary_18unx")
+}
+autoplay = "fade"
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="timeout" from="move_timer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="hint_timer" to="." method="_on_hint_timer_timeout"]

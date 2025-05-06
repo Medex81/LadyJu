@@ -9,9 +9,10 @@ var _cell_size:int = 128
 # от размера клетки расчитываем длину диагонали
 var _cell_diagonal:int = 181
 # радиус поиска - 2 размера клетки
-var _cell_2size:int = 256
+var _cell_2size:int = 128 * 2
+var _cell_3size:int = 128 * 3
 # расстояния между клетками
-enum EDistance{NONE, CELL, DIAGONAL, CELL_2}
+enum EDistance{NONE, CELL, DIAGONAL, CELL_2, CELL_3}
 # тип сматчивания
 enum EMatcher{NONE, LINE4_H, LINE4_V, COUNT5, COUNT6, COUNT7}
 @export var cell_offset:int = 5
@@ -29,6 +30,7 @@ func _ready() -> void:
 		_cell_size = info_component.get_item_size()
 		_cell_diagonal = int(_cell_size * _sqrt_2)
 		_cell_2size = _cell_size * 2
+		_cell_3size = _cell_size * 3
 		
 # проверяем дистанцию до компонента, ответ перечисляемым типом
 func distance_to_enum(area:MatcherComponent)->EDistance:
@@ -39,6 +41,8 @@ func distance_to_enum(area:MatcherComponent)->EDistance:
 		return EDistance.DIAGONAL
 	if absi(distance - _cell_2size) < cell_offset:
 		return EDistance.CELL_2
+	if absi(distance - _cell_3size) < cell_offset:
+		return EDistance.CELL_3
 	return EDistance.NONE
 
 # найти соседей с тем же именем
@@ -57,6 +61,19 @@ func get_neighbors(_compose_hints:Dictionary):
 					var arr = _compose_hints.get(distance, []) as Array[MatcherComponent]
 					arr.append(area)
 					_compose_hints[distance] = arr
+					
+# найти соседей с другим именем
+func get_other_neighbors(_others:Array, dist:EDistance):
+	_others.clear()
+	# получаем два списка с компонентами нашего типа и другие в области обнаружения
+	for area in $detector.get_overlapping_areas():
+		if area is MatcherComponent \
+		and area.info_component \
+		and not area.info_component.is_died \
+		and distance_to_enum(area) == dist \
+		and not get_item_name().is_empty() \
+		and area.get_item_name() == get_item_name():
+			_others.append(area)
 
 func match_detector(with_remove:bool = true)->bool:
 	var _compose_hints:Dictionary
@@ -125,3 +142,48 @@ func get_item_name()->String:
 	
 func set_fake_item_name(_item_name:String):
 	fake_item_name = _item_name
+
+func has_hint(matched_cells:Array)->bool:
+	var _compose_hints:Dictionary
+	var _others:Array
+	# собираем соседей этой клетки с таким же именем.
+	get_neighbors(_compose_hints)
+	# собираем соседей с дистанцией в одну клетку и другим именем(проверяем пустые клетки).
+	get_other_neighbors(_others, EDistance.CELL)
+	
+	# v образный вариант
+	if _compose_hints.has(EDistance.DIAGONAL) and _compose_hints[EDistance.DIAGONAL].size() > 1:
+		for cell1 in _compose_hints[EDistance.DIAGONAL]:
+			for cell2 in _compose_hints[EDistance.DIAGONAL]:
+				if cell1 != cell2 and cell1.distance_to_enum(cell2) == EDistance.CELL_2:
+					# нет пустого пространства между ними
+					for other in _others:
+						if cell1.distance_to_enum(other) == EDistance.CELL and cell2.distance_to_enum(other) == EDistance.CELL:
+							matched_cells[0] = info_component
+							matched_cells[1] = cell1.info_component
+							matched_cells[2] = cell2.info_component
+							return true
+	# г образный вариант
+	if _compose_hints.has(EDistance.DIAGONAL) and _compose_hints.has(EDistance.CELL):
+		for cellD in _compose_hints[EDistance.DIAGONAL]:
+			for cellC in _compose_hints[EDistance.CELL]:
+				if cellD.distance_to_enum(cellC) != EDistance.CELL:
+					# нет пустого пространства между ними
+					for other in _others:
+						if distance_to_enum(other) == EDistance.CELL and cellD.distance_to_enum(other) == EDistance.CELL:
+							matched_cells[0] = info_component
+							matched_cells[1] = cellD.info_component
+							matched_cells[2] = cellC.info_component
+							return true
+	# i образный вариант
+	if _compose_hints.has(EDistance.CELL) and _compose_hints.has(EDistance.CELL_2):
+		for cell1 in _compose_hints[EDistance.CELL]:
+			for cell2 in _compose_hints[EDistance.CELL_2]:
+				if cell1.distance_to_enum(cell2) == EDistance.CELL_3:
+					for other in _others:
+						if distance_to_enum(other) == EDistance.CELL and cell2.distance_to_enum(other) == EDistance.CELL:
+							matched_cells[0] = info_component
+							matched_cells[1] = cell1.info_component
+							matched_cells[2] = cell2.info_component
+							return true
+	return false

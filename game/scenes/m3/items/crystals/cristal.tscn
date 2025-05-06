@@ -12,10 +12,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8hih8"]
 size = Vector2(256, 256)
 
-[node name="info" node_paths=PackedStringArray("damager_component", "_view_component", "_pmover_component") groups=["crystals"] instance=ExtResource("1_66i38")]
+[node name="info" node_paths=PackedStringArray("damager_component", "_view_component", "_pmover_component", "matcher_component") groups=["crystals"] instance=ExtResource("1_66i38")]
 damager_component = NodePath("damager")
 _view_component = NodePath("view")
 _pmover_component = NodePath("pmover")
+matcher_component = NodePath("matcher")
 save_value_type = 1
 
 [node name="pmover" parent="." index="0" node_paths=PackedStringArray("_match_component", "info_component", "_damager_component") instance=ExtResource("2_t6qtp")]

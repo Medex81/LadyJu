@@ -1,25 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://jklnu344kvjx"]
+[gd_scene load_steps=8 format=3 uid="uid://jklnu344kvjx"]
 
 [ext_resource type="PackedScene" uid="uid://bog8shiiuriye" path="res://game/scenes/m3/m3.tscn" id="1_ea8fm"]
-[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/m3/spawner.tscn" id="2_nf78v"]
 [ext_resource type="PackedScene" uid="uid://du2wl6jnbyff0" path="res://game/scenes/m3/items/crystals/green.tscn" id="2_se0sj"]
-[ext_resource type="PackedScene" uid="uid://bjmvm3ucen6l5" path="res://game/scenes/m3/items/matchers/amulet.tscn" id="2_smlnx"]
 [ext_resource type="PackedScene" uid="uid://doviksuk44trd" path="res://game/scenes/m3/items/crystals/blue.tscn" id="3_1f8hw"]
-[ext_resource type="PackedScene" uid="uid://buol7j31kopps" path="res://game/scenes/m3/items/matchers/helicopter.tscn" id="3_3rwwx"]
 [ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/crystals/purple.tscn" id="3_v1nqt"]
 [ext_resource type="PackedScene" uid="uid://cqjp4t6rjk2ng" path="res://game/scenes/m3/items/crystals/white.tscn" id="6_ec0mb"]
-[ext_resource type="PackedScene" uid="uid://brh78gb3s8kkn" path="res://game/scenes/m3/items/matchers/rocket_h.tscn" id="7_r5b0b"]
 [ext_resource type="PackedScene" uid="uid://bbwyoqheqg34l" path="res://game/scenes/m3/items/crystals/yellow.tscn" id="7_ukmwu"]
 [ext_resource type="PackedScene" uid="uid://c37um85cxcf5l" path="res://game/scenes/m3/items/crystals/red.tscn" id="8_u21lt"]
-[ext_resource type="PackedScene" uid="uid://bv6svht2f4up7" path="res://game/scenes/m3/items/matchers/rocket_v.tscn" id="10_4lfvp"]
 
 [node name="m3" instance=ExtResource("1_ea8fm")]
 mouse_filter = 1
-
-[node name="spawner" parent="m3_grid/cell5" index="0" instance=ExtResource("2_nf78v")]
-
-[node name="match_info" parent="m3_grid/cell18" index="0" instance=ExtResource("2_smlnx")]
-save_value_type = 0
 
 [node name="info" parent="m3_grid/cell71" index="0" instance=ExtResource("2_se0sj")]
 
@@ -35,7 +25,7 @@ save_value_type = 0
 
 [node name="info" parent="m3_grid/cell92" index="0" instance=ExtResource("2_se0sj")]
 
-[node name="info" parent="m3_grid/cell93" index="0" instance=ExtResource("2_se0sj")]
+[node name="info" parent="m3_grid/cell93" index="0" instance=ExtResource("3_1f8hw")]
 
 [node name="info" parent="m3_grid/cell94" index="0" instance=ExtResource("8_u21lt")]
 
@@ -43,14 +33,8 @@ save_value_type = 0
 
 [node name="info" parent="m3_grid/cell96" index="0" instance=ExtResource("2_se0sj")]
 
-[node name="match_info" parent="m3_grid/cell97" index="0" instance=ExtResource("3_3rwwx")]
-save_value_type = 0
+[node name="info" parent="m3_grid/cell98" index="0" instance=ExtResource("2_se0sj")]
 
-[node name="match_info" parent="m3_grid/cell98" index="0" instance=ExtResource("10_4lfvp")]
-save_value_type = 0
+[node name="info" parent="m3_grid/cell99" index="0" instance=ExtResource("2_se0sj")]
 
-[node name="match_info" parent="m3_grid/cell99" index="0" instance=ExtResource("10_4lfvp")]
-save_value_type = 0
-
-[node name="match_info" parent="m3_grid/cell100" index="0" instance=ExtResource("7_r5b0b")]
-save_value_type = 0
+[node name="info" parent="m3_grid/cell100" index="0" instance=ExtResource("8_u21lt")]

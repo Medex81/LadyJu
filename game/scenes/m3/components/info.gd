@@ -13,6 +13,8 @@ class_name InfoComponent
 @export var _pmover_component:PMoverComponent = null
 @export var _swap_logic:BaseSwapLogicComponent = null
 @export var _top_item:InfoComponent = null
+@export var matcher_component:MatcherComponent = null
+
 @export var is_interactive:bool = true
 @export var reward_count:int = 1
 @export var save_value_type:PlayerState.EPS = PlayerState.EPS.NONE
@@ -107,9 +109,6 @@ func change_to_matcher_enum(_match_type:MatcherComponent.EMatcher)->MatchInfoCom
 		else:
 			print("Error. Change item {0} to matcher enum {1}".format([_item_name, _match_type]))
 	return new_item
-
-func on_no_hint() -> void:
-	get_tree().call_group(BaseM3Level.group_name, BaseM3Level.events_fn, BaseM3Level.EEvents.NO_HINTS)
 
 func is_blocked()->bool:
 	return _top_item != null

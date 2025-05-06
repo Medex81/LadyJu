@@ -14,7 +14,6 @@ const try_move_fn = "try_move"
 @export var _match_component:MatcherComponent = null
 @export var info_component:InfoComponent = null
 @export var _damager_component:DamageContainerComponent = null
-@export var _hint_component:HintComponent = null
 @export var _swap_move_logic:BaseMoveComponent = null
 
 enum EMoveState{STOP, FALL, FINAL}
@@ -76,8 +75,7 @@ func try_move():
 	else:
 		if move_state == EMoveState.FALL:
 			move_state = EMoveState.STOP
-			if _hint_component:
-				_hint_component.on_all_stopped()
+			get_tree().call_group(M3.group, M3.move_end_fn)
 			call_deferred("matching")
 	
 func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_counting:bool = true):
@@ -92,7 +90,7 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 			_damager_component.set_swap_item_name(second_name)
 		# бронируем позицию для перехода
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
-		
+
 		var move_tween = get_tree().create_tween()
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
@@ -104,15 +102,17 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 			var is_swap_logic = info_component.proc_swap_logic(second_mover.info_component)
 			# логика перемещения при свапе была установлена для этого предмета
 			if _swap_move_logic != null:
-				is_moving = true
 				_swap_move_logic.start(info_component)
 				await _swap_move_logic.send_done
-				is_moving = false
 			# если была не установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.
 			if not is_swap_logic:
 				info_component.call_deferred("finalize")
 		else:
 			call_deferred("matching")
+		
+		# на свапе гасим подсказку
+		get_tree().call_group(M3.group, M3.move_end_fn)
+			
 		# шаг засчитываем в конце движения свапа, иначе условие на последнем шаге выполнится быстрее сматчивания
 		if is_step_counting:
 			get_tree().call_group(Task.group, Task.final_fn, Task.condition_steps)
