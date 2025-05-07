@@ -14,7 +14,7 @@ var _cell_3size:int = 128 * 3
 # расстояния между клетками
 enum EDistance{NONE, CELL, DIAGONAL, CELL_2, CELL_3}
 # тип сматчивания
-enum EMatcher{NONE, LINE4_H, LINE4_V, COUNT5, COUNT6, COUNT7}
+enum EMatcher{NONE, LINE4_H, LINE4_V, COUNT5, COUNT6, COUNT7, SQUARE}
 @export var cell_offset:int = 5
 @export var info_component:InfoComponent = null
 # подписка на сохраняемое в ПС значение
@@ -79,8 +79,22 @@ func match_detector(with_remove:bool = true)->bool:
 	var _compose_hints:Dictionary
 	var matched_cells1:Array[MatcherComponent]
 	var matched_cells2:Array[MatcherComponent]
+	var matched_cellsD:Array[MatcherComponent]
+	var is_square:bool = false
 	# собираем соседей этой клетки
 	get_neighbors(_compose_hints)
+	# квадрат
+	if _compose_hints.has(EDistance.DIAGONAL) and _compose_hints.has(EDistance.CELL) and _compose_hints[EDistance.CELL].size() > 1:
+		for cell1 in _compose_hints[EDistance.CELL]:
+			for cell2 in _compose_hints[EDistance.CELL]:
+				if cell1 != cell2 and cell1.distance_to_enum(cell2) == EDistance.DIAGONAL and not is_square:
+					for cellD in _compose_hints[EDistance.DIAGONAL]:
+						if cellD.distance_to_enum(cell1) == EDistance.CELL and cellD.distance_to_enum(cell2) == EDistance.CELL:
+							matched_cells1.append_array([cell1, cell2])
+							matched_cellsD.append(cellD)
+							is_square = true
+							break
+
 	# добавляем линки между клетками
 	if _compose_hints.has(EDistance.CELL_2) and _compose_hints.has(EDistance.CELL):
 		for cell1 in _compose_hints[EDistance.CELL]:
@@ -89,6 +103,7 @@ func match_detector(with_remove:bool = true)->bool:
 					matched_cells1.append(cell1)
 					matched_cells2.append(cell2)
 					continue
+					
 	# добавляем одиночные клетки линкующиеся через один (через основную)
 	if _compose_hints.has(EDistance.CELL):
 		for cell1 in _compose_hints[EDistance.CELL]:
@@ -98,6 +113,7 @@ func match_detector(with_remove:bool = true)->bool:
 						matched_cells1.append(cell1)
 
 	matched_cells1.append_array(matched_cells2)
+	matched_cells1.append_array(matched_cellsD)
 	var total_size = matched_cells1.size() + 1
 	
 	if info_component != null and total_size >= 3:
@@ -110,10 +126,13 @@ func match_detector(with_remove:bool = true)->bool:
 				var matcher_item:EMatcher = EMatcher.NONE
 				match total_size:
 					4:
-						if absi(matched_cells1.front().global_position.x - matched_cells1.back().global_position.x) < cell_offset:
-							matcher_item = EMatcher.LINE4_V
+						if is_square:
+							matcher_item = EMatcher.SQUARE
 						else:
-							matcher_item = EMatcher.LINE4_H
+							if absi(matched_cells1.front().global_position.x - matched_cells1.back().global_position.x) < cell_offset:
+								matcher_item = EMatcher.LINE4_V
+							else:
+								matcher_item = EMatcher.LINE4_H
 					5:
 						matcher_item = EMatcher.COUNT5
 					6:
