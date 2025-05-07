@@ -72,7 +72,7 @@ func get_other_neighbors(_others:Array, dist:EDistance):
 		and not area.info_component.is_died \
 		and distance_to_enum(area) == dist \
 		and not get_item_name().is_empty() \
-		and area.get_item_name() == get_item_name():
+		and area.get_item_name() != get_item_name():
 			_others.append(area)
 
 func match_detector(with_remove:bool = true)->bool:
