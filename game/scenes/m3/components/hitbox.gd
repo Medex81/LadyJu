@@ -17,6 +17,6 @@ func hit(damage:int, _resistance:int)->bool:
 		if resistance <= _resistance:
 			hitpoints -= damage
 			if hitpoints <= 0:
-				info_component.finalize()
+				info_component.call_deferred("finalize")
 			return true
 	return false

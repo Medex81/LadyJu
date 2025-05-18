@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://ilvgvxtt3wob"]
+[gd_scene load_steps=21 format=3 uid="uid://ilvgvxtt3wob"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_pkepy"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_q0218"]
 [ext_resource type="Texture2D" uid="uid://bhj8c1cvpt1xb" path="res://game/assets/anny_pack/bomb.png" id="2_rm6n1"]
 [ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="3_6yokk"]
-[ext_resource type="PackedScene" uid="uid://w04fhibkoagm" path="res://game/scenes/m3/effects/fire_whirlpool.tscn" id="5_1tpap"]
+[ext_resource type="Texture2D" uid="uid://318hvuj0m15n" path="res://game/assets/particle/circle_01.png" id="5_noumj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ftg6"]
 size = Vector2(256, 256)
@@ -49,11 +49,52 @@ _data = {
 &"start": SubResource("Animation_40r10")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r7v0p"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_ao0vl"]
+_data = [Vector2(0.0328947, 0.0449438), 0.0, 0.0, 0, 0, Vector2(0.513158, 0.988764), 0.0, 0.0, 0, 0, Vector2(1, 0.0449438), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kkp2i"]
+curve = SubResource("Curve_ao0vl")
+
+[sub_resource type="Gradient" id="Gradient_vamis"]
+offsets = PackedFloat32Array(0.103175, 0.809524, 0.960317)
+colors = PackedColorArray(0.667939, 0.989574, 0.709745, 1, 0.396078, 0.745098, 0.894118, 1, 0.997825, 0.979588, 0.984647, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2knn0"]
+gradient = SubResource("Gradient_vamis")
+
+[sub_resource type="Gradient" id="Gradient_crtpc"]
+offsets = PackedFloat32Array(0, 0.349206, 0.698413, 1)
+colors = PackedColorArray(0.960784, 0.960784, 0.94902, 1, 0.52942, 0.850634, 0.384688, 1, 0.219608, 0.454902, 0.623529, 1, 0.934103, 0.545753, 0.289204, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fj7y7"]
+gradient = SubResource("Gradient_crtpc")
+
+[sub_resource type="Curve" id="Curve_2cdsn"]
+_data = [Vector2(0.0131579, 0.011236), 0.0, 0.0, 0, 0, Vector2(0.5, 0.988764), 0.0, 0.0, 0, 0, Vector2(0.980263, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h52jb"]
+curve = SubResource("Curve_2cdsn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y7kht"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 1.4
+scale_max = 1.4
+color_ramp = SubResource("GradientTexture1D_fj7y7")
+color_initial_ramp = SubResource("GradientTexture1D_2knn0")
+alpha_curve = SubResource("CurveTexture_kkp2i")
+emission_curve = SubResource("CurveTexture_h52jb")
+
 [node name="match_info" instance=ExtResource("1_pkepy")]
 _match_type = 3
 _item_name = "bomb"
 
-[node name="damager" parent="." index="3"]
+[node name="damager" parent="." index="2"]
 visible = false
 
 [node name="strong" parent="damager" index="0" instance=ExtResource("2_q0218")]
@@ -69,22 +110,24 @@ shape = SubResource("RectangleShape2D_1ftg6")
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_fmpne")
 
-[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
+[node name="view" parent="." index="3" node_paths=PackedStringArray("_end_effect")]
 texture = ExtResource("2_rm6n1")
 _end_effect = NodePath("explosive")
 
-[node name="Node2D" type="Node2D" parent="view" index="0"]
-
-[node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("3_6yokk")]
+[node name="fire_part" parent="view" index="0" instance=ExtResource("3_6yokk")]
 position = Vector2(-94.125, -251)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="view/Node2D" index="1"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view/fire_part" index="0"]
 libraries = {
 &"": SubResource("AnimationLibrary_nnj72")
 }
 autoplay = "start"
 
-[node name="explosive" parent="view" index="1" instance=ExtResource("5_1tpap")]
-position = Vector2(-1.52588e-05, -1.52588e-05)
-speed_scale = 1.6
-explosiveness = 1.0
+[node name="explosive" type="GPUParticles2D" parent="view" index="1"]
+material = SubResource("CanvasItemMaterial_r7v0p")
+emitting = false
+amount = 5
+texture = ExtResource("5_noumj")
+lifetime = 0.5
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_y7kht")

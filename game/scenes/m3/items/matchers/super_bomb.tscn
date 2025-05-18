@@ -16,28 +16,28 @@ blend_mode = 1
 _data = [Vector2(0.0328947, 0.0449438), 0.0, 0.0, 0, 0, Vector2(0.513158, 0.988764), 0.0, 0.0, 0, 0, Vector2(1, 0.0449438), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_kkp2i"]
+[sub_resource type="CurveTexture" id="CurveTexture_jag1n"]
 curve = SubResource("Curve_wtq0m")
 
 [sub_resource type="Gradient" id="Gradient_r3mr0"]
 offsets = PackedFloat32Array(0.103175, 0.809524, 0.960317)
 colors = PackedColorArray(0.926299, 2.4306e-06, 1.92523e-06, 1, 1, 0.270588, 1, 1, 0.997825, 0.979588, 0.984647, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2knn0"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1o14g"]
 gradient = SubResource("Gradient_r3mr0")
 
 [sub_resource type="Gradient" id="Gradient_wfto1"]
 offsets = PackedFloat32Array(0, 0.349206, 0.698413, 1)
 colors = PackedColorArray(0.960784, 0.960784, 0.94902, 1, 0.670734, 0.182335, 0.0832758, 1, 0.617702, 0.000298988, 0.622598, 1, 0.934103, 0.545753, 0.289204, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_fj7y7"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2chwr"]
 gradient = SubResource("Gradient_wfto1")
 
 [sub_resource type="Curve" id="Curve_pvf50"]
 _data = [Vector2(0.0131579, 0.011236), 0.0, 0.0, 0, 0, Vector2(0.5, 0.988764), 0.0, 0.0, 0, 0, Vector2(0.980263, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_h52jb"]
+[sub_resource type="CurveTexture" id="CurveTexture_wtq0m"]
 curve = SubResource("Curve_pvf50")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_44d16"]
@@ -45,14 +45,17 @@ particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_min = 2.5
 scale_max = 2.5
-color_ramp = SubResource("GradientTexture1D_fj7y7")
-color_initial_ramp = SubResource("GradientTexture1D_2knn0")
-alpha_curve = SubResource("CurveTexture_kkp2i")
-emission_curve = SubResource("CurveTexture_h52jb")
+color_ramp = SubResource("GradientTexture1D_2chwr")
+color_initial_ramp = SubResource("GradientTexture1D_1o14g")
+alpha_curve = SubResource("CurveTexture_jag1n")
+emission_curve = SubResource("CurveTexture_wtq0m")
 
 [node name="match_info" instance=ExtResource("1_e14wd")]
 _match_type = 5
 _item_name = "super_bomb"
+
+[node name="damager" parent="." index="2"]
+visible = false
 
 [node name="strong" parent="damager" index="0" instance=ExtResource("2_22itk")]
 resistance = 3
