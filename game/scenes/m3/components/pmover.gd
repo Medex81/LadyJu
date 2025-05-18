@@ -79,7 +79,7 @@ func try_move():
 			call_deferred("matching")
 	
 func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_counting:bool = true):
-	if is_moving == true or (info_component != null and is_instance_valid(info_component) and info_component.is_active == false) or move_state == EMoveState.FINAL:
+	if is_moving == true or (info_component != null and is_instance_valid(info_component) and info_component.is_interactive == false) or move_state == EMoveState.FINAL:
 		return
 		
 	is_moving = true
@@ -99,7 +99,7 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 			# всё - компонент больше нельзя использовать
 			move_state = EMoveState.FINAL
 			# логика свапа была установлена для этого предмета(если движение не нужно удалить прямо там после завершения)
-			info_component.proc_swap_logic(second_mover.info_component)
+			var has_swap_logic = info_component.proc_swap_logic(second_mover.info_component)
 			# логика перемещения при свапе была установлена для этого предмета
 			if _swap_move_logic != null:
 				# если не была установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.

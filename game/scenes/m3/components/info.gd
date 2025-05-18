@@ -25,7 +25,6 @@ const group_name = "info"
 @onready var _item_generator:ItemGenerator = get_tree().get_first_node_in_group(ItemGenerator.group_name)
 
 var is_died:bool = false
-var is_active:bool = false
 
 func _ready() -> void:
 	if save_value_type != PlayerState.EPS.NONE:
@@ -114,7 +113,7 @@ func is_blocked()->bool:
 	return _top_item != null
 	
 func is_movable()->bool:
-	return not is_blocked() and is_interactive and not is_died and is_active 
+	return not is_blocked() and is_interactive and not is_died
 
 func finalize(is_quiet:bool = false):
 	# не финалимся если уже зафиналены
@@ -129,8 +128,6 @@ func finalize(is_quiet:bool = false):
 			remove_child(item_child)
 			parent.add_child(item_child)
 			item_child.global_position = pos
-			item_child.is_active = true
-			item_child.is_interactive = true
 			item_child.call_deferred("finalize")
 		
 	if _pmover_component != null and _pmover_component.has_swap_move():
@@ -159,10 +156,6 @@ func finalize(is_quiet:bool = false):
 			save_coins.value += int(reward_count)
 	queue_free()
 
-func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	if is_interactive:
-		is_active = true
-		
 func check_move():
 	if _pmover_component:
 		_pmover_component.call_deferred("try_move")

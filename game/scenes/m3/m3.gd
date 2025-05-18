@@ -34,7 +34,7 @@ func shuffle_cells(group:String):
 	var positions:Array
 	var active_items:Array
 	for item in all_items:
-		if item.is_active:
+		if item.is_interactive:
 			active_items.append(item)
 			positions.append(item.global_position)
 	positions.shuffle()
@@ -61,7 +61,7 @@ func _on_hint_timer_timeout() -> void:
 	# если есть матчерные предметы - выбираем их.
 	var matchers:Array = tree.get_nodes_in_group(group_matchers)
 	for matcher in matchers:
-		if matcher.is_active:
+		if matcher.is_interactive:
 			hint_items[0] = matcher
 			has = true
 			break
@@ -71,7 +71,7 @@ func _on_hint_timer_timeout() -> void:
 		var crystals:Array = tree.get_nodes_in_group(group_crystals)
 		# вызвать метод хинт у матчерного компонента каждого предмета.
 		for item in crystals:
-			if item.is_active and item.matcher_component != null:
+			if item.is_interactive and item.matcher_component != null:
 				# после смешивания у нас появился матч - выходим и смешиваем повторно.
 				if shuffle_count > 0 and item.matcher_component.has_match():
 					has = false

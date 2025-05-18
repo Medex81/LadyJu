@@ -13,10 +13,8 @@ _swap_logic = NodePath("swap_logic_amulet")
 [node name="view" parent="." index="3"]
 texture = ExtResource("2_iue6o")
 
-[node name="swap_logic_amulet" parent="." index="5" instance=ExtResource("4_op7hc")]
+[node name="swap_logic_amulet" parent="." index="4" instance=ExtResource("4_op7hc")]
 
-[node name="GPUParticles2D" parent="." index="6" instance=ExtResource("4_ck2db")]
+[node name="GPUParticles2D" parent="." index="5" instance=ExtResource("4_ck2db")]
 position = Vector2(64, 64)
 scale = Vector2(0.25498, 0.25498)
-
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered2"]

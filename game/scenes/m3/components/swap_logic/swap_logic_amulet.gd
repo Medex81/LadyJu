@@ -18,7 +18,7 @@ func start(item:InfoComponent, second_swap:InfoComponent)->bool:
 		print("Error. In ExchangeSwapLogicComponent InfoComponent crystals count is ", crystals_arr.size())
 		return false
 	for _item in crystals_arr:
-		if _item.get_item_name() != second_swap_item_name and _item.is_active == true:
+		if _item.get_item_name() != second_swap_item_name and _item.is_interactive == true:
 			without_arr.append(_item)
 	without_arr.shuffle()
 	var count = int(without_arr.size() * change_percent)
