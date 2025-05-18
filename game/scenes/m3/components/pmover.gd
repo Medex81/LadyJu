@@ -104,6 +104,8 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 			if _swap_move_logic != null:
 				# если не была установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.
 				_swap_move_logic.start(info_component)
+			elif has_swap_logic == false:
+				info_component.call_deferred("finalize")
 		else:
 			call_deferred("matching")
 		
