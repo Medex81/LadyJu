@@ -79,14 +79,14 @@ func try_move():
 			call_deferred("matching")
 	
 func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_counting:bool = true):
-	if is_moving == true or (info_component != null and info_component.is_active == false):
+	if is_moving == true or (info_component != null and is_instance_valid(info_component) and info_component.is_active == false) or move_state == EMoveState.FINAL:
 		return
 		
 	is_moving = true
 	var second_name = second_mover.info_component.get_item_name() if second_mover != null and second_mover.info_component != null else ""
-	if info_component and direct != Vector2.ZERO:
+	if info_component != null and is_instance_valid(info_component) and direct != Vector2.ZERO:
 		# в компонент нанесения урона устанавливаем имя второго предмета для определения нужно ли усиление
-		if _damager_component and not second_name.is_empty() and info_component is MatchInfoComponent:
+		if is_instance_valid(info_component) and _damager_component and not second_name.is_empty() and info_component is MatchInfoComponent:
 			_damager_component.set_swap_item_name(second_name)
 		# бронируем позицию для перехода
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
@@ -95,18 +95,15 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
 		await move_tween.finished
 		
-		if info_component is MatchInfoComponent:
+		if is_instance_valid(info_component) and info_component is MatchInfoComponent:
 			# всё - компонент больше нельзя использовать
 			move_state = EMoveState.FINAL
-			# логика свапа была установлена для этого предмета
-			var is_swap_logic = info_component.proc_swap_logic(second_mover.info_component)
+			# логика свапа была установлена для этого предмета(если движение не нужно удалить прямо там после завершения)
+			info_component.proc_swap_logic(second_mover.info_component)
 			# логика перемещения при свапе была установлена для этого предмета
 			if _swap_move_logic != null:
+				# если не была установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.
 				_swap_move_logic.start(info_component)
-				await _swap_move_logic.send_done
-			# если была не установлена логика предмета для свапа - завершаем его иначе его должны завершить в другом месте.
-			if not is_swap_logic:
-				info_component.call_deferred("finalize")
 		else:
 			call_deferred("matching")
 		
@@ -158,6 +155,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 					is_moving = false
 				get_tree().call_group(Task.group, Task.final_fn, Task.condition_steps)
 				info_component.call_deferred("finalize")
+				get_tree().call_group(M3.group, M3.move_end_fn)
 			else:
 				# если предмет не стоит или стремный - отбрасываем свап
 				if swap_node is PMoverComponent and (swap_node.is_moving or is_moving):
