@@ -7,31 +7,23 @@ class_name ViewComponent
 @export var _end_effect:Node = null
 
 signal send_effect_done()
-signal send_animation_end()
 
-func has_end_effect()->bool:
-	return _end_effect != null
-
-func run_end_effect():
+func run_end_effect()->bool:
 	texture = null
-	#for effect in get_children():
-		#if effect != _end_effect:
-			#effect.visible = false
-	if _end_effect:
-		if _end_effect is GPUParticles2D:
-			_end_effect.visible = true
-			_end_effect.emitting  = true
-			await _end_effect.finished
-		if _end_effect is EffectContainer and _end_effect.has_effects():
-			_end_effect.start()
-			await _end_effect.send_effects_done
-		if _end_effect is AnimationPlayer:
-			_end_effect.play("start")
-			_end_effect.animation_finished.connect(animation_end)
-			await send_animation_end
-	send_effect_done.emit()
-	
+	for child in get_children():
+		if child != _end_effect:
+			child.visible = false
 
-	
-func animation_end(_anim_name:String):
-	send_animation_end.emit()
+	if _end_effect is GPUParticles2D:
+		_end_effect.finished.connect(send_effect_done.emit)
+		_end_effect.emitting  = true
+		return true
+	elif _end_effect is EffectContainer and _end_effect.last_effect != null:
+		_end_effect.last_effect.finished.connect(send_effect_done.emit)
+		_end_effect.start()
+		return true
+	elif _end_effect is AnimationPlayer:
+		_end_effect.animation_finished.connect(func(_anim_name:String):send_effect_done.emit())
+		_end_effect.play("start")
+		return true
+	return false
