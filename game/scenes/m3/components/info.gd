@@ -117,11 +117,18 @@ func is_movable()->bool:
 	return not is_blocked() and is_interactive and not is_died and is_active 
 
 func finalize(is_quiet:bool = false):
+	# не финалимся если уже зафиналены
 	if not is_interactive or is_died:
 		return
 		
+	# перед своим финалом отвязываем и финалим все предметы завязанные на нас 
 	for item_child in get_children():
 		if item_child is InfoComponent:
+			var parent = get_parent()
+			var pos = global_position
+			remove_child(item_child)
+			parent.add_child(item_child)
+			item_child.global_position = pos
 			item_child.is_active = true
 			item_child.is_interactive = true
 			item_child.call_deferred("finalize")
@@ -130,21 +137,26 @@ func finalize(is_quiet:bool = false):
 		_pmover_component.call_deferred("final_swap_move_logic")
 		return
 		
+	# над нами блокер - финалим его
 	if _top_item != null:
 		_top_item.finalize()
 		return
 
+	# с этого места предмет зафинален
 	is_died = true
+	# финалить тихо - при замене предмета на другой(без удара и эффекта)
 	if is_quiet == false:
-		if _view_component and _view_component.has_end_effect():
-			_view_component.run_end_effect()
+		# вызываем эффект и если он установлен ждём когда он закончится
+		if _view_component and _view_component.run_end_effect():
 			await _view_component.send_effect_done
+		# делаем удар по зоне хита
 		if damager_component:
 			damager_component.run_damage()
+		# оповещаем задачи квеста об зафиналеном предмете для подсчёта
 		get_tree().call_group(Task.group, Task.final_fn, _item_name)
+		# если на предмет навешена награда - начисляем её в стату
 		if save_coins:
 			save_coins.value += int(reward_count)
-
 	queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
