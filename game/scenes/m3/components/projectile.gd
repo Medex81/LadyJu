@@ -15,7 +15,6 @@ func start(_self_item:InfoComponent, _item_name:String = ""):
 			if item is Task and item.is_item and not item.get_item_name().is_empty():
 				quest_item_names.append(item.get_item_name())
 		if not quest_item_names.is_empty():
-			#var random_item_name = quest_item_names.pick_random()
 			var current_quest_item_in_field:Array[InfoComponent]
 			for info_comp in get_tree().get_nodes_in_group(InfoComponent.group_name):
 				if info_comp is InfoComponent and info_comp.is_interactive and info_comp.get_item_name() in quest_item_names\
@@ -33,7 +32,7 @@ func start(_self_item:InfoComponent, _item_name:String = ""):
 						start_global_pos = random_quest_item.global_position
 						run_tween()
 			else:
-				send_done.emit()
+				from_item.call_deferred("finalize")
 
 func tween_step(_inx:int):
 	if tween != null:
@@ -60,6 +59,7 @@ func run_tween():
 		if to_item.global_position == from_item.global_position:
 			# убираем из списка целей текущую которую поразили
 			processed_aims.erase(to_item)
-			send_done.emit()
+			if is_instance_valid(from_item):
+				from_item.call_deferred("finalize")
 	else:
 		call_deferred("start", from_item)
