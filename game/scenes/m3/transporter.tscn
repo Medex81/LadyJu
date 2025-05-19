@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://dhi4hfdtc8pgw"]
+
+[ext_resource type="Script" uid="uid://dhmljab16v06v" path="res://game/scenes/m3/transporter.gd" id="1_u2h78"]
+[ext_resource type="Texture2D" uid="uid://v3c31y6fxg22" path="res://game/assets/kenney_particle-pack/PNG (Black background)/trace_06.png" id="2_3tg2y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wk8m6"]
+size = Vector2(20, 18)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bac8n"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_erpuw"]
+_data = [Vector2(0.0328947, 0.0337079), 0.0, 0.0, 0, 0, Vector2(0.480263, 0.988764), 0.0, 0.0, 0, 0, Vector2(0.940789, 0.011236), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_toj8i"]
+curve = SubResource("Curve_erpuw")
+
+[sub_resource type="Gradient" id="Gradient_bmlrt"]
+colors = PackedColorArray(0, 0, 0.419608, 1, 1, 0.27451, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_syncu"]
+gradient = SubResource("Gradient_bmlrt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1kwnj"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(60, 1, 1)
+gravity = Vector3(0, 98, 0)
+scale_min = 0.1
+scale_max = 0.1
+color_initial_ramp = SubResource("GradientTexture1D_syncu")
+alpha_curve = SubResource("CurveTexture_toj8i")
+
+[node name="transporter" type="Area2D"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_u2h78")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(64, 113)
+shape = SubResource("RectangleShape2D_wk8m6")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 5
+material = SubResource("CanvasItemMaterial_bac8n")
+position = Vector2(64, 16)
+texture = ExtResource("2_3tg2y")
+process_material = SubResource("ParticleProcessMaterial_1kwnj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

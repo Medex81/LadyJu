@@ -162,3 +162,11 @@ func check_move():
 
 func proc_swap_logic(second_swap:InfoComponent = null)->bool:
 	return _swap_logic.start(self, second_swap) if _swap_logic != null else false
+	
+func stop_moving():
+	if _pmover_component != null:# and _pmover_component.is_moving:
+		_pmover_component.stop_moving()
+		
+func start_moving():
+	if _pmover_component != null:# and _pmover_component.is_moving:
+		_pmover_component.start_moving()

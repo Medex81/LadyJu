@@ -24,6 +24,7 @@ var _item_name:String
 var is_moving:bool = false
 var moving_to_rect:Rect2
 var cell_size:Vector2 = Vector2(_cell_width, _cell_width)
+var tween:Tween = null
 
 static var swap_node:PMoverComponent = null
 
@@ -67,9 +68,11 @@ func try_move():
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
 		move_state = EMoveState.FALL
 		is_moving = true
-		var move_tween = get_tree().create_tween()
-		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
-		await move_tween.finished
+		tween = get_tree().create_tween()
+		tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
+		await tween.finished
+		moving_to_rect = Rect2(Vector2.ZERO, Vector2.ZERO)
+		tween = null
 		is_moving = false
 		call_deferred(try_move_fn)
 	else:
@@ -91,9 +94,11 @@ func swap_move(direct:Vector2, second_mover:PMoverComponent = null, is_step_coun
 		# бронируем позицию для перехода
 		moving_to_rect = Rect2(global_position + direct * _cell_width, cell_size)
 
-		var move_tween = get_tree().create_tween()
-		move_tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
-		await move_tween.finished
+		stop_moving()
+		tween = get_tree().create_tween()
+		tween.tween_property(info_component, "global_position", global_position + direct * _cell_width, _move_time)
+		await tween.finished
+		tween = null
 		
 		if is_instance_valid(info_component) and info_component is MatchInfoComponent:
 			# всё - компонент больше нельзя использовать
@@ -196,3 +201,14 @@ func set_fake_item_name(new_item_name:String = "")->bool:
 		_match_component.set_fake_item_name(new_item_name)
 		return true
 	return false
+
+func stop_moving():
+	is_moving = true
+	if tween != null:
+		# выходим из корутины
+		tween.finished.emit()
+		tween.stop()
+		tween.kill()
+		
+func start_moving():
+	is_moving = false

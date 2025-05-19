@@ -1407,6 +1407,7 @@ save_value_type = 0
 
 [node name="helicopter" parent="item_generator" instance=ExtResource("13_x3llh")]
 position = Vector2(482, -164)
+_match_type = 6
 is_interactive = false
 save_value_type = 0
 
