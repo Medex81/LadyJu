@@ -39,7 +39,7 @@ z_index = 4
 damager_component = NodePath("damager")
 _view_component = NodePath("view")
 
-[node name="view" parent="." index="1" node_paths=PackedStringArray("_end_effect") instance=ExtResource("2_s02dy")]
+[node name="view" parent="." index="0" node_paths=PackedStringArray("_end_effect") instance=ExtResource("2_s02dy")]
 self_modulate = Color(0.458989, 0.503368, 0.952653, 1)
 position = Vector2(3.8147e-06, -9.34601e-05)
 scale = Vector2(0.71875, 2.25)
@@ -52,7 +52,7 @@ texture = ExtResource("3_fsal4")
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_6j6ja")
 
-[node name="damager" parent="." index="2" instance=ExtResource("4_fntng")]
+[node name="damager" parent="." index="1" instance=ExtResource("4_fntng")]
 
 [node name="one_shot_damage" parent="damager" index="0" instance=ExtResource("5_gfxnw")]
 collision_layer = 4
