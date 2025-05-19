@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd4rp0qs35g56"]
+
+[ext_resource type="Script" uid="uid://dmbnouul03ag8" path="res://game/scenes/ui/hud/state_value.gd" id="1_54icc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dqts4"]
+font_size = 25
+outline_size = 4
+outline_color = Color(0.00184107, 0.00184107, 0.00184107, 1)
+
+[node name="state_value" type="HBoxContainer"]
+script = ExtResource("1_54icc")
+
+[node name="name_value" type="Label" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "a_name"
+label_settings = SubResource("LabelSettings_dqts4")
+horizontal_alignment = 2
+
+[node name="value" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_constants/minimum_character_width = 1
+theme_override_font_sizes/font_size = 20
+emoji_menu_enabled = false
+
+[connection signal="text_submitted" from="value" to="." method="_on_value_text_submitted"]

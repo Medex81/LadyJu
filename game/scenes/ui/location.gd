@@ -37,5 +37,3 @@ func _ready() -> void:
 			
 	if run_quest == null and next_location_path.is_empty():
 		get_tree().call_deferred("change_scene_to_file", Globals.end_scene_path)
-		
-				

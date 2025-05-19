@@ -16,3 +16,6 @@ text = "a_quest"
 
 [node name="close" parent="title" index="1"]
 visible = false
+
+[node name="margin" parent="." index="1"]
+anchor_top = 0.193549

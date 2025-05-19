@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://8bpxcsw74l5u"]
+[gd_scene load_steps=23 format=3 uid="uid://8bpxcsw74l5u"]
 
-[ext_resource type="Script" uid="uid://ka5b5sfirlo2" path="res://game/scenes/ui/location.gd" id="1_ls6w8"]
+[ext_resource type="Script" uid="uid://du2w3ac1txkhm" path="res://game/scenes/ui/location.gd" id="1_ls6w8"]
 [ext_resource type="PackedScene" uid="uid://c1pok1fmu7d3d" path="res://game/scenes/ui/buttons/blue_bottom.tscn" id="2_f0ovu"]
 [ext_resource type="PackedScene" uid="uid://p05v13liro31" path="res://game/scenes/ui/hud/player_icon.tscn" id="2_mq4wl"]
 [ext_resource type="Texture2D" uid="uid://bnf7c4tvcg1pv" path="res://game/assets/third_party/white_icons/shoppingCart.png" id="3_jjmi4"]
@@ -10,18 +10,34 @@
 [ext_resource type="Texture2D" uid="uid://b7rfkcjtqph66" path="res://game/assets/third_party/white_icons/home.png" id="5_bxkkn"]
 [ext_resource type="Texture2D" uid="uid://cqew3lokagvo8" path="res://game/assets/third_party/white_icons/massiveMultiplayer.png" id="6_bn1hn"]
 [ext_resource type="Texture2D" uid="uid://c6ojr8kxwin4r" path="res://game/assets/third_party/white_icons/gear.png" id="9_tjhp2"]
+[ext_resource type="PackedScene" uid="uid://huqcwu5nuiqe" path="res://game/scenes/ui/windows/options_window.tscn" id="11_a5nxl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2r2ye"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a5nxl"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_a5nxl"]
+allow_unpress = true
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukiyi"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ukiyi"]
+allow_unpress = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xd84k"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_xd84k"]
+allow_unpress = true
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xubtf"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_xubtf"]
+allow_unpress = true
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mqkt5"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_mqkt5"]
+allow_unpress = true
 
 [node name="location" type="Control"]
 layout_mode = 3
@@ -99,25 +115,44 @@ alignment = 1
 [node name="shop" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_a5nxl")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_a5nxl")
 icon = ExtResource("3_jjmi4")
 
 [node name="rating" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ukiyi")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ukiyi")
 icon = ExtResource("4_7o0fj")
 
 [node name="main" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xd84k")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_xd84k")
 icon = ExtResource("5_bxkkn")
 
 [node name="commands" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xubtf")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_xubtf")
 icon = ExtResource("6_bn1hn")
 
-[node name="options" parent="HUD/main_v/bottom/window_buttons" instance=ExtResource("2_f0ovu")]
+[node name="options" parent="HUD/main_v/bottom/window_buttons" node_paths=PackedStringArray("local_window") instance=ExtResource("2_f0ovu")]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mqkt5")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_mqkt5")
 icon = ExtResource("9_tjhp2")
+local_window = NodePath("../../../../../options_window")
+
+[node name="options_window" parent="." instance=ExtResource("11_a5nxl")]
+visible = false
+layout_mode = 1
+offset_left = -386.5
+offset_top = -361.0
+offset_right = 386.5
+offset_bottom = 361.0

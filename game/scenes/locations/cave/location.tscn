@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://3ttrsow3d8o4"]
+[gd_scene load_steps=15 format=3 uid="uid://3ttrsow3d8o4"]
 
 [ext_resource type="PackedScene" uid="uid://8bpxcsw74l5u" path="res://game/scenes/ui/location.tscn" id="1_vngce"]
 [ext_resource type="Texture2D" uid="uid://buej8r7uubwoh" path="res://game/scenes/locations/cave/cave.png" id="2_dqixm"]
@@ -8,6 +8,21 @@
 [ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="5_r6fgf"]
 [ext_resource type="Texture2D" uid="uid://c2uhj2khmc2ql" path="res://game/assets/third_party/kerosine.png" id="6_vtaqi"]
 [ext_resource type="Resource" uid="uid://tdr2e0nhuf2t" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/kerosine/quest_info.tres" id="7_5g3wx"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_2efro"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_okahy"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_5f3x8"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_6in43"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ocibi"]
+allow_unpress = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x37nb"]
 bg_color = Color(0.583001, 0.608957, 0.582069, 1)
@@ -43,6 +58,21 @@ size_flags_horizontal = 8
 
 [node name="next_quest" parent="HUD/main_v/bottom" index="0" node_paths=PackedStringArray("location")]
 location = NodePath("../../../..")
+
+[node name="shop" parent="HUD/main_v/bottom/window_buttons" index="0"]
+button_group = SubResource("ButtonGroup_2efro")
+
+[node name="rating" parent="HUD/main_v/bottom/window_buttons" index="1"]
+button_group = SubResource("ButtonGroup_okahy")
+
+[node name="main" parent="HUD/main_v/bottom/window_buttons" index="2"]
+button_group = SubResource("ButtonGroup_5f3x8")
+
+[node name="commands" parent="HUD/main_v/bottom/window_buttons" index="3"]
+button_group = SubResource("ButtonGroup_6in43")
+
+[node name="options" parent="HUD/main_v/bottom/window_buttons" index="4"]
+button_group = SubResource("ButtonGroup_ocibi")
 
 [node name="hint_puppy" type="TextureRect" parent="." index="2"]
 layout_mode = 1

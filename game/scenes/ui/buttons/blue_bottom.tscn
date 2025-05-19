@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1pok1fmu7d3d"]
+[gd_scene load_steps=5 format=3 uid="uid://c1pok1fmu7d3d"]
 
 [ext_resource type="StyleBox" uid="uid://74h8r1ad63nx" path="res://game/scenes/ui/buttons/blue_bottom.tres" id="1_cgtpl"]
+[ext_resource type="Script" uid="uid://btfx8i8cchv6t" path="res://game/scenes/ui/buttons/blue_bottom.gd" id="2_immtl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2j67i"]
 bg_color = Color(0.0434553, 0.522485, 0.742034, 1)
@@ -33,3 +34,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_7ldkh")
 theme_override_styles/normal = ExtResource("1_cgtpl")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("2_immtl")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

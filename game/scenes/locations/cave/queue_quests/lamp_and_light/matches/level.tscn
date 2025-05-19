@@ -18,6 +18,11 @@ quest_info = ExtResource("2_anft4")
 [node name="back" parent="." index="0"]
 texture = ExtResource("2_2nes3")
 
+[node name="margin_aims" parent="main_margin/main_container/left/aims" index="2"]
+anchors_preset = -1
+anchor_top = 0.094
+theme_override_constants/margin_top = 20
+
 [node name="quests_panel" parent="main_margin/main_container/left/aims/margin_aims" index="0" node_paths=PackedStringArray("_base_m3_layer") instance=ExtResource("3_hkwu5")]
 layout_mode = 2
 size_flags_horizontal = 4

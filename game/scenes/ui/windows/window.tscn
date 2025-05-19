@@ -27,7 +27,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_8i7x3"]
-font_size = 28
+font_size = 35
 font_color = Color(0.944682, 0.871636, 0.706218, 1)
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
@@ -48,6 +48,8 @@ custom_minimum_size = Vector2(150, 40)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = 0.000518799
+offset_bottom = 48.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vuhd6")
 
@@ -81,13 +83,13 @@ expand_icon = true
 [node name="margin" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.113636
+anchor_top = 0.136363
 anchor_right = 1.0
 anchor_bottom = 0.999999
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_edit_use_anchors_ = true

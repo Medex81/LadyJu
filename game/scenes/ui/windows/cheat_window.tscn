@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwxhb5nxcyxik"]
+
+[ext_resource type="PackedScene" uid="uid://ciphw1666vdqt" path="res://game/scenes/ui/windows/window.tscn" id="1_8ldk1"]
+[ext_resource type="PackedScene" uid="uid://dd4rp0qs35g56" path="res://game/scenes/ui/hud/state_value.tscn" id="2_j2lgn"]
+
+[node name="window" instance=ExtResource("1_8ldk1")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -193.0
+offset_top = -209.0
+offset_right = 193.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="window_title" parent="title" index="0"]
+text = "a_cheat_panel"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="margin/vcontainer" index="0"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="margin/vcontainer/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="coins" parent="margin/vcontainer/ScrollContainer/VBoxContainer" index="0" instance=ExtResource("2_j2lgn")]
+layout_mode = 2
+save_value_type = 1
+
+[node name="hummer" parent="margin/vcontainer/ScrollContainer/VBoxContainer" index="1" instance=ExtResource("2_j2lgn")]
+layout_mode = 2
+save_value_type = 2
+
+[node name="flash_v" parent="margin/vcontainer/ScrollContainer/VBoxContainer" index="2" instance=ExtResource("2_j2lgn")]
+layout_mode = 2
+save_value_type = 3
+
+[node name="flash_h" parent="margin/vcontainer/ScrollContainer/VBoxContainer" index="3" instance=ExtResource("2_j2lgn")]
+layout_mode = 2
+save_value_type = 4

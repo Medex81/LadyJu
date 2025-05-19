@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://huqcwu5nuiqe"]
+
+[ext_resource type="PackedScene" uid="uid://ciphw1666vdqt" path="res://game/scenes/ui/windows/window.tscn" id="1_jukqv"]
+[ext_resource type="PackedScene" uid="uid://b1pkjshu1hxb6" path="res://game/scenes/ui/buttons/call_window.tscn" id="2_3nrrv"]
+[ext_resource type="PackedScene" uid="uid://cwxhb5nxcyxik" path="res://game/scenes/ui/windows/cheat_window.tscn" id="3_ni5m2"]
+
+[node name="window" instance=ExtResource("1_jukqv")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -413.0
+offset_top = -353.0
+offset_right = 413.0
+offset_bottom = 353.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="window_title" parent="title" index="0"]
+text = "a_options"
+
+[node name="GridContainer" type="GridContainer" parent="margin/vcontainer" index="0"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="cheat_panel" parent="margin/vcontainer/GridContainer" index="0" node_paths=PackedStringArray("local_window") instance=ExtResource("2_3nrrv")]
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 25
+toggle_mode = true
+text = "a_cheat_panel"
+alignment = 1
+local_window = NodePath("../../../../cheat_panel")
+only_for_debug = true
+
+[node name="cheat_panel" parent="." index="2" instance=ExtResource("3_ni5m2")]
+visible = false
+top_level = true
+layout_mode = 1
+offset_left = -197.0
+offset_top = -241.0
+offset_right = 197.0
+offset_bottom = 241.0
