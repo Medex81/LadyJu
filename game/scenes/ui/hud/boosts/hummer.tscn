@@ -13,6 +13,7 @@ size = Vector2(2, 2)
 
 [sub_resource type="Animation" id="Animation_nxt6r"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -89,7 +90,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_5sfu2"]
 resource_name = "start"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -97,7 +97,7 @@ tracks/0/path = NodePath("Node/hummer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
+"times": PackedFloat32Array(0, 0.5, 0.966667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(-874.578, -349.047), Vector2(-403.953, -694.172), Vector2(-152.953, -254.922)]
@@ -109,7 +109,7 @@ tracks/1/path = NodePath("Node/hummer:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
+"times": PackedFloat32Array(0, 0.5, 0.966667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [-2.35619, -0.523598, 1.0472]
@@ -121,7 +121,7 @@ tracks/2/path = NodePath("Node/blast:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.933333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]

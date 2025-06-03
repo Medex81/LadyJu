@@ -10,9 +10,6 @@ signal send_effect_done()
 
 func run_end_effect()->bool:
 	texture = null
-	for child in get_children():
-		if child != _end_effect:
-			child.visible = false
 
 	if _end_effect is GPUParticles2D:
 		_end_effect.finished.connect(send_effect_done.emit)
@@ -23,7 +20,8 @@ func run_end_effect()->bool:
 		_end_effect.start()
 		return true
 	elif _end_effect is AnimationPlayer:
-		_end_effect.animation_finished.connect(func(_anim_name:String):send_effect_done.emit())
+		_end_effect.animation_finished.connect(func(_anim_name:String):
+			send_effect_done.emit())
 		_end_effect.play("start")
 		return true
 	return false
