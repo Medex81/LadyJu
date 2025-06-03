@@ -29,8 +29,8 @@ func _ready() -> void:
 func _on_move_timer_timeout() -> void:
 	tree.call_group(InfoComponent.group_name, "check_move")
 	
-func shuffle_cells(group:String):
-	var all_items:Array = tree.get_nodes_in_group(group)
+func shuffle_cells(_group:String):
+	var all_items:Array = tree.get_nodes_in_group(_group)
 	var positions:Array
 	var active_items:Array
 	for item in all_items:

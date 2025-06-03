@@ -31,12 +31,8 @@ b = Vector2(1286, 1287)
 a = Vector2(1286, 2)
 b = Vector2(-4, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4cde"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tam2h"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -44,12 +40,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6nmg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjchk"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -57,12 +49,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hb1c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_18unx"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -70,12 +58,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6btx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al683"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -83,12 +67,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lya0l"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsdp8"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -96,12 +76,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4g3r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oltoe"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -109,12 +85,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mqyn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_woysd"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -122,12 +94,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llx2b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utmd8"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -135,12 +103,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_riq5r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g5um"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -148,12 +112,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ml3po"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aaso4"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -161,12 +121,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i1ka"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ss8n7"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -174,12 +130,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0yft"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkphe"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -187,12 +139,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_44wsx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5a66e"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -200,12 +148,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m22m4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crxtk"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -213,12 +157,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdfra"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vhuq"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -226,12 +166,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jte77"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rsw8u"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -239,12 +175,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ncxi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_586fp"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -252,12 +184,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20cw4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oekn"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -265,12 +193,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqu0j"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1regj"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -278,12 +202,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7irs"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tepjf"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -291,12 +211,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2gmq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6y7l"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -304,12 +220,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knqbr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t8vum"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -317,12 +229,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhnld"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ln3eu"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -330,12 +238,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdy0y"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmnvx"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -343,12 +247,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60hl3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6emv"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -356,12 +256,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q2u1b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hl8fy"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -369,12 +265,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahjfb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pyb5"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -382,12 +274,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aggpq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yaihg"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -395,12 +283,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txhh3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4ymp"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -408,12 +292,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ng12d"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1to0"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -421,12 +301,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbyyp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyo3i"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -434,12 +310,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36bl1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djcyb"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -447,12 +319,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8y1r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gjj5"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -460,12 +328,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ku7js"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjn45"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -473,12 +337,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7362c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jxrf"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -486,12 +346,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0inl2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5n8bm"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -499,12 +355,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbrmt"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w13fs"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -512,12 +364,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbjd1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1k5r"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -525,12 +373,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3tfv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o6tq"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -538,12 +382,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j22ll"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xm5k6"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -551,12 +391,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8voc7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6r6r"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -564,12 +400,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8o16"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnqlw"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -577,12 +409,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpy1b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2wf1"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -590,12 +418,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_damdv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0efv6"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -603,12 +427,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uncgl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02ms6"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -616,12 +436,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1m31m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vew8a"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -629,12 +445,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4187"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugxmv"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -642,12 +454,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjtec"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4va8"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -655,12 +463,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glw5x"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svchx"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -668,12 +472,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kc8wp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4batk"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -681,12 +481,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rn41"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe8l5"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -694,12 +490,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fvs1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4i4w0"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -707,12 +499,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rkmr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjooq"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -720,12 +508,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o1h36"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flsti"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -733,12 +517,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5y1qk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2en3"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -746,12 +526,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7g7k"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj11v"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -759,12 +535,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7513"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py2ic"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -772,12 +544,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxl5v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwcgs"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -785,12 +553,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpbgh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhmfy"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -798,12 +562,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ylh8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jsb5q"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -811,12 +571,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_swldv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4alr"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -824,12 +580,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwujc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1jdr"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -837,12 +589,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhs3v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0snn"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -850,12 +598,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4bsf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3gyr"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -863,12 +607,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlarc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kl1rw"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -876,12 +616,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jaceo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe4bo"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -889,12 +625,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cyfpf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_duogk"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -902,12 +634,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bsfkc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2vqj"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -915,12 +643,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilil7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uyso"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -928,12 +652,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb0p5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3dn1"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -941,12 +661,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2ycd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u1r66"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -954,12 +670,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1mihi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnv4u"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -967,12 +679,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjptu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jwbf"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -980,12 +688,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0qxr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axty5"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -993,12 +697,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43esc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iub3a"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1006,12 +706,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_heola"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6e81"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1019,12 +715,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yypy6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2it2a"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1032,12 +724,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kx2ci"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxfmj"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1045,12 +733,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byemq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0db1"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1058,12 +742,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tmu35"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hy7q6"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1071,12 +751,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhk51"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umccu"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1084,12 +760,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcbg0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngga1"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1097,12 +769,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wxeqg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aywnt"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1110,12 +778,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyl5f"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tmdp8"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1123,12 +787,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ceq6c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwrjh"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1136,12 +796,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8yvgh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tftfn"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1149,12 +805,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w35wf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_51htb"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1162,12 +814,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_so1ia"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n55a5"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1175,12 +823,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdwx6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axldg"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1188,12 +832,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brmmx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2vsq"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1201,12 +841,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yq1f7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gngpe"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1214,12 +850,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1nbx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1x3lj"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1227,12 +859,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nl7ji"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pamr4"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1240,12 +868,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dphp8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4gj4"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1253,12 +877,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4lmx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ernl"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1266,12 +886,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oguqi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7npfl"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1279,12 +895,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrc4s"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_osg7j"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1292,12 +904,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jir0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_osvb0"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1305,12 +913,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mp8la"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8kj6v"]
 bg_color = Color(0.35, 0.62, 0.83, 0.41)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.454902)
 border_blend = true
 corner_radius_top_left = 8
@@ -1453,399 +1057,399 @@ layout_mode = 2
 
 [node name="cell2" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_i4cde")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tam2h")
 
 [node name="cell3" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f6nmg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bjchk")
 
 [node name="cell4" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1hb1c")
+theme_override_styles/panel = SubResource("StyleBoxFlat_18unx")
 
 [node name="cell5" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_q6btx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_al683")
 
 [node name="cell6" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lya0l")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nsdp8")
 
 [node name="cell7" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k4g3r")
+theme_override_styles/panel = SubResource("StyleBoxFlat_oltoe")
 
 [node name="cell8" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5mqyn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_woysd")
 
 [node name="cell9" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_llx2b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_utmd8")
 
 [node name="cell10" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_riq5r")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1g5um")
 
 [node name="cell11" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ml3po")
+theme_override_styles/panel = SubResource("StyleBoxFlat_aaso4")
 
 [node name="cell12" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_6i1ka")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ss8n7")
 
 [node name="cell13" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_x0yft")
+theme_override_styles/panel = SubResource("StyleBoxFlat_lkphe")
 
 [node name="cell14" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_44wsx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5a66e")
 
 [node name="cell15" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m22m4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_crxtk")
 
 [node name="cell16" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qdfra")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3vhuq")
 
 [node name="cell17" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jte77")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rsw8u")
 
 [node name="cell18" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2ncxi")
+theme_override_styles/panel = SubResource("StyleBoxFlat_586fp")
 
 [node name="cell19" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_20cw4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1oekn")
 
 [node name="cell20" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vqu0j")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1regj")
 
 [node name="cell21" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e7irs")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tepjf")
 
 [node name="cell22" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_u2gmq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i6y7l")
 
 [node name="cell23" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_knqbr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_t8vum")
 
 [node name="cell24" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bhnld")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ln3eu")
 
 [node name="cell25" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_sdy0y")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mmnvx")
 
 [node name="cell26" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_60hl3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i6emv")
 
 [node name="cell27" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_q2u1b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hl8fy")
 
 [node name="cell28" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ahjfb")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4pyb5")
 
 [node name="cell29" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_aggpq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yaihg")
 
 [node name="cell30" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_txhh3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n4ymp")
 
 [node name="cell31" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ng12d")
+theme_override_styles/panel = SubResource("StyleBoxFlat_e1to0")
 
 [node name="cell32" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pbyyp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_oyo3i")
 
 [node name="cell33" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_36bl1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_djcyb")
 
 [node name="cell34" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_d8y1r")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6gjj5")
 
 [node name="cell35" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ku7js")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tjn45")
 
 [node name="cell36" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7362c")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1jxrf")
 
 [node name="cell37" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0inl2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5n8bm")
 
 [node name="cell38" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lbrmt")
+theme_override_styles/panel = SubResource("StyleBoxFlat_w13fs")
 
 [node name="cell39" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kbjd1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_w1k5r")
 
 [node name="cell40" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_c3tfv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3o6tq")
 
 [node name="cell41" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_j22ll")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xm5k6")
 
 [node name="cell42" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8voc7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_e6r6r")
 
 [node name="cell43" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_i8o16")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gnqlw")
 
 [node name="cell44" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hpy1b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_k2wf1")
 
 [node name="cell45" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_damdv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0efv6")
 
 [node name="cell46" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_uncgl")
+theme_override_styles/panel = SubResource("StyleBoxFlat_02ms6")
 
 [node name="cell47" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1m31m")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vew8a")
 
 [node name="cell48" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_y4187")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ugxmv")
 
 [node name="cell49" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rjtec")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q4va8")
 
 [node name="cell50" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_glw5x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_svchx")
 
 [node name="cell51" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kc8wp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4batk")
 
 [node name="cell52" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5rn41")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qe8l5")
 
 [node name="cell53" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1fvs1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4i4w0")
 
 [node name="cell54" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8rkmr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kjooq")
 
 [node name="cell55" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_o1h36")
+theme_override_styles/panel = SubResource("StyleBoxFlat_flsti")
 
 [node name="cell56" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5y1qk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_o2en3")
 
 [node name="cell57" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_j7g7k")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fj11v")
 
 [node name="cell58" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_j7513")
+theme_override_styles/panel = SubResource("StyleBoxFlat_py2ic")
 
 [node name="cell59" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pxl5v")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nwcgs")
 
 [node name="cell60" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kpbgh")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhmfy")
 
 [node name="cell61" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3ylh8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jsb5q")
 
 [node name="cell62" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_swldv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_y4alr")
 
 [node name="cell63" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wwujc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_k1jdr")
 
 [node name="cell64" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lhs3v")
+theme_override_styles/panel = SubResource("StyleBoxFlat_j0snn")
 
 [node name="cell65" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e4bsf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_j3gyr")
 
 [node name="cell66" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vlarc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kl1rw")
 
 [node name="cell67" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jaceo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_oe4bo")
 
 [node name="cell68" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_cyfpf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_duogk")
 
 [node name="cell69" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bsfkc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_x2vqj")
 
 [node name="cell70" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ilil7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1uyso")
 
 [node name="cell71" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rb0p5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i3dn1")
 
 [node name="cell72" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_u2ycd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_u1r66")
 
 [node name="cell73" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1mihi")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pnv4u")
 
 [node name="cell74" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pjptu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4jwbf")
 
 [node name="cell75" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_g0qxr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_axty5")
 
 [node name="cell76" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_43esc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_iub3a")
 
 [node name="cell77" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_heola")
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6e81")
 
 [node name="cell78" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yypy6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2it2a")
 
 [node name="cell79" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kx2ci")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxfmj")
 
 [node name="cell80" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_byemq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_k0db1")
 
 [node name="cell81" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tmu35")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hy7q6")
 
 [node name="cell82" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qhk51")
+theme_override_styles/panel = SubResource("StyleBoxFlat_umccu")
 
 [node name="cell83" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bcbg0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ngga1")
 
 [node name="cell84" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wxeqg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_aywnt")
 
 [node name="cell85" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_fyl5f")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tmdp8")
 
 [node name="cell86" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ceq6c")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bwrjh")
 
 [node name="cell87" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8yvgh")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tftfn")
 
 [node name="cell88" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_w35wf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_51htb")
 
 [node name="cell89" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_so1ia")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n55a5")
 
 [node name="cell90" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_cdwx6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_axldg")
 
 [node name="cell91" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_brmmx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_w2vsq")
 
 [node name="cell92" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yq1f7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gngpe")
 
 [node name="cell93" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_d1nbx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1x3lj")
 
 [node name="cell94" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nl7ji")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pamr4")
 
 [node name="cell95" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dphp8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_p4gj4")
 
 [node name="cell96" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_u4lmx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ernl")
 
 [node name="cell97" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oguqi")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7npfl")
 
 [node name="cell98" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xrc4s")
+theme_override_styles/panel = SubResource("StyleBoxFlat_osg7j")
 
 [node name="cell99" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3jir0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_osvb0")
 
 [node name="cell100" parent="m3_grid" instance=ExtResource("8_w6gfp")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mp8la")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8kj6v")
 
 [node name="move_timer" type="Timer" parent="."]
 

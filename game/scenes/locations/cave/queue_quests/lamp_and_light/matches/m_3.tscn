@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://jklnu344kvjx"]
+[gd_scene load_steps=14 format=3 uid="uid://jklnu344kvjx"]
 
 [ext_resource type="PackedScene" uid="uid://bog8shiiuriye" path="res://game/scenes/m3/m3.tscn" id="1_ea8fm"]
 [ext_resource type="PackedScene" uid="uid://du2wl6jnbyff0" path="res://game/scenes/m3/items/crystals/green.tscn" id="2_se0sj"]
-[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/m3/spawner.tscn" id="2_v4d7i"]
 [ext_resource type="PackedScene" uid="uid://doviksuk44trd" path="res://game/scenes/m3/items/crystals/blue.tscn" id="3_1f8hw"]
 [ext_resource type="PackedScene" uid="uid://dhi4hfdtc8pgw" path="res://game/scenes/m3/transporter.tscn" id="3_qu8mn"]
 [ext_resource type="PackedScene" uid="uid://b38vvt8bswysw" path="res://game/scenes/m3/items/crystals/purple.tscn" id="3_v1nqt"]
@@ -13,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://buol7j31kopps" path="res://game/scenes/m3/items/matchers/helicopter.tscn" id="8_xnd1u"]
 [ext_resource type="PackedScene" uid="uid://bjmvm3ucen6l5" path="res://game/scenes/m3/items/matchers/amulet.tscn" id="9_57dv0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4d7i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b0sfv"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -26,7 +25,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tl736"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4d7i"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -42,13 +41,11 @@ corner_radius_bottom_left = 8
 [node name="m3" instance=ExtResource("1_ea8fm")]
 mouse_filter = 1
 
-[node name="spawner" parent="m3_grid/cell" index="0" instance=ExtResource("2_v4d7i")]
-
 [node name="transporter_1_1" parent="m3_grid/cell31" index="0" node_paths=PackedStringArray("recipient") instance=ExtResource("3_qu8mn")]
 recipient = NodePath("../../cell80/transporter_1_2")
 
 [node name="cell41" parent="m3_grid" index="40"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_v4d7i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_b0sfv")
 transparent = true
 
 [node name="hole" parent="m3_grid/cell41" index="0" instance=ExtResource("4_b0sfv")]
@@ -56,7 +53,7 @@ transparent = true
 [node name="info" parent="m3_grid/cell61" index="0" instance=ExtResource("8_u21lt")]
 
 [node name="cell70" parent="m3_grid" index="69"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_tl736")
+theme_override_styles/panel = SubResource("StyleBoxFlat_v4d7i")
 transparent = true
 
 [node name="hole" parent="m3_grid/cell70" index="0" instance=ExtResource("4_b0sfv")]
