@@ -21,7 +21,7 @@ func start(_self_item:InfoComponent, _item_name:String = ""):
 				# цель не должна быть выбрана другими предметами этого класса - удар по разным целям
 				and not info_comp in processed_aims:
 					current_quest_item_in_field.append(info_comp)
-			if current_quest_item_in_field.is_empty() and not processed_aims.is_empty():
+			if current_quest_item_in_field.is_empty() and not processed_aims.is_empty() and is_instance_valid(processed_aims.front()):
 				current_quest_item_in_field.append(processed_aims.front())
 				
 			if not current_quest_item_in_field.is_empty():
