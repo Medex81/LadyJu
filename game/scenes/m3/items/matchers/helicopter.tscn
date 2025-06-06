@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_g4agv"]
 [ext_resource type="PackedScene" uid="uid://dte0r5rm7rw2a" path="res://game/scenes/m3/components/projectile.tscn" id="2_0v288"]
-[ext_resource type="Texture2D" uid="uid://bhh8x58gkgxy4" path="res://game/assets/third_party/helicopter.png" id="2_gkfow"]
+[ext_resource type="Texture2D" uid="uid://b6366133tdqm5" path="res://game/assets/third_party/helicopter.png" id="2_gkfow"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="3_o2fw2"]
 [ext_resource type="PackedScene" uid="uid://dhfd3qntic8ra" path="res://game/scenes/m3/effects/star.tscn" id="5_5hu2w"]
 [ext_resource type="AudioStream" uid="uid://7kdeqhb1u8on" path="res://game/assets/anny_pack/sounds/effects/helicopter.wav" id="6_r4csm"]

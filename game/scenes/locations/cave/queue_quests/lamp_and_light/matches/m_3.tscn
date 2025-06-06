@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bv6svht2f4up7" path="res://game/scenes/m3/items/matchers/rocket_v.tscn" id="10_a7hou"]
 [ext_resource type="PackedScene" uid="uid://bk84c1r8vxq6o" path="res://game/scenes/m3/items/matchers/super_bomb.tscn" id="11_geodl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_er5g0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vah5"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -30,7 +30,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4tsa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_er5g0"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -46,13 +46,17 @@ corner_radius_bottom_left = 8
 [node name="m3" instance=ExtResource("1_ea8fm")]
 mouse_filter = 1
 
+[node name="helicopter" parent="item_generator" index="9" node_paths=PackedStringArray("_swap_logic")]
+_item_name = "helicopter"
+_swap_logic = NodePath("swap_logic_helicopter")
+
 [node name="spawner" parent="m3_grid/cell4" index="0" instance=ExtResource("2_5vah5")]
 
 [node name="transporter_1_1" parent="m3_grid/cell31" index="0" node_paths=PackedStringArray("recipient") instance=ExtResource("3_qu8mn")]
 recipient = NodePath("../../cell80/transporter_1_2")
 
 [node name="cell41" parent="m3_grid" index="40"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_er5g0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5vah5")
 transparent = true
 
 [node name="hole" parent="m3_grid/cell41" index="0" instance=ExtResource("4_b0sfv")]
@@ -66,7 +70,7 @@ is_interactive = true
 [node name="info" parent="m3_grid/cell61" index="0" instance=ExtResource("8_u21lt")]
 
 [node name="cell70" parent="m3_grid" index="69"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_f4tsa")
+theme_override_styles/panel = SubResource("StyleBoxFlat_er5g0")
 transparent = true
 
 [node name="hole" parent="m3_grid/cell70" index="0" instance=ExtResource("4_b0sfv")]
@@ -111,6 +115,9 @@ is_interactive = true
 
 [node name="match_info" parent="m3_grid/cell98" index="0" instance=ExtResource("7_57dv0")]
 
-[node name="match_info" parent="m3_grid/cell99" index="0" instance=ExtResource("8_xnd1u")]
+[node name="match_info" parent="m3_grid/cell99" index="0" node_paths=PackedStringArray("_swap_logic") instance=ExtResource("8_xnd1u")]
+_match_type = 7
+_item_name = "helicopter"
+_swap_logic = NodePath("swap_logic_helicopter")
 
 [node name="match_info" parent="m3_grid/cell100" index="0" instance=ExtResource("9_57dv0")]
