@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://3ttrsow3d8o4"]
+[gd_scene load_steps=16 format=3 uid="uid://3ttrsow3d8o4"]
 
 [ext_resource type="PackedScene" uid="uid://8bpxcsw74l5u" path="res://game/scenes/ui/location.tscn" id="1_vngce"]
 [ext_resource type="Texture2D" uid="uid://buej8r7uubwoh" path="res://game/scenes/locations/cave/cave.png" id="2_dqixm"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://sqxqrv4nwj4h" path="res://game/assets/third_party/puppy.png" id="5_r6fgf"]
 [ext_resource type="Texture2D" uid="uid://c2uhj2khmc2ql" path="res://game/assets/third_party/kerosine.png" id="6_vtaqi"]
 [ext_resource type="Resource" uid="uid://tdr2e0nhuf2t" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/kerosine/quest_info.tres" id="7_5g3wx"]
+[ext_resource type="AudioStream" uid="uid://bkg3jgkqqvmvv" path="res://game/assets/anny_pack/sounds/ambient/Amarent - To the Moon (Instrumental).mp3" id="9_okahy"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_2efro"]
 allow_unpress = true
@@ -115,3 +116,8 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="AudioStreamPlayer2D_ambient" parent="." index="4"]
+stream = ExtResource("9_okahy")
+autoplay = true
+parameters/looping = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://7qgsn20awh2p"]
+[gd_scene load_steps=9 format=3 uid="uid://7qgsn20awh2p"]
 
 [ext_resource type="PackedScene" uid="uid://km31k43ulsdt" path="res://game/scenes/ui/level.tscn" id="1_mijpn"]
 [ext_resource type="Texture2D" uid="uid://buej8r7uubwoh" path="res://game/scenes/locations/cave/cave.png" id="2_2nes3"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://casg8jw8jtwkf" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/tasks_panel.tscn" id="3_hkwu5"]
 [ext_resource type="PackedScene" uid="uid://jklnu344kvjx" path="res://game/scenes/locations/cave/queue_quests/lamp_and_light/matches/m_3.tscn" id="4_tiwxl"]
 [ext_resource type="PackedScene" uid="uid://bccu41oyfpa5" path="res://game/scenes/ui/hud/boosts/boost_intersector.tscn" id="6_hbxgj"]
+[ext_resource type="AudioStream" uid="uid://cqgphe4trudp1" path="res://game/assets/anny_pack/sounds/ambient/Descent.mp3" id="7_eu6v1"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_hbxgj"]
 allow_unpress = true
@@ -50,3 +51,8 @@ _base_m3_level = NodePath("../../..")
 visible = false
 layout_mode = 1
 boosts_button = [NodePath("../../left/boosts/hummer"), NodePath("../../left/boosts/h_flash"), NodePath("../../left/boosts/v_flash")]
+
+[node name="AudioStreamPlayer2D_ambient" parent="." index="2"]
+stream = ExtResource("7_eu6v1")
+autoplay = true
+parameters/looping = true

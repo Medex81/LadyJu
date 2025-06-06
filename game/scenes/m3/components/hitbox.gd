@@ -11,7 +11,7 @@ class_name HitboxComponent
 @export var info_component:InfoComponent = null
 
 func hit(damage:int, _resistance:int)->bool:
-	if not info_component.is_blocked():
+	if info_component != null and not info_component.is_blocked():
 		if hitpoints <= 0:
 			return false
 		if resistance <= _resistance:

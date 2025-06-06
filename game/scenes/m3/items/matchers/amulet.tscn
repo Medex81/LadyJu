@@ -1,17 +1,112 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjmvm3ucen6l5"]
+[gd_scene load_steps=9 format=3 uid="uid://bjmvm3ucen6l5"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_7na8t"]
 [ext_resource type="Texture2D" uid="uid://c4mw1rc2remtj" path="res://game/assets/anny_pack/amulet.png" id="2_iue6o"]
+[ext_resource type="AudioStream" uid="uid://j68fu8h3ypad" path="res://game/assets/anny_pack/sounds/effects/amulet.wav" id="3_jkaqs"]
 [ext_resource type="PackedScene" uid="uid://b0xpei85tn5ic" path="res://game/scenes/m3/effects/green_whirlpool.tscn" id="4_ck2db"]
 [ext_resource type="PackedScene" uid="uid://dq5ifcqr5rba" path="res://game/scenes/m3/components/swap_logic/swap_logic_amulet.tscn" id="4_op7hc"]
+
+[sub_resource type="Animation" id="Animation_o3jbs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25498, 0.25498)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_nklsh"]
+resource_name = "start"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.25498, 0.25498), Vector2(0.05, 0.05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6swuc"]
+_data = {
+&"RESET": SubResource("Animation_o3jbs"),
+&"start": SubResource("Animation_nklsh")
+}
 
 [node name="match_info" node_paths=PackedStringArray("_swap_logic") instance=ExtResource("1_7na8t")]
 _match_type = 4
 _item_name = "amulet"
 _swap_logic = NodePath("swap_logic_amulet")
 
-[node name="view" parent="." index="3"]
+[node name="view" parent="." index="3" node_paths=PackedStringArray("_end_effect")]
 texture = ExtResource("2_iue6o")
+_end_effect = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_6swuc")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="view" index="1"]
+stream = ExtResource("3_jkaqs")
 
 [node name="swap_logic_amulet" parent="." index="4" instance=ExtResource("4_op7hc")]
 

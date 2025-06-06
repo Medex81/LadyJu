@@ -78,6 +78,8 @@ func try_move():
 	else:
 		if move_state == EMoveState.FALL:
 			move_state = EMoveState.STOP
+			if info_component and info_component._view_component:
+				info_component._view_component.run_stop_effect()
 			get_tree().call_group(M3.group, M3.move_end_fn)
 			call_deferred("matching")
 	

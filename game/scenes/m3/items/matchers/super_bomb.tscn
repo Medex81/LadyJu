@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bk84c1r8vxq6o"]
+[gd_scene load_steps=21 format=3 uid="uid://bk84c1r8vxq6o"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_e14wd"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_22itk"]
 [ext_resource type="Texture2D" uid="uid://dv1nt8t3q7tn6" path="res://game/assets/anny_pack/total_bomb.png" id="3_km0md"]
 [ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="4_bw34h"]
 [ext_resource type="Texture2D" uid="uid://318hvuj0m15n" path="res://game/assets/particle/circle_01.png" id="6_1o14g"]
+[ext_resource type="AudioStream" uid="uid://dkpfgkre6pb12" path="res://game/assets/anny_pack/sounds/effects/masive-explosion.wav" id="6_2chwr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f0dpf"]
 radius = 504.0
@@ -50,6 +51,67 @@ color_initial_ramp = SubResource("GradientTexture1D_1o14g")
 alpha_curve = SubResource("CurveTexture_jag1n")
 emission_curve = SubResource("CurveTexture_wtq0m")
 
+[sub_resource type="Animation" id="Animation_wtq0m"]
+resource_name = "start"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosive:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_kkp2i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosive:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r3mr0"]
+_data = {
+&"RESET": SubResource("Animation_kkp2i"),
+&"start": SubResource("Animation_wtq0m")
+}
+
 [node name="match_info" instance=ExtResource("1_e14wd")]
 _match_type = 5
 _item_name = "super_bomb"
@@ -66,7 +128,7 @@ shape = SubResource("CircleShape2D_f0dpf")
 
 [node name="view" parent="." index="3" node_paths=PackedStringArray("_end_effect")]
 texture = ExtResource("3_km0md")
-_end_effect = NodePath("explosive")
+_end_effect = NodePath("AnimationPlayer")
 
 [node name="fire" parent="view" index="0" instance=ExtResource("4_bw34h")]
 position = Vector2(219.625, -219.625)
@@ -80,3 +142,11 @@ lifetime = 1.14
 one_shot = true
 randomness = 0.52
 process_material = SubResource("ParticleProcessMaterial_44d16")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view" index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_r3mr0")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="view" index="3"]
+stream = ExtResource("6_2chwr")

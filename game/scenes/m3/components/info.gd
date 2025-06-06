@@ -136,7 +136,7 @@ func finalize(is_quiet:bool = false):
 		
 	# над нами блокер - финалим его
 	if _top_item != null:
-		_top_item.finalize()
+		_top_item.call_deferred("finalize")
 		return
 
 	# с этого места предмет зафинален

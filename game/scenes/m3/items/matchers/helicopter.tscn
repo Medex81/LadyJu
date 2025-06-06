@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://buol7j31kopps"]
+[gd_scene load_steps=18 format=3 uid="uid://buol7j31kopps"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_g4agv"]
 [ext_resource type="PackedScene" uid="uid://dte0r5rm7rw2a" path="res://game/scenes/m3/components/projectile.tscn" id="2_0v288"]
 [ext_resource type="Texture2D" uid="uid://bhh8x58gkgxy4" path="res://game/assets/third_party/helicopter.png" id="2_gkfow"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="3_o2fw2"]
 [ext_resource type="PackedScene" uid="uid://dhfd3qntic8ra" path="res://game/scenes/m3/effects/star.tscn" id="5_5hu2w"]
+[ext_resource type="AudioStream" uid="uid://7kdeqhb1u8on" path="res://game/assets/anny_pack/sounds/effects/helicopter.wav" id="6_r4csm"]
 [ext_resource type="PackedScene" uid="uid://bn61mdmxk0sdd" path="res://game/scenes/m3/components/swap_logic/swap_logic_helicopter.tscn" id="6_uniph"]
+[ext_resource type="AudioStream" uid="uid://57thkmnyc4hi" path="res://game/assets/anny_pack/sounds/effects/helicopter_fly.wav" id="7_8auqo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr03o"]
 size = Vector2(80, 80)
@@ -13,42 +15,132 @@ size = Vector2(80, 80)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_crxov"]
 size = Vector2(208, 208)
 
-[sub_resource type="Animation" id="Animation_d0ae2"]
+[sub_resource type="Animation" id="Animation_r4csm"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8auqo"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
+tracks/0/path = NodePath("GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(64, 64)]
 }
 
-[sub_resource type="Animation" id="Animation_5tq1p"]
-resource_name = "stop"
+[sub_resource type="Animation" id="Animation_y7i2a"]
+resource_name = "_static"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.56, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(64, 64), Vector2(56, 32), Vector2(96, 48), Vector2(88, 88), Vector2(32, 88)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y7i2a"]
+_data = {
+&"RESET": SubResource("Animation_8auqo"),
+&"_static": SubResource("Animation_y7i2a"),
+&"start": SubResource("Animation_r4csm")
+}
+
+[sub_resource type="Animation" id="Animation_2hn5a"]
+resource_name = "start"
 length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
+tracks/0/path = NodePath("AnimationPlayer_fly/AudioStreamPlayer2D2:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.5, 0.733333, 0.966667, 1.2, 1.5, 1.73333, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(64, 64), Vector2(56, 56), Vector2(72, 56), Vector2(64, 64), Vector2(48, 80), Vector2(64, 72), Vector2(48, 64), Vector2(48, 80), Vector2(64, 64)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_t54pl"]
+[sub_resource type="Animation" id="Animation_cubb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer_fly/AudioStreamPlayer2D2:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cubb7"]
 _data = {
-&"RESET": SubResource("Animation_d0ae2"),
-&"stop": SubResource("Animation_5tq1p")
+&"RESET": SubResource("Animation_cubb7"),
+&"start": SubResource("Animation_2hn5a")
 }
 
 [node name="match_info" node_paths=PackedStringArray("_swap_logic") instance=ExtResource("1_g4agv")]
@@ -77,20 +169,32 @@ shape = SubResource("RectangleShape2D_wr03o")
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_crxov")
 
-[node name="view" parent="." index="3" node_paths=PackedStringArray("_end_effect")]
+[node name="view" parent="." index="3" node_paths=PackedStringArray("_start_effect", "_end_effect")]
 z_index = 3
 texture = ExtResource("2_gkfow")
-_end_effect = NodePath("GPUParticles2D")
+_start_effect = NodePath("AnimationPlayer_fly")
+_end_effect = NodePath("AnimationPlayer")
 
-[node name="Node2D" type="Node2D" parent="view" index="0"]
+[node name="GPUParticles2D" parent="view" index="0" instance=ExtResource("5_5hu2w")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="view/Node2D" index="0"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="view" index="1"]
+stream = ExtResource("6_r4csm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view" index="2"]
 libraries = {
-&"": SubResource("AnimationLibrary_t54pl")
+&"": SubResource("AnimationLibrary_y7i2a")
 }
-autoplay = "stop"
+autoplay = "_static"
 
-[node name="GPUParticles2D" parent="view" index="1" instance=ExtResource("5_5hu2w")]
+[node name="AnimationPlayer_fly" type="AnimationPlayer" parent="view" index="3"]
+libraries = {
+&"": SubResource("AnimationLibrary_cubb7")
+}
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="view/AnimationPlayer_fly" index="0"]
+position = Vector2(64, 64)
+scale = Vector2(0.25498, 0.25498)
+stream = ExtResource("7_8auqo")
 
 [node name="swap_logic_helicopter" parent="." index="4" instance=ExtResource("6_uniph")]
 copy_count = 2

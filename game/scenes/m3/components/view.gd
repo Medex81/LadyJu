@@ -8,20 +8,24 @@ class_name ViewComponent
 
 signal send_effect_done()
 
-func run_end_effect()->bool:
-	texture = null
-
-	if _end_effect is GPUParticles2D:
-		_end_effect.finished.connect(send_effect_done.emit)
-		_end_effect.emitting  = true
+func _run_effect(effect:Node)->bool:
+	if effect is GPUParticles2D:
+		effect.finished.connect(send_effect_done.emit)
+		effect.emitting  = true
 		return true
-	elif _end_effect is EffectContainer and _end_effect.last_effect != null:
-		_end_effect.last_effect.finished.connect(send_effect_done.emit)
-		_end_effect.start()
-		return true
-	elif _end_effect is AnimationPlayer:
-		_end_effect.animation_finished.connect(func(_anim_name:String):
+	elif effect is AnimationPlayer:
+		effect.animation_finished.connect(func(_anim_name:String):
 			send_effect_done.emit())
-		_end_effect.play("start")
+		effect.play("start")
 		return true
 	return false
+
+func run_end_effect()->bool:
+	#texture = null
+	return _run_effect(_end_effect)
+	
+func run_start_effect()->bool:
+	return _run_effect(_start_effect)
+	
+func run_stop_effect()->bool:
+	return _run_effect(_stop_effect)

@@ -1,10 +1,72 @@
-[gd_scene load_steps=12 format=3 uid="uid://c5mt6uy42wt18"]
+[gd_scene load_steps=16 format=3 uid="uid://c5mt6uy42wt18"]
 
 [ext_resource type="PackedScene" uid="uid://bwe77doxkiaf4" path="res://game/scenes/m3/components/info.tscn" id="1_e0ok5"]
 [ext_resource type="PackedScene" uid="uid://b8duo154simny" path="res://game/scenes/m3/components/view.tscn" id="2_l5ivh"]
 [ext_resource type="Texture2D" uid="uid://bgpvjr4wo0axn" path="res://game/assets/kenney_particle-pack/PNG (Transparent)/spark_06.png" id="3_sgunn"]
 [ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="4_a4612"]
+[ext_resource type="AudioStream" uid="uid://bnleoygo5b2do" path="res://game/assets/anny_pack/sounds/effects/electric_noice.wav" id="4_l5ivh"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="5_yack5"]
+
+[sub_resource type="Animation" id="Animation_a4612"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("view/v_flash_particle:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("view/AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sgunn"]
+resource_name = "start"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("view/v_flash_particle:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("view/AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yack5"]
+_data = {
+&"RESET": SubResource("Animation_a4612"),
+&"start": SubResource("Animation_sgunn")
+}
 
 [sub_resource type="Curve" id="Curve_e0ok5"]
 _data = [Vector2(0.0723684, 0.202247), 0.0, 0.0, 0, 0, Vector2(0.756579, 0.662921), 0.0, 0.0, 0, 0, Vector2(0.921053, 0.685393), 0.0, 0.0, 0, 0]
@@ -40,20 +102,29 @@ _item_name = "v_flash"
 damager_component = NodePath("damager")
 _view_component = NodePath("view")
 
-[node name="view" parent="." index="1" node_paths=PackedStringArray("_end_effect") instance=ExtResource("2_l5ivh")]
+[node name="view" parent="." index="0" node_paths=PackedStringArray("_end_effect") instance=ExtResource("2_l5ivh")]
 self_modulate = Color(0.458989, 0.503368, 0.952653, 1)
 position = Vector2(3.8147e-06, -9.34601e-05)
 scale = Vector2(0.71875, 2.25)
-_end_effect = NodePath("v_flash_particle")
+_end_effect = NodePath("AnimationPlayer")
 
-[node name="v_flash_particle" type="GPUParticles2D" parent="view" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view" index="0"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_yack5")
+}
+
+[node name="v_flash_particle" type="GPUParticles2D" parent="view" index="1"]
 emitting = false
 amount = 6
 texture = ExtResource("3_sgunn")
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_yack5")
 
-[node name="damager" parent="." index="2" node_paths=PackedStringArray("info_component") instance=ExtResource("4_a4612")]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="view" index="2"]
+stream = ExtResource("4_l5ivh")
+
+[node name="damager" parent="." index="1" node_paths=PackedStringArray("info_component") instance=ExtResource("4_a4612")]
 info_component = NodePath("..")
 
 [node name="one_shot_damage" parent="damager" index="0" instance=ExtResource("5_yack5")]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://jklnu344kvjx"]
+[gd_scene load_steps=19 format=3 uid="uid://jklnu344kvjx"]
 
 [ext_resource type="PackedScene" uid="uid://bog8shiiuriye" path="res://game/scenes/m3/m3.tscn" id="1_ea8fm"]
+[ext_resource type="PackedScene" uid="uid://c4hirur6vsqqi" path="res://game/scenes/m3/spawner.tscn" id="2_5vah5"]
 [ext_resource type="PackedScene" uid="uid://du2wl6jnbyff0" path="res://game/scenes/m3/items/crystals/green.tscn" id="2_se0sj"]
 [ext_resource type="PackedScene" uid="uid://doviksuk44trd" path="res://game/scenes/m3/items/crystals/blue.tscn" id="3_1f8hw"]
 [ext_resource type="PackedScene" uid="uid://dhi4hfdtc8pgw" path="res://game/scenes/m3/transporter.tscn" id="3_qu8mn"]
@@ -11,8 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://c37um85cxcf5l" path="res://game/scenes/m3/items/crystals/red.tscn" id="8_u21lt"]
 [ext_resource type="PackedScene" uid="uid://buol7j31kopps" path="res://game/scenes/m3/items/matchers/helicopter.tscn" id="8_xnd1u"]
 [ext_resource type="PackedScene" uid="uid://bjmvm3ucen6l5" path="res://game/scenes/m3/items/matchers/amulet.tscn" id="9_57dv0"]
+[ext_resource type="PackedScene" uid="uid://brh78gb3s8kkn" path="res://game/scenes/m3/items/matchers/rocket_h.tscn" id="9_tl736"]
+[ext_resource type="PackedScene" uid="uid://cf7wvyrd2pwpq" path="res://game/scenes/m3/items/blockers/chain.tscn" id="9_v4d7i"]
+[ext_resource type="PackedScene" uid="uid://bv6svht2f4up7" path="res://game/scenes/m3/items/matchers/rocket_v.tscn" id="10_a7hou"]
+[ext_resource type="PackedScene" uid="uid://bk84c1r8vxq6o" path="res://game/scenes/m3/items/matchers/super_bomb.tscn" id="11_geodl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b0sfv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_er5g0"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -25,7 +30,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4d7i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4tsa"]
 bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
@@ -41,19 +46,27 @@ corner_radius_bottom_left = 8
 [node name="m3" instance=ExtResource("1_ea8fm")]
 mouse_filter = 1
 
+[node name="spawner" parent="m3_grid/cell4" index="0" instance=ExtResource("2_5vah5")]
+
 [node name="transporter_1_1" parent="m3_grid/cell31" index="0" node_paths=PackedStringArray("recipient") instance=ExtResource("3_qu8mn")]
 recipient = NodePath("../../cell80/transporter_1_2")
 
 [node name="cell41" parent="m3_grid" index="40"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_b0sfv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_er5g0")
 transparent = true
 
 [node name="hole" parent="m3_grid/cell41" index="0" instance=ExtResource("4_b0sfv")]
 
+[node name="info" parent="m3_grid/cell46" index="0" node_paths=PackedStringArray("_top_item") instance=ExtResource("3_1f8hw")]
+_top_item = NodePath("../info2")
+
+[node name="info2" parent="m3_grid/cell46" index="1" instance=ExtResource("9_v4d7i")]
+is_interactive = true
+
 [node name="info" parent="m3_grid/cell61" index="0" instance=ExtResource("8_u21lt")]
 
 [node name="cell70" parent="m3_grid" index="69"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_v4d7i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_f4tsa")
 transparent = true
 
 [node name="hole" parent="m3_grid/cell70" index="0" instance=ExtResource("4_b0sfv")]
@@ -70,6 +83,14 @@ transparent = true
 
 [node name="info" parent="m3_grid/cell83" index="0" instance=ExtResource("6_ec0mb")]
 
+[node name="match_info" parent="m3_grid/cell84" index="0" instance=ExtResource("9_tl736")]
+
+[node name="match_info" parent="m3_grid/cell85" index="0" instance=ExtResource("9_tl736")]
+
+[node name="match_info" parent="m3_grid/cell86" index="0" instance=ExtResource("10_a7hou")]
+
+[node name="match_info" parent="m3_grid/cell87" index="0" instance=ExtResource("11_geodl")]
+
 [node name="info" parent="m3_grid/cell91" index="0" instance=ExtResource("8_u21lt")]
 
 [node name="info" parent="m3_grid/cell92" index="0" instance=ExtResource("2_se0sj")]
@@ -78,7 +99,11 @@ transparent = true
 
 [node name="info" parent="m3_grid/cell94" index="0" instance=ExtResource("8_u21lt")]
 
-[node name="info" parent="m3_grid/cell95" index="0" instance=ExtResource("2_se0sj")]
+[node name="info" parent="m3_grid/cell95" index="0" node_paths=PackedStringArray("_top_item") instance=ExtResource("2_se0sj")]
+_top_item = NodePath("../info2")
+
+[node name="info2" parent="m3_grid/cell95" index="1" instance=ExtResource("9_v4d7i")]
+is_interactive = true
 
 [node name="info" parent="m3_grid/cell96" index="0" instance=ExtResource("3_1f8hw")]
 

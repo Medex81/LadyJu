@@ -276,6 +276,8 @@ label_settings = SubResource("LabelSettings_54bbi")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AudioStreamPlayer2D_ambient" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="toggled" from="main_margin/main_container/left/boosts/hummer" to="main_margin/main_container/left/boosts/hummer" method="_on_toggled"]
 [connection signal="toggled" from="main_margin/main_container/left/boosts/h_flash" to="main_margin/main_container/left/boosts/h_flash" method="_on_toggled"]
 [connection signal="toggled" from="main_margin/main_container/left/boosts/v_flash" to="main_margin/main_container/left/boosts/v_flash" method="_on_toggled"]

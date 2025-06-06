@@ -1,11 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://brh78gb3s8kkn"]
 
 [ext_resource type="PackedScene" uid="uid://cwti8o7ew17hu" path="res://game/scenes/m3/items/matchers/matcher.tscn" id="1_7cpye"]
-[ext_resource type="Texture2D" uid="uid://1fixhk08as4d" path="res://game/assets/anny_pack/rocket2h.png" id="2_mdyu7"]
 [ext_resource type="PackedScene" uid="uid://cu7okrbyr3rwe" path="res://game/scenes/m3/components/damage/one_shot_damage.tscn" id="2_w2rlw"]
-[ext_resource type="PackedScene" uid="uid://1kmp03srlmih" path="res://game/scenes/m3/effects/container.tscn" id="4_8rj6i"]
 [ext_resource type="Texture2D" uid="uid://c7citcisvpqjl" path="res://game/assets/anny_pack/rocket_l.png" id="4_rcops"]
 [ext_resource type="Texture2D" uid="uid://bl8qvlokvw0nr" path="res://game/assets/anny_pack/rocket_r.png" id="5_glup0"]
+[ext_resource type="AudioStream" uid="uid://ccdhef1tswyvj" path="res://game/assets/anny_pack/sounds/rocket_air.mp3" id="6_1os27"]
 [ext_resource type="PackedScene" uid="uid://blm02s0241ogb" path="res://game/scenes/m3/effects/spot_red_fire.tscn" id="7_o26tn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_au22k"]
@@ -14,23 +13,95 @@ size = Vector2(2496, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3v6sa"]
 size = Vector2(2672, 192)
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oemnb"]
-particle_flag_disable_z = true
-gravity = Vector3(4000, 0, 0)
-scale_min = 0.4
-scale_max = 0.4
+[sub_resource type="Animation" id="Animation_fkrp7"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 32), Vector2(-700, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -32), Vector2(700, -32)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dh3ew"]
-particle_flag_disable_z = true
-gravity = Vector3(-4000, 0, 0)
-scale_min = 0.4
-scale_max = 0.4
+[sub_resource type="Animation" id="Animation_1os27"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -32)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fupj6"]
+_data = {
+&"RESET": SubResource("Animation_1os27"),
+&"start": SubResource("Animation_fkrp7")
+}
 
 [node name="match_info" instance=ExtResource("1_7cpye")]
 _match_type = 1
 _item_name = "rocket_h"
 
-[node name="damager" parent="." index="3"]
+[node name="damager" parent="." index="2"]
 visible = false
 
 [node name="one_shot_damage" parent="damager" index="0" instance=ExtResource("2_w2rlw")]
@@ -46,35 +117,32 @@ shape = SubResource("RectangleShape2D_au22k")
 position = Vector2(0, 64)
 shape = SubResource("RectangleShape2D_3v6sa")
 
-[node name="view" parent="." index="4" node_paths=PackedStringArray("_end_effect")]
-texture = ExtResource("2_mdyu7")
-_end_effect = NodePath("container")
+[node name="view" parent="." index="3" node_paths=PackedStringArray("_end_effect")]
+scale = Vector2(1, 1)
+_end_effect = NodePath("AnimationPlayer")
 
-[node name="container" parent="view" index="0" instance=ExtResource("4_8rj6i")]
-position = Vector2(-1.52588e-05, -1.52588e-05)
-
-[node name="right" type="GPUParticles2D" parent="view/container" index="0"]
-position = Vector2(1.52588e-05, 1.52588e-05)
-emitting = false
-amount = 1
-texture = ExtResource("5_glup0")
-lifetime = 0.7
-one_shot = true
-process_material = SubResource("ParticleProcessMaterial_oemnb")
-
-[node name="left" type="GPUParticles2D" parent="view/container" index="1"]
-position = Vector2(1.52588e-05, 1.52588e-05)
-emitting = false
-amount = 1
+[node name="left" type="Sprite2D" parent="view" index="0"]
+position = Vector2(0, 32)
+scale = Vector2(0.26, 0.252896)
 texture = ExtResource("4_rcops")
-lifetime = 0.7
-one_shot = true
-process_material = SubResource("ParticleProcessMaterial_dh3ew")
 
-[node name="Node2D" type="Node2D" parent="view" index="1"]
+[node name="GPUParticles2D" parent="view/left" index="0" instance=ExtResource("7_o26tn")]
+position = Vector2(218.75, 3.8147e-06)
+scale = Vector2(0.25498, 0.25498)
 
-[node name="GPUParticles2D" parent="view/Node2D" index="0" instance=ExtResource("7_o26tn")]
-position = Vector2(219.625, -94.125)
+[node name="right" type="Sprite2D" parent="view" index="1"]
+position = Vector2(0, -32)
+scale = Vector2(0.256, 0.247104)
+texture = ExtResource("5_glup0")
 
-[node name="GPUParticles2D2" parent="view/Node2D" index="1" instance=ExtResource("7_o26tn")]
-position = Vector2(-219.625, 125.5)
+[node name="GPUParticles2D2" parent="view/right" index="0" instance=ExtResource("7_o26tn")]
+position = Vector2(-218.75, -2.96562)
+scale = Vector2(0.25498, 0.25498)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view" index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_fupj6")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="view" index="3"]
+stream = ExtResource("6_1os27")

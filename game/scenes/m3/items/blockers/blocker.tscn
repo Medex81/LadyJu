@@ -9,11 +9,11 @@
 _view_component = NodePath("view")
 is_interactive = false
 
-[node name="hitbox" parent="." index="1" node_paths=PackedStringArray("info_component") instance=ExtResource("3_bm0xb")]
+[node name="hitbox" parent="." index="0" node_paths=PackedStringArray("info_component") instance=ExtResource("3_bm0xb")]
 visible = false
 resistance = 2
 info_component = NodePath("..")
 
-[node name="view" parent="." index="2" instance=ExtResource("2_a51e1")]
+[node name="view" parent="." index="1" instance=ExtResource("2_a51e1")]
 
-[node name="hole" parent="." index="3" instance=ExtResource("4_unl8s")]
+[node name="hole" parent="." index="2" instance=ExtResource("4_unl8s")]

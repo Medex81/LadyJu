@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7c3cvffh4h1i"]
+[gd_scene load_steps=16 format=3 uid="uid://b7c3cvffh4h1i"]
 
 [ext_resource type="Script" uid="uid://imbc1vsib37f" path="res://game/scenes/m3/components/info.gd" id="1_yqrkj"]
 [ext_resource type="PackedScene" uid="uid://ddfd0x1tmb7n2" path="res://game/scenes/m3/components/damage/damager.tscn" id="2_sj4x7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cigkrebwawcvr" path="res://game/assets/kenney_particle-pack/PNG (Transparent)/magic_03.png" id="5_yo4g1"]
 [ext_resource type="Texture2D" uid="uid://0pyv0y1e8hxs" path="res://game/assets/anny_pack/hummer.png" id="6_cjus4"]
 [ext_resource type="PackedScene" uid="uid://7ib5egdayv20" path="res://game/scenes/m3/effects/blast.tscn" id="7_n5747"]
+[ext_resource type="AudioStream" uid="uid://c3ukmdqga44l0" path="res://game/assets/anny_pack/sounds/effects/metallic-sword-strike.wav" id="8_b3sor"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v3dbw"]
 size = Vector2(2, 2)
@@ -87,6 +88,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node/AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_5sfu2"]
 resource_name = "start"
@@ -125,6 +138,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node/AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s1bpk"]
@@ -185,3 +210,6 @@ libraries = {
 [node name="blast" parent="view/Node" instance=ExtResource("7_n5747")]
 position = Vector2(3.00002, 1)
 scale = Vector2(0.25498, 0.25498)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="view/Node"]
+stream = ExtResource("8_b3sor")

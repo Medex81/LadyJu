@@ -4,6 +4,7 @@ var tween:Tween = null
 var to_item:InfoComponent = null
 var from_item:InfoComponent = null
 var start_global_pos:Vector2
+var is_sound_effect:bool = false
 # список с разными целями по квестам для уровня
 static var processed_aims:Array[InfoComponent]
 
@@ -30,6 +31,10 @@ func start(_self_item:InfoComponent, _item_name:String = ""):
 						to_item = random_quest_item
 						processed_aims.append(to_item)
 						start_global_pos = random_quest_item.global_position
+						if is_sound_effect == false:
+							is_sound_effect = true
+							if is_instance_valid(_self_item._view_component):
+								_self_item._view_component.run_start_effect()
 						run_tween()
 			else:
 				from_item.call_deferred("finalize")
